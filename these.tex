@@ -1,0 +1,83 @@
+% arara: xelatex
+% arara: xelatex
+\documentclass[oneside]{scrbook} 
+
+\usepackage{fontspec}
+\usepackage{xunicode}
+
+% Français
+\usepackage[frenchb]{babel}
+% cite, citep
+\usepackage{natbib}
+% Arbre syntaxique
+\usepackage{qtree}
+
+\usepackage{graphicx}
+\usepackage[obeyspaces]{url}
+\usepackage{times}
+\usepackage{multirow}
+\usepackage{booktabs}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes.multipart}
+
+\usepackage{hyphenat}
+\usepackage{hyperref}
+\hyphenation{me-ro-ny-my}
+\hyphenation{ho-lo-ny-my}
+
+
+
+\title{Analyse sémantique faiblement supervisée} 
+\author{Quentin Pradet} 
+\date{} 
+\publishers{Université Paris Diderot\\Commissariat à l'Énergie Atomique} 
+
+
+\newcommand{\newjaws}{WoNeF}
+
+\begin{document} 
+\maketitle 
+
+\frontmatter 
+\tableofcontents 
+\listoffigures 
+\listoftables 
+
+\chapter{Remerciements} 
+
+I would like to thank my supervisor, Professor Someone. This 
+research was funded by the Imaginary Research Council. 
+
+\chapter{Résumé} 
+
+A brief summary of the project goes here. 
+
+% A glossary and list of acronyms may go here 
+% or may go in the back matter. 
+
+\mainmatter 
+
+\chapter{Introduction} 
+\label{ch:intro} 
+
+\include{etatdelart}
+
+\include{wonef}
+
+\chapter{Annotation en rôle sémantique basée sur la connaissance}
+\label{ch:srl}
+
+\chapter{Conclusion} 
+\label{ch:conc} 
+
+\backmatter 
+
+% A glossary and list of acronyms may go here 
+% or may go in the front matter after the abstract. 
+
+% The bibliography will go here 
+
+\end{document} 
+
