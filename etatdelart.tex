@@ -36,11 +36,38 @@ L'annotation en rôles sémantique déterminera quant à elle que la phrase corr
 
 \subsection{Applications}
 
-La désambiguïsation lexicale a de nombreuses applications potentielles, la première étant la traduction automatique. C'est en effet l'application historique, identifiée dès 1949 \citep{weaver1949translation}. Le mot italien « penna » peut être traduit en français avec les mots « plume », « stylo » et « pâtes ». C'est donc clairement le sens des mots qui définit la traduction. Les performances actuelles de la désambiguïsation lexicale ne permettent pas d'affirmer avec certitude une amélioration pour la traduction \citep{apidianaki2009place}, mais des travaux encourageants existent \citep{chan2007word}.
+La désambiguïsation lexicale a de nombreuses applications potentielles, la
+première étant la traduction automatique. C'est en effet l'application
+historique, identifiée dès 1949 \citep{weaver1949translation}. Le mot italien «
+penna » peut être traduit en français avec les mots « plume », « stylo » et «
+pâtes ». C'est donc clairement le sens des mots qui définit la traduction. Les
+performances actuelles de la désambiguïsation lexicale ne permettent pas
+d'affirmer avec certitude une amélioration pour la traduction
+\citep{apidianaki2009place}, mais des travaux encourageants existent
+\citep{chan2007word}.
 
-Un autre exemple classique est la recherche d'information où le sens des mots cherchés peut aider à définir les documents à retourner. En fouille d'opinion, établir le sens des mots utilisés est crucial. Étant donné la difficulté à introduire des outils de désambiguïsation lexicale dans des systèmes existants \citep{navigli2009word}, et dans le but de poursuivre leur amélioration, ceux-ci sont évalués \textit{in vitro}, comme l'attestent les tâches présentées lors de la dernière campagne d'évaluation sur la désambiguïsation lexicale \citep{agirre2010semeval,manandhar2010semeval,lefever2010semeval}.
+Un autre exemple classique est la recherche d'information où le sens des mots
+cherchés peut aider à définir les documents à retourner. En fouille d'opinion,
+établir le sens des mots utilisés est aussi important : par exemple, un navet
+sera négatif dans le domaine du cinéma, neutre en cuisine. Étant donné la
+difficulté à introduire des outils de désambiguïsation lexicale dans des
+systèmes existants \citep{navigli2009word}, et dans le but de poursuivre leur
+amélioration, ceux-ci sont évalués \textit{in vitro}, comme l'attestent les
+tâches présentées lors des dernières campagnes d'évaluation sur la
+désambiguïsation lexicale
+\citep{agirre2010semeval,manandhar2010semeval,lefever2010semeval}.
 
-En ce qui concerne l'annotation en rôles sémantiques, elle est issue des travaux sur l'extraction d'information où les systèmes traitent des situations très spécifiques, par exemple la détection de résultats d'évènements sportifs ou la détection dans des corpus journalistiques de l'acquisition d'entreprises. À chaque nouveau système d'extraction d'information dans un domaine différent, il est nécessaire de redéfinir les différents patrons sémantiques et d'entraîner un nouveau système sur de nouvelles données. L'annotation en rôles sémantiques a été pensée par \cite{gildea2002automatic} comme un moyen d'évoluer vers une généralisation de ces systèmes. Elle a depuis été utilisée dans diverses applications, notamment les systèmes de questions-réponses \citep{shen2007using} et l'analyse d'opinions \citep{das2012structure}.
+En ce qui concerne l'annotation en rôles sémantiques, elle est issue des
+travaux sur l'extraction d'information où les systèmes traitent des situations
+très spécifiques, par exemple la détection de résultats d'évènements sportifs
+ou la détection dans des corpus journalistiques de l'acquisition d'entreprises.
+À chaque nouveau système d'extraction d'information dans un domaine différent,
+il est nécessaire de redéfinir les différents patrons sémantiques et
+d'entraîner un nouveau système sur de nouvelles données. L'annotation en rôles
+sémantiques a été pensée par \cite{gildea2002automatic} comme un moyen
+d'évoluer vers une généralisation de ces systèmes. Elle a depuis été utilisée
+dans diverses applications, notamment les systèmes de questions-réponses
+\citep{shen2007using} et l'analyse d'opinions \citep{das2012structure}.
 
 %\subsection{Contraintes}
 %Nous souhaitons une analyse sémantique utilisable dans le logiciel LIMA \citep{besancon2010LIMA}. Trois contraintes majeures en découlent.
@@ -288,7 +315,7 @@ Cette section introduit des techniques qui ne sont pas spécifique à un trait o
 
 Réduire le nombre de traits peut améliorer la performance d'un système \cite{mihalcea2002instance,dinu2007sometimes}. Du point de vue de l'apprentissage automatique, une des causes possibles pour des faibles performances est le sur-apprentissage ; où on apprend davantage à être performant sur les exemples observés tout en généralisant mal sur les exemples nouveaux. Une des raisons possibles de ce problèmes est le trop grand nombre de traits utilisés. La littérature sur l'annotation en rôles sémantiques en particulier utilise un très grand nombre de traits, qui ne sont pas forcément utilisés à leur plein potentiel suivant la taille des corpus d'apprentissage.
 
-Dans les deux tâches étudiées, la littérature a observé l'avantage de valider expérimentalement l'utilisation d'un trait donné. Dans le cas de l'annotation en rôles sémantiques, \cite{ololol} a remarqué que de nombreux traits potentiellement intéressants n'apportaient en réalité aucune information nouvelle. Plus radicalement, \cite{mihalcea2002instance,dinu2007sometimes} ont choisi pour la tâche d'annotation en rôles sémantiques d'utiliser l'ensemble des traits donnant les meilleurs résultats ; et se rendent compte que l'approche donnant les meilleurs résultats est celle de \textit{forward selection}. Le principe est de commencer sans trait, puis d'itérer en ajoutant le trait améliorant le plus les résultats à chaque étape. Dès que les résultats ne s'améliorent plus, le processus est arrêté et les traits sélectionnés sont utilisés pour le modèle final. Les résultats ont étés améliorés de manière significative.
+Dans les deux tâches étudiées, la littérature a observé l'avantage de valider expérimentalement l'utilisation d'un trait donné. Dans le cas de l'annotation en rôles sémantiques, \cite{xue2004calibrating} a remarqué que de nombreux traits potentiellement intéressants n'apportaient en réalité aucune information nouvelle. Plus radicalement, \cite{mihalcea2002instance,dinu2007sometimes} ont choisi pour la tâche d'annotation en rôles sémantiques d'utiliser l'ensemble des traits donnant les meilleurs résultats ; et se rendent compte que l'approche donnant les meilleurs résultats est celle de \textit{forward selection}. Le principe est de commencer sans trait, puis d'itérer en ajoutant le trait améliorant le plus les résultats à chaque étape. Dès que les résultats ne s'améliorent plus, le processus est arrêté et les traits sélectionnés sont utilisés pour le modèle final. Les résultats ont étés améliorés de manière significative.
 
 Il est important pour pouvoir utiliser cette technique d'avoir un cycle apprentissage-évaluation relativement rapide. Il faut en effet à chaque étape évaluer l'apport de chacune des fonctionnalités. En effet, la complexité dans le pire des cas est en $O(n^2)$, $n$ étant le nombre de traits possibles.
 
@@ -333,9 +360,9 @@ La désambiguïsation lexicale et l'annotation en rôles sémantiques sont des d
 
 \subsection{Désambiguïsation lexicale et annotation en rôles sémantiques}
 
-La littérature récente mentionne différents essais visant à combiner les tâches de désambiguïsation lexicale et d'annotation en rôles sémantiques, dans le but d'améliorer les performances de chacune des tâches \citep{megalol}. En effet, le sens d'un verbe permet de déterminer avec une meilleure précision la \textit{frame} qu'il doit déclencher. De la même manière, connaître les rôles sémantiques des arguments d'un verbe donne des indices supplémentaires pour définir son sens. Il est peut-être bénéfique dans ce contexte d'opérer une modélisation jointe pour parvenir à un optimum plus global.
+La littérature mentionne différents essais visant à combiner les tâches de désambiguïsation lexicale et d'annotation en rôles sémantiques, dans le but d'améliorer les performances de chacune des tâches \citep{dang2005role,moreda2006role,che2010jointly}. En effet, le sens d'un verbe permet de déterminer avec une meilleure précision la \textit{frame} qu'il doit déclencher. De la même manière, connaître les rôles sémantiques des arguments d'un verbe donne des indices supplémentaires pour définir son sens. Il est peut-être bénéfique dans ce contexte d'opérer une modélisation jointe pour parvenir à un optimum plus global.
 
-Cependant, ces méthodes, même si elles proposent des améliorations statistiquement significatives, n'ont pas encore révolutionné ces deux tâches d'analyse sémantiques. Il y a notamment un manque de ressources communes qui commence à être comblé par différentes ressources. Ontonotes, par exemple, ne se contente pas de regrouper des sens WordNet mais inclut aussi un corpus annoté syntaxiquement et en rôles sémantiques. De manière plus originale, eXtended WordFrameNet \citep{olol} est constitué du corpus FrameNet désambiguïsé lexicalement et ajoutent des informations de rôles sémantiques à WordNet. Les résulats sont prometteurs : les performances d'un système de désambiguïsation lexicale ont été améliorées.
+Cependant, ces méthodes, même si elles proposent des améliorations statistiquement significatives, n'ont pas encore révolutionné ces deux tâches d'analyse sémantiques. Il y a notamment un manque de ressources communes qui commence à être comblé par différentes ressources. Ontonotes, par exemple, ne se contente pas de regrouper des sens WordNet mais inclut aussi un corpus annoté syntaxiquement et en rôles sémantiques. De manière plus originale, eXtended WordFrameNet \citep{laparra2010extended} est constitué du corpus FrameNet désambiguïsé lexicalement et ajoutent des informations de rôles sémantiques à WordNet. Les résulats sont prometteurs : les performances d'un système de désambiguïsation lexicale ont été améliorées.
 
 \subsection{Analyse sémantique du français}
 

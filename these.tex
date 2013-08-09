@@ -1,4 +1,6 @@
 % arara: xelatex
+% arara: bibtex
+% arara: xelatex
 % arara: xelatex
 \documentclass[oneside]{scrbook} 
 
@@ -38,6 +40,7 @@
 \newcommand{\newjaws}{WoNeF}
 
 \begin{document} 
+
 \maketitle 
 
 \frontmatter 
@@ -78,6 +81,9 @@ A brief summary of the project goes here.
 % or may go in the front matter after the abstract. 
 
 % The bibliography will go here 
+
+\bibliographystyle{plainnat}
+\bibliography{bib}
 
 \end{document} 
 
