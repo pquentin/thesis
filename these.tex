@@ -75,11 +75,11 @@ A brief summary of the project goes here.
 
 L'annotation en rôles sémantique est une tâche importante en Traitement Automatique des Langues, et ce pour deux raisons. La première est qu'elle capture des phénomènes sémantiques de manière utile : une représentation assimilable à la logique du premier ordre qu'il est facile de stocker et interpréter et avec laquelle on peut facilement raisonner. Deuxièmement, c'est une tâche destinée à opérer à grand échelle : sur l'ensemble des verbes du vocabulaire et pour tout type de texte. En effet, sa définition ne la limite pas à un domaine ou un genre, et les systèmes existants ont montré leur utilisé pour des applications spécifiques dans des domaines particuliers. Un système d'annotation en rôles sémantiques efficace au sens général mais adaptable vers un nouveau domaine facilement serait donc une avancée majeure.
 
+L'annotation en rôles sémantiques a son utilité en traduction automatique. Si l'on considère le triangle de Vauquois comme modèle pour la traduction automatique, on réalise qu'une annotation en rôles sémantique peut servir de pont pour le transfert sémantique proposé par Vauquois et éviter ainsi des erreurs de traductions ne prenant pas suffisamment en compte la complexité sémantique d'une phrase. Un autre exemple d'utilité de l'annotation en rôles sémantiques est celui de l'évaluation : au delà du score BLEU qui ne considère que des suites de mots, \cite{lo2011smt} proposent un score HMEANT qui évalue la sémantique de la phrase : si l'annotation en rôles sémantique est correcte après traduction, alors la phrase est correctement traduite. Cette mesure, bien que difficile à mettre en place, est corrélée aux évaluations humaines tout en demandant une fraction de l'effort.
+
 Les systèmes les plus performants actuellement (dits "supervisés") sont particulièrement dépendants du corpus annoté utilisé. Pour une migration vers un autre domaine, il faut un nouvel effort d'annotation colossal pour obtenir un nouveau corpus, et potentiellement une adaptation des traits utilisés pour les algorithmes d'apprentissage.
 
 La solution que nous adoptons dans ce travail est de limiter les ressources utilisées à des ressources indépendantes du domaine : en l'occurrence une ressource lexicale de type VerbNet qui répertorie des informations syntaxico-sémantiques sur les verbes de l'anglais. Cette ressource correspond à une analyse à large échelle : elle couvre 99~\% des occurrences des verbes anglais \citep[partie 1, p~.53]{palmer2013semantic} et est adaptées à l'analyse en rôles sémantiques.
-
-TODO Triangle de Vauquois
 
 \include{verbnet}
 
