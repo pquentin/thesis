@@ -16,3 +16,30 @@ Une interface permet de valider les résultats et d'ajouter à Cf des éléments
 
 Cette création semi-automatique de VerbeNet est en cours. La première étape est terminée mais pas encore évaluée, elle a produit une ressource où les 247 classes sémantiques de VerbNet ont étés traduites, avec en moyenne 9 verbes français proposés par classe.
 
+\section{VerbNet, une ressource syntaxico-sémantique}
+
+\subsection{Les classes de Levin}
+
+\cite{levin1993english} est une classification des verbes anglais suivant un principe simple : le comportement syntaxique des verbes détermine en partie leur sens. Après avoir défini un certain nombre de constructions syntaxiques possibles, les verbes sont classés en groupes partageant les mêmes constructions.
+
+TODO exemple venant vraiment de Levin.
+
+Cette classification a trois intérêts pour l'annotation en rôles sémantiques :
+\begin{itemize}
+    \item Une grande majorité des verbes anglais sont couverts, rendant la ressource utile pour des annotations à large échelle.
+    \item La classification est hiérarchique et regroupe de nombreux verbes : avec une cinquantaine de classes principales, des généralisations et partages d'informations entre les classes proches sont possibles.
+    \item Les comportements syntaxiques déterminent les comportements sémantiques, ce qui correspond au schéma classique de l'annotation en rôles sémantiques qui s'appuie sur une analyse syntaxique.
+
+\subsection{Intersection des classes de Levin}
+
+TODO estimer la pertinence
+
+Le comportement syntaxique des verbes anglais détermine leur sens, mais pas entièrement. En effet, les classes de Levin ne s'intéressent pas directement au sens, et regroupent ainsi des verbes donnant l'impression d'être déconnectés. Ainsi, dans les \cite{put verbs} se trouve la classe \cite{Pocket} qui regroupe les verbes "mettre dans sa poche" et "mettre en prison".
+
+TODO exemple et intérêt pour nous : tirer des exemples de plusieurs classes ? Restreindre les frames possibles ?
+
+\subsection{VerbNet}
+
+\subsection{VerbNet et universaux linguistiques}
+
+Portuguais, français, ...
