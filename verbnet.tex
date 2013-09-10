@@ -29,16 +29,27 @@ Cette classification a trois intérêts pour l'annotation en rôles sémantiques
     \item Une grande majorité des verbes anglais sont couverts, rendant la ressource utile pour des annotations à large échelle.
     \item La classification est hiérarchique et regroupe de nombreux verbes : avec une cinquantaine de classes principales, des généralisations et partages d'informations entre les classes proches sont possibles.
     \item Les comportements syntaxiques déterminent les comportements sémantiques, ce qui correspond au schéma classique de l'annotation en rôles sémantiques qui s'appuie sur une analyse syntaxique.
+\end{itemize}
 
 \subsection{Intersection des classes de Levin}
 
 TODO estimer la pertinence
 
-Le comportement syntaxique des verbes anglais détermine leur sens, mais pas entièrement. En effet, les classes de Levin ne s'intéressent pas directement au sens, et regroupent ainsi des verbes donnant l'impression d'être déconnectés. Ainsi, dans les \cite{put verbs} se trouve la classe \cite{Pocket} qui regroupe les verbes "mettre dans sa poche" et "mettre en prison".
+Le comportement syntaxique des verbes anglais détermine leur sens, mais pas entièrement. En effet, les classes de Levin ne s'intéressent pas directement au sens, et regroupent ainsi des verbes donnant l'impression d'être déconnectés. Ainsi, dans les \textit{put verbs} se trouve la classe \textit{Pocket} qui regroupe les verbes "mettre dans sa poche" et "mettre en prison".
 
 TODO exemple et intérêt pour nous : tirer des exemples de plusieurs classes ? Restreindre les frames possibles ?
 
 \subsection{VerbNet}
+
+VerbNet est une extension modernes des classes de Levin, qui se retrouvent améliorées sur plusieurs fronts :
+\begin{itemize}
+    \item la couverture des verbes existants a été testée sur PropBank, ce qui a mené à l'ajout de nouvelles constructions syntaxiques
+    \item de nouvelles classes provenant de \cite{korhonen2004extended} intégrant les verbes acceptant des complétives, mais aussi des syntagmes adjectivaux et adverbiaux ou encore des particules.
+    \item de nouveaux verbes provenant de \cite{dorr2001lcs} ont étés intégrés
+    \item les verbes ont étés liés à WordNet, OntoNotes, PropBank et FrameNet \citep{palmer2009semlink}
+\end{itemize}
+
+Ces améliorations ont à la fois contribué à VerbNet en largeur (nouvelles classes) et en profondeur (nouveaux verbes, nouvelles constructions syntaxiques), ce qui fait de VerbNet la ressource standard pour une classification de verbes \textit{à la Levin}.
 
 \subsection{VerbNet et universaux linguistiques}
 
