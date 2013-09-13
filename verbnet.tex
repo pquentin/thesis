@@ -12,7 +12,7 @@ Pour la première tâche, la méthode est la suivante pour chaque classe de Verb
     \item les verbes de la classe française Cf sont a priori les verbes simples de $L_{trad}$ qui appartiennent à l'intersection de $C_{lvf}$ et $C_{lg}$ (e.g. mettre, poser ou installer pour put-9.1).
 \end{enumerate}
 
-Une interface permet de valider les résultats et d'ajouter à Cf des éléments de $L_{trad}$ qui n'appartiennent qu'à $_{Clg}$ et pas à $C_{lvf}$ par exemple. Pour la seconde tâche, nous devons procéder manuellement en nous servant principalement des informations syntaxiques codées dans le LG.
+Une interface permet de valider les résultats et d'ajouter à Cf des éléments de $L_{trad}$ qui n'appartiennent qu'à $C_{lg}$ et pas à $C_{lvf}$ par exemple. Pour la seconde tâche, nous devons procéder manuellement en nous servant principalement des informations syntaxiques codées dans le LG.
 
 Cette création semi-automatique de VerbeNet est en cours. La première étape est terminée mais pas encore évaluée, elle a produit une ressource où les 247 classes sémantiques de VerbNet ont étés traduites, avec en moyenne 9 verbes français proposés par classe.
 
@@ -35,7 +35,19 @@ Cette classification a trois intérêts pour l'annotation en rôles sémantiques
 
 TODO estimer la pertinence
 
-Le comportement syntaxique des verbes anglais détermine leur sens, mais pas entièrement. En effet, les classes de Levin ne s'intéressent pas directement au sens, et regroupent ainsi des verbes donnant l'impression d'être déconnectés. Ainsi, dans les \textit{put verbs} se trouve la classe \textit{Pocket} qui regroupe les verbes "mettre dans sa poche" et "mettre en prison".
+Le comportement syntaxique des verbes anglais détermine leur sens, mais pas entièrement. En effet, les classes de Levin ne s'intéressent pas directement au sens, et regroupent ainsi des verbes qui dont le sens est a priori très différent. Ainsi, dans les \textit{put verbs} se trouve la classe \textit{Pocket} qui regroupe les verbes "mettre dans sa poche" et "mettre en prison". Cependant, le comportement syntaxique est le même : le regroupement est logique et les différences de sens ne sont a priori pas gênantes pour nos applications qui ne se basent pas sur le sens des verbes dans VerbNet.
+
+Un besoin de cohérence sémantique peut cependant se fait sentir :
+\begin{itemize}
+    \item les ressources sémantiques telles que WordNet ne pourront s'appliquer qu'à des ensembles cohérents sémantiquement
+    \item les techniques classiques de détection automatique de synonymie ne regrouperont pas \textit{pocket} et \textit{jail}
+    \item les raisonnements sémantiques linguistiques ne tiennent pas si on prend des verbes trop éloignés.
+\end{itemize}
+
+\cite{dang1998investigating} propose les classes de Levin intersectives en donnant l'exemple d'intersections de classes qui donnent des ensembles sémantiquement cohérents. Ainsi, les \textit{split verbs} sont définis comme des verbes séparant par une action en \textit{-ing}. Ces verbes incluent \textit{cut}, \textit{rip}, \textit{split} mais aussi \textit{push}, \textit{kick} ou encore \textit{slip}, étant donné que \textit{push} par exemple sépare de par l'action de pousser. Un autre exemple : les \textit{carry verbs} sont définis comme les verbes causant un mouvemant, avec une séparation entre les mouvements accompagnés (\textit{carry}, \textit{drag}, ...) et le mouvement non accompagné (\textit{shove}, \textit{drag}, ...). Au-delà de cette distinction, c'est une classe qui contient deux types de verbes : ceux qui acceptent une \textit{conative alternation} indiquant que le mouvement est essayé sans être réussi et ceux qui impliquent seulement que le mouvement est causé par l'agent.
+
+En combinant les verbes apparaissant à la fois dans les \textit{split verbs} et les \textit{carry verbs}, on obtient un ensemble sémantiquement cohérent : uniquement les verbes indiquant l'application de la force du côté de \textit{pull}, et uniquement les verbes partageant la \textit{conative alternation} pour \textit{carry}. Cette opération peut être automatisée : dès que deux classes partagent au moins trois verbes, il est intéressant de créer une nouvelle classe contenant l'intersection qui sera cohérente sémantiquement et collera mieux avec la ressource sémantique WordNet.
+
 
 TODO exemple et intérêt pour nous : tirer des exemples de plusieurs classes ? Restreindre les frames possibles ?
 
