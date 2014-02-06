@@ -1,0 +1,3 @@
+[submodule "bibtex-file"]
+	path = bibtex-file
+	url = git@gitlab.coltrane:papers/bibtex-file.git
