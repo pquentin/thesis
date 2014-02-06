@@ -1,0 +1,118 @@
+\chapter{Annotation en rôle sémantique basée sur la connaissance en domaine spécifique}
+\label{ch:domainsrl}
+
+Là où le précédent chapitre présentait sur l'annotation en rôles sémantiques
+basée sur la connaissance, celui-là se concentre sur l'annotation en domaines
+spécifiques.
+
+La définition du terme 'domaine' reste assez vague dans le sens où il est
+difficile de proposer une catégorisation de la connaissance en un ensemble de
+domaines qui soit à la fois cohérente et efficace pour le Traitement Automatique
+des Langues. Il est aussi difficile de séparer clairement le «~domaine
+général~» des domaines spécifiques.
+
+Néanmoins, c'est un phénomène qui existe et qui est à considérer : les modèles
+entraînés sur un corpus d'un domaine spécifique (la finance par exemple)
+généraliseront mal à d'autres domaines (le football) par exemple. À l'heure où
+les algorithmes supervisés obtiennent d'excellentes performances sur un certain
+nombre de tâche, l'adaptation au domaine est un défi majeur du Traitement
+Automatique des Langues.
+
+Il est important aussi de différencier le genre et le domaine d'un texte. Le
+corpus du Wall Street Journal traite du domaine de la finance dans un genre
+journalistique. D'autres genres existent, par exemple les genre littéraires que
+sont la fiction, la poésie, le théâtre, etc. Néanmoins, ces distinctions ne
+nous concernent pas ici, et l'objectif affiché est de traiter aussi bien un
+roman qu'une encyclopédie qu'un email bien écrit qu'un article de journal.
+C'est une simplification mais les difficultés que nous rencontrons avec les
+corpus utilisés dépendent plutôt du domaine que du genre. En effet, dans deux
+domaines différents plus que dans deux genres différents, ce sont les verbes
+utilisés, leur sens et la façon de les utiliser qui change et qui doit être
+prise en compte.
+
+\section{Corpus considérés}
+
+Afin de s'assurer de ne pas tomber dans les mêmes travers que les études ne
+portant que sur un domaine précis, nous considérons ici trois corpus présents
+dans des domaines différents :
+
+\begin{itemize}
+    \item le Kicktionary rassemblant des dépêches de l'UEFA dans le domaine du football
+    \item le corpus Informatique/Internet de l'OLST
+    \item le corpus Réchauffement climatique de l'OLST
+\end{itemize}
+
+Les points communs majeurs de ces trois corpus sont :
+\begin{enumerate}
+    \item de s'inspirer librement de la théorie des Frame Semantics telle qu'elle est considérée dans FrameNet,
+    \item d'être disponible à la fois en anglais et en français,
+    \item d'être basés sur l'annotation dans un corpus d'un certain nombre de prédicats (ce n'est pas une annotation dite "full-text")
+\end{enumerate}
+
+\section{Enrichissement de VerbNet}
+
+Néanmoins, ces corpus posent des problèmes différents vis-à-vis de leur
+annotation avec VerbNet, tous liés au fait de ne pas être dans le "domaine
+général". Nous avons considéré comme problème les manquements dans VerbNet qui
+empêchent de prendre en compte les phrases considérées, indépendamment de
+l'algorithme. Ainsi, pour que VerbNet puisse prendre en compte une instance, il faut :
+
+\begin{itemize}
+    \item que le sens du verbe considéré soit présent dans VerbNet,
+    \item et que la construction en question soit présente dans VerbNet.
+\end{itemize}
+
+Il y a différentes façons de ne pas respecter ces deux contraintes :
+
+\begin{itemize}
+    \item Le verbe n'existe pas du tout dans VerbNet
+    \item Le sens du verbe utilisé n'est pas représenté dans VerbNet alors que c'est un sens du domaine général
+    \item Le sens du verbe utilisé n'est pas représenté dans VerbNet alors que c'est un sens spécifique à ce domaine
+    \item La construction utilisée n'est pas présente dans VerbNet
+\end{itemize}
+
+Suivant les corpus spécifiques à un domaine, les proportions d'erreurs seront
+différentes. Nous avons demandé à deux annotateurs d'évaluer, pour vingt
+phrases par domaine, quelle était l'erreur. L'accord inter-annotateur permet de
+valider la distinction domaine spécifique/domaine général malgré
+l'impossibilité de la définir précisément.
+
+C'est pour cette raison que l'enrichissement de VerbNet se fait de deux
+manières : certains verbes et constructions sont ajoutés comme faisant partie
+du domaine général, alors que d'autres sont étiquetés avec le domaine
+spécifique correspondant. L'idée est d'éviter que des connaissances de domaines
+spécifiques viennent réduire la qualité de la ressource tout en s'assurant que
+la couverture de VerbNet pour le domaine général continue de s'améliorer.
+
+\subsection{Détection semi-automatique d'erreurs}
+
+D'une part, pour minimiser le travail manuel, il est important d'automatiser au
+maximum l'enrichissement de la ressource. D'autre part, l'intérêt de VerbNet
+réside notamment dans sa capacité à factoriser efficacement des informations
+syntaxico-sémantiques précises sur les verbes d'une langue, et il est donc
+important de valider manuellement chacun des changements apportés.
+
+Le principe suivi est donc d'essayer de détecter les manquements de VerbNet de
+manière automatique avant de proposer à un utilisateur expert de réaliser des
+changements en ayant un maximum d'informations pertinentes à portée de main.
+
+Les différentes erreurs détectées sont :
+\begin{itemize}
+    \item l'absence de lemmes dans la ressource
+    \item l'absence d'un sens correct dans la ressource
+    \item l'absence de constructions correctes dans la ressource
+\end{itemize}
+
+Nous avons d'abord commencé par détecter l'absence de constructions correctes,
+ce qui a permis ensuite de détecter une absence de sens en comparant les
+constructions observées avec les constructions présentes. Enfin, cela a permis
+de faire des propositions quant à la position d'un nouveau lexème dans la
+ressource.
+
+\section{Évaluation}
+
+Les trois corpus considérés sont annotés en rôles sémantiques dans les deux
+langues considérées : l'anglais et le français. Il nous suffit donc d'utiliser
+un mapping entre les rôles considérés par ces ressources et les rôles VerbNet
+avant d'évaluer la performance de l'algorithme basé sur la connaissance
+d'annotation en rôles sémantiques présenté au chapitre~\ref{ch:srl}.
