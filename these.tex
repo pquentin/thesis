@@ -2,7 +2,7 @@
 % arara: bibtex
 % arara: xelatex
 % arara: xelatex
-\documentclass[oneside]{scrbook} 
+\documentclass[oneside]{scrbook}
 
 \usepackage{fontspec}
 \usepackage{xunicode}
@@ -24,46 +24,36 @@
 \usetikzlibrary{arrows}
 \usetikzlibrary{shapes.multipart}
 
-\usepackage{hyphenat}
-\usepackage{hyperref}
-\hyphenation{me-ro-ny-my}
-\hyphenation{ho-lo-ny-my}
+\title{Analyse sémantique faiblement supervisée}
+\author{Quentin Pradet}
+\date{}
+\publishers{Commissariat à l'Énergie Atomique\\Université Paris Diderot}
 
+\begin{document}
 
+\maketitle
 
-\title{Analyse sémantique faiblement supervisée} 
-\author{Quentin Pradet} 
-\date{} 
-\publishers{Commissariat à l'Énergie Atomique\\ED 386} 
+\frontmatter
+\tableofcontents
+\listoffigures
+\listoftables
 
+\chapter{Remerciements}
 
-\newcommand{\newjaws}{WoNeF}
+I would like to thank my supervisor, Professor Someone. This
+research was funded by the Imaginary Research Council.
 
-\begin{document} 
+\chapter{Résumé}
 
-\maketitle 
+A brief summary of the project goes here.
 
-\frontmatter 
-\tableofcontents 
-\listoffigures 
-\listoftables 
+% A glossary and list of acronyms may go here
+% or may go in the back matter.
 
-\chapter{Remerciements} 
+\mainmatter
 
-I would like to thank my supervisor, Professor Someone. This 
-research was funded by the Imaginary Research Council. 
-
-\chapter{Résumé} 
-
-A brief summary of the project goes here. 
-
-% A glossary and list of acronyms may go here 
-% or may go in the back matter. 
-
-\mainmatter 
-
-\chapter{Introduction} 
-\label{ch:intro} 
+\chapter{Introduction}
+\label{ch:intro}
 
 \include{etatdelart}
 
@@ -85,18 +75,18 @@ La solution que nous adoptons dans ce travail est de limiter les ressources util
 
 \include{srl}
 
-\chapter{Conclusion} 
-\label{ch:conc} 
+\chapter{Conclusion}
+\label{ch:conc}
 
-\backmatter 
+\backmatter
 
-% A glossary and list of acronyms may go here 
-% or may go in the front matter after the abstract. 
+% A glossary and list of acronyms may go here
+% or may go in the front matter after the abstract.
 
-% The bibliography will go here 
+% The bibliography will go here
 
 \bibliographystyle{plainnat}
 \bibliography{bibtex-file/bib}
 
-\end{document} 
+\end{document}
 
