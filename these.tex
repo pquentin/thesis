@@ -24,7 +24,7 @@
 \usetikzlibrary{arrows}
 \usetikzlibrary{shapes.multipart}
 
-\title{Analyse sémantique faiblement supervisée}
+\title{Annotation en rôles sémantiques du français en domaine spécialisé}
 \author{Quentin Pradet}
 \date{}
 \publishers{Commissariat à l'Énergie Atomique\\Université Paris Diderot}
@@ -55,13 +55,19 @@ A brief summary of the project goes here.
 \chapter{Introduction}
 \label{ch:intro}
 
+\part{Annotation en rôles sémantiques et état de l'art}
+
+\include{srlintro}
+
 \include{etatdelart}
 
-\part{WoNeF : un WordNet du français}
+\part{Ressources pour l'annotation en rôles sémantiques}
 
 \include{wonef}
 
-\part{Annotation en rôles sémantiques}
+\include{verbnet}
+
+\part{Méthodes pour l'annotation en rôles sémantiques}
 
 L'annotation en rôles sémantique est une tâche importante en Traitement Automatique des Langues, et ce pour deux raisons. La première est qu'elle capture des phénomènes sémantiques de manière utile : une représentation assimilable à la logique du premier ordre qu'il est facile de stocker et interpréter et avec laquelle on peut facilement raisonner. Deuxièmement, c'est une tâche destinée à opérer à grand échelle : sur l'ensemble des verbes du vocabulaire et pour tout type de texte. En effet, sa définition ne la limite pas à un domaine ou un genre, et les systèmes existants ont montré leur utilisé pour des applications spécifiques dans des domaines particuliers. Un système d'annotation en rôles sémantiques efficace au sens général mais adaptable vers un nouveau domaine facilement serait donc une avancée majeure.
 
@@ -71,11 +77,11 @@ Les systèmes les plus performants actuellement (dits "supervisés") sont partic
 
 La solution que nous adoptons dans ce travail est de limiter les ressources utilisées à des ressources indépendantes du domaine : en l'occurrence une ressource lexicale de type VerbNet qui répertorie des informations syntaxico-sémantiques sur les verbes de l'anglais. Cette ressource correspond à une analyse à large échelle : elle couvre 99~\% des occurrences des verbes anglais \citep[partie 1, p~.53]{palmer2013semantic} et est adaptées à l'analyse en rôles sémantiques.
 
-\include{verbnet}
-
 \include{srl}
 
 \include{domainsrl}
+
+\include{frenchsrl}
 
 \chapter{Conclusion}
 \label{ch:conc}
