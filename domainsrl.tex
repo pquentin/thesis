@@ -135,14 +135,55 @@ rôles VerbNet avant d'évaluer la performance de l'algorithme basé sur la
 connaissance d'annotation en rôles sémantiques présenté au
 chapitre~\ref{ch:srl}.
 
-Dans le cas de DicoInfo et DicoEnviro, les nomes des rôles sont proches des
-rôles VerbNet (Agent, Patient, Destination, Instrument...). Cependant, en
-pratique, les rôles effectivement choisis sont assez différents pour deux
-raisons principales : 
+Dans le cas de DicoInfo et DicoEnviro, les noms des rôles sont proches des noms
+de rôles employée dans VerbNet et LIRICS \citep{bonial2011hierarchical} (Agent,
+Patient, Destination, Instrument...). Cependant, même si les noms sont les
+mêmes, la définition de ces rôles est spécifique à DicoInfo et DicoEnviro.
+En pratique :
 
 \begin{itemize}
-    \item DicoInfo et DicoEnviro ne distinguent pas Theme de Patient mais n'utilise que Patient ce qui rend l'annotation plus facile
-    \item Pour un certain nombre de lexies, la façon de voir les choses est différente, ce qui implique des rôles différents (TODO exemple Patient vs. Result) % TODO clair
+    \item DicoInfo et DicoEnviro ne distinguent pas Theme de Patient mais
+    n'utilise que Patient ce qui rend l'annotation plus facile.\footnote{La
+    distinction entre Theme et Patient est difficile à établir. Dans \textit{Le
+    chaton a léché mes doigts}, est-ce que mes doigts ont changé d'état ? Si oui,
+    ils devraient être Patient, et sinon, Theme.\citep[p.~5]{palmer2010semantic}}
+    \item Pour un certain nombre de lexies, la perspective du domaine implique
+    souvent des rôles différents (TODO exemple Patient vs. Result) % TODO clair
 \end{itemize}
+
+C'est pour ces raisons que nous avons créé manuellement un mapping entre
+VerbNet et les corpus considérés (DicoInfo et DicoEnviro). Ce mapping est
+utilisé uniquement à des fins d'évaluation, et l'effort nécessaire pour le
+créer n'est donc pas à prendre en compte pour calculer l'effort global
+nécessaire pour notre approche. Prenons deux phrases d'exemple pour illustrer
+le mapping. Voici deux phrases présentes dans DicoInfo et DicoEnviro :
+
+\begin{itemize}
+    \item In the interest of fair competition you should ALLOCATE the same amount of memory to both engines.
+    \item Techniques and tools exist to MEASURE carbon stocks in project areas relatively precisely depending on the carbon pool.
+\end{itemize}
+
+Dans la première phrase, le sens du verbe \textit{allocate} est très précis et
+très spécifique au domaine de l'informatique. Pourtant, il se comporte
+syntaxiquement de la même manière que le sens plus général considéré par
+WordNet et OntoNotes: \textit{distribute or se aside according to plan}. Par
+conséquent, un mapping manuel a été réalisé de la lexie allocate.1 (qui
+correspond à la phrase ci-dessus) vers la classe Verbnet
+\textit{future\_having-13.3}. Enfin, les actants définis par DicoInfo (qui
+correspondent aux roles \textit{Core} de FrameNet et aux rôles de VerbNet) ont
+étés mis en correspondance avec les rôles de VerbNet :
+
+\begin{itemize}
+    \item Patient devient Theme
+    \item Recipient devient Goal
+    \item Agent reste Agent
+\end{itemize}
+
+Une fois que ce mapping est réalisé, la tâche de notre algorithme d'annotation
+en rôles sémantiques devient de détecter que la classe future\_having-13.3 est
+utilisée ici, que 'You' est Agent, que 'the same amount of memory' est Theme,
+et que 'to both engines' est Goal. La démarche est la même pour la seconde
+phrase, où il s'agit d'identifier que \textit{Techniques and tools} est Agent,
+et que \textit{carbon stocks} est Theme.
 
 \section{Résultats}
