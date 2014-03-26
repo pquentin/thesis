@@ -387,3 +387,51 @@ La campagne d'évaluation d'induction de sens de SemEval 2007 \citep{manandhar20
 \section{Conclusion}
 
 Désambiguïsation lexicale et annotation en rôles sémantiques sont deux tâches qui, traitées par des approches statistiques, permettent d'obtenir des résultats intéressants. La route vers l'intégration plus systématique à des systèmes existants est encore longue, mais les progrès et performances sont déjà satisfaisants. Nous avons dans cet état de l'art abordé les questions de l'apprentissage statistique et des ressources nécessaires pour un tel apprentissage. Les possibilités sont encore nombreuses et restent à être explorées, en particulier dans le traitement d'autres langues comme le français.
+
+
+
+
+
+Existing approaches to semantic role labeling are divided into two main
+branches. The first one, supervised semantic role labeling, uses a
+manually-annotated corpus and manually engineered features to train supervised
+models on the task. The most used frame-semantics resource and associated
+annotated corpus in this domain is FrameNet \citep{baker1998berkeley}.
+While this approach yields the best performance \citep{das2013frame}, the
+cost is high: the corpus used are annotated over several years and it would be
+in general too long and costly to annotate a new corpus for each new considered
+domain. To address those issues, the second mainstream approach, named semantic
+role induction, uses fully unsupervised methods: given a corpus, the goal is to
+cluster all verbs sharing the same behavior. While this is completely general,
+the results are noisier and the semantic roles are only induced and cannot
+always be mapped to human-understandable labels such as \textit{Agent} or
+\textit{Topic}.
+
+A third approach, knowledge-based semantic role labeling
+\citep{swier2004unsupervised,swier2005exploiting}, has not received much
+attention lately. The goal is to use external lexical-semantic resources for
+each new considered language and to use those resources to annotate text. The
+quality of annotation suffers, but bringing semantic role labeling to new
+domains and languages becomes easier: no corpus has to be hand-annotated.
+
+Existing work on the knowledge-based semantic role labeling task is now dated
+but the resources have much improved since then: \citep{swier2005exploiting}
+could only use VerbNet 1.5, but VerbNet 3.2 is now available. They also had to
+use a custom mapping to FrameNet for the evaluation of their method while the
+SemLink project has provided us an ``official'' FrameNet-VerbNet mapping.
+FrameNet has been also vastly improved and extended since 2005: new training
+data is available, many corrections have been made, and a full-text corpus can
+now be used to evaluate semantic role labeling in a more realistic way.
+
+
+\section{Knowledge-based semantic role labeling}
+\label{sec:srl}
+
+Knowledge-based semantic role labeling refers to algorithms that don't use a
+priori training data which would be biased and hamper performance on new
+domains. The "knowledge" is contained in VerbNet-like databases which encode
+syntactic and semantic informations about verbs in a way that allows one to map
+syntactic structure to semantic roles. Previous work on this task used the word
+"unsupervised" instead of "knowledge-based", but unsupervised semantic role
+labeling now refers to truly unsupervised work where no semantic knowledge is
+needed at all.

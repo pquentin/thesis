@@ -3,171 +3,76 @@
 \label{ch:srl}
 
 
-Contrairement aux autres ressources pour l'annotation en rôles sémantiques, VerbNet couvre à la fois l'ensemble des verbes fréquents du vocabulaire tout en étant conçu sur des préceptes robustes le rendant utile pour les tâches de Traitement Automatique des Langues.
+%\citep{simmons1973semantic} is the earliest work on Semantic Role Labeling.
+%Already based on \citep{fillmore1968case}, it parsed a sentence into what we
+% know call semantic roles. (check)
+
+Contrairement aux autres ressources pour l'annotation en rôles sémantiques,
+VerbNet couvre à la fois l'ensemble des verbes fréquents du vocabulaire tout en
+étant conçu sur des préceptes robustes le rendant utile pour les tâches de
+Traitement Automatique des Langues.
+
+La tâche d'annotation en rôles sémantiques a reçu beaucoup d'attention ces
+dernières années, que ce soit pour les approches supervisées ou non
+supervisées. Cependant, les approches basées sur la connaissance ont été
+négligées alors qu'elles apportent un compromis intéressant et sont
+complémentaires par rapport aux autres approches. Ce chapitre présente un tel
+système qui se veut simple et facile à reproduire. Nous montrons aussi comment
+la prise en compte de la voix passive réduit le taux d'erreur de 15.7~\%, ce
+qui met en avant les possibilités offertes par un tel système : une approche
+simple qui facilite l'analyse des erreurs, qui n'a pas besoin d'un corpus
+annoté manuellement et qui n'est pas spécifique à un domaine en particulier.
 
 \section{Algorithme}
 
-\section{Évaluation}
+L'algorithme présenté est similaire à
+\cite{swier2004unsupervised,swier2005exploiting}. Cependant, dix ans après, il
+est important d'évaluer à nouveau cette approche pour savoir où elle se situe
+par rapport à l'état de l'art et comprendre les améliorations possibles.
 
-L'évaluation se fait sur FrameNet, ce qui permet tout simplement d'avoir une idée de la qualité de l'annotation en rôles sémantiques. Le mapping VerbNet-FrameNet maintenu par le projet SemLink est utilisé.
-
-
-%\usepackage[
-%    backend=biber,
-%    style=authoryear-icomp,
-%    ibidtracker=false,
-%    doi=false,isbn=false,url=false,
-%    sorting=ynt,
-%    maxbibnames=99,maxcitenames=2]{biblatex}
-%\addbibresource{bib/bib.bib}
-
-Semantic role labeling has seen tremendous progress in the last
-years, both for supervised and unsupervised approaches. The knowledge-based
-approaches have been neglected while they have shown to bring the best results
-to the related word sense disambiguation task. We contribute a simple
-knowledge-based system with an easy to reproduce specification. We also present
-a novel approach to handle the passive voice in the context of semantic role
-labeling that reduces the error rate in F1 by 15.7\%, showing that significant
-improvements can be brought while retaining the key advantages of the approach:
-a simple approach which facilitates analysis of individual errors, does not
-need any hand-annotated corpora and which is not domain-specific.
-
-\citep{simmons1973semantic} is the earliest work on Semantic Role Labeling.
-Already based on \citep{fillmore1968case}, it parsed a sentence into what we
-know call semantic roles. (check)
-
-\section{Introduction}
-
-Computing automatically a semantic representation of a given text has been
-defined as the single greatest limitation on the general application of natural
-language processing techniques \citep{dang1998investigating}. Semantic role
-labeling provides such a representation where chunks of a sentence are
-annotated with semantic roles that denote the sense of those chunks related to
-the verb. In this work we use VerbNet \citep{kipperschuler2005verbnet} and give
-some details about it later. Figure~\ref{fig:example_srl} shows an example
-highlighting the difficulty of the task which can not rely exclusively on
-syntactic clues but also needs semantic knowledge.
-
-\begin{figure}[ht]
-    \centering
-    \begin{tabular}{ccc}
-        \toprule
-        Carol & crushed   & the ice \\
-        Agent & V         & Patient \\
-        \midrule
-        The ice & crushes & easily  \\
-        Patient & V       &         \\
-        \bottomrule
-    \end{tabular}
-    \caption{\label{fig:example_srl}Two annotated sentences for the carve-21.2 VerbNet class. All words are not necessarily annotated, and the position of the arguments does not directly determine the roles: the sense and voice of \textit{crush} are consistent between the two sentences but the semantic annotation differs.}
-\end{figure}
-
-Semantic role labeling has tremendously helped to compute semantic
-representations and has been shown to improve multiple tasks such as
-information extraction \citep{surdeanu2003using}, question-answering
-\citep{shen2007using}, event extraction \citep{exner2011using},
-plagarism detection \citep{osman2012improved}, machine translation
-\citep{bazrafshan2013semantic} or even stock price prediction
-\citep{xie2013semantic}.
-
-Existing approaches to semantic role labeling are divided into two main
-branches. The first one, supervised semantic role labeling, uses a
-manually-annotated corpus and manually engineered features to train supervised
-models on the task. The most used frame-semantics resource and associated
-annotated corpus in this domain is FrameNet \citep{baker1998berkeley}.
-While this approach yields the best performance \citep{das2013frame}, the
-cost is high: the corpus used are annotated over several years and it would be
-in general too long and costly to annotate a new corpus for each new considered
-domain. To address those issues, the second mainstream approach, named semantic
-role induction, uses fully unsupervised methods: given a corpus, the goal is to
-cluster all verbs sharing the same behavior. While this is completely general,
-the results are noisier and the semantic roles are only induced and cannot
-always be mapped to human-understandable labels such as \textit{Agent} or
-\textit{Topic}.
-
-A third approach, knowledge-based semantic role labeling
-\citep{swier2004unsupervised,swier2005exploiting}, has not received much
-attention lately. The goal is to use external lexical-semantic resources for
-each new considered language and to use those resources to annotate text. The
-quality of annotation suffers, but bringing semantic role labeling to new
-domains and languages becomes easier: no corpus has to be hand-annotated.
-
-Existing work on the knowledge-based semantic role labeling task is now dated
-but the resources have much improved since then:
-\citep{swier2005exploiting} could only use VerbNet 1.5, but VerbNet 3.2 is
-now available. They also had to use a custom mapping to FrameNet for the evaluation 
-of their method while the SemLink project has provided us an ``official'' 
-FrameNet-VerbNet mapping. FrameNet has been also vastly
-improved and extended since 2005: new training data is available, many
-corrections have been made, and a full-text corpus can now be used to evaluate
-semantic role labeling in a more realistic way.
-
-While the present work\footnote{This work was partially funded by the ANR
-ASFALDA ANR-12-CORD-0023 project.} is similar to
-\citep{swier2005exploiting}, we do believe that there is an opportunity to
-reevaluate knowledge-based semantic role labeling, precisely because the last
-work we are aware of dates from 2005 and is difficult to reproduce. We indeed
-show that incorporating passive voice detection to the task improve results by
-15.7\%: improvements are still possible.
-
-\section{Knowledge-based semantic role labeling}
-\label{sec:srl}
-
-Knowledge-based semantic role labeling refers to algorithms that don't use a
-priori training data which would be biased and hamper performance on new
-domains. The "knowledge" is contained in VerbNet-like databases which encode
-syntactic and semantic informations about verbs in a way that allows one to map
-syntactic structure to semantic roles. Previous work on this task used the word
-"unsupervised" instead of "knowledge-based", but unsupervised semantic role
-labeling now refers to truly unsupervised work where no semantic knowledge is
-needed at all.
-
-In this work, we use the English VerbNet \citep{kipperschuler2005verbnet}, a
-freely available hierarchical verb lexicon based on Levin classes
-\citep{levin1993english} which encodes into \emph{frames} the mapping
-between diathesis alternations and semantic roles assigned to syntactic chunks.
-For a given frame, VerbNet can map between NP V NP and Agent V Theme: this
-means that in this situation the first noun phrase should be mapped to the
-Agent role while the second one should be mapped the Theme role. Our goal is to
-use this mapping information to transform syntactically-analyzed sentences into
-semantically-analyzed sentences. The mapping can be unambiguous when only one
-VerbNet frame matches a given dependency graph. In other cases, different options are
-possible. This occurs when: 
+Le principe est d'utiliser directement les informations proposées par VerbNet.
+Par exemple, VerbNet peut indiquer que dans une certaine classe, le cadre de
+sous-catégorisation NP V NP correspond aux rôles Agent V Theme. Cette notation
+indique que lorsque que le sujet du verbe est un syntagme nominal et que
+l'objet du verbe est aussi un syntagme nominal, ils jouent respectivement les
+rôles d'Agent et Theme. Dans certains cas, un même cadre de sous-catégorisation
+peut correspondre à plusieurs annotations en rôles sémantiques différentes. En effet :
 
 \begin{itemize}
 
-    \item a predicate is present in multiple VerbNet classes which share the same
-    diathesis alternations but do not map to the same roles.
+    % TODO /!\ il faut déterminer la classe de toute façon
+    \item si un prédicat est présent dans plusieurs classes VerbNet partageant
+    les mêmes cadres de sous-catégorisation, il est possible que les annotations
+    soient différentes suivant la classe considérée.
 
-    \item syntax-semantics mappings are ambiguous and do not fully determine the
-    semantic role that should be used.
+    \item certaines correspondances entre la syntaxe et la sémantique sont
+    ambiguës et ne déterminent pas complètement les rôles sémantiques à utiliser.
 
 \end{itemize}
 
-Without annotated data, those ambiguities cannot be resolved. However, once an
-initial mapping is done, it becomes possible to use those in-domain mapping to
-learn simple probabilistic models which will allow to label new verbs and their
-roles with high precision.
+Sans corpus annoté, ces ambiguïtés ne peuvent pas être résolues. Cependant, une
+fois qu'une première série de correspondances a été effectuée, il est possible
+d'utiliser les connaissances du domaine étudié pour annoter de nouveaux verbes
+auparavant inaccessibles.
 
-% GC The sentence below comes strangely at this place but I don't find how to 
-% rewrite or move it right now.
-Our error analysis in the evaluation section shows that important error 
-reductions can be achieved while
-staying in the framework of knowledge-based semantic role labeling, reaffirming
-this approach as useful and promising again. We now describe in details the 
-various steps of our algorithm.
+\subsection{Identification des arguments}
 
-\subsection{Argument identification}
+Cette première étape identifie les syntagmes amenés à recevoir un rôles
+sémantique lors de l'annotation. La phrase est d'abord analysée syntaxiquement
+puis certains syntagmes de la phrase sont considérés. Pour cette étape, nous
+suivons \cite{lang2011unsupervised} qui propose huit règles proposant chacune
+des syntagmes candidats. Ces règles génèrent trop de candidats : il faudra par
+la suite soit assigner un rôle au candidat soit déclarer qu'il n'a pas de rôle
+dans la phrase.
 
-This first step identifies syntactic chunks that will bear semantic roles in the two
-future stages.  This standard step in semantic role labeling analyses a
-sentence syntactically or splits it into chunks and chooses syntactic trees as
-arguments.  We use \citep{lang2011unsupervised} eight rules to select
-nodes that are likely to have semantic roles. This step selects too much
-candidates, but they are filtered out by the subsequent steps.
-% GC FUTURE Examples
+% TODO Examples
+% TODO Règles
+% TODO gold
 
 \subsection{Frame matching}
+
+Cette étape met en correspondance les syntagmes candidats précédemment
+identifiés à des rôles sémantiques.
 
 This step matches role fillers to roles when it is possible to do so in an
 unambiguous way. It merges in one step what is traditionally done in two steps:
@@ -261,6 +166,10 @@ This gives better result as passive voices were always wrongly identified
 (Table~\ref{table:results}).
 
 \section{Evaluation}
+
+L'évaluation se fait sur FrameNet, ce qui permet tout simplement d'avoir une
+idée de la qualité de l'annotation en rôles sémantiques. Le mapping
+VerbNet-FrameNet maintenu par le projet SemLink est utilisé.
 
 Evaluation is currently performed against FrameNet which is one of the standard
 resource for semantic role labeling. The full-text corpus is balanced,

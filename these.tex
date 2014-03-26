@@ -30,6 +30,8 @@
 \date{}
 \publishers{Commissariat à l'Énergie Atomique\\Université Paris Diderot}
 
+\includeonly{srl}
+
 \begin{document}
 
 \maketitle
@@ -71,30 +73,27 @@ A brief summary of the project goes here.
 \part{Méthodes pour l'annotation en rôles sémantiques}
 
 L'annotation en rôles sémantique est une tâche importante en Traitement
-Automatique des Langues, et ce pour deux raisons. La première est qu'elle
-capture des phénomènes sémantiques de manière utile : une représentation
-assimilable à la logique du premier ordre qu'il est facile de stocker et
-interpréter et avec laquelle on peut facilement raisonner. Deuxièmement, c'est
-une tâche destinée à opérer à grand échelle : sur l'ensemble des verbes du
-vocabulaire et pour tout type de texte. En effet, sa définition ne la limite
-pas à un domaine ou un genre particuliers et les systèmes existants ont montré
-leur utilité pour des applications spécifiques dans des domaines particuliers
-(TODO citation). Un système d'annotation en rôles sémantiques efficace au sens
-général mais adaptable vers un nouveau domaine facilement serait donc une
-avancée majeure.
+Automatique des Langues, et ce pour trois raisons. La première est qu'elle
+capture des phénomènes sémantiques de manière utile sous une forme assimilable
+à la logique du premier ordre qu'il est possible d'utiliser dans des
+applications par la suite. La seconde est que de nombreuses façons d'exprimer
+un énoncé seront représentées de la même manière, ce qui facilite grandement
+les traitements ultérieurs. Enfin, la dernière raison est que l'annotation en
+rôles sémantiques est capable d'opérer à grand échelle : sur l'ensemble des
+verbes du vocabulaire et pour tout type de texte. En effet, sa définition ne la
+limite pas à un domaine ou un genre particuliers et les systèmes existants ont
+montré leur utilité pour des applications spécifiques dans des domaines
+particuliers \citep{osman2012improved,xie2013semantic}. Un système
+d'annotation en rôles sémantiques efficace en général mais aussi adaptable vers
+un nouveau domaine facilement serait donc une avancée majeure.
 
-L'annotation en rôles sémantiques a son utilité en traduction automatique. Si
-l'on considère le triangle de Vauquois comme modèle pour la traduction
-automatique, on réalise qu'une annotation en rôles sémantique peut servir de
-pont pour le transfert sémantique proposé par Vauquois et éviter ainsi des
-erreurs de traductions ne prenant pas suffisamment en compte la complexité
-sémantique d'une phrase. Un autre exemple d'utilité de l'annotation en rôles
-sémantiques est celui de l'évaluation : au delà du score BLEU qui ne considère
-que des suites de mots, \cite{lo2011smt} proposent un score HMEANT qui évalue
-la sémantique de la phrase : si l'annotation en rôles sémantique est correcte
-après traduction, alors la phrase est correctement traduite. Cette mesure, bien
-que difficile à mettre en place, est corrélée aux évaluations humaines tout en
-demandant une fraction de l'effort.
+Un autre exemple d'utilité de l'annotation en rôles sémantiques est celui de
+l'évaluation : au delà du score BLEU qui ne considère que des suites de mots,
+\cite{lo2011smt} proposent un score HMEANT qui évalue la sémantique de la
+phrase : si l'annotation en rôles sémantique est correcte après traduction,
+alors la phrase est correctement traduite. Cette mesure, bien que difficile à
+mettre en place, est corrélée aux évaluations humaines tout en demandant une
+fraction de l'effort.
 
 Les systèmes les plus performants actuellement (dits "supervisés") sont
 particulièrement dépendants du corpus annoté utilisé. Pour une migration vers

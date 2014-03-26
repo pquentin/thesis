@@ -1,3 +1,37 @@
 % vim: set spelllang=fr:
-\chapter{Annotation en rôles sémantiques}
+\chapter{Introduction}
 \label{ch:srlintro}
+
+
+Computing automatically a semantic representation of a given text has been
+defined as the single greatest limitation on the general application of natural
+language processing techniques \citep{dang1998investigating}. Semantic role
+labeling provides such a representation where chunks of a sentence are
+annotated with semantic roles that denote the sense of those chunks related to
+the verb. In this work we use VerbNet \citep{kipperschuler2005verbnet} and give
+some details about it later. Figure~\ref{fig:example_srl} shows an example
+highlighting the difficulty of the task which can not rely exclusively on
+syntactic clues but also needs semantic knowledge.
+
+\begin{figure}[ht]
+    \centering
+    \begin{tabular}{ccc}
+        \toprule
+        Carol & crushed   & the ice \\
+        Agent & V         & Patient \\
+        \midrule
+        The ice & crushes & easily  \\
+        Patient & V       &         \\
+        \bottomrule
+    \end{tabular}
+    \caption{\label{fig:example_srl}Two annotated sentences for the carve-21.2 VerbNet class. All words are not necessarily annotated, and the position of the arguments does not directly determine the roles: the sense and voice of \textit{crush} are consistent between the two sentences but the semantic annotation differs.}
+\end{figure}
+
+Semantic role labeling has tremendously helped to compute semantic
+representations and has been shown to improve multiple tasks such as
+information extraction \citep{surdeanu2003using}, question-answering
+\citep{shen2007using}, event extraction \citep{exner2011using},
+plagarism detection \citep{osman2012improved}, machine translation
+\citep{bazrafshan2013semantic} or even stock price prediction
+\citep{xie2013semantic}.
+
