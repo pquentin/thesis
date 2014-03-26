@@ -72,21 +72,25 @@ dans la phrase.
 \subsection{Frame matching}
 
 Cette étape met en correspondance les syntagmes candidats précédemment
-identifiés à des rôles sémantiques.
+identifiés à des rôles sémantiques. Cette étape inverse deux étapes
+traditionnellement utilisées dans les sytèmes d'annotation en rôles sémantiques
+: \citep{gildea2002automatic,das2014frame} : l'identification des frames et
+l'assignation de rôles aux arguments identifiés. En effet, nous commençons par
+transformer notre liste d'arguments en construction de type VerbNet : si trois
+syntagmes nominaux ont été identifiés comme arguments, dont un avant le verbe,
+la représentation VerbNet de la phrase devient NP V NP NP.
+% TODO confus et pas nécessairement intéressant ?
+Les positions des arguments par rapport aux verbes déterminent la fonction
+grammaticale de ces arguments : le premier argument est le sujet, le second un
+objet direct, et le troisième un object indirect. Enfin, les syntagmes
+prépositionnels sont traités à part. \citep{swier2005exploiting}.
 
-This step matches role fillers to roles when it is possible to do so in an
-unambiguous way. It merges in one step what is traditionally done in two steps:
-frame identification and actual role labeling. We first map our arguments to a
-VerbNet-style construction where the arguments are ordered and the first one
-appears before the verb. Those positions determine the "grammatical function"
-(or slot): the first argument is a syntactic subject, the second one is an
-object, the third one is an indirect object, and chunks whose head word is a
-preposition are "prepositional objects".
-
-Once the grammatical functions have been assigned, we match all possible
-VerbNet frames given the predicate. For example, the \textit{classify}
-predicate exists in two VerbNet frames: \textit{characterize-29.2} and
-\textit{classify-29.10}. The possible frames are:
+Une fois que la phrase a été transformée en représentation Verbnet, nous
+identifions toutes les classes VerbNet incluant le prédicat de la phrase afin
+de comparer les frames de ces classes avec la frame identifiée dans la phrase.
+Par exemple, le prédicat \textit{classify} est présent dans deux classes
+VerbNet : \textit{characterize-29.2} et \textit{classify-29.10}. Les frames
+possibles sont :
 
 \begin{itemize}
     \item NP.Agent V NP.Theme (as) S\_ING.Attribute
@@ -97,47 +101,65 @@ predicate exists in two VerbNet frames: \textit{characterize-29.2} and
     \item NP.Agent V NP.Theme in PP.Location
 \end{itemize}
 
-Given the sentence \emph{The company also classifies short and wide radius
-ruts according to their severity} which is of the form NP V NP according PP, we
-only know how to match the first two noun phrases (Agent, then Theme). There is
-no possible matching for the third argument: there cannot be one, VerbNet
-doesn't encode that \emph{according} is a possible preposition contrary as \emph{in}
-and \emph{as}. VerbNet authors are currently working on the issue of adding new
-information based on syntactic and collocational information drawn from very
-large corpora \citep{bonial2013expanding}.
+Prenons un example. La phrase \emph{The company also classifies short and wide
+radius ruts according to their severity} est transformée en NP V NP according
+PP. Dans ce cas, seuls les deux premiers arguments correspondent à des
+arguments identifiés par VerbNet. Pour ces deux arguments, la correspondance
+n'est pas ambiguë selon VerbNet, et le premier syntagme joue donc le rôle
+d'Agent alors que le second joue le rôle de Theme. Il n'y a pas de
+correspondance possible pour le troisième argument : Verbnet n'encode pas
+\emph{according} comme une préposition possible alors que \emph{in} et
+\emph{as} sont acceptées. Les auteurs de VerbNet travaillent actuellement sur
+le problème en ajoutant des informations syntaxiques et lexicales issues de
+très larges corpus \citep{bonial2013expanding}. Le résultat de ces travaux
+n'est cependant pas encore disponible.
 
-\subsection{Probability models}
+% TODO un exemple de mapping ambigu
+% TODO meilleure terminologie pour ambigu/non ambigu
 
-Now that a part of the corpus has been annotated, we can use this information
-to annotate new ambiguous role fillers. This is still unsupervised as we only
-use data extracted by our own system for the text we need to annotate. Role
-fillers are ambiguous when two or more roles are possible. Several probability
-models are considered which assign probabilities: the best role filler is then
-chosen.
+\subsection{Modèles de probabilité}
+
+Maintenant qu'une partie du corpus a été annotée, nous pouvons utiliser cette
+information pour annoter de nouveaux arguments ambigus. La méthode reste non
+supervisée : bien que nous entraînons une forme simple d'algorithme supervisé,
+nous le faisons sur des données non annotées simplement obtenues sur le corpus
+existant. Dans le cas où un corpus serait inexistant, il est possible
+d'abandonner cette étape ou d'alimenter les modèles de probabilité au fur et à
+mesure des annotations.
+
+Chacun de ces modèles de probabilité assigne une probabilité aux différents
+rôles possibles selon les rôles identifiés de manière non ambiguë auparavant.
+Une correspondance est ambigue quand deux rôles ou plus sont possibles, et est
+non ambigue quand un seul rôle est possible. Différents modèles de probabilités
+issus de \citep{swier2005exploiting} sont considérés.
+
+% TODO belles formules comme dans gildea2002automatic
 
 \paragraph{predicate-slot}
 
-The predicate-slot model uses two informations to determine the role of a given
-role filler: the predicate used, and the detected grammatical function.  For
-example, the Direct Object of the verb ``neglect'' will always be "Theme" based
-on existing data. While the precision is high, it only assigns roles to 40\% of
-arguments: for the other 60\%, we don't have any information on this specific
-(predicate, grammatical function) pair.
+Le modèle \emph{predicate-slot} utilise l'information du prédicat et la
+fonction grammaticale détectée. Par exemple, l'object direct du verbe
+'négliger' sera toujours 'Theme' étant donné notre corpus
+(section~\ref{srl:evaluatipn}). La précision pour ce modèle est forte, mais il
+n'assigne des rôles que pour 40~\% des arguments : dans les autres cas, nous ne
+disposons pas d'assez d'informations pour cette paire (prédicat, fonction
+grammaticale) précise.
 
 \paragraph{slot}
 
-The slot model does not use the predicate information which is sometimes too
-sparse. It simply assigns roles based on grammatical functions. In addition to
-the grammatical functions, the preposition can also be used to assign roles to
-role fillers. For example, the preposition \textit{of} maps to Attribute, Theme
-and Topic (in this order) in our FrameNet corpus. When faced with an ambiguous
-mapping, this means this probability model will choose the first role that
-matches with the possible semantic roles.
+Étant donné que \emph{predicate-slot} ne donne pas de résultats dans tous les
+cas, un modèle plus simple a aussi été utilisé : \emph{slot}. Ce modèle se
+concentre uniquement sur la fonction grammaticale (en incluant la préposition
+considérée). Par exemple, un syntagme prépositionnel \emph{of NP} correspond
+dans l'ordre à Attribute, Theme et Topic dans le corpus utilisé dans cette
+expérience. Dans un contexte précis, c'est le premier rôle possible qui sera
+choisi. Ainsi, si l'étape précédente nous indique que Topic et Recipient sont
+possibles, Topic sera choisi.
 
-Those two simple probabilistic models are complementary: one has a high
-precision but does not cover unseen verbs, while the other one helps to assign
-roles to every verb. However, we chose to not use the second one in its current form due to its low
-precision.
+Ces deux modèles probabilistes simples sont complémentaires : un est précis
+sans couvrir une large partie du corpus, alors que l'autre permet d'assigner un
+rôle à chaque verbe. Cependant, la faible précision du second modèle nous
+empêche de l'utiliser en l'état. % TODO que ce soit clair + future work
 
 \section{Passive voice handling}
 
@@ -166,6 +188,7 @@ This gives better result as passive voices were always wrongly identified
 (Table~\ref{table:results}).
 
 \section{Evaluation}
+\label{srl:evaluation}
 
 L'évaluation se fait sur FrameNet, ce qui permet tout simplement d'avoir une
 idée de la qualité de l'annotation en rôles sémantiques. Le mapping
