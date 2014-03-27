@@ -2,10 +2,14 @@
 % vim: set spell spelllang=fr:
 \documentclass[oneside,parskip]{scrbook}
 
+% no dot after parts
+% http://tex.stackexchange.com/q/102303/46347
+\renewcommand*{\partformat}{\partname~\thepart}
+
 \usepackage[utf8]{inputenc}
 
 % Français
-\usepackage[frenchb]{babel}
+\usepackage[french]{babel}
 % cite, citep
 \usepackage{natbib}
 % Arbre syntaxique
