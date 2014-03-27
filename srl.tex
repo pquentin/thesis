@@ -7,8 +7,6 @@
 %Already based on \citep{fillmore1968case}, it parsed a sentence into what we
 % know call semantic roles. (check)
 
-\gls{frame}
-
 Contrairement aux autres ressources pour l'annotation en rôles sémantiques,
 VerbNet couvre à la fois l'ensemble des verbes fréquents du vocabulaire tout en
 étant conçu sur des préceptes robustes le rendant utile pour les tâches de
@@ -163,65 +161,95 @@ sans couvrir une large partie du corpus, alors que l'autre permet d'assigner un
 rôle à chaque verbe. Cependant, la faible précision du second modèle nous
 empêche de l'utiliser en l'état. % TODO que ce soit clair + future work
 
-\section{Passive voice handling}
+\section{Gestion de la voix passive}
 
-Error analysis revealed that passive voice was a common source of errors in our
-corpus. Indeed, VerbNet does not encode the passive voice since it is a
-syntactic phenomenon: it is up to the syntactic analyser to recognize that the
-real subject is not where we expect it to be. Most syntactic analysers do not
-handle deep structure. Handling such structures can be seen as an intermediate
-step between syntactic analysis and semantic role labeling
-\citep{bonfante2011modular,ribeyre2013systeme}.
+Une analyse d'erreur a révélé que la voix passive était une source d'erreur
+important dans notre corpus FrameNet. En effet, VerbNet n'encode pas la voix
+passive qui est un phénomène syntaxique : c'est à l'analyse syntaxique que les
+sujets et objets syntaxiques doivent être identifié correctement. Une fois
+identifiés, c'est le bon sujet qui doit être comparé avec le sujet VerbNet.
+Cependant, la plupart des analyseurs syntaxiques n'identifient pas de tels
+liens de syntaxe profonde (voix passive, coordination, etc.). Il est donc
+important d'avoir une étape intermédiaire entre l'analyse syntaxique et
+l'annotation en rôles sémantiques \citep{bonfante2011modular,
+ribeyre2013systeme}. Cette étape intermédiaire pourra identifier les sujets et
+objets profonds de tous les verbes considérés, évitant ainsi des erreurs lors
+de l'annotation en rôles sémantiques. 
 
-We handled passive voice in the context of VerbNet by transforming VerbNet
-syntactic frames temporarily whenever a passive voice is detected, that is
-verbs in the past participle form which are governed by a form of the verb ``to
-be''. Given a VerbNet frame such as \textit{NP.Agent V NP.Recipient NP.Theme},
-we produce two transformations:
+Afin de valider cette hypothèse, nous nous sommes concentrés sur la voix
+passive qui était le phénomène de syntaxe le plus présent dans notre corpus.
+% TODO le faire correctement en allant vers VerbNet plutôt qu'en changeant
+% VerbNet
+Nous avons ainsi transformé les frames VerbNet dans les phrases impliquant une
+voix passive, c'est-à-dire les verbes au participe passé gouvernés par une
+forme du verbe \emph{to be}. Étant donné une frame VerbNet telle que
+\textit{NP.Agent V NP.Recipient NP.Theme}, nous produisons :
 
 \begin{itemize}
     \item NP.Recipient V NP.Theme
     \item NP.Recipient V NP.Theme by NP.Agent
 \end{itemize}
 
-Now that the transformation is done, when faced with passive uses of verbs, we
-simple use the new frames instead of the original ones to perform the mapping.
-This gives better result as passive voices were always wrongly identified
+Ce sont ces frames VerbNet transformées qui sont utilisées lorsque qu'une voix
+passive est utilisée. Cette opération donne de meilleurs résultats étant donné
+qu'une voix passive mal détectée cause systématiquement une erreur
 (Table~\ref{table:results}).
 
 \section{Evaluation}
 \label{srl:evaluation}
 
-L'évaluation se fait sur FrameNet, ce qui permet tout simplement d'avoir une
-idée de la qualité de l'annotation en rôles sémantiques. Le mapping
-VerbNet-FrameNet maintenu par le projet SemLink est utilisé.
+L'intérêt de l'algorithme ne réside pas dans l'annotation d'un large corpus
+annoté tel que FrameNet pour lequel les méthodes d'apprentissage supervisées
+sont les plus efficaces \citep{das2014frame}. En effet, cette méthode est
+destinée à annoter de nouveaux domaines non annotés de manière efficace, ce qui
+est l'objet du prochain chapitre~(Chapitre\ref{ch:domainsrl}). Néanmoins,
+FrameNet est un point de comparaison utilisé par de nombreux systèmes
+d'annotation en rôles sémantiques, et il est intéressant d'analyser la
+différence entre différents types d'algorithmes.
 
-Evaluation is currently performed against FrameNet which is one of the standard
-resource for semantic role labeling. The full-text corpus is balanced,
-featuring texts from multiple sources: the Wall Street Journal, the AQUAINT and
-MASC corpora, and other miscellaneous texts.
+FrameNet et VerbNet n'utilisant ni la même séparation en rôles ni la même
+séparation en classes, le mapping VerbNet-FrameNet maintenu par le projet
+SemLink est utilisé. Il est possible que la création de ce mapping ait causé
+directement ou indirectement l'ajout de nouvelles information dans VerbNet.
+Autrement dit, il est possible que VerbNet soit davantage tourné vers FrameNet
+qu'un autre corpus, et que par conséquent les résultats soient meilleurs que
+pour un autre corpus. Néanmoins, si c'est le cas, c'est une situation
+encourageante : il suffirait d'ajouter des informations dans VerbNet pour avoir
+de meilleurs scores dans d'autres domaines.
+
+Le corpus FrameNet est équilibré et inclue des textes de diverses sources : le
+Wall Street Journal, les corpus AQUAINT et MASC, ainsi que d'autres textes
+divers.
 
 \subsection{Corpora and tools}
 
-In this experiment, we are using the full-text corpus of FrameNet 1.5, VerbNet
-3.2, the VerbNet-FrameNet role mapping version
-1.2.2c\footnote{\url{http://verbs.colorado.edu/semlink/1.2.2c/vn-fn/}}. Only
-core arguments are considered since VerbNet often ignores the non-core FrameNet
-arguments.
+Nous utilisons le corpus full-text de FrameNet 1.5 (mais pas le corpus
+d'exemples), VerbNet 3.2, le mapping VerbNet-FrameNet 1.2.2c
+\footnote{\url{http://verbs.colorado.edu/semlink/1.2.2c/vn-fn/}}. Seuls les
+arguments Core sont annotés : ils correspondent à la philosophie de VerbNet sur
+ce point et correspondent en pratique aux arguments VerbNet.
 
-When working on the full semantic-parsing task, we use MST parser 0.5.0
-\citep{mcdonald2006multilingual}. The parser is trained on a modified Wall
-Street Journal corpus modified using NP
-bracketing\footnote{\url{http://sydney.edu.au/engineering/it/~dvadas1/}} and
-the LTH conversion tool for CONLL
-conversion\footnote{\url{http://nlp.cs.lth.se/software/treebank_converter/}}.
-Since FrameNet uses parts of the Wall Street Journal corpus, we removed six
-files before training: 0558, 0089, 0456, 1778, 1286 and 1695. This ensures the
-MST parser never has to parse sentences from the training set and avoids bias.
-The FrameNet part-of-speech tags were converted from the BNC tagset to the WSJ
-tagset using manually-defined rules (Table~\ref{table:tagset_rules}). On the
-six files mentioned earlier, this reduces the number of part-of-speech tags
-differences from 23\% to 3\%.
+% TODO de toute façon il faut utiliser ce qui est fourni par SEMAFOR
+En travaillant sur la tâche complète qui inclut l'identification des arguments,
+nous utilisons le parser MST dans sa version 0.5.0
+\citep{mcdonald2006multilingual} entraîné sur une version modifiée du Wall
+Street Journal. Nous avons d'abord transformé l'encodage des syntagmes nominaux
+\footnote{\url{http://sydney.edu.au/engineering/it/~dvadas1/}}
+\citep{vadas2007adding} puis appliqué l'outil de conversion du LTC pour une
+conversion au format CoNLL
+\footnote{\url{http://nlp.cs.lth.se/software/treebank_converter/}}
+\citep{johansson2007extended}.
+
+FrameNet incluant des parties du corpus du Wall Street Journal, nous avons
+supprimé les fichiers 0558, 0089, 0456, 1778, 1286 et 1695 avant d'entraîner
+l'analyseur syntaxique. Ceci évite à l'analyseur d'avoir à analyser des phrases
+déjà observées dans le corpus d'entraînement, ce qui pourrait améliorer les
+résultats artificiellement.
+
+Enfin, les étiquette morphosyntaxique de FrameNet, utilisées lors de l'analyse
+syntaxique, ont étés converties de la convention BNC à la convention WSJ en
+utilisant des règles manuelles (Table~\ref{table:tagset_rules}). Sur les six
+fichiers du Wall Street Journal, ceci réduit les erreurs de 23\% à 3\%.
 
 \begin{table}[hb]
     \centering
