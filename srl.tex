@@ -10,18 +10,18 @@
 Contrairement aux autres ressources pour l'annotation en rôles sémantiques,
 VerbNet couvre à la fois l'ensemble des verbes fréquents du vocabulaire tout en
 étant conçu sur des préceptes robustes le rendant utile pour les tâches de
-Traitement Automatique des Langues.
+Traitement Automatique des Langues (Section~\ref{ch:verbnet:sec:verbnet}).
 
 La tâche d'annotation en rôles sémantiques a reçu beaucoup d'attention ces
-dernières années, que ce soit pour les approches supervisées ou non
-supervisées. Cependant, les approches basées sur la connaissance ont été
-négligées alors qu'elles apportent un compromis intéressant et sont
-complémentaires par rapport aux autres approches. Ce chapitre présente un tel
-système qui se veut simple et facile à reproduire. Nous montrons aussi comment
-la prise en compte de la voix passive réduit le taux d'erreur de 15.7~\%, ce
-qui met en avant les possibilités offertes par un tel système : une approche
-simple qui facilite l'analyse des erreurs, qui n'a pas besoin d'un corpus
-annoté manuellement et qui n'est pas spécifique à un domaine en particulier.
+dernières années, à la fois pour les approches supervisées et semi-supervisées.
+Cependant, les approches basées sur la connaissance ont été négligées alors
+qu'elles sont complémentaires par rapport aux autres approches. Ce chapitre
+présente un système d'annotation en rôles sémantiques qui se veut simple et
+facile à reproduire. Nous montrons aussi comment la prise en compte de la voix
+passive réduit le taux d'erreur de 15.7~\%, ce qui met en avant les
+possibilités offertes par un tel système : une approche simple qui facilite
+l'analyse des erreurs, qui n'a pas besoin d'un corpus annoté manuellement et
+qui n'est pas spécifique à un domaine en particulier.
 
 \section{Algorithme}
 
@@ -30,13 +30,14 @@ L'algorithme présenté est similaire à
 est important d'évaluer à nouveau cette approche pour savoir où elle se situe
 par rapport à l'état de l'art et comprendre les améliorations possibles.
 
-Le principe est d'utiliser directement les informations proposées par VerbNet.
-Par exemple, VerbNet peut indiquer que dans une certaine classe, le cadre de
-sous-catégorisation NP V NP correspond aux rôles Agent V Theme. Cette notation
-indique que lorsque que le sujet du verbe est un syntagme nominal et que
-l'objet du verbe est aussi un syntagme nominal, ils jouent respectivement les
-rôles d'Agent et Theme. Dans certains cas, un même cadre de sous-catégorisation
-peut correspondre à plusieurs annotations en rôles sémantiques différentes. En effet :
+Les informations de VerbNet sur l'interface entre la syntaxe et la sémantique
+sont directement utilisées. Par exemple, VerbNet peut indiquer que dans une
+certaine classe, le cadre de sous-catégorisation NP V NP correspond aux rôles
+Agent V Theme (Chapitre~\ref{ch:verbnet}). Cette notation indique que lorsque
+que le sujet du verbe est un syntagme nominal et que l'objet du verbe est aussi
+un syntagme nominal, ils jouent respectivement les rôles d'Agent et Theme. Dans
+certains cas, un même cadre de sous-catégorisation peut correspondre à
+plusieurs annotations en rôles sémantiques différentes. En effet :
 
 \begin{itemize}
 
@@ -52,45 +53,55 @@ peut correspondre à plusieurs annotations en rôles sémantiques différentes. 
 
 Sans corpus annoté, ces ambiguïtés ne peuvent pas être résolues. Cependant, une
 fois qu'une première série de correspondances a été effectuée, il est possible
-d'utiliser les connaissances du domaine étudié pour annoter de nouveaux verbes
-auparavant inaccessibles.
+d'utiliser les connaissances du domaine étudié pour annoter de nouveaux
+syntagmes nominaux.
+
+L'algorithme se déroule en trois étapes.
 
 \subsection{Identification des arguments}
 
-Cette première étape identifie les syntagmes amenés à recevoir un rôles
-sémantique lors de l'annotation. La phrase est d'abord analysée syntaxiquement
-puis certains syntagmes de la phrase sont considérés. Pour cette étape, nous
-suivons \cite{lang2011unsupervised} qui propose huit règles proposant chacune
-des syntagmes candidats. Ces règles génèrent trop de candidats : il faudra par
-la suite soit assigner un rôle au candidat soit déclarer qu'il n'a pas de rôle
-dans la phrase.
+% TODO predicate identification ?
+
+Cette première étape identifie les syntagmes amenés à recevoir un rôle
+sémantique lors de l'annotation. La phrase est analysée syntaxiquement afin de
+déterminer les syntagmes qui peuvent jouer un rôle sémantique. Pour cette
+étape, nous suivons \cite{lang2011unsupervised} qui propose huit règles
+proposant chacune des syntagmes candidats. Ces règles génèrent trop de
+candidats : il faudra par la suite soit assigner un rôle au candidat soit
+déclarer qu'il n'a pas de rôle dans la phrase.
 
 % TODO Examples
-% TODO Règles
-% TODO gold
+% TODO Règles vraiment utilisées
+
+Cette première étape est facultative : afin de mieux comprendre les
+performances des étapes suivantes, ce seront parfois les arguments de la
+vérité-terrain qui seront utilisés lors de l'évaluation.
 
 \subsection{Frame matching}
 
-Cette étape met en correspondance les syntagmes candidats précédemment
-identifiés à des rôles sémantiques. Cette étape inverse deux étapes
-traditionnellement utilisées dans les sytèmes d'annotation en rôles sémantiques
-: \citep{gildea2002automatic,das2014frame} : l'identification des frames et
-l'assignation de rôles aux arguments identifiés. En effet, nous commençons par
-transformer notre liste d'arguments en construction de type VerbNet : si trois
-syntagmes nominaux ont été identifiés comme arguments, dont un avant le verbe,
-la représentation VerbNet de la phrase devient NP V NP NP.
+Cette étape associe zero, un ou plusieurs rôles sémantiques à chaque syntagme
+candidat identifié lors de l'étape précédente.
+
+% TODO dans l'état de l'art ?
+Cette étape inverse deux étapes traditionnellement utilisées dans les systèmes
+d'annotation en rôles sémantiques : \citep{gildea2002automatic,das2014frame} :
+l'identification des frames et l'assignation de rôles aux arguments identifiés.
+
+Premièrement, les syntagmes candidats sont représentés au format VerbNet. Par
+exemple, si trois syntagmes nominaux ont été identifiés comme arguments, dont
+un avant le verbe, la représentation VerbNet de la phrase devient NP V NP NP.
+
 % TODO confus et pas nécessairement intéressant ?
 Les positions des arguments par rapport aux verbes déterminent la fonction
 grammaticale de ces arguments : le premier argument est le sujet, le second un
 objet direct, et le troisième un object indirect. Enfin, les syntagmes
 prépositionnels sont traités à part. \citep{swier2005exploiting}.
 
-Une fois que la phrase a été transformée en représentation Verbnet, nous
-identifions toutes les classes VerbNet incluant le prédicat de la phrase afin
-de comparer les frames de ces classes avec la frame identifiée dans la phrase.
-Par exemple, le prédicat \textit{classify} est présent dans deux classes
-VerbNet : \textit{characterize-29.2} et \textit{classify-29.10}. Les frames
-possibles sont :
+Pour comparer la représentation VerbNet de la phrase aux frames VerbNet, nous
+identifions toutes les classes VerbNet incluant le prédicat. Par exemple, le
+prédicat \textit{classify} est présent dans deux classes VerbNet~:
+\textit{characterize-29.2} et \textit{classify-29.10}. Les frames possibles
+sont~:
 
 \begin{itemize}
     \item NP.Agent V NP.Theme (as) S\_ING.Attribute
@@ -101,36 +112,42 @@ possibles sont :
     \item NP.Agent V NP.Theme in PP.Location
 \end{itemize}
 
+% TODO documenter la gestion des PP - demande de savoir comment on unifie avec
+% domainsrl
 Prenons un example. La phrase \emph{The company also classifies short and wide
 radius ruts according to their severity} est transformée en NP V NP according
-PP. Dans ce cas, seuls les deux premiers arguments correspondent à des
-arguments identifiés par VerbNet. Pour ces deux arguments, la correspondance
-n'est pas ambiguë selon VerbNet, et le premier syntagme joue donc le rôle
-d'Agent alors que le second joue le rôle de Theme. Il n'y a pas de
-correspondance possible pour le troisième argument : Verbnet n'encode pas
-\emph{according} comme une préposition possible alors que \emph{in} et
-\emph{as} sont acceptées. Les auteurs de VerbNet travaillent actuellement sur
-le problème en ajoutant des informations syntaxiques et lexicales issues de
-très larges corpus \citep{bonial2013expanding}. Le résultat de ces travaux
-n'est cependant pas encore disponible.
+PP.
+
+Dans ce cas, seuls les deux premiers arguments correspondent à des arguments
+identifiés par VerbNet. Pour ces deux arguments, la correspondance n'est pas
+ambiguë : les deux premiers syntagmes jouent le rôle d'Agent et de Theme.  Il
+n'y a pas de correspondance possible pour le troisième argument : Verbnet
+n'encode pas \emph{according} comme une préposition possible alors que
+\emph{in} et \emph{as} sont acceptées. Les auteurs de VerbNet travaillent
+actuellement sur la couverture de la ressource en ajoutant des informations
+syntaxiques et lexicales issues de très larges corpus
+\citep{bonial2013expanding}. Le résultat de ces travaux n'est cependant pas
+encore disponible.
 
 % TODO un exemple de mapping ambigu
 % TODO meilleure terminologie pour ambigu/non ambigu
 
 \subsection{Modèles de probabilité}
+\label{subsec:probability}
 
 Maintenant qu'une partie du corpus a été annotée, nous pouvons utiliser cette
 information pour annoter de nouveaux arguments ambigus. La méthode reste non
 supervisée : bien que nous entraînons une forme simple d'algorithme supervisé,
 nous le faisons sur des données non annotées simplement obtenues sur le corpus
-existant. Dans le cas où un corpus serait inexistant, il est possible
-d'abandonner cette étape ou d'alimenter les modèles de probabilité au fur et à
-mesure des annotations.
+existant. Nous faisons ici l'hypothèse qu'un corpus entier est à annoter, mais
+dans le cas où un corpus serait inexistant, il serait possible d'abandonner
+cette étape ou d'alimenter les modèles de probabilité au fur et à mesure des
+annotations.
 
 Chacun de ces modèles de probabilité assigne une probabilité aux différents
 rôles possibles selon les rôles identifiés de manière non ambiguë auparavant.
-Une correspondance est ambigue quand deux rôles ou plus sont possibles, et est
-non ambigue quand un seul rôle est possible. Différents modèles de probabilités
+Une correspondance est ambiguë quand deux rôles ou plus sont possibles, et est
+non ambiguë quand un seul rôle est possible. Différents modèles de probabilités
 issus de \citep{swier2005exploiting} sont considérés.
 
 % TODO belles formules comme dans gildea2002automatic
@@ -138,12 +155,13 @@ issus de \citep{swier2005exploiting} sont considérés.
 \paragraph{predicate-slot}
 
 Le modèle \emph{predicate-slot} utilise l'information du prédicat et la
-fonction grammaticale détectée. Par exemple, l'object direct du verbe
-'négliger' sera toujours 'Theme' étant donné notre corpus
-(section~\ref{srl:evaluation}). La précision pour ce modèle est forte, mais il
-n'assigne des rôles que pour 40~\% des arguments : dans les autres cas, nous ne
-disposons pas d'assez d'informations pour cette paire (prédicat, fonction
-grammaticale) précise.
+fonction grammaticale détectée. Par exemple, dans notre corpus
+(section~\ref{subsec:corpora_tools}), l'objet direct du verbe 'négliger' est le
+plus souvent 'Theme'.
+
+La précision pour ce modèle est forte, mais il n'assigne des rôles que pour
+40~\% des arguments : dans les autres cas, nous ne disposons pas d'assez
+d'informations pour cette paire (prédicat, fonction grammaticale) précise.
 
 \paragraph{slot}
 
@@ -162,12 +180,13 @@ rôle à chaque verbe. Cependant, la faible précision du second modèle nous
 empêche de l'utiliser en l'état. % TODO que ce soit clair + future work
 
 \section{Gestion de la voix passive}
+\label{sec:passif}
 
 Une analyse d'erreur a révélé que la voix passive était une source d'erreur
-important dans notre corpus FrameNet. En effet, VerbNet n'encode pas la voix
+importante dans notre corpus FrameNet. En effet, VerbNet n'encode pas la voix
 passive qui est un phénomène syntaxique : c'est à l'analyse syntaxique que les
-sujets et objets syntaxiques doivent être identifié correctement. Une fois
-identifiés, c'est le bon sujet qui doit être comparé avec le sujet VerbNet.
+sujets et objets syntaxiques doivent être identifiés correctement. Une fois
+identifiés, c'est le sujet profond qui doit être comparé avec le sujet VerbNet.
 Cependant, la plupart des analyseurs syntaxiques n'identifient pas de tels
 liens de syntaxe profonde (voix passive, coordination, etc.). Il est donc
 important d'avoir une étape intermédiaire entre l'analyse syntaxique et
@@ -191,21 +210,18 @@ forme du verbe \emph{to be}. Étant donné une frame VerbNet telle que
 \end{itemize}
 
 Ce sont ces frames VerbNet transformées qui sont utilisées lorsque qu'une voix
-passive est utilisée. Cette opération donne de meilleurs résultats étant donné
-qu'une voix passive mal détectée cause systématiquement une erreur
-(Table~\ref{table:results}).
+passive est utilisée, ce qui améliore les résultats (Table~\ref{table:results}).
 
 \section{Evaluation}
 \label{srl:evaluation}
 
 L'intérêt de l'algorithme ne réside pas dans l'annotation d'un large corpus
 annoté tel que FrameNet pour lequel les méthodes d'apprentissage supervisées
-sont les plus efficaces \citep{das2014frame}. En effet, cette méthode est
-destinée à annoter de nouveaux domaines non annotés de manière efficace, ce qui
-est l'objet du prochain chapitre~(Chapitre\ref{ch:domainsrl}). Néanmoins,
-FrameNet est un point de comparaison utilisé par de nombreux systèmes
-d'annotation en rôles sémantiques, et il est intéressant d'analyser la
-différence entre différents types d'algorithmes.
+sont les plus efficaces \citep{das2014frame}. En effet, notre méthode est
+destinée à annoter de nouveaux domaines non annotés de manière efficace
+(Chapitre~\ref{ch:domainsrl}). Néanmoins, FrameNet est un point de comparaison
+utilisé par de nombreux systèmes d'annotation en rôles sémantiques auxquels il
+est intéressant de se comparer.
 
 FrameNet et VerbNet n'utilisant ni la même séparation en rôles ni la même
 séparation en classes, le mapping VerbNet-FrameNet maintenu par le projet
@@ -217,17 +233,18 @@ pour un autre corpus. Néanmoins, si c'est le cas, c'est une situation
 encourageante : il suffirait d'ajouter des informations dans VerbNet pour avoir
 de meilleurs scores dans d'autres domaines.
 
-Le corpus FrameNet est équilibré et inclue des textes de diverses sources : le
+Le corpus FrameNet est équilibré et inclut des textes de diverses sources : le
 Wall Street Journal, les corpus AQUAINT et MASC, ainsi que d'autres textes
 divers.
 
 \subsection{Corpora and tools}
+\label{subsec:corpora_tools}
 
 Nous utilisons le corpus full-text de FrameNet 1.5 (mais pas le corpus
 d'exemples), VerbNet 3.2, le mapping VerbNet-FrameNet 1.2.2c
 \footnote{\url{http://verbs.colorado.edu/semlink/1.2.2c/vn-fn/}}. Seuls les
-arguments Core sont annotés : ils correspondent à la philosophie de VerbNet sur
-ce point et correspondent en pratique aux arguments VerbNet.
+arguments Core sont annotés étant donné que ce sont généralement les arguments
+annotés par VerbNet.
 
 % TODO de toute façon il faut utiliser ce qui est fourni par SEMAFOR
 En travaillant sur la tâche complète qui inclut l'identification des arguments,
@@ -241,17 +258,17 @@ conversion au format CoNLL
 \citep{johansson2007extended}.
 
 FrameNet incluant des parties du corpus du Wall Street Journal, nous avons
-supprimé les fichiers 0558, 0089, 0456, 1778, 1286 et 1695 avant d'entraîner
-l'analyseur syntaxique. Ceci évite à l'analyseur d'avoir à analyser des phrases
-déjà observées dans le corpus d'entraînement, ce qui pourrait améliorer les
-résultats artificiellement.
+supprimé les fichiers 0558, 0089, 0456, 1778, 1286 et 1695 du corpus
+d'entraînement de l'analyseur syntaxique. Ceci évite à l'analyseur d'avoir à
+analyser des phrases déjà observées dans le corpus d'entraînement, ce qui
+aurait pu améliorer les résultats artificiellement.
 
-Enfin, les étiquette morphosyntaxique de FrameNet, utilisées lors de l'analyse
+Enfin, les étiquettes morphosyntaxique de FrameNet, utilisées lors de l'analyse
 syntaxique, ont étés converties de la convention BNC à la convention WSJ en
 utilisant des règles manuelles (Table~\ref{table:tagset_rules}). Sur les six
 fichiers du Wall Street Journal, ceci réduit les erreurs de 23\% à 3\%.
 
-\begin{table}[hb]
+\begin{table}[ht]
     \centering
     \begin{tabular}{ccc|ccc}
         \toprule
@@ -274,9 +291,9 @@ fichiers du Wall Street Journal, ceci réduit les erreurs de 23\% à 3\%.
 
 % FUTURE SEMAFOR MXPOST/MST
 
-\subsection{Evaluation procedure}
+\subsection{Procédure d'évaluation}
 
-\begin{table*}[t!]
+\begin{table*}[ht]
     \centering
     \begin{tabular}{lcccc}
         \toprule
@@ -295,43 +312,53 @@ fichiers du Wall Street Journal, ceci réduit les erreurs de 23\% à 3\%.
 
 Les rôles annotés de chaque phrase FrameNet sont d'abord transformés en rôles
 VerbNet. Pour chaque classe FrameNet, un rôle FrameNet peut correspondre à 0, 1
-ou plusieurs rôles VerbNet.
+ou plusieurs rôles VerbNet :
 
-Le mapping étant incomplet, seulement 4605 rôles sur le 10052 rôles présents
-dans FrameNet ont au moins une association VerbNet.
-% TODO Cependant, en pratique, dans le corpus FrameNet, XX~\% des occurrences
-% de rôles sont associées à plus d'un rôle VerbNet
+\begin{itemize}
 
-Dans d'autres cas, la correspondance est ambigue : ces rôles ne sont pas pris
-en compte dans l'évaluation. Les rôles FrameNet étant plus précis que les rôles
-FrameNet, cette situation est rare. % TODO dans quelle mesure ?
+    \item zéro : n'y pas de correspondance pour les frames FrameNet trop éloignées
+    des classes VerbNet. C'est un problème répandu :  seulement 4605 rôles sur le
+    10052 rôles présents dans FrameNet ont au moins une association VerbNet.
+    % TODO Cependant, en pratique, dans le corpus FrameNet, XX~\% des occurrences
+    % de rôles sont associées à plus d'un rôle VerbNet
+
+    \item plusieurs : Il y a plusieurs correspondances quand un rôle FrameNet
+    est ambigu par rapport à un rôle VerbNet. Les rôles FrameNet étant définis plus
+    précisément, c'est un problème rare. % TODO dans quelle mesure ?
+
+\end{itemize}
 
 Dans tous les autres cas, un rôle FrameNet correspond à un rôle VerbNet unique,
-et c'est ce rôle que notre système doit déterminer. Nous mesurons la précision,
-le rappel et l'exactitude (\emph{accuracy}) des associations role/role fillers.
-10~\% du corpus a été utilisé pour obtenir les résultat, le reste est un corpus
-"d'entraînement" : le corpus qui a été examiné manuellement pour identifier les
-erreurs de notre algorithme.
+et c'est ce rôle VerbNet que notre système doit déterminer. Nous mesurons la
+précision, le rappel et l'exactitude (\emph{accuracy}) des associations
+role/syntagmes candidats.  10~\% du corpus a été utilisé pour obtenir les
+résultats, le reste est un corpus "d'entraînement" : le corpus qui a été
+examiné manuellement pour identifier les erreurs de notre algorithme.
 
 La table~\ref{table:results} montre les résultats des deux tâches sur
 lesquelles nous nous évaluons : le frame matching seul d'une part et le frame
-matching accompagné de l'identification des rôles en amont d'autre part. Le
+matching accompagné de l'identification des arguments en amont d'autre part. Le
 frame matching seul utilise les arguments golds : on sait que ce syntagme joue
 un rôle, il faut alors déterminer lequel. L'identification des arguments
 implique que le texte de départ est une phrase brute : il faut l'analyser
 syntaxiquement, identifier les arguments, puis réaliser le frame matching à
 proprement parler.
 
-Enfin, les modèles appliqués sont différents :
+Enfin, différents modèles sont appliqués :
 
 \begin{itemize}
 
     \item \emph{passif} indique que la voix passive a été prise en compte
+    (section~\ref{sec:passif}).
 
     \item \emph{predicate-slot} indique que le modèle de probabilité
-    \emph{prédicat-slot} a été appliqué
+    \emph{prédicat-slot} a été appliqué (section~\ref{subsec:probability}).
 
 \end{itemize}
+
+\section{Résultats}
+
+\subsection{Analyse des résultats}
 
 Premièrement, l'identification des arguments doit être améliorée de manière
 significative car elle pénalise les étapes ultérieures.
@@ -354,7 +381,7 @@ supervisées \citep{abend2009unsupervised}.
         predicate-slot & 68.33\% & 38.33\% \\
         \bottomrule
     \end{tabular}
-    \caption{\protect\centering\label{table:probabilisticresults}Results for probabilistic models}
+    \caption{\protect\centering\label{table:probabilisticresults}Résultats pour les modèles de probabilité}
 \end{table}
 
 La table~\ref{table:probabilisticresults} montre la complémentarité de nos
@@ -383,11 +410,12 @@ raisons~:
 
 \end{itemize}
 
-\subsection{SEMAFOR comparison}
+\subsection{Comparaison avec SEMAFOR}
 
+% TODO scores sont en XX
 SEMAFOR \citep{das2014frame} est l'état de l'art de l'annotation en rôle
 sémantiques supervisée : c'est le système qui obtient les meilleurs résultats
-sur le corpus full-text de FrameNet. Toutes les parties du discours sont
+sur le corpus full-text de FrameNet 1.5. Toutes les parties du discours sont
 annotées alors que nous ne nous concentrons que sur les verbes. Sur la tâche
 complète, SEMAFOR obtient un score F1 de XX~\%, score à comparer avec les XX\~
 de notre systèmes. Le système de SEMAFOR découpe la tâche en trois parties :
@@ -413,9 +441,9 @@ sont à identifier pour les domaines où de tels corpus ne sont pas disponibles.
 
 \section{Travaux futurs}
 
-La suite naturelle de ce travail est de l'appliquer à des domaines spécifiques,
-ce qui est fait au chapitre~\ref{ch:domainsrl} pour les domaines du football,
-du réchauffement climatique et de l'informatique.
+La suite naturelle de ce travail est de l'appliquer à des domaines spécifiques
+(Chapitre~\ref{ch:domainsrl}) pour les domaines du football, du réchauffement
+climatique et de l'informatique.
 
 Nous pensons aussi prendre en compte la similarité entre les role fillers déjà
 identifiés et les role fillers encore à identifier afin d'améliorer nos modèles
@@ -427,11 +455,10 @@ correct.
 
 Enfin, de la même manière que la prise en compte de la voix passive a amélioré
 les résultats, d'autres phénomènes de syntaxe profonde doivent être pris en
-compte. La coordination est une autre source commune d'erreur.
-
-Quand deux verbes partagent le même sujet, une analyse syntaxique profonde
-indique à chaque fois quel est le sujet profond. Voici deux exemples tirés de
-notre corpus FrameNet :
+compte. La coordination est une autre source commune d'erreur. En effet, quand
+deux verbes partagent le même sujet, une analyse syntaxique profonde indique à
+chaque fois quel est le sujet profond. Voici deux exemples tirés de notre
+corpus FrameNet :
 
 \begin{itemize}
     \item You are not fair when you belittle Sheik Bin Baz 's blunder and
