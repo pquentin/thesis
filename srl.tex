@@ -293,36 +293,56 @@ fichiers du Wall Street Journal, ceci réduit les erreurs de 23\% à 3\%.
     \caption{\protect\centering\label{table:results}Results on different tasks. FM is frame matching. Lines with \emph{passive} include the passsive voice detection. Identification is argument identification.}
 \end{table*}
 
-We feed each FrameNet sentence in the corpus to our system which performs
-semantic role labeling. For each role filler annotated
-in the FrameNet corpus with a verbal predicate, we use the mapping to know what
-is the set of possible VerbNet roles given the FrameNet frame. This is possibly
-ambiguous, mostly because a FrameNet frame can refer to multiple VerbNet
-classes: we don't evaluate against those roles.
+Les rôles annotés de chaque phrase FrameNet sont d'abord transformés en rôles
+VerbNet. Pour chaque classe FrameNet, un rôle FrameNet peut correspondre à 0, 1
+ou plusieurs rôles VerbNet.
 
-Another difficulty is that the mapping isn't complete: some VerbNet classes
-cannot be mapped from FrameNet to VerbNet. Indeed, only 4605 out of 10052 roles
-are mapped: we only evaluate against those frames.
+Le mapping étant incomplet, seulement 4605 rôles sur le 10052 rôles présents
+dans FrameNet ont au moins une association VerbNet.
+% TODO Cependant, en pratique, dans le corpus FrameNet, XX~\% des occurrences
+% de rôles sont associées à plus d'un rôle VerbNet
 
-We measure precision, recall, and accuracy of correct role/role filler
-associations out of the FrameNet ones that have been converted to VerbNet-style
-roles. 10\% of the corpus was used as a test set, while the other 90\% were
-manually scanned to check for issues in our algorithm.
+Dans d'autres cas, la correspondance est ambigue : ces rôles ne sont pas pris
+en compte dans l'évaluation. Les rôles FrameNet étant plus précis que les rôles
+FrameNet, cette situation est rare. % TODO dans quelle mesure ?
 
-Table~\ref{table:results} shows results on different tasks. The first three
-tasks are evaluated on gold arguments: argument identification was not needed, which
-definitely helps the models. The following two tasks are evaluated on the full
-frame-semantic parsing task: arguments are identified automatically based on
-automatic parses. The full model is "Identification + FM + predicate-slot": it
-associates argument identification, frame matching and the predicate-slot
-probabilistic model.
+Dans tous les autres cas, un rôle FrameNet correspond à un rôle VerbNet unique,
+et c'est ce rôle que notre système doit déterminer. Nous mesurons la précision,
+le rappel et l'exactitude (\emph{accuracy}) des associations role/role fillers.
+10~\% du corpus a été utilisé pour obtenir les résultat, le reste est un corpus
+"d'entraînement" : le corpus qui a été examiné manuellement pour identifier les
+erreurs de notre algorithme.
 
-The main takeaway is that argument identification needs to be improved
-significantly to help our model reach acceptable levels of performance. The
-first issue is that only around 76\% of arguments are present in our dependency
-parses. The second issue is the heuristics we used for argument identification:
-they need to be analysed more thoroughly or replaced with alternatives
-approaches \citep{abend2009unsupervised}.
+La table~\ref{table:results} montre les résultats des deux tâches sur
+lesquelles nous nous évaluons : le frame matching seul d'une part et le frame
+matching accompagné de l'identification des rôles en amont d'autre part. Le
+frame matching seul utilise les arguments golds : on sait que ce syntagme joue
+un rôle, il faut alors déterminer lequel. L'identification des arguments
+implique que le texte de départ est une phrase brute : il faut l'analyser
+syntaxiquement, identifier les arguments, puis réaliser le frame matching à
+proprement parler.
+
+Enfin, les modèles appliqués sont différents :
+
+\begin{itemize}
+
+    \item \emph{passif} indique que la voix passive a été prise en compte
+
+    \item \emph{predicate-slot} indique que le modèle de probabilité
+    \emph{prédicat-slot} a été appliqué
+
+\end{itemize}
+
+Premièrement, l'identification des arguments doit être améliorée de manière
+significative car elle pénalise les étapes ultérieures.
+
+La première raison est que seulement 76~\% des syntagmes jouant un rôle font
+effectivement partie de l'analyse syntaxique.
+% TODO inclure les mots seuls ? Vérifier la citation de SEMAFOR
+La seconde raison provient des heuristiques utilisées pour l'identification
+elle-même : une analyse plus poussée permettrait de mieux comprendre les
+erreurs qu'elles causent. Des alternatives existent, supervisées ou non
+supervisées \citep{abend2009unsupervised}.
 
 \begin{table}[ht]
     \centering
@@ -337,9 +357,10 @@ approaches \citep{abend2009unsupervised}.
     \caption{\protect\centering\label{table:probabilisticresults}Results for probabilistic models}
 \end{table}
 
-Table~\ref{table:probabilisticresults} highlights the complementary nature of
-our models: the predicate slot model has better precision but lower coverage
-than the slot model.
+La table~\ref{table:probabilisticresults} montre la complémentarité de nos
+modèles : le modèle prédicat-slot est précis mais couvre peu de verbes, alors
+que le modèle slot couvre l'ensemble des verbes.
+% TODO narrative logique, soit on prend soit on prend pas.
 
 \begin{figure}[t]
     \centering
@@ -347,57 +368,70 @@ than the slot model.
     \caption{\label{fig:slot_predicate} slot-predicate model performance when training over a part of the training corpus: from 0 to 100\%.}
 \end{figure}
 
-Figure~\ref{fig:slot_predicate} highlights that we don't need the whole corpus
-to attain this level of performance. This is interesting because our methods
-can operate efficiently on a small domain-specific corpus and because the full
-potential of this corpus is not fully realized.
+La figure~\ref{fig:slot_predicate} montre que ce niveau de performance ne
+demande pas un gros corpus. C'est un enseignement intéressant pour deux
+raisons~:
+
+\begin{itemize}
+
+    \item Un corpus de petite taille suffit pour obtenir cette performance, ce
+    qui est adapté à des domaines où les corpus même non annotés peuvent être
+    petits.
+
+    \item L'algorithme ne fait pas de sur-apprentissage en ayant un biais fort
+    et une variance faible, ce qui est souhaitable ici.
+
+\end{itemize}
 
 \subsection{SEMAFOR comparison}
 
-SEMAFOR \citep{das2014frame} is currently the state-of-the-art supervised
-frame-semantic parser on the SemEval test sets and FrameNet full-text corpus.
-It annotates all FrameNet parts-of-speech while we only concentrate on verbs.
-It achieves 46.49\% F1 score on the full task, which should be compared with
-the 25\% F1 score of our system.  SEMAFOR uses three stages for semantic
-parsing:
+SEMAFOR \citep{das2014frame} est l'état de l'art de l'annotation en rôle
+sémantiques supervisée : c'est le système qui obtient les meilleurs résultats
+sur le corpus full-text de FrameNet. Toutes les parties du discours sont
+annotées alors que nous ne nous concentrons que sur les verbes. Sur la tâche
+complète, SEMAFOR obtient un score F1 de XX~\%, score à comparer avec les XX\~
+de notre systèmes. Le système de SEMAFOR découpe la tâche en trois parties :
 
 \begin{itemize}
-    \item target identification
-    \item frame identification
-    \item argument identification
+    \item identification des prédicats déclencheurs
+    \item identification des frames FrameNet
+    \item identification des arguments et annotation en rôles sémantiques 
 \end{itemize}
 
-As such, it cannot be compared directly with our system which does not solve
-the task using the same structure. However, it is interesting to note how
-important is the training data: for frame identification with gold
-targets\footnote{Results for automatic targets were only given for the SemEval
-2007 dataset}, the same models grows from 74.21\% to 90.51\% in F1-score for
-frame identification when switching from the SemEval 2007 dataset to the
-FrameNet 1.5 dataset. Likewise, for argument identification and gold
-frames\footnotemark[\value{footnote}], the results grow from 48.09\% to
-68.93\%. The size of the training data is extremely important, while our
-approach is better suited to domain adaptation where large annotated corpora
-are seldom available.
+Une comparaison directe n'est pas possible étant donné que les tâches sont
+découpées différemment de notre système. Cependant, il est intéressant de noter
+l'importance des données d'entraînement : pour l'identification des frames
+FrameNet avec des prédicats golds\footnote{les résultats pour des déclencheurs
+identifiés manuellement n'ont été donné que pour le corpus SemEval, un
+sous-ensemble du corpus FrameNet 1.5 complet}, les mêmes modèles grimpent de
+74.21~\% à 90.51~\% quand la taille du corpus augmente en passant du corpus
+SemEval (XXX phrases) au corpus FrameNet 1.5 (XXX phrases). De la même manière
+pour l'identification des arguments avec des frames FrameNet gold, les
+résultats augmente de 48.09~\% 68.83~\%. C'est très encourageant pour les
+domaines disposant de très gros corpus, mais suggère que d'autres solutions
+sont à identifier pour les domaines où de tels corpus ne sont pas disponibles.
 
-\section{Future work}
+\section{Travaux futurs}
 
-Future includes evaluating our approach on domain-specific corpora such as the
-Kicktionary \citep{schmidt2009kicktionary}, the Robocup dataset
-\citep{chen2008learning} or the Situated Language dataset
-\citep{bordes2010towards} and compare our method with existing
-domain-specific semantic role labeling work
-\citep{wyner2010lexical,hadouche2011annotation,goldwasser2013leveraging}.
+La suite naturelle de ce travail est de l'appliquer à des domaines spécifiques,
+ce qui est fait au chapitre~\ref{ch:domainsrl} pour les domaines du football,
+du réchauffement climatique et de l'informatique.
 
-We also plan to incorporate more domain-specific information such as semantic
-similarity between existing role fillers to detect roles that are placed in an
-unusual way.
+Nous pensons aussi prendre en compte la similarité entre les role fillers déjà
+identifiés et les role fillers encore à identifier afin d'améliorer nos modèles
+de probabilité. En effet, l'information des cadres de sous-catégorisation est
+cruciale pour identifier les arguments, mais l'information sémantique
+concernant le contenu des role fillers est aussi utile pour déterminer le rôle
+correct.
+% TODO ref vers chapitre similarité ASFALDA
 
-Finally, in the same way that handling the passive voice produced better
-results, we plan to integrate deep structure handling to our system. A common
-case of errors is coordination. When two verbs share the same subject, the
-syntactic analysis should properly link from each verb to the subject. Here are
-two examples: first with the verbs blunder and, then with the verbs steal and
-share:
+Enfin, de la même manière que la prise en compte de la voix passive a amélioré
+les résultats, d'autres phénomènes de syntaxe profonde doivent être pris en
+compte. La coordination est une autre source commune d'erreur.
+
+Quand deux verbes partagent le même sujet, une analyse syntaxique profonde
+indique à chaque fois quel est le sujet profond. Voici deux exemples tirés de
+notre corpus FrameNet :
 
 \begin{itemize}
     \item You are not fair when you belittle Sheik Bin Baz 's blunder and
@@ -406,22 +440,17 @@ share:
           U.S. companies and share it with their own companies
 \end{itemize}
 
-More specifically, we currently plan to integrate the system from
-\citep{ribeyre2013systeme} as it handles complex deep structure situations
-by adding simple rules to the system to take into account new syntactic
-constructions, and will allow to handle all considered deep structure links in
-a cohesive way.
+L'objectif est de traiter ces phénomènes de manière plus générale en intégrant
+le système de \cite{ribeyre2013systeme} qui permet de prendre en compte de
+nouveaux phénomènes en ajoutant de simple aux règles au système. Ainsi, les
+différents phénomènes seront prise en compte de manière cohérente.
 
 \section{Conclusion}
 
-We have implemented a knowledge-based semantic role labeling system. We used
-publicly available versions of data and tools which make our work easily
-reproducible, now and in the future. We have started to improve the basic
-algorithm with enhancements that improve its results. The current results are
-probably still insufficient to improve the results of natural language
-processing applications such as information retrieval or text summarization,
-but the foreseeable improvements make the approach promising. The independence
-of the approach with respect to annotated corpus makes it interesting even if
-raw performance is as expected lower than the one of supervised approaches.
-Besides the future work above, our forthcoming introduction of corpus-based
-syntactico-semantic selectional restrictions is a next step.
+Nous avons implémenté un système d'annotation en rôles sémantiques basé sur la
+connaissance. Nous avons utilisé des outils et des corpus disponibles
+publiquement qui rendent notre travail facilement reproductible et facilitent
+le travail de comparaison, maintenant et dans le futur. Nous avons commencé à
+améliorer le système initial, montrant son potentiel. L'indépendance de
+l'approche avec le corpus considéré la rendent attractive pour annoter des
+domaines ne disposant que de peu ou pas de corpus annotés en rôles sémantiques.
