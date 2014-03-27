@@ -1,9 +1,5 @@
 \RequirePackage[l2tabu, orthodox]{nag}
 % vim: set spell spelllang=fr:
-% arara: pdflatex
-% arara: bibtex
-% arara: pdflatex
-% arara: pdflatex
 \documentclass[oneside,parskip]{scrbook}
 
 \usepackage[utf8]{inputenc}
@@ -21,6 +17,11 @@
 \usepackage{multirow}
 \usepackage{booktabs}
 
+\usepackage[xindy]{glossaries}
+\makeglossaries
+\input{glossaire}
+\glsaddall
+
 \usepackage{tikz}
 \usetikzlibrary{arrows}
 \usetikzlibrary{shapes.multipart}
@@ -30,7 +31,7 @@
 \date{}
 \publishers{Commissariat à l'Énergie Atomique\\Université Paris Diderot}
 
-\includeonly{srl}
+\includeonly{srl,glossaire}
 
 \begin{document}
 
@@ -117,6 +118,17 @@ en rôles sémantiques.
 
 \chapter{Conclusion}
 \label{ch:conc}
+
+\part{Annexes}
+
+%\chapter{Glossaire}
+%Un certain nombre de termes utilisés par la communauté scientifique ne sont pas
+%encore parfaitement établis : ce glossaire a pour objet de définir avec
+%précision les termes utilisés dans ces travaux. L'objectif étant d'aller vers
+%une standardisation, nous nous sommes efforcé d'utiliser les sens les plus
+%communs dès que c'était possible.
+
+\printglossary
 
 \backmatter
 
