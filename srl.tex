@@ -142,7 +142,7 @@ issus de \citep{swier2005exploiting} sont considérés.
 Le modèle \emph{predicate-slot} utilise l'information du prédicat et la
 fonction grammaticale détectée. Par exemple, l'object direct du verbe
 'négliger' sera toujours 'Theme' étant donné notre corpus
-(section~\ref{srl:evaluatipn}). La précision pour ce modèle est forte, mais il
+(section~\ref{srl:evaluation}). La précision pour ce modèle est forte, mais il
 n'assigne des rôles que pour 40~\% des arguments : dans les autres cas, nous ne
 disposons pas d'assez d'informations pour cette paire (prédicat, fonction
 grammaticale) précise.
@@ -266,7 +266,7 @@ differences from 23\% to 3\%.
 \end{table*}
 
 We feed each FrameNet sentence in the corpus to our system which performs
-semantic role labeling (section \ref{sec:srl}). For each role filler annotated
+semantic role labeling. For each role filler annotated
 in the FrameNet corpus with a verbal predicate, we use the mapping to know what
 is the set of possible VerbNet roles given the FrameNet frame. This is possibly
 ambiguous, mostly because a FrameNet frame can refer to multiple VerbNet
@@ -326,7 +326,7 @@ potential of this corpus is not fully realized.
 
 \subsection{SEMAFOR comparison}
 
-SEMAFOR \citep{das2013frame} is currently the state-of-the-art supervised
+SEMAFOR \citep{das2014frame} is currently the state-of-the-art supervised
 frame-semantic parser on the SemEval test sets and FrameNet full-text corpus.
 It annotates all FrameNet parts-of-speech while we only concentrate on verbs.
 It achieves 46.49\% F1 score on the full task, which should be compared with
