@@ -75,21 +75,30 @@ A brief summary of the project goes here.
 
 \part{Méthodes pour l'annotation en rôles sémantiques}
 
-L'annotation en rôles sémantique est une tâche importante en Traitement
-Automatique des Langues, et ce pour trois raisons. La première est qu'elle
-capture des phénomènes sémantiques de manière utile sous une forme assimilable
-à la logique du premier ordre qu'il est possible d'utiliser dans des
-applications par la suite. La seconde est que de nombreuses façons d'exprimer
-un énoncé seront représentées de la même manière, ce qui facilite grandement
-les traitements ultérieurs. Enfin, la dernière raison est que l'annotation en
-rôles sémantiques est capable d'opérer à grand échelle : sur l'ensemble des
-verbes du vocabulaire et pour tout type de texte. En effet, sa définition ne la
-limite pas à un domaine ou un genre particuliers et les systèmes existants ont
-montré leur utilité pour des applications spécifiques dans des domaines
-particuliers \citep{osman2012improved,xie2013semantic}. Un système
-d'annotation en rôles sémantiques efficace en général mais aussi adaptable vers
-un nouveau domaine facilement serait donc une avancée majeure.
+L'importance de l'annotation en rôles sémantiques s'explique en trois raisons :
 
+\begin{itemize}
+
+    \item Elle capture des phénomènes sémantiques de manière utile sous une
+    forme assimilable à la logique du premier ordre qu'il est possible d'utiliser
+    dans des applications par la suite.
+
+    \item De nombreuses façons d'exprimer un énoncé seront représentées de la
+    même manière, ce qui facilite grandement les traitements ultérieurs.
+
+    \item Enfin, l'annotation en rôles sémantiques est capable d'opérer à grand
+    échelle : sur l'ensemble des verbes du vocabulaire et pour tout type de texte.
+    En effet, sa définition ne la limite pas à un domaine ou un genre particuliers
+    et les systèmes existants ont montré leur utilité pour des applications
+    spécifiques dans des domaines particuliers
+    \citep{osman2012improved,xie2013semantic}.
+
+\end{itemize}
+
+Un système d'annotation en rôles sémantiques efficace en général sans être
+biaisé vers un domaine particulier serait donc une avancée majeure.
+
+% TODO qu'est-ce que ça fait là ?
 Un autre exemple d'utilité de l'annotation en rôles sémantiques est celui de
 l'évaluation : au delà du score BLEU qui ne considère que des suites de mots,
 \cite{lo2011smt} proposent un score HMEANT qui évalue la sémantique de la
@@ -98,19 +107,18 @@ alors la phrase est correctement traduite. Cette mesure, bien que difficile à
 mettre en place, est corrélée aux évaluations humaines tout en demandant une
 fraction de l'effort.
 
-Les systèmes les plus performants actuellement (dits "supervisés") sont
-particulièrement dépendants du corpus annoté utilisé. Pour une migration vers
-un autre domaine, il faut un nouvel effort d'annotation colossal pour obtenir
-un nouveau corpus, et potentiellement une adaptation des traits utilisés pour
-les algorithmes d'apprentissage.
+Les systèmes supervisés sont particulièrement dépendants du corpus annoté
+utilisé. Pour une migration vers un autre domaine, il faut un nouvel effort
+d'annotation colossal pour obtenir un nouveau corpus, et potentiellement une
+adaptation des traits utilisés pour les algorithmes d'apprentissage.
 
-La solution que nous adoptons dans ce travail est de limiter les ressources
-utilisées à des ressources indépendantes du domaine : en l'occurrence une
-ressource lexicale de type VerbNet qui répertorie des informations
-syntaxico-sémantiques sur les verbes de l'anglais. Cette ressource correspond à
-une analyse à large échelle : elle couvre 99~\% des occurrences des verbes
-anglais \citep[partie 1, p~.53]{palmer2013semantic} et est adaptées à l'analyse
-en rôles sémantiques.
+La solution que nous adoptons dans ce travail est de n'utiliser qu'une
+ressource lexicale, indépendante du domaine considéré : VerbNet. VerbNet
+répertorie des informations syntaxico-sémantiques sur les verbes de l'anglais.
+Cette ressource correspond à une analyse à large échelle : elle couvre 99~\%
+des occurrences des verbes anglais \citep[partie 1, p~.53]{palmer2013semantic}
+et est adaptée à l'analyse en rôles sémantiques.
+% TODO attention aux 99%, on n'a pas les verbes les plus fréquents ici
 
 \include{srl}
 
