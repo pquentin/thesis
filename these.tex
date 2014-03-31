@@ -3,7 +3,7 @@
 \documentclass[oneside,parskip]{scrbook}
 
 % no dot after parts
-% http://tex.stackexchange.com/q/102303/46347
+% http://tex.stackexchange.com/q/102303/1
 \renewcommand*{\partformat}{\partname~\thepart}
 
 \usepackage[utf8]{inputenc}
@@ -34,6 +34,8 @@
 \author{Quentin Pradet}
 \date{}
 \publishers{Commissariat à l'Énergie Atomique\\Université Paris Diderot}
+
+%\includeonly{srl,glossaire}
 
 \begin{document}
 
@@ -121,6 +123,8 @@ et est adaptée à l'analyse en rôles sémantiques.
 % TODO attention aux 99%, on n'a pas les verbes les plus fréquents ici
 
 \include{srl}
+
+\include{similarity}
 
 \include{domainsrl}
 
