@@ -17,11 +17,10 @@ dernières années, à la fois pour les approches supervisées et semi-supervis�
 Cependant, les approches fondées sur la connaissance ont été négligées alors
 qu'elles sont complémentaires par rapport aux autres approches. Ce chapitre
 présente un système d'annotation en rôles sémantiques qui se veut facile à
-reproduire. Nous montrons aussi comment la prise en compte de la voix passive
-réduit le taux d'erreur de 15.7~\%, ce qui met en avant les possibilités
-offertes par un tel système : une approche simple qui facilite l'analyse des
-erreurs, qui n'a pas besoin d'un corpus annoté manuellement et qui n'est a
-priori pas spécifique à un domaine en particulier.
+reproduire. Dans ce système, la prise en compte de la voix passive réduit le
+taux d'erreur de 15.7~\%. L'approche est simple, facilite l'analyse des
+erreurs, n'a pas besoin d'un corpus annoté manuellement et n'est a priori pas
+spécifique à un domaine en particulier.
 
 Les chapitres suivants montreront la versatilité du système dans des contextes
 différents : en domaine spécifique (Chapitre~\ref{ch:domainsrl}) et pour le
@@ -317,6 +316,7 @@ destinée à annoter de nouveaux domaines ne disposant pas de corpus annoté
 utilisé par de nombreux systèmes d'annotation en rôles sémantiques auxquels il
 est intéressant de se comparer.
 
+% TODO mettre avant mention dans 6.2
 FrameNet et VerbNet n'utilisant ni la même séparation en rôles ni la même
 séparation en classes, nous utilisons le mapping VerbNet-FrameNet maintenu par
 le projet SemLink.
@@ -396,13 +396,13 @@ correcte au format WSJ, ceci réduit les erreurs de 23\% à 3\%.
         \midrule
         FM                                             & 70.48\%   & 53.09\%  \\
         FM + prédicat-fonction (gold args)                & 72.02\%   & 58.28\%  \\
-        FM + passive + prédicat-fonction (gold args)      & 76.40\%   & 62.72\%  \\
+        FM + passif + prédicat-fonction (gold args)      & 76.40\%   & 62.72\%  \\
         \midrule
         Identification + FM                            & 46.75\%   & 29.12\%  \\
         Identification + FM + prédicat-fonction           & 46.78\%   & 33.49\%  \\
         \bottomrule
     \end{tabular}
-    \caption{\protect\centering\label{table:results}Résultats pour différentes tâches. FM est le frame matching. \emph{passive} indique la détection de la voix passive. \emph{Identification} est l'identification des arguments.}
+    \caption{\protect\centering\label{table:results}Résultats pour différentes tâches. FM est le frame matching. \emph{passif} indique la détection de la voix passive. \emph{Identification} est l'identification des arguments.}
 \end{table*}
 
 Les rôles annotés de chaque phrase FrameNet sont d'abord transformés en rôles
