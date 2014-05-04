@@ -7,10 +7,10 @@
 %Already based on \citep{fillmore1968case}, it parsed a sentence into what we
 % know call semantic roles. (check)
 
-Contrairement aux autres ressources pour l'annotation en rôles sémantiques,
-VerbNet couvre l'ensemble des verbes fréquents du vocabulaire tout en étant
-conçu sur des préceptes robustes le rendant utile pour les tâches de Traitement
-Automatique des Langues (Section~\ref{ch:verbnet:sec:verbnet}).
+%Contrairement aux autres ressources pour l'annotation en rôles sémantiques,
+%VerbNet couvre l'ensemble des verbes fréquents du vocabulaire tout en étant
+%conçu sur des préceptes robustes le rendant utile pour les tâches de Traitement
+%Automatique des Langues (Section~\ref{ch:verbnet:sec:verbnet}).
 
 La tâche d'annotation en rôles sémantiques a reçu beaucoup d'attention ces
 dernières années, à la fois pour les approches supervisées et semi-supervisées.
@@ -18,7 +18,7 @@ Cependant, les approches fondées sur la connaissance ont été négligées alor
 qu'elles sont complémentaires par rapport aux autres approches. Ce chapitre
 présente un système d'annotation en rôles sémantiques qui se veut facile à
 reproduire. Dans ce système, la prise en compte de la voix passive réduit le
-taux d'erreur de 15.7~\%. L'approche est simple, facilite l'analyse des
+taux d'erreur de 15.7~\%. Ainsi, l'approche est simple, facilite l'analyse des
 erreurs, n'a pas besoin d'un corpus annoté manuellement et n'est a priori pas
 spécifique à un domaine en particulier.
 
@@ -26,7 +26,7 @@ Les chapitres suivants montreront la versatilité du système dans des contextes
 différents : en domaine spécifique (Chapitre~\ref{ch:domainsrl}) et pour le
 français (Chapitre~\ref{ch:frenchsrl}). Ce chapitre se concentre sur notre
 système d'annotation en rôles sémantiques dans un cadre général en l'utilisant
-sur le corpus FrameNet.
+sur le corpus FrameNet anglais.
 
 \section{Tâche}
 
@@ -55,15 +55,16 @@ L'objectif est d'aboutir à la représentation suivante :
 
 Toute interprétation supplémentaire est en dehors du cadre de l'annotation en
 rôles sémantiques, ce qui est la raison pour laquelle la tâche est aussi connue
-sous le nom d'analyse sémantique de surface. Il est néanmoins intéressant de
-garder à l'esprit les applications possibles de tels travaux. Par exemple, un
-système de question-réponse pourrait utiliser la représentation de ces deux
-\emph{frames} pour répondre à la question \emph{Does Russia possess tactical
-nuclear weapons ?}. L'annotation ci-dessous est une information utile, mais
-elle ne serait pas suffisante pour répondre à la question : il faut aussi
-comprendre la question, annoter les coréférences (\emph{it} fait référence à
-\emph{Russia}), établir la crédibilité du \emph{Speaker}, s'intéresser à
-d'autres phrases potentiellement contradictoires, etc.
+sous le nom d'analyse sémantique de surface (\emph{shallow semantic parsing}.
+Il est néanmoins intéressant de garder à l'esprit les applications possibles de
+tels travaux. Par exemple, un système de question-réponse pourrait utiliser la
+représentation de ces deux \emph{frames} pour répondre à la question \emph{Does
+Russia possess tactical nuclear weapons ?}. L'annotation ci-dessous est une
+information utile, mais elle ne serait pas suffisante pour répondre à la
+question : il faut aussi comprendre la question, annoter les coréférences
+(\emph{it} fait référence à \emph{Russia}), établir la crédibilité du
+\emph{Speaker}, s'intéresser à d'autres phrases potentiellement
+contradictoires, etc.
 
 \section{Algorithme}
 
