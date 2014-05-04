@@ -71,58 +71,61 @@ A brief summary of the project goes here.
 
 \part{Ressources pour l'annotation en rôles sémantiques}
 
+
+% TODO justifier l'utilisation de ressources
+Nous avons choisi d'accorder dans ces travaux une part importante à
+l'utilisation de ressources lexicales. La première, WordNet, représente le sens
+des mots et les liens entre ces sens, alors que la seconde, VerbNet classifie
+les verbes selon leurs comportements syntaxiques. Cette partie présentes la
+traduction de ces deux ressources vers le français (produisant respectivement
+WoNeF et VerbeNet). Quant à elle, la partie \ref{part:methodes} traite de
+l'utilisation de ces ressources pour l'annotation en rôles sémantiques.
+
 \include{wonef}
 
 \include{verbnet}
 
 \part{Méthodes pour l'annotation en rôles sémantiques}
+\label{part:methodes}
 
-L'importance de l'annotation en rôles sémantiques s'explique en trois raisons :
+Trois raisons expliquent l'importance de l'annotation en rôles sémantiques :
 
 \begin{itemize}
 
     \item Elle capture des phénomènes sémantiques de manière utile sous une
-    forme assimilable à la logique du premier ordre qu'il est possible
-    d'utiliser dans diverses applications par la suite
-    \citep{osman2012improved,xie2013semantic}.
+        forme assimilable à la logique du premier ordre qu'il est possible
+        d'utiliser dans diverses applications par la suite
+        \citep{osman2012improved,xie2013semantic}.
 
     \item De nombreuses façons d'exprimer un énoncé seront représentées de la
-    même manière, ce qui facilite grandement les traitements ultérieurs.
+        même manière : les traitements ultérieurs n'ont plus besoin de
+        considérer cette complexité.
 
     \item Enfin, l'annotation en rôles sémantiques est capable d'opérer à
-    grande échelle : sur l'ensemble des verbes du vocabulaire et pour tout
-    type de texte.  En effet, sa définition ne la limite pas à un domaine
-    ou un genre particulier et il est envisageable pour la méthodologie
-    VerbNet de classifier l'ensemble des verbes du «~domaine général~».
+        grande échelle : sur l'ensemble des verbes du vocabulaire et pour tout
+        type de texte.  En effet, la définition de l'annotation en rôles
+        sémantiques ne la limite pas à un domaine ou un genre particulier et la
+        méthodologie VerbNet que nous suivons rend possible la classification
+        de l'ensemble des verbes du «~domaine général~»\footnote{Cependant,
+        nous nous limitons dans cette étude aux verbes, les autres parties
+        du discours devront être présentées différemment}.
 
 \end{itemize}
 
-
-% TODO ici ou plus loin ?
 Un système d'annotation en rôles sémantiques efficace en général et adaptable
-avec peu ou pas d'affort vers un nouveau domaine serait donc une avancée
-majeure.
+avec peu ou pas d'effort vers un nouveau domaine serait donc une avancée
+majeure. Les systèmes supervisés sont particulièrement dépendants du corpus
+annoté utilisé. Pour une migration vers un autre domaine, il faut un nouvel
+effort d'annotation colossal pour obtenir un nouveau corpus, et potentiellement
+une adaptation des traits utilisés pour les algorithmes d'apprentissage.
 
-% TODO qu'est-ce que ça fait là ?
-Un autre exemple d'utilité de l'annotation en rôles sémantiques est celui de
-l'évaluation : au delà du score BLEU qui ne considère que des suites de mots,
-\cite{lo2011smt} proposent un score HMEANT qui évalue la sémantique de la
-phrase : si l'annotation en rôles sémantique est correcte après traduction,
-alors la phrase est correctement traduite. Cette mesure, bien que difficile à
-mettre en place, est corrélée aux évaluations humaines tout en demandant une
-fraction de l'effort.
-
-Les systèmes supervisés sont particulièrement dépendants du corpus annoté
-utilisé. Pour une migration vers un autre domaine, il faut un nouvel effort
-d'annotation colossal pour obtenir un nouveau corpus, et potentiellement une
-adaptation des traits utilisés pour les algorithmes d'apprentissage.
-
-La solution que nous adoptons dans ce travail est de n'utiliser qu'une
-ressource lexicale, indépendante du domaine considéré : VerbNet. VerbNet
-répertorie des informations syntaxico-sémantiques sur les verbes de l'anglais.
-Cette ressource correspond à une analyse à large échelle : elle couvre 99~\%
-des occurrences des verbes anglais \citep[partie 1, p~.53]{palmer2013semantic}
-et est adaptée à l'analyse en rôles sémantiques.
+% TODO et WordNet ?
+La solution que nous adoptons dans ce travail est donc de ne pas utiliser de
+corpus annoté mais qu'une ressource lexicale, indépendante du domaine considéré
+: VerbNet. VerbNet répertorie des informations syntaxico-sémantiques sur les
+verbes de l'anglais.  Cette ressource correspond à une analyse à large échelle
+: elle couvre 99~\% des occurrences des verbes anglais \citep[partie 1,
+p~.53]{palmer2013semantic} et est adaptée à l'analyse en rôles sémantiques.
 % TODO attention aux 99%, on n'a pas les verbes les plus fréquents ici
 
 \include{srl}
