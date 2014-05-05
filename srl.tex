@@ -22,36 +22,44 @@ taux d'erreur de 15.7~\%. Ainsi, l'approche est simple, facilite l'analyse des
 erreurs, n'a pas besoin d'un corpus annoté manuellement et n'est a priori pas
 spécifique à un domaine en particulier.
 
-Les chapitres suivants montreront la versatilité du système dans des contextes
+Ce chapitre se concentre sur notre système d'annotation en rôles sémantiques
+dans un cadre général en l'utilisant sur le corpus FrameNet anglais. Les
+chapitres suivants montreront la versatilité de ce système dans des contextes
 différents : en domaine spécifique (Chapitre~\ref{ch:domainsrl}) et pour le
-français (Chapitre~\ref{ch:frenchsrl}). Ce chapitre se concentre sur notre
-système d'annotation en rôles sémantiques dans un cadre général en l'utilisant
-sur le corpus FrameNet anglais.
+français (Chapitre~\ref{ch:frenchsrl}).
 
 \section{Tâche}
 
-Considérons l'exemple suivant :
+La figure~\ref{fig:srlrussia} est un exemple d'annotation en rôles sémantiques.
+Pour une phrase donnée,  les prédicats verbaux sont identifiés, ainsi que la
+% TODO qu'est-ce qu'une frame ?
+frame qu'ils évoquent. Leurs arguments sémantiques (remplisseurs de rôles ou
+simplement remplisseurs) sont identifiés. Chaque remplisseur remplit un rôle
+précis identifié au préalable identifié dans la frame.
 
-\begin{quote}
-However, in 2002 Russia declared it will eliminate its tactical nuclear weapons by the end of 2004.
-\end{quote}
+\begin{figure}[ht]
+    \begin{quote}
+    However, in 2002 Russia declared it will eliminate its tactical nuclear weapons by the end of 2004.
+    \end{quote}
 
-L'objectif est d'aboutir à la représentation suivante :
+    L'objectif est d'aboutir à la représentation suivante :
 
-\begin{itemize}
-    \item \emph{declare} déclenche la frame Statement dont les rôles sont :
     \begin{itemize}
-        \item Speaker : Russia
-        \item Message : it will eliminate its tactical nuclear weapons by the end of 2004
-        \item Time : in 2002
+        \item \emph{declare} déclenche la frame Statement dont les rôles sont remplis ainsi :
+        \begin{itemize}
+            \item Speaker : Russia
+            \item Message : it will eliminate its tactical nuclear weapons by the end of 2004
+            \item Time : in 2002
+        \end{itemize}
+        \item \emph{eliminate} déclenche la frame Removing dont les rôles sont remplis ainsi :
+        \begin{itemize}
+            \item Agent: it
+            \item Theme: its tactical nuclear weapons
+            \item Source: \emph{non instancié}
+        \end{itemize}
     \end{itemize}
-    \item \emph{eliminate} déclenche la frame Removing dont les rôles sont :
-    \begin{itemize}
-        \item Agent: it
-        \item Theme: its tactical nuclear weapons
-        \item Source: \emph{non instancié}
-    \end{itemize}
-\end{itemize}
+    \caption{\label{fig:srlrussia}Exemple d'annotation en rôles sémantiques}
+\end{figure}
 
 Toute interprétation supplémentaire est en dehors du cadre de l'annotation en
 rôles sémantiques, ce qui est la raison pour laquelle la tâche est aussi connue
@@ -59,7 +67,7 @@ sous le nom d'analyse sémantique de surface (\emph{shallow semantic parsing}.
 Il est néanmoins intéressant de garder à l'esprit les applications possibles de
 tels travaux. Par exemple, un système de question-réponse pourrait utiliser la
 représentation de ces deux \emph{frames} pour répondre à la question \emph{Does
-Russia possess tactical nuclear weapons ?}. L'annotation ci-dessous est une
+Russia possess tactical nuclear weapons?}. L'annotation ci-dessous est une
 information utile, mais elle ne serait pas suffisante pour répondre à la
 question : il faut aussi comprendre la question, annoter les coréférences
 (\emph{it} fait référence à \emph{Russia}), établir la crédibilité du
@@ -77,14 +85,20 @@ Les informations de VerbNet (Chapitre~\ref{ch:verbnet}) sur l'interface entre
 la syntaxe et la sémantique sont directement utilisées. La notation NP.Agent V
 NP.Theme indique que dans certaines phrases de type NP V NP (eg. \emph{Sally
 pushed the chair}), le premier syntagme nominal (\emph{Sally}) est Agent alors
-que le second (\emph{the chair}) est Theme.
+que le second (\emph{the chair}) est Theme. L'interprétation des rôles Theme et
+Agent dépend de la classe VerbNet considérée.
 
-Pour une phrase donnée, l'algorithme commence par identifier les verbes de
-cette phrase. Pour chacun de ces verbes, un ensemble de classes VerbNet est
-identifié. Ainsi, pour la phrase d'exemple ci-dessus, les classes possibles
-pour le verbe \textit{declared} sont \texttt{declare-29-4-1-1-1},
-\texttt{say-37.3-1} et \texttt{reflexive\_appearance-48.1.2}. Le choix correct
-est \texttt{say-37.3-1}, mais il n'est pas possible de le déterminer avant de
+Un analyseur linguistique étiquète la phrase à annoter en morphosyntaxe, puis
+l'analyse syntaxiquement : c'est l'entrée de notre algorithme, la sortie étant
+l'annotation en rôles montrée par exemple pour la Figure~\ref{fig:srlrussia}.
+
+Pour une phrase donnée, l'algorithme commence par
+identifier les verbes de cette phrase. Pour chacun de ces verbes, un ensemble
+de classes VerbNet est identifié. Ainsi, pour la phrase d'exemple ci-dessus,
+les classes possibles pour le verbe \textit{declared} sont
+\texttt{declare-29-4-1-1-1}, \texttt{say-37.3-1} et
+\texttt{reflexive\_appearance-48.1.2}. Le choix correct est
+\texttt{say-37.3-1}, mais il n'est pas possible de le déterminer avant de
 considérer les frames syntaxiques listées par VerbNet dans ces différentes
 classes.
 
