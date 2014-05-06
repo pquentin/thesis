@@ -14,34 +14,39 @@
 
 La tâche d'annotation en rôles sémantiques a reçu beaucoup d'attention ces
 dernières années, à la fois pour les approches supervisées et semi-supervisées.
-Cependant, les approches fondées sur la connaissance ont été négligées alors
-qu'elles sont complémentaires par rapport aux autres approches. En nous
-inspirant de \citep{swier2004unsupervised,swier2005exploiting}, nous montrons
-dans ce chapitre un système d'annotation en rôles sémantiques qui se veut
-simple à mettre en place facile à reproduire. Dans ce système, la prise en
-compte de la voix passive réduit le taux d'erreur de 15.7~\%. Ainsi, l'approche
+Les approches fondées sur la connaissance, elles, ne se basent pas sur des
+corpus annotés mais sur des ressources lexicale existantes. Ce type d'approche
+a été négligé malgré la complémentarité par rapport aux autres approches. En
+nous inspirant de \citep{swier2004unsupervised,swier2005exploiting}, nous
+montrons dans ce chapitre un système d'annotation en rôles sémantiques fondé
+sur la connaissance qui se veut simple à mettre en place et facile à
+reproduire. Dans ce système, la prise en compte de la voix passive réduit le
+taux d'erreur de 15,7~\%, ce qui montre la marge de progrès existante. Malgré
+des performances moindres quand des données d'entraînement existent, l'approche
 facilite l'analyse des erreurs, n'a pas besoin d'un corpus annoté manuellement
-et n'est a priori pas spécifique à un domaine en particulier.
+et est a priori indépendante du domaine considéré, ce qui sera étudié plus en
+détail dans le Chapitre~\ref{ch:domainsrl} où les domaines du football, du
+réchauffement climatique et de l'informatique seront considérés.
 
 Ce chapitre se concentre sur notre système d'annotation en rôles sémantiques
-dans un cadre général en l'utilisant sur le corpus FrameNet anglais. Les
-chapitres suivants montreront la versatilité de ce système dans des contextes
-différents : en domaine spécifique (Chapitre~\ref{ch:domainsrl}) et pour le
-français (Chapitre~\ref{ch:frenchsrl}).
+dans un cadre général en l'utilisant sur le corpus FrameNet anglais, présenté à
+la section~\ref{presentation_framenet}. Les chapitres suivants montreront la
+versatilité de ce système dans des contextes différents : en domaine spécifique
+(Chapitre~\ref{ch:domainsrl}) et pour le français
+(Chapitre~\ref{ch:frenchsrl}).
 
 \section{Tâche}
 
 L'objectif de ce chapitre est de présenter notre système d'annotation en rôles
-sémantiques dans un cadre général en l'utilisant avec les frames définies par
-FrameNet et en l'évaluant sur le corpus annoté en rôles sémantiques fourni par
-FrameNet.
-
-La figure~\ref{fig:srlrussia} est un exemple d'annotation en rôles sémantiques.
-Pour une phrase donnée,  les prédicats verbaux sont identifiés, ainsi que la
-% TODO qu'est-ce qu'une frame ?
-frame qu'ils évoquent. Leurs arguments sémantiques (remplisseurs de rôles ou
-simplement remplisseurs) sont identifiés. Chaque remplisseur remplit un rôle
-précis identifié au préalable identifié dans la frame.
+sémantiques en l'évaluant sur le corpus annoté en rôles sémantiques fourni par
+FrameNet, ce qui permet une comparaison avec les approches existantes. La
+figure~\ref{fig:srlrussia} est un exemple d'annotation en rôles sémantiques
+avec des frames et des rôles FrameNet. Nous utiliserons principalement cette
+phrase d'exemple par la suite pour illustrer notre propos. Pour une phrase
+donnée, les prédicats verbaux et la frame qu'ils évoquent sont identifiés. Dans
+chaque phrase, des syntagmes vont remplir un des rôles prévus par la frame dans
+FrameNet. Ces syntagmes sont nommés «~remplisseurs de rôle~» (\emph{role
+filler} en anglais).
 
 \begin{figure}[ht]
     \begin{quote}
@@ -67,17 +72,18 @@ précis identifié au préalable identifié dans la frame.
     \caption{\label{fig:srlrussia}Exemple d'annotation en rôles sémantiques}
 \end{figure}
 
-Toute interprétation supplémentaire est en dehors du cadre de l'annotation en
-rôles sémantiques, ce qui est la raison pour laquelle la tâche est aussi connue
-sous le nom d'analyse sémantique de surface (\emph{shallow semantic parsing}.
-Il est néanmoins intéressant de garder à l'esprit les applications possibles de
+Toute interprétation supplémentaire non présente dans la
+figure~\ref{fig:srlrussia} est en dehors du cadre de l'annotation en rôles
+sémantiques, ce qui est la raison pour laquelle la tâche est aussi connue sous
+le nom d'analyse sémantique de surface (\emph{shallow semantic parsing}).  Il
+est néanmoins intéressant de garder à l'esprit les applications possibles de
 tels travaux. Par exemple, un système de question-réponse pourrait utiliser la
 représentation de ces deux \emph{frames} pour répondre à la question \emph{Does
-Russia possess tactical nuclear weapons?}. L'annotation ci-dessous est une
-information utile, mais elle ne serait pas suffisante pour répondre à la
-question : il faut aussi comprendre la question, annoter les coréférences
-(\emph{it} fait référence à \emph{Russia}), établir la crédibilité du
-\emph{Speaker}, s'intéresser à d'autres phrases potentiellement
+Russia possess tactical nuclear weapons?} L'annotation de la
+figure~\ref{fig:srlrussia} est une information utile, mais elle ne serait pas
+suffisante pour répondre à la question : il faut aussi comprendre la question,
+annoter les coréférences (\emph{it} fait référence à \emph{Russia}), établir la
+crédibilité du \emph{Speaker}, s'intéresser à d'autres phrases potentiellement
 contradictoires, etc.
 
 \section{Algorithme}
@@ -85,28 +91,36 @@ contradictoires, etc.
 L'algorithme présenté est similaire au système de
 \cite{swier2004unsupervised,swier2005exploiting}. Cependant, dix ans après, il
 est important d'évaluer à nouveau cette approche pour savoir où elle se situe
-par rapport à l'état de l'art et pour proposer certaines améliorations.
+par rapport à l'état de l'art et pour proposer certaines améliorations. Chaque
+phrase à annoter doit d'abord être étiquetée en morphosyntaxe et analysée
+syntaxiquement. Nous laissons ici ces analyses à des systèmes externes
+présentés à la section~\ref{subsec:details_exp}.
 
+% TODO où est présenté VerbNet ?
 Les informations de VerbNet (Chapitre~\ref{ch:verbnet}) sur l'interface entre
-la syntaxe et la sémantique sont directement utilisées. La notation NP.Agent V
-NP.Theme indique que dans certaines phrases de type NP V NP (eg. \emph{Sally
-pushed the chair}), le premier syntagme nominal (\emph{Sally}) est Agent alors
-que le second (\emph{the chair}) est Theme. L'interprétation des rôles Theme et
-Agent dépend de la classe VerbNet considérée.
+la syntaxe et la sémantique sont ensuite directement utilisées. Dans VerbNet,
+chaque classe regroupe un certain nombre de verbes acceptant certaines
+constructions syntaxiques. Les syntagmes participant à ces constructions sont
+associés à des rôles sémantiques à interpréter dans le contexte de la classe.
+Nous notons ces constructions NP.Agent V NP.Theme, ce qui indique que dans
+cette constructions transitive (NP V NP, e.g. \emph{Sally pushed the chair}),
+le premier syntagme nominal (\emph{Sally}) est Agent alors que le second
+(\emph{the chair}) est Theme. L'interprétation des rôles, ici Theme et Agent,
+dépend de la classe VerbNet considérée. Par exemple, dans la classe
+\texttt{resign-10.11}, l'Agent est la personne qui démissionne et la Source est
+le poste qui a été quitté.
 
 Un analyseur linguistique étiquète la phrase à annoter en morphosyntaxe, puis
 l'analyse syntaxiquement : c'est l'entrée de notre algorithme, la sortie étant
-l'annotation en rôles montrée par exemple pour la Figure~\ref{fig:srlrussia}.
+l'annotation en rôles montrée par exemple dans la figure~\ref{fig:srlrussia}.
 
-Pour une phrase donnée, l'algorithme commence par
-identifier les verbes de cette phrase. Pour chacun de ces verbes, un ensemble
-de classes VerbNet est identifié. Ainsi, pour la phrase d'exemple ci-dessus,
-les classes possibles pour le verbe \textit{declared} sont
-\texttt{declare-29-4-1-1-1}, \texttt{say-37.3-1} et
-\texttt{reflexive\_appearance-48.1.2}. Le choix correct est
-\texttt{say-37.3-1}, mais il n'est pas possible de le déterminer avant de
-considérer les frames syntaxiques listées par VerbNet dans ces différentes
-classes.
+Pour une phrase donnée, l'algorithme commence par identifier les verbes de
+cette phrase. Pour chacun de ces verbes, un ensemble de classes VerbNet est
+identifié. Ainsi, pour notre phrase d'exemple ci-dessus, les classes possibles
+pour le verbe \emph{declared} sont \texttt{declare-29-4-1-1-1},
+\texttt{say-37.3-1} et \texttt{reflexive\_appearance-48.1.2}. Le choix correct
+est \texttt{say-37.3-1}, mais il n'est pas possible de le déterminer avant de
+considérer les frames listées par VerbNet dans ces différentes classes.
 
 % TODO wait wat
 
@@ -118,38 +132,49 @@ NP.Theme. Ainsi, un verbe :
 \end{itemize}
 aura un sujet Agent et un objet Theme.
 
-La phrase d'exemple ci-dessous ne correspond pas à NP V NP mais à NP V that S,
-\emph{that S} étant la notation VerbNet pour les complétives introduites par
-\emph{that}. La seule occurrence de cette frame VerbNet est dans
-\texttt{say-37.7-1} : NP.Agent V that S.Topic ("He ordered that he go"). Il est
-donc possible d'établir que la classe VerbNet qui convient est
-\texttt{say-37.7-1}, que \emph{Russia} est Agent, et que \textit{it will
-eliminate its tactical nuclear weapons by the end of 2004} est Topic. Enfin, le
-mapping entre VerbNet et FrameNet nous informe que la classe VerbNet 37.7
-correspond à la frame Statement, que Agent correspond à Speaker et que Topic
-correspond à Topic.  Nous aboutissons ainsi pour le verbe \emph{eliminate} à la
-représentation ci-dessus.
+La phrase d'exemple ci-dessous ne correspond pas à NP V NP mais à NP V that S
+(\emph{that S} étant la notation VerbNet pour les complétives introduites par
+\emph{that}). La seule occurrence de cette frame VerbNet est dans
+\texttt{say-37.7-1} : NP.Agent V that S.Topic ("He ordered that he go").  La
+classe \texttt{declare-29-4-1-1-1} ne listant pas cette frame, il est possible
+d'établir que :
+\begin{itemize}
+    \item la classe VerbNet qui convient est \texttt{say-37.7-1},
+    \item \emph{Russia} est Agent,
+    \item \emph{it will eliminate its tactical nuclear weapons by the end of 2004} est Topic.
+\end{itemize}
+        
+Enfin, le mapping entre VerbNet et FrameNet nous informe que la classe VerbNet
+\texttt{say-37.7} correspond à la frame Statement, que Agent correspond à
+Speaker et que Topic correspond à Topic.  Nous aboutissons ainsi pour le verbe
+\emph{eliminate} à la représentation voulue pour notre phrase d'exemple.
 
 Dans d'autres cas l'algorithme ne peut pas déterminer la classe correcte car
-plusieurs classes peuvent inclure les mêmes cadres de sous-catégorisation. Par
-exemple, \texttt{reflexive\_appearance-48.1.2} et \texttt{say-37.7-1}
-contiennent toutes les deux le cadre NP V NP. Sans corpus annoté, ces
-ambiguïtés ne peuvent pas être résolues. Cependant, une fois qu'une première
-série de correspondances a été effectuée, il est possible d'utiliser les
-connaissances du domaine étudié pour annoter de nouveaux syntagmes nominaux.
+plusieurs classes peuvent inclure les mêmes cadres de sous-catégorisation.
+C'est le cas par exemple de \texttt{say-37.3-1} et
+\texttt{reflexive\_appearance-48.1.2} qui contiennent toutes les deux le cadre
+NP V NP. Sans corpus annoté, ces ambiguïtés ne peuvent pas être résolues.
+Cependant, une fois qu'une première série de correspondances a été effectuée,
+il est possible d'utiliser les connaissances du domaine étudié pour annoter de
+nouveaux syntagmes nominaux (section~\ref{subsec:probability}).
 
 Les sections suivantes décrivent le déroulement précis de l'algorithme en le
 découpant en trois étapes.
 
+\subsection{Identification du prédicat}
+
+% TODO quelles étiquettes ?
+Chaque phrase peut contenir un ou plusieurs prédicats : nous nous contentons
+ici de retenir tous les verbes ayant été annotés avec les parties du discours
+XXX, YYY ou ZZZ et présents dans VerbNet. Les autres prédicats potentiels,
+c'est-à-dire ceux qui ne sont pas dans VerbNet et ne sont pas des verbes, sont
+ignorés.
+
 \subsection{Identification des arguments}
 
-% TODO predicate identification ?
-
-Cette première étape identifie les syntagmes amenés à recevoir un rôle
-sémantique lors de l'annotation. La phrase est d'abord analysée syntaxiquement
-afin de déterminer les syntagmes qui peuvent jouer un rôle sémantique. Pour
-cette étape, nous suivons \cite{lang2011unsupervised} qui propose huit règles
-basées sur l'analyse syntaxe de la phrase et aboutissant à une liste de
+Cette étape identifie les syntagmes amenés à recevoir un rôle sémantique lors
+de l'annotation. Nous suivons ici \cite{lang2011unsupervised} qui propose huit
+règles basées sur l'analyse syntaxe de la phrase et aboutissant à une liste de
 syntagmes candidats.
 
 \begin{enumerate}
@@ -165,22 +190,21 @@ syntagmes candidats.
 
 % TODO check code Guilhem
 % TODO exemples
+% TODO Règles vraiment utilisées
 % TODO appendix
 
-Ces règles génèrent trop de candidats : il faudra par la suite soit assigner un
-rôle au candidat soit déclarer qu'il n'a pas de rôle dans la phrase.
+Ces règles génèrent trop de candidats : l'algorithme devra par la suite pouvoir
+écarter les candidats qui ne jouent finalement pas de rôle dans la phrase tout
+en assigner les rôles corrects aux candidats qui jouent bien un rôle.
+% TODO confus
 
-% TODO Examples
-% TODO Règles vraiment utilisées
-
-Cette première étape est facultative : afin de mieux comprendre les
-performances des étapes suivantes, ce seront parfois les arguments parfaits de
-la vérité-terrain qui seront utilisés lors de l'évaluation. En effet,
-l'objectif est d'évaluer l'apport de VerbNet à la tâche de l'annotation en
-rôles sémantiques, et l'identification des arguments, bien qu'une partie
-intégrante de tout système d'annotation en frames, n'est pas de l'annotation en
-rôles sémantiques \citep{das2010probabilistic} et ne fait pas partie de nos
-contributions.
+Cette étape est facultative : afin de mieux comprendre les performances des
+étapes suivantes, ce seront parfois les arguments parfaits de la vérité-terrain
+qui seront utilisés lors de l'évaluation. En effet, l'objectif est d'évaluer
+l'apport de VerbNet à la tâche de l'annotation en rôles sémantiques, et
+l'identification des arguments, bien qu'une partie intégrante de tout système
+d'annotation en frames, n'est pas de l'annotation en rôles sémantiques
+\citep{das2010probabilistic} et ne fait pas partie de nos contributions.
 % TODO honêteté, c'est important mais on veut pas se mouiller
 
 \subsection{Frame matching}
@@ -202,8 +226,8 @@ exemple, si trois syntagmes nominaux ont été identifiés comme arguments, dont
 un avant le verbe, la représentation VerbNet de la phrase devient NP V NP NP.
 Pour comparer la représentation VerbNet de la phrase aux frames VerbNet, nous
 identifions toutes les classes VerbNet incluant le prédicat. Par exemple, le
-prédicat \textit{classify} est présent dans deux classes VerbNet~:
-\textit{characterize-29.2} et \textit{classify-29.10}. Les frames possibles
+prédicat \emph{classify} est présent dans deux classes VerbNet~:
+\emph{characterize-29.2} et \emph{classify-29.10}. Les frames possibles
 sont~:
 
 \begin{itemize}
@@ -217,21 +241,22 @@ sont~:
 
 % TODO documenter la gestion des PP - demande de savoir comment on unifie avec
 % domainsrl
-Prenons un example. La phrase \emph{The company also classifies short and wide
-radius ruts according to their severity} est transformée en NP V NP according
-PP.
+Prenons un example tiré de FrameNet. La phrase \emph{The company also
+classifies short and wide radius ruts according to their severity} est
+transformée en NP V NP according PP.
 
 Dans ce cas, seuls les deux premiers syntagmes peuvent être mis en
-correspondance avec les cadres de sous-catégorisation VerbNet. Pour ces deux
+correspondance avec les frames VerbNet listées ci-dessus. Pour ces deux
 arguments, la correspondance n'est pas ambiguë : les deux premiers syntagmes
 jouent le rôle d'Agent et de Theme. Il n'y a pas de correspondance possible
 pour le troisième argument : VerbNet n'encode pas \emph{according} comme une
 préposition possible alors que \emph{in} et \emph{as} sont acceptées. De tels
-arguments ne sont pas annotés lors de cette étape. C'est ici un problème de
-couverture. Les auteurs de VerbNet travaillent actuellement sur la couverture
-de la ressource en ajoutant des informations syntaxiques et lexicales issues de
-très larges corpus \citep{bonial2013expanding}. Le résultat de ces travaux
-n'est cependant pas encore disponible.
+arguments non prévus pas VerbNet ne sont pas annotés lors de cette étape. C'est
+ici un problème de couverture. Les auteurs de VerbNet travaillent actuellement
+sur la couverture de la ressource en ajoutant des informations syntaxiques et
+lexicales issues de très larges corpus \citep{bonial2013expanding}. Le résultat
+de ces travaux n'est cependant pas disponible dans la version 3.2 de VerbNet
+que nous utilisons.
 
 % TODO un exemple de mapping ambigu
 % TODO meilleure terminologie pour ambigu/non ambigu
@@ -246,8 +271,8 @@ entraînions une forme simple d'algorithme supervisé, nous le faisons sur des
 données non annotées simplement obtenues de manière automatique sur le corpus
 existant. Nous faisons ici l'hypothèse qu'un corpus entier est à annoter, mais
 dans le cas où l'annotation se ferait phrase par phrase, il serait possible
-d'abandonner cette étape ou d'alimenter les modèles de au fur et à mesure des
-annotations.
+d'abandonner cette étape ou d'alimenter les modèles de probabilité au fur et à
+mesure des annotations.
 
 L'apprentissage se fait sous la forme de modèle de probabilités simples.
 Chacun de ces modèles de probabilité assigne une probabilité aux différents
@@ -269,7 +294,7 @@ syntagme est considérée à part.
 
 Le modèle \emph{prédicat-fonction} utilise l'information du prédicat et la
 fonction grammaticale détectée. Par exemple, dans notre corpus
-(section~\ref{subsec:corpora_tools}), l'objet direct du verbe 'négliger' est le
+(section~\ref{subsec:details_exp}), l'objet direct du verbe 'négliger' est le
 plus souvent 'Theme'.
 
 La précision pour ce modèle est forte, mais il n'assigne des rôles que pour
@@ -316,7 +341,7 @@ passive qui était le phénomène de syntaxe le plus présent dans notre corpus.
 Nous avons ainsi transformé les frames VerbNet dans les phrases impliquant une
 voix passive, c'est-à-dire les verbes au participe passé gouvernés par une
 forme du verbe \emph{to be}. Étant donné une frame VerbNet telle que
-\textit{NP.Agent V NP.Recipient NP.Theme}, nous produisons :
+\emph{NP.Agent V NP.Recipient NP.Theme}, nous produisons :
 
 \begin{itemize}
     \item NP.Recipient V NP.Theme
@@ -347,7 +372,7 @@ Wall Street Journal, les corpus AQUAINT et MASC, ainsi que d'autres textes
 divers.
 
 \subsection{Détails expérimentaux}
-\label{subsec:corpora_tools}
+\label{subsec:details_exp}
 
 FrameNet dispose de deux corpus. Le premier corpus est le corpus d'exemples :
 des phrases tirées du British National Corpus illustraient la diversité de
