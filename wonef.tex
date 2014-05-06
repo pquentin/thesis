@@ -3,7 +3,19 @@
 \label{ch:wonef} 
 
 % Gaël: abstract trying to be "à la" Gregory grefenstette
-Identifier les sens possibles des mots du vocabulaire est un problème difficile demandant un travail manuel très conséquent. Ce travail a été entrepris pour l'anglais : le résultat est la base de données lexicale WordNet, pour laquelle il n'existe encore que peu d'équivalents dans d'autres langues. Néanmoins, des traductions automatiques de WordNet vers de nombreuses langues cibles existent, notamment pour le français. JAWS est une telle traduction automatique utilisant des dictionnaires et un modèle de langage syntaxique. Nous améliorons cette traduction, la complétons avec les verbes et adjectifs de WordNet, et démontrons la validité de notre approche via une nouvelle évaluation manuelle. En plus de la version principale nommée WoNeF, nous produisons deux versions supplémentaires : une version à haute précision (93~\% de précision, jusqu'à 97~\% pour les noms), et une version à haute couverture contenant 109~447 paires (littéral, synset).
+Identifier les sens possibles des mots du vocabulaire est un problème difficile
+demandant un travail manuel très conséquent. Ce travail a été entrepris pour
+l'anglais : le résultat est la base de données lexicale WordNet, pour laquelle
+il n'existe encore que peu d'équivalents de même qualité dans d'autres langues.
+Néanmoins, des traductions automatiques de WordNet vers de nombreuses langues
+cibles existent, notamment pour le français. JAWS est une telle traduction
+automatique utilisant des dictionnaires et un modèle de langue syntaxique. Nous
+améliorons cette traduction, la complétons avec les verbes, adjectifs et
+adverbes de WordNet, et démontrons la validité de notre approche via une
+nouvelle évaluation manuelle. En plus de la version principale nommée WoNeF,
+nous produisons deux versions supplémentaires : une version à haute précision
+(93~\% de précision, jusqu'à 97~\% pour les noms), et une version à haute
+couverture contenant 109~447 paires (littéral, synset).
 
 
 \section{Introduction}
@@ -27,7 +39,20 @@ L'approche de JAWS consiste à combiner des sélecteurs variés permettant de ch
 
 \cite{mouton2010jaws} ont conçu JAWS comme un algorithme faiblement supervisé qui ne demande aucune donnée annotée manuellement. Pour traduire un wordnet source, JAWS s'appuie sur un dictionnaire bilingue et un modèle de langue syntaxique pour le langage cible.
 
-Le dictionnaire bilingue est une concaténation du dictionnaire bilingue SCI-FRAN-EurADic\footnote{\url{http://catalog.elra.info/product_info.php?products_id=666}} et des liens entre les Wiktionnaires français et anglais\footnote{\url{http://www.wiktionary.org/}}. Le modèle de langue syntaxique a été entraîné sur un grand corpus extrait du web \citep{grefenstette2007conquering}. Le corpus a été analysé par LIMA \citep{besancon2010lima}, une chaîne d'analyse linguistique ici utilisée comme un analyseur syntaxique à base de règles produisant des dépendances syntaxiques fines. Pour une relation donnée $r$ et un mot $x$, le modèle de langue indique quels sont les 100 premiers mots co-occurrant le plus fréquemment avec $x$ dans la relation $r$. Avec le mot \textit{avion} et la relation de complément du nom, le mot \textit{billet} modifie le plus \textit{avion} : \textit{billet d'avion} est fréquent dans le corpus. Le modèle de langue ici présenté peut-être visualisé sur \url{http://www.kalisteo.fr/demo/semanticmap/index.php}.
+Le dictionnaire bilingue est une concaténation du dictionnaire bilingue
+SCI-FRAN-EurADic\footnote{\url{http://catalog.elra.info/product_info.php?products_id=666}}
+et des liens entre les Wiktionnaires français et
+anglais\footnote{\url{http://www.wiktionary.org/}}. Le modèle de langue
+syntaxique a été entraîné sur un grand corpus extrait du web
+\citep{grefenstette2007conquering}. Le corpus a été analysé par LIMA
+\citep{besancon2010lima}, une chaîne d'analyse linguistique ici utilisée comme
+un analyseur syntaxique à base de règles produisant des dépendances syntaxiques
+fines. Pour une relation donnée $r$ et un mot $x$, le modèle de langue indique
+quels sont les 100 premiers mots co-occurrant le plus fréquemment avec $x$ dans
+la relation $r$. Avec le mot \textit{avion} et la relation de complément du
+nom, le mot \textit{billet} modifie le plus \textit{avion} : \textit{billet
+d'avion} est fréquent dans le corpus. Ce modèle de langue peut-être visualisé
+sur \url{http://www.kalisteo.fr/demo/semanticmap/index.php}.
 
 Grâce aux dictionnaires, JAWS n'a pas besoin de sélectionner les littéraux de chaque synset parmi l'ensemble du vocabulaire mais seulement parmi un petit nombre de candidats (9 en moyenne). Le processus de traduction se fait en trois étapes :
 \begin{enumerate}
@@ -142,6 +167,7 @@ Les adjectifs sont traduits de la même manière que les noms : tout d'abord un 
 
 \paragraph{Adverbes}
 
+% TODO adverbes évalués à LREC
 Nous n'avons pas d'annotation de référence pour les adverbes, ce qui explique qu'ils ne sont pas inclus dans WoNeF : nous ne pouvons évaluer leur précision. Cependant, la comparaison avec WOLF (section~\ref{subsec:vswolf}) montre que les adverbes ont de meilleurs résultats que les autres parties du discours, ce qui laisse penser que c'est une ressource de qualité. C'est une ressource aussi très complémentaire : 87~\% des adverbes proposés ne sont pas dans WOLF. Une fusion entre WoNeF et WOLF aurait trois fois plus d'adverbes que WOLF seul.
 
 \section{WoNeF: un JAWS évalué}

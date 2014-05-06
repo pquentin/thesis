@@ -15,12 +15,13 @@
 La tâche d'annotation en rôles sémantiques a reçu beaucoup d'attention ces
 dernières années, à la fois pour les approches supervisées et semi-supervisées.
 Cependant, les approches fondées sur la connaissance ont été négligées alors
-qu'elles sont complémentaires par rapport aux autres approches. Ce chapitre
-présente un système d'annotation en rôles sémantiques qui se veut facile à
-reproduire. Dans ce système, la prise en compte de la voix passive réduit le
-taux d'erreur de 15.7~\%. Ainsi, l'approche est simple, facilite l'analyse des
-erreurs, n'a pas besoin d'un corpus annoté manuellement et n'est a priori pas
-spécifique à un domaine en particulier.
+qu'elles sont complémentaires par rapport aux autres approches. En nous
+inspirant de \citep{swier2004unsupervised,swier2005exploiting}, nous montrons
+dans ce chapitre un système d'annotation en rôles sémantiques qui se veut
+simple à mettre en place facile à reproduire. Dans ce système, la prise en
+compte de la voix passive réduit le taux d'erreur de 15.7~\%. Ainsi, l'approche
+facilite l'analyse des erreurs, n'a pas besoin d'un corpus annoté manuellement
+et n'est a priori pas spécifique à un domaine en particulier.
 
 Ce chapitre se concentre sur notre système d'annotation en rôles sémantiques
 dans un cadre général en l'utilisant sur le corpus FrameNet anglais. Les
@@ -29,6 +30,11 @@ différents : en domaine spécifique (Chapitre~\ref{ch:domainsrl}) et pour le
 français (Chapitre~\ref{ch:frenchsrl}).
 
 \section{Tâche}
+
+L'objectif de ce chapitre est de présenter notre système d'annotation en rôles
+sémantiques dans un cadre général en l'utilisant avec les frames définies par
+FrameNet et en l'évaluant sur le corpus annoté en rôles sémantiques fourni par
+FrameNet.
 
 La figure~\ref{fig:srlrussia} est un exemple d'annotation en rôles sémantiques.
 Pour une phrase donnée,  les prédicats verbaux sont identifiés, ainsi que la
@@ -396,7 +402,7 @@ correcte au format WSJ, ceci réduit les erreurs de 23\% à 3\%.
         CD   &$\to$& NP     & DT   &$\to$& NP     \\
         \bottomrule
     \end{tabular}
-    \caption{\protect\centering\label{table:tagset_rules}BNC to WSJ conversion rules}
+    \caption{\protect\centering\label{table:tagset_rules}Règles de conversion entre les parties du discours BNC et WSJ}
 \end{table}
 
 % FUTURE SEMAFOR MXPOST/MST
