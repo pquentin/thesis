@@ -173,8 +173,12 @@ VBZ, VV, VVD, VVG, VVN, VVP, VVZ, VH, VHD, VHG, VHN, VHP et VHZ.
 
 Cette étape identifie les syntagmes amenés à recevoir un rôle sémantique lors
 de l'annotation. Nous suivons ici \cite{lang2011unsupervised} qui propose huit
-règles basées sur l'analyse syntaxe de la phrase et aboutissant à une liste de
-syntagmes candidats.
+règles\footnote{La septième règle n'est pas utilisée.} basées sur l'analyse
+syntaxe de la phrase. Initialement, tous les mots sont candidats, puis chacune
+de ces règles sélectionne ou écarte des candidats potentiels. Dans la
+représentation en dépendances, si le mot sélectionné est la tête d'un syntagme,
+c'est le syntagme entier qui est candidat. Sinon, c'est uniquement le mot. Les
+règles appliquées dans l'ordre sont :
 
 \begin{enumerate}
     \item Éliminer les déterminants, les marqueurs d'infinitifs, les conjonctions de coordinations et la ponctuation.
@@ -183,37 +187,33 @@ syntagmes candidats.
     \item Éliminer les candidats  dont le chemin entre le prédicat et le candidat, sauf la dernière relation, contient une relation de sujet, une relation de modifieur adjectival, etc.
     \item Éliminer les verbes auxiliaires
     \item Conserver les candidats directement sous le prédicat
-    \item Conserver les candidats si le chemin du prédicat au candidat traverse plusieurs noeuds verbaux
+    \item \sout{Conserver les candidats si le chemin du prédicat au candidat traverse plusieurs noeuds verbaux}
     \item Éliminer tous les candidats restants.
 \end{enumerate}
 
-% TODO check code Guilhem
-% TODO exemples
-% TODO Règles vraiment utilisées
-% TODO appendix
+% TODO exemple
+Pour les règles 3 et 4, la liste complète des relations acceptées est listé en
+annexe à la section~\ref{argument_identification}. En pratique sur le corpus
+FrameNet, ces règles génèrent des candidats qui ne jouent pas de rôle : notre
+système devra par la suite pouvoir écarter ces candidats tout en assignant les
+rôles corrects aux candidats qui jouent bien un rôle.
 
-Ces règles génèrent trop de candidats : l'algorithme devra par la suite pouvoir
-écarter les candidats qui ne jouent finalement pas de rôle dans la phrase tout
-en assigner les rôles corrects aux candidats qui jouent bien un rôle.
-% TODO confus
-
-Cette étape est facultative : afin de mieux comprendre les performances des
-étapes suivantes, ce seront parfois les arguments parfaits de la vérité-terrain
-qui seront utilisés lors de l'évaluation. En effet, l'objectif est d'évaluer
-l'apport de VerbNet à la tâche de l'annotation en rôles sémantiques, et
-l'identification des arguments, bien qu'une partie intégrante de tout système
-d'annotation en frames, n'est pas de l'annotation en rôles sémantiques
-\citep{das2010probabilistic} et ne fait pas partie de nos contributions.
-% TODO honêteté, c'est important mais on veut pas se mouiller
+Cette étape d'identification des arguments est facultative : afin de mieux
+comprendre les performances des étapes suivantes, ce seront parfois les
+arguments parfaits de la vérité-terrain qui seront utilisés lors de
+l'évaluation. En effet, l'objectif est d'évaluer l'apport de VerbNet à la tâche
+de l'annotation en rôles sémantiques, et l'identification des arguments, bien
+qu'une partie intégrante de tout système complet d'annotation en rôles
+sémantiques \citep{das2010probabilistic}, ne fait pas partie de nos
+contributions.
 
 \subsection{Frame matching}
 
 Cette étape associe zéro, un ou plusieurs rôles sémantiques à chaque syntagme
 candidat identifié lors de l'étape précédente.
 
-% TODO dans l'état de l'art ?
 Cette étape inclut deux étapes traditionnellement utilisées dans les systèmes
-d'annotation en rôles sémantiques : \citep{gildea2002automatic,das2014frame} :
+d'annotation en rôles sémantiques \citep{gildea2002automatic,das2014frame} :
 l'identification des frames FrameNet puis l'assignation de rôles aux arguments
 identifiés. Ici, au contraire, ce sont les contraintes syntaxiques définies
 dans les frames VerbNet qui permettent de restreindre les classes VerbNet
