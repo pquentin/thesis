@@ -148,14 +148,13 @@ Enfin, le mapping entre VerbNet et FrameNet nous informe que la classe VerbNet
 Speaker et que Topic correspond à Topic.  Nous aboutissons ainsi pour le verbe
 \emph{eliminate} à la représentation voulue pour notre phrase d'exemple.
 
-Dans d'autres cas l'algorithme ne peut pas déterminer la classe correcte car
-plusieurs classes peuvent inclure les mêmes cadres de sous-catégorisation.
-C'est le cas par exemple de \texttt{say-37.3-1} et
-\texttt{reflexive\_appearance-48.1.2} qui contiennent toutes les deux le cadre
-NP V NP. Sans corpus annoté, ces ambiguïtés ne peuvent pas être résolues.
-Cependant, une fois qu'une première série de correspondances a été effectuée,
-il est possible d'utiliser les connaissances du domaine étudié pour annoter de
-nouveaux syntagmes nominaux (section~\ref{subsec:probability}).
+L'algorithme ne peut pas toujours identifier la classe VerbNet correcte. C'est
+le cas par exemple de \texttt{reflexive\_appearance-48.1.2} et
+\texttt{say-37.3-1} qui contiennent toutes les deux le cadre NP V NP. Sans
+corpus annoté, ces ambiguïtés ne peuvent pas être résolues.  Cependant, une
+fois qu'une première série de correspondances a été effectuée, il est possible
+d'utiliser les connaissances du domaine étudié pour annoter de nouveaux
+syntagmes nominaux (section~\ref{subsec:probability}).
 
 Les sections suivantes décrivent le déroulement précis de l'algorithme en le
 découpant en trois étapes.
