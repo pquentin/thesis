@@ -86,9 +86,9 @@ annoter les coréférences (\emph{it} fait référence à \emph{Russia}), établ
 crédibilité du \emph{Speaker}, s'intéresser à d'autres phrases potentiellement
 contradictoires, etc.
 
-\section{Algorithme}
+\section{Système}
 
-L'algorithme présenté est similaire au système de
+Le système présenté est similaire à celui de
 \cite{swier2004unsupervised,swier2005exploiting}. Cependant, dix ans après, il
 est important d'évaluer à nouveau cette approche pour savoir où elle se situe
 par rapport à l'état de l'art et pour proposer certaines améliorations. Chaque
@@ -110,10 +110,10 @@ classe \texttt{resign-10.11}, l'Agent est la personne qui démissionne et la
 Source est le poste qui a été quitté.
 
 Un analyseur linguistique étiquète la phrase à annoter en morphosyntaxe, puis
-l'analyse syntaxiquement : c'est l'entrée de notre algorithme, la sortie étant
+l'analyse syntaxiquement : c'est l'entrée de notre système, la sortie étant
 l'annotation en rôles montrée par exemple dans la figure~\ref{fig:srlrussia}.
 
-Pour une phrase donnée, l'algorithme commence par identifier les verbes de
+Pour une phrase donnée, le système commence par identifier les verbes de
 cette phrase. Pour chacun de ces verbes, un ensemble de classes VerbNet est
 identifié. Ainsi, pour notre phrase d'exemple ci-dessus, les classes possibles
 pour le verbe \emph{declare} sont \texttt{declare-29-4-1-1-1},
@@ -148,13 +148,13 @@ Enfin, le mapping entre VerbNet et FrameNet nous informe que la classe VerbNet
 Speaker et que Topic correspond à Topic.  Nous aboutissons ainsi pour le verbe
 \emph{eliminate} à la représentation voulue pour notre phrase d'exemple.
 
-L'algorithme ne peut pas toujours identifier la classe VerbNet correcte. C'est
-le cas par exemple de \texttt{reflexive\_appearance-48.1.2} et
-\texttt{say-37.3-1} qui contiennent toutes les deux le cadre NP V NP. Sans
-corpus annoté, ces ambiguïtés ne peuvent pas être résolues.  Cependant, une
-fois qu'une première série de correspondances a été effectuée, il est possible
-d'utiliser les connaissances du domaine étudié pour annoter de nouveaux
-syntagmes nominaux (section~\ref{subsec:probability}).
+On ne peut pas toujours identifier la classe VerbNet correcte. C'est le cas par
+exemple de \texttt{reflexive\_appearance-48.1.2} et \texttt{say-37.3-1} qui
+contiennent toutes les deux le cadre NP V NP. Sans corpus annoté, ces
+ambiguïtés ne peuvent pas être résolues.  Cependant, une fois qu'une première
+série de correspondances a été effectuée, il est possible d'utiliser les
+connaissances du domaine étudié pour annoter de nouveaux syntagmes nominaux
+(section~\ref{subsec:probability}).
 
 Les sections suivantes décrivent le déroulement précis de l'algorithme en le
 découpant en trois étapes.
@@ -353,10 +353,10 @@ passive est utilisée, ce qui améliore les résultats (Table~\ref{table:results
 \section{Evaluation}
 \label{srl:evaluation}
 
-L'intérêt de l'algorithme ne réside pas dans l'annotation d'un large corpus
-annoté tel que FrameNet pour lequel les méthodes d'apprentissage supervisées
-sont les plus efficaces \citep{das2014frame}. En effet, notre méthode est
-destinée à annoter de nouveaux domaines ne disposant pas de corpus annoté
+L'intérêt du système ne réside pas dans l'annotation d'un large corpus annoté
+tel que FrameNet pour lequel les méthodes d'apprentissage supervisées sont les
+plus efficaces \citep{das2014frame}. En effet, notre méthode est destinée à
+annoter de nouveaux domaines ne disposant pas de corpus annoté
 (Chapitre~\ref{ch:domainsrl}). Néanmoins, FrameNet est un point de comparaison
 utilisé par de nombreux systèmes d'annotation en rôles sémantiques auxquels il
 est intéressant de se comparer.
@@ -383,9 +383,9 @@ en rôles sémantiques. Ici, nous utilisons le corpus full-text de FrameNet 1.5
 et pas le corpus d'exemples.
 
 Nous utilisons VerbNet 3.2 et le mapping VerbNet-FrameNet 1.2.2c
-\footnote{\url{http://verbs.colorado.edu/semlink/1.2.2c/vn-fn/}}. Notre
-algorithme n'annote que les arguments Core étant donné que ce sont généralement
-les arguments étudiés par VerbNet.
+\footnote{\url{http://verbs.colorado.edu/semlink/1.2.2c/vn-fn/}}. Notre système
+n'annote que les arguments Core étant donné que ce sont généralement les
+arguments étudiés par VerbNet.
 
 % TODO de toute façon il faut utiliser ce qui est fourni par SEMAFOR
 Pour la tâche complète qui inclut l'identification des arguments, nous
@@ -471,9 +471,9 @@ ou plusieurs rôles VerbNet :
 Dans tous les autres cas, un rôle FrameNet correspond à un rôle VerbNet unique,
 et c'est ce rôle VerbNet que notre système doit déterminer. Nous mesurons la
 précision, le rappel et l'exactitude (\emph{accuracy}) des associations
-role/syntagmes candidats.  10~\% du corpus a été utilisé pour obtenir les
+role/syntagmes candidats. 10~\% du corpus a été utilisé pour obtenir les
 résultats, le reste est un corpus "d'entraînement" : le corpus qui a été
-examiné manuellement pour identifier les erreurs de notre algorithme.
+examiné manuellement pour identifier les erreurs de notre système.
 
 La table~\ref{table:results} montre les résultats des deux tâches sur
 lesquelles nous nous évaluons : le frame matching seul d'une part et le frame
