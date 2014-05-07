@@ -96,19 +96,18 @@ phrase à annoter doit d'abord être étiquetée en morphosyntaxe et analysée
 syntaxiquement. Nous laissons ici ces analyses à des systèmes externes
 présentés à la section~\ref{subsec:details_exp}.
 
-% TODO où est présenté VerbNet ?
-Les informations de VerbNet (Chapitre~\ref{ch:verbnet}) sur l'interface entre
-la syntaxe et la sémantique sont ensuite directement utilisées. Dans VerbNet,
-chaque classe regroupe un certain nombre de verbes acceptant certaines
-constructions syntaxiques. Les syntagmes participant à ces constructions sont
-associés à des rôles sémantiques à interpréter dans le contexte de la classe.
-Nous notons ces constructions NP.Agent V NP.Theme, ce qui indique que dans
-cette constructions transitive (NP V NP, e.g. \emph{Sally pushed the chair}),
-le premier syntagme nominal (\emph{Sally}) est Agent alors que le second
-(\emph{the chair}) est Theme. L'interprétation des rôles, ici Theme et Agent,
-dépend de la classe VerbNet considérée. Par exemple, dans la classe
-\texttt{resign-10.11}, l'Agent est la personne qui démissionne et la Source est
-le poste qui a été quitté.
+Les informations de VerbNet (présenté à la section~\ref{presentation_verbnet})
+sur l'interface entre la syntaxe et la sémantique sont ensuite directement
+utilisées. Dans VerbNet, chaque classe regroupe un certain nombre de verbes
+acceptant certaines constructions syntaxiques. Les syntagmes participant à ces
+constructions sont associés à des rôles sémantiques à interpréter dans le
+contexte de la classe.  Nous notons ces constructions NP.Agent V NP.Theme, ce
+qui indique que dans cette constructions transitive (NP V NP, e.g. \emph{Sally
+pushed the chair}), le premier syntagme nominal (\emph{Sally}) est Agent alors
+que le second (\emph{the chair}) est Theme. L'interprétation des rôles, ici
+Theme et Agent, dépend de la classe VerbNet considérée. Par exemple, dans la
+classe \texttt{resign-10.11}, l'Agent est la personne qui démissionne et la
+Source est le poste qui a été quitté.
 
 Un analyseur linguistique étiquète la phrase à annoter en morphosyntaxe, puis
 l'analyse syntaxiquement : c'est l'entrée de notre algorithme, la sortie étant
@@ -117,7 +116,7 @@ l'annotation en rôles montrée par exemple dans la figure~\ref{fig:srlrussia}.
 Pour une phrase donnée, l'algorithme commence par identifier les verbes de
 cette phrase. Pour chacun de ces verbes, un ensemble de classes VerbNet est
 identifié. Ainsi, pour notre phrase d'exemple ci-dessus, les classes possibles
-pour le verbe \emph{declared} sont \texttt{declare-29-4-1-1-1},
+pour le verbe \emph{declare} sont \texttt{declare-29-4-1-1-1},
 \texttt{say-37.3-1} et \texttt{reflexive\_appearance-48.1.2}. Le choix correct
 est \texttt{say-37.3-1}, mais il n'est pas possible de le déterminer avant de
 considérer les frames listées par VerbNet dans ces différentes classes.
