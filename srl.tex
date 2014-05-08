@@ -120,8 +120,6 @@ pour le verbe \emph{declare} sont \texttt{declare-29-4-1-1-1},
 est \texttt{say-37.3-1}, mais il n'est pas possible de le déterminer avant de
 considérer les frames listées par VerbNet dans ces différentes classes.
 
-% TODO wait wat
-
 Par exemple, \texttt{reflexive\_appearance-48.1.2} contient la frame NP.Agent V
 NP.Theme. Ainsi, si un des verbes de cette classe, tel que \emph{present} :
 \begin{itemize}
@@ -231,10 +229,11 @@ Premièrement, les syntagmes candidats sont représentés au format VerbNet. Par
 exemple, si trois syntagmes nominaux ont été identifiés comme arguments, dont
 un avant le verbe, la représentation VerbNet de la phrase devient NP V NP NP.
 Pour comparer la représentation VerbNet de la phrase aux frames VerbNet, nous
-identifions toutes les classes VerbNet incluant le prédicat. Par exemple, le
-prédicat \emph{classify} est présent dans deux classes VerbNet~:
-\emph{characterize-29.2} et \emph{classify-29.10}. Les frames possibles
-sont~:
+identifions toutes les classes VerbNet incluant le prédicat.
+
+Par exemple, le prédicat \emph{classify} est présent dans deux classes
+VerbNet~: \emph{characterize-29.2} et \emph{classify-29.10}. Les frames
+possibles sont~:
 
 \begin{itemize}
     \item NP.Agent V NP.Theme (as) S\_ING.Attribute
@@ -244,33 +243,34 @@ sont~:
     \item NP.Agent V NP.Theme as PP.Goal
     \item NP.Agent V NP.Theme in PP.Location
 \end{itemize}
-
 % TODO documenter la gestion des PP - demande de savoir comment on unifie avec
 % domainsrl
+
+% TODO ceci est un exemple qui ne fonctionne pas, c'est bien, mais il en faut
+% aussi un qui fonctionne, comme dans la description plus rapide au dessus.
 Prenons un example tiré de FrameNet. La phrase \emph{The company also
 classifies short and wide radius ruts according to their severity} est
 transformée en NP V NP according PP.
 
-% TODO ça ne fonctionne pas parce qu'il faut savoir quelle est la classe qu'on
-% veut
 Dans ce cas, seuls les deux premiers syntagmes peuvent être mis en
-correspondance avec les frames VerbNet listées ci-dessus. Pour ces deux
-arguments, la correspondance n'est pas ambiguë : les deux premiers syntagmes
-jouent le rôle d'Agent et de Theme. Il n'y a pas de correspondance possible
-pour le troisième argument : VerbNet n'encode pas \emph{according} comme une
-préposition possible alors que \emph{in} et \emph{as} sont acceptées. De tels
-arguments non prévus pas VerbNet ne sont pas annotés lors de cette étape. C'est
-ici un problème de couverture. Les auteurs de VerbNet travaillent actuellement
-sur la couverture de la ressource en ajoutant des informations syntaxiques et
-lexicales issues de très larges corpus \citep{bonial2013expanding}. Le résultat
-de ces travaux n'est cependant pas disponible dans la version 3.2 de VerbNet
-que nous utilisons.
-
-% TODO un exemple de mapping ambigu
-% TODO meilleure terminologie pour ambigu/non ambigu
+correspondance avec les frames VerbNet listées ci-dessus. Il n'y a pas de
+correspondance possible pour le troisième syntagme: VerbNet n'encode pas
+\emph{according} comme une préposition possible alors que \emph{in} et
+\emph{as} sont acceptées. De tels arguments non prévus pas VerbNet ne sont pas
+annotés lors de cette étape. C'est ici un problème de couverture. Les auteurs
+de VerbNet travaillent actuellement sur la couverture de la ressource en
+ajoutant des informations syntaxiques et lexicales issues de très larges corpus
+\citep{bonial2013expanding}. Le résultat de ces travaux n'est cependant pas
+disponible dans la version 3.2 de VerbNet que nous utilisons. Ce problème de
+couverture empêche d'assigner la classe VerbNet qui convient. Par conséquent,
+même si on sait que quelle que soit la classe, le sujet serait Agent et le
+premier objet Theme, cette information n'est pas utile parce qu'on ne sait pas
+comment l'interpréter.
 
 \subsection{Correspondances probabiliste des frames}
 \label{subsec:probability}
+
+% TODO on peut avoir un modèle pour identifier la classe VerbNet
 
 Maintenant que les correspondances exactes ont étés effectuées, il reste les
 correspondances ambigües pour lesquelles plusieurs frames sont possibles.  Nous
