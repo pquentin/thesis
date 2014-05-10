@@ -323,26 +323,29 @@ pour cette paire (prédicat, fonction grammaticale).
 \label{sec:passif}
 
 Une analyse d'erreur a révélé que la voix passive était une source d'erreur
-importante dans notre corpus FrameNet. En effet, VerbNet n'encode pas la voix
-passive qui est un phénomène syntaxique : c'est à l'analyse syntaxique que les
-sujets et objets syntaxiques doivent être identifiés correctement. Une fois
-identifiés, c'est le sujet profond qui doit être comparé avec le sujet VerbNet.
-Cependant, les analyseurs syntaxiques n'identifient pas de tels liens de
-syntaxe profonde (voix passive, coordination, etc.). Il est donc important
-d'avoir une étape intermédiaire entre l'analyse syntaxique et l'annotation en
-rôles sémantiques \citep{bonfante2011modular, ribeyre2013systeme}. Cette étape
-intermédiaire pourra identifier les sujets et objets profonds de tous les
-verbes considérés, évitant ainsi des erreurs lors de l'annotation en rôles
-sémantiques. 
+importante dans l'analyse de notre corpus FrameNet. En effet, VerbNet n'encode
+pas la voix passive qui est un phénomène syntaxique : c'est au moment de
+l'analyse syntaxique que les sujets et objets syntaxiques, profonds ou non,
+doivent être identifiés correctement. Pour annoter la phrase \emph{The
+artifacts were classified by the curator} en rôles sémantiques, il est donc
+important de d'abord transformer la phrase en \emph{the curator classified The
+artifacts} avant la comparaison les frames VerbNet.
+
+Les sujets et objets profonds ne sont pas encodés dans les corpus annotés en
+syntaxe que nous utilisons (le Wall Street Journal pour l'anglais, cf.
+section~\ref{subsec:details_exp}). Une étape intermédiaire est donc nécessaire
+entre l'analyse syntaxique et l'annotation en rôles sémantiques
+\citep{bonfante2011modular, ribeyre2013systeme}. Cette étape intermédiaire
+pourra identifier les sujets et objets profonds de tous les verbes considérés,
+évitant ainsi des erreurs lors de l'annotation en rôles sémantiques. 
 
 Afin de valider cette hypothèse, nous nous sommes concentrés sur la voix
-passive qui était le phénomène de syntaxe le plus présent dans notre corpus.
-% TODO le faire correctement en allant vers VerbNet plutôt qu'en changeant
-% VerbNet
-Nous avons ainsi transformé les frames VerbNet dans les phrases impliquant une
-voix passive, c'est-à-dire les verbes au participe passé gouvernés par une
-forme du verbe \emph{to be}. Étant donné une frame VerbNet telle que
-\emph{NP.Agent V NP.Recipient NP.Theme}, nous produisons :
+passive qui était le phénomène de syntaxe profonde le plus présent dans notre
+corpus.  Pour annoter les verbes utilisés avec la voix passive, nous avons
+transformé les frames VerbNet vers la voix passive. Les verbes utilisés au
+passif en anglais sont au participe passé et gouvernés par une forme du verbe
+\emph{to be}. Étant donné une frame VerbNet telle que \emph{NP.Agent V
+NP.Recipient NP.Theme}, nous la remplaçons par deux nouvelles frames :
 
 \begin{itemize}
     \item NP.Recipient V NP.Theme
@@ -350,7 +353,11 @@ forme du verbe \emph{to be}. Étant donné une frame VerbNet telle que
 \end{itemize}
 
 Ce sont ces frames VerbNet transformées qui sont utilisées lorsque qu'une voix
-passive est utilisée, ce qui améliore les résultats (Table~\ref{table:results}).
+passive est detectée, ce qui améliore les résultats
+(Table~\ref{table:results}). Cette expérience valide la gestion de tels
+phénomènes syntaxiques. Pour aller plus loin, il faudra non pas modifier
+VerbNet mais bien annoter la phrase en syntaxe profonde avant de réaliser les
+correspondances exactes puis probabilistes.
 
 \section{Evaluation}
 \label{srl:evaluation}
