@@ -372,20 +372,9 @@ correspondances exactes puis probabilistes.
 
 L'intérêt du système ne réside pas dans l'annotation d'un large corpus annoté
 tel que FrameNet pour lequel les méthodes d'apprentissage supervisées sont les
-plus efficaces \citep{das2014frame}. En effet, notre méthode est destinée à
-annoter de nouveaux domaines ne disposant pas de corpus annoté
-(Chapitre~\ref{ch:domainsrl}). Néanmoins, FrameNet est un point de comparaison
-utilisé par de nombreux systèmes d'annotation en rôles sémantiques auxquels il
-est intéressant de se comparer.
-
-% TODO mettre avant mention dans 6.2
-FrameNet et VerbNet n'utilisant ni la même séparation en rôles ni la même
-séparation en classes, nous utilisons le mapping VerbNet-FrameNet maintenu par
-le projet SemLink.
-
-Le corpus FrameNet est équilibré et inclut des textes de diverses sources : le
-Wall Street Journal, les corpus AQUAINT et MASC, ainsi que d'autres textes
-divers.
+plus efficaces \citep{das2014frame}. Néanmoins, FrameNet est un point de
+comparaison utilisé par de nombreux systèmes d'annotation en rôles sémantiques
+auxquels il est intéressant de se comparer.
 
 \subsection{Détails expérimentaux}
 \label{subsec:details_exp}
@@ -394,10 +383,14 @@ FrameNet dispose de deux corpus. Le premier corpus est le corpus d'exemples :
 des phrases tirées du British National Corpus illustraient la diversité de
 réalisation des frames annotés. Plus tard, les versions 1.3, 1.4 et 1.5 de
 FrameNet ont apporté un corpus dit full-text, plus adapté à la tâche
-d'annotation en rôles sémantiques : au lieu d'identifier des exemples pour
-toutes les frames, tous les prédicats présents dans un texte donné sont annotés
-en rôles sémantiques. Ici, nous utilisons le corpus full-text de FrameNet 1.5
-et pas le corpus d'exemples.
+d'annotation en rôles sémantiques : au lieu d'identifier des exemples
+diversifiés pour toutes les frames, tous les prédicats présents dans un texte
+donné sont annotés en rôles sémantiques. L'objectif est de s'approcher au plus
+près des conditions réelles de l'annotation en rôles sémantiques. Ici, nous
+utilisons le corpus full-text de FrameNet 1.5 et pas le corpus d'exemples. Ce
+corpus full-text est équilibré et inclut des textes de diverses sources : le
+Wall Street Journal, les corpus AQUAINT et MASC, ainsi que d'autres textes
+divers.
 
 Nous utilisons VerbNet 3.2 et le mapping VerbNet-FrameNet 1.2.2c
 \footnote{\url{http://verbs.colorado.edu/semlink/1.2.2c/vn-fn/}}. Notre système
