@@ -137,18 +137,22 @@ VerbNet est dans \texttt{say-37.7-1} : NP.Agent V that S.Topic (\emph{He
 ordered that he go}). Les classes \texttt{declare-29-4-1-1-1} et
 \texttt{reflexive\_appearance-48.1.2} ne listant pas cette frame, il est
 possible d'établir que :
+
 \begin{itemize}
     \item la classe VerbNet qui convient est \texttt{say-37.7-1},
     \item \emph{Russia} est Agent,
     \item \emph{it will eliminate its tactical nuclear weapons by the end of 2004} est Topic.
 \end{itemize}
-        
-Enfin, le mapping entre VerbNet et FrameNet nous informe que :
+
+Enfin, le mapping entre VerbNet et FrameNet (section~\ref{sec:mapping}) nous
+informe que :
+
 \begin{itemize}
     \item la classe VerbNet \texttt{say-37.7} correspond à la frame Statement,
     \item dans cette classe, le rôle VerbNet Agent correspond au rôle FrameNet Speaker,
     \item dans cette classe, le rôle VerbNet Topic correspond au rôle FrameNet Topic.
 \end{itemize}
+
 Nous aboutissons ainsi pour le verbe \emph{eliminate} à la représentation
 voulue pour notre phrase d'exemple.
 
@@ -275,8 +279,6 @@ ne sait pas comment l'interpréter.
 \subsection{Correspondances probabiliste des frames}
 \label{subsec:probability}
 
-% TODO on peut avoir un modèle pour identifier la classe VerbNet
-
 Maintenant que les correspondances exactes ont étés effectuées, il reste les
 correspondances ambigües pour lesquelles plusieurs frames sont possibles.  Nous
 pouvons utiliser les frames déjà mises en correspondance pour annoter ces
@@ -293,14 +295,14 @@ classifieurs sont utilisés : le premier détermine la classe VerbNet quand
 celle-ci est ambigüe, et le second détermine le rôle d'un syntagme quand
 plusieurs choix sont possibles.
 
-% TODO belles formules comme dans gildea2002automatic
-
+% TODO on peut avoir un modèle pour identifier la classe VerbNet
 Le premier classifieur est à implémenter absolument...
 
 Le second classifieur (issu de \cite{swier2004unsupervised}) assigne une
 probabilité aux différents rôles possibles en s'aidant des rôles déjà
 identifiés.
 
+% TODO belles formules comme dans gildea2002automatic
 $$ \text{rôle} = \arg\max_{\text{rôle}} p(\text{rôle} \vert \text{prédicat}, \text{fonction})$$
 
 La fonction est la fonction grammaticale identifiée d'après l'analyse
@@ -318,6 +320,12 @@ La précision pour ce modèle est forte, mais il n'assigne des rôles que pour
 pour cette paire (prédicat, fonction grammaticale).
 
 \section{Mapping VerbNet - FrameNet}
+\label{sec:mapping}
+
+% TODO principe
+% TODO difficultés à réaliser un tel mapping
+% TODO impliquant des limites
+% TODO parfait ?
 
 \section{Gestion de la voix passive}
 \label{sec:passif}
