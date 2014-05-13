@@ -15,7 +15,7 @@
 La tâche d'annotation en rôles sémantiques a reçu beaucoup d'attention ces
 dernières années, à la fois pour les approches supervisées et semi-supervisées.
 Les approches fondées sur la connaissance, elles, ne se basent pas sur des
-corpus annotés mais sur des ressources lexicale existantes. Ce type d'approche
+corpus annotés mais sur des ressources lexicales existantes. Ce type d'approche
 a été négligé malgré leur complémentarité par rapport aux autres approches.
 
 En nous inspirant de \citep{swier2004unsupervised,swier2005exploiting}, nous
@@ -49,6 +49,8 @@ vont remplir un des rôles prévus par la frame dans FrameNet. Ces syntagmes son
 nommés «~remplisseurs de rôle~» (\emph{role filler} en anglais).
 
 \begin{figure}[ht]
+    La phrase à annoter est :
+
     \begin{quote}
     However, in 2002 Russia declared it will eliminate its tactical nuclear weapons by the end of 2004.
     \end{quote}
@@ -95,30 +97,31 @@ par rapport à l'état de l'art et pour proposer certaines améliorations.
 
 Pour commencer, chaque phrase à annoter doit d'abord être étiquetée en
 morphosyntaxe et analysée syntaxiquement. Nous laissons ici ces analyses à des
-systèmes externes présentés à la section~\ref{subsec:details_exp}. C'est
-l'entrée de notre système, la sortie étant l'annotation en rôles sémantiques
-montrée dans la figure~\ref{fig:srlrussia}.
+systèmes externes présentés à la section~\ref{subsec:details_exp}. Ces analyses
+sont l'entrée de notre système, la sortie étant l'annotation en rôles
+sémantiques montrée dans la figure~\ref{fig:srlrussia}.
 
 Ensuite, nous utilisons les informations de VerbNet (présenté à la
 section~\ref{presentation_verbnet}) sur l'interface entre la syntaxe et la
 sémantique. Dans VerbNet, chaque classe regroupe un certain nombre de verbes
-acceptant certaines constructions syntaxiques. Les syntagmes participant à ces
-constructions sont associés à des rôles sémantiques à interpréter dans le
-contexte de la classe.  Nous notons ces constructions NP.Agent V NP.Theme, ce
-qui indique que dans cette constructions transitive (NP V NP, e.g. \emph{Sally
+acceptant tous les mêmes constructions syntaxiques. Les syntagmes participant à
+ces constructions sont associés à des rôles sémantiques à interpréter dans le
+contexte de la classe. Nous notons ces \emph{frames} de cette façon : NP.Agent
+V NP.Theme. Ici, dans cette constructions transitive (NP V NP, e.g. \emph{Sally
 pushed the chair}), le premier syntagme nominal (\emph{Sally}) est Agent alors
 que le second (\emph{the chair}) est Theme. L'interprétation des rôles, ici
 Theme et Agent, dépend de la classe VerbNet considérée. Par exemple, dans la
 classe \texttt{resign-10.11}, l'Agent est la personne qui démissionne et la
 Source est le poste qui a été quitté.
 
-Pour une phrase donnée, le système commence par identifier les verbes de
-cette phrase. Pour chacun de ces verbes, un ensemble de classes VerbNet est
+Pour une phrase donnée, le système commence par identifier les verbes de cette
+phrase. Pour chacun de ces verbes, un ensemble de classes VerbNet est
 identifié. Ainsi, pour notre phrase d'exemple ci-dessus, les classes possibles
 pour le verbe \emph{declare} sont \texttt{declare-29-4-1-1-1},
 \texttt{say-37.3-1} et \texttt{reflexive\_appearance-48.1.2}. Le choix correct
-est \texttt{say-37.3-1}, mais il n'est pas possible de le déterminer avant de
-considérer les frames listées par VerbNet dans ces différentes classes.
+est \texttt{say-37.3-1}, mais il ne nous est pas possible de le déterminer
+avant de considérer les frames listées par VerbNet dans ces différentes
+classes.
 
 Par exemple, \texttt{reflexive\_appearance-48.1.2} contient la frame NP.Agent V
 NP.Theme. Ainsi, si un des verbes de cette classe, tel que \emph{present} :
@@ -144,7 +147,7 @@ possible d'établir que :
     \item \emph{it will eliminate its tactical nuclear weapons by the end of 2004} est Topic.
 \end{itemize}
 
-Enfin, le mapping entre VerbNet et FrameNet (section~\ref{sec:mapping}) nous
+Enfin, le mapping entre VerbNet et FrameNet (section~\ref{subsec:mapping}) nous
 informe que :
 
 \begin{itemize}
@@ -164,17 +167,18 @@ série de correspondances a été effectuée, il est possible d'utiliser les
 connaissances du domaine étudié pour annoter de nouveaux syntagmes nominaux
 (section~\ref{subsec:probability}).
 
-Les sections suivantes décrivent le déroulement précis de l'algorithme en le
-découpant en quatre étapes.
+Alors que nous avons jusqu'ici décrit le déroulement général du système afin
+d'en donner l'intuition, les sections suivantes expliquent le déroulement
+précis du système qui est découpé en quatre étapes.
 
 \subsection{Identification du prédicat}
 
 Chaque phrase peut contenir un ou plusieurs prédicats : nous nous contentons
-ici de retenir tous les verbes ayant été annotés avec les parties du discours
-acceptées et présents dans VerbNet. Les autres prédicats potentiels,
-c'est-à-dire ceux qui ne sont pas dans VerbNet et ne sont pas des verbes, sont
-ignorés. Les parties du discours acceptées sont md, MD, VB, VBD, VBG, VBN, VBP,
-VBZ, VV, VVD, VVG, VVN, VVP, VVZ, VH, VHD, VHG, VHN, VHP et VHZ.
+ici de retenir tous les verbes présents dans VerbNet. Les autres prédicats
+potentiels, c'est-à-dire ceux qui ne sont pas dans VerbNet et ne sont pas des
+verbes, sont ignorés. Les parties du discours acceptées sont toutes celles
+concernant des verbes : md, MD, VB, VBD, VBG, VBN, VBP, VBZ, VV, VVD, VVG, VVN,
+VVP, VVZ, VH, VHD, VHG, VHN, VHP et VHZ.
 % TODO la liste est différente dans argguesser.py/argheuristic.py
 
 \subsection{Identification des arguments}
@@ -187,22 +191,22 @@ syntaxique de la phrase. Initialement, tous les mots sont candidats. Puis
 chacune de ces règles sélectionne ou écarte des mots candidats. Dans la
 représentation en dépendances, si le mot sélectionné est la tête d'un syntagme,
 c'est le syntagme entier qui devient candidat. Sinon, c'est uniquement le mot.
-Les règles appliquées dans l'ordre sont :
+Voici les règles appliquées dans l'ordre :
 
 \begin{enumerate}
     \item Éliminer les déterminants, les marqueurs d'infinitifs, les conjonctions de coordinations et la ponctuation.
     \item Éliminer les candidats dont le chemin du prédicat au candidat finit par une coordination, une subordination, etc.
-    \item Conserver les candidats qui sont les sujets les plus proches à gauche du prédicat et dont les relations du prédicat p à la tête t du candidat sont toutes montantes (g -> p)
+    \item Conserver les candidats qui sont les sujets les plus proches à gauche du prédicat et dont les relations du prédicat p à la tête t du candidat sont toutes montantes (g $\rightarrow$ p).
     \item Éliminer les candidats  dont le chemin entre le prédicat et le candidat, sauf la dernière relation, contient une relation de sujet, une relation de modifieur adjectival, etc.
-    \item Éliminer les verbes auxiliaires
-    \item Conserver les candidats directement sous le prédicat
-    \item \sout{Conserver les candidats si le chemin du prédicat au candidat traverse plusieurs noeuds verbaux}
+    \item Éliminer les verbes auxiliaires.
+    \item Conserver les candidats directement sous le prédicat.
+    \item \sout{Conserver les candidats si le chemin du prédicat au candidat traverse plusieurs noeuds verbaux.}
     \item Éliminer tous les candidats restants.
 \end{enumerate}
 
 % TODO exemple
-Pour les règles 3 et 4, la liste complète des relations acceptées est listé en
-annexe à la section~\ref{argument_identification}. En pratique sur le corpus
+Pour les règles 3 et 4, la liste complète des relations acceptées est listée en
+annexe à la section~\ref{argument_identification}. En pratique, sur le corpus
 FrameNet, ces règles génèrent des candidats qui ne jouent pas de rôle : notre
 système devra par la suite pouvoir écarter ces candidats tout en assignant les
 rôles corrects aux candidats qui jouent bien un rôle.
@@ -219,25 +223,29 @@ contributions.
 \subsection{Correspondance exacte des frames}
 
 Cette étape associe zéro, un ou plusieurs rôles sémantiques à chaque syntagme
-candidat identifié lors de l'étape précédente.
+candidat identifié lors de l'étape précédente. Elle correspond au \emph{frame
+matching} de \citet{swier2005exploiting}.
 
-Nous incluons ici deux étapes traditionnellement utilisées dans les systèmes
-d'annotation en rôles sémantiques \citep{gildea2002automatic,das2014frame} :
-l'identification des frames FrameNet puis l'assignation de rôles aux arguments
-identifiés. Ici, au contraire, ce sont les contraintes syntaxiques définies
-dans les frames VerbNet qui permettent de restreindre les classes VerbNet
-possibles. Une fois la frame identifiée syntaxiquement, les rôles peuvent être
-attribués aux syntagmes.
+Nous incluons ici deux étapes traditionnellement séparées dans les systèmes
+d'annotation en rôles sémantiques : l'identification des frames FrameNet puis
+l'assignation de rôles aux arguments précédemment identifiés
+\citep{gildea2002automatic,das2014frame}. Ici, on commence par identifier les
+frames possibles, ce qui restreint le nombre de classes VerbNet applicables. En
+effet, si plusieurs classes sont applicables et même si toutes assignent le
+même rôle à un remplisseur donné, il est impossible d'interpréter ce rôle. Au
+contraire, si une seule classe est applicable, alors on peut interpréter le
+rôle assigné au remplisseur. 
 
-Premièrement, les syntagmes candidats sont représentés au format VerbNet. Par
-exemple, si trois syntagmes nominaux ont été identifiés comme arguments, dont
-un avant le verbe, la représentation VerbNet de la phrase devient NP V NP NP.
-Pour comparer la représentation VerbNet de la phrase aux frames VerbNet, nous
-identifions toutes les classes VerbNet incluant le prédicat.
+Regardons comment se déroule cette étape. Premièrement, les syntagmes candidats
+sont représentés au format VerbNet. Par exemple, si trois syntagmes nominaux
+ont été identifiés comme arguments, dont un avant le verbe, la représentation
+VerbNet de la phrase devient NP V NP NP.
 
-Par exemple, le prédicat \emph{classify} est présent dans deux classes
-VerbNet~: \texttt{characterize-29.2} et \texttt{classify-29.10}. Les frames
-possibles sont~:
+Ensuite, pour comparer la représentation VerbNet de la phrase aux frames
+VerbNet, nous identifions toutes les classes VerbNet incluant le prédicat. Par
+exemple, le prédicat \emph{classify} est présent dans deux classes VerbNet~:
+\texttt{characterize-29.2} et \texttt{classify-29.10}. Les frames possibles
+sont~:
 
 % TODO séparer par classe, on doit pouvoir suivre la suite sans regarder
 % VerbNet
@@ -288,22 +296,31 @@ annotées simplement obtenues de manière automatique sur le corpus existant.
 Nous faisons ici l'hypothèse qu'un corpus entier est à annoter, mais dans le
 cas où l'annotation se ferait phrase par phrase, il serait possible
 d'abandonner cette étape ou d'alimenter les classifieurs que nous utilisons au
-fur et à mesure des annotations.
+fur et à mesure des annotations. Cette étape correspond aux \emph{probability
+models} de \citet{swier2004unsupervised}.
 
 L'apprentissage se fait sous la forme d'un simple classifieur statistique. Deux
 classifieurs sont utilisés : le premier détermine la classe VerbNet quand
 celle-ci est ambigüe, et le second détermine le rôle d'un syntagme quand
 plusieurs choix sont possibles.
 
-% TODO on peut avoir un modèle pour identifier la classe VerbNet
-Le premier classifieur est à implémenter absolument...
+Le premier classifieur détermine la classe VerbNet en fonction du prédicat.
+\citet{abend2008supervised} ont déjà identifié cette tâche comme étant proche
+de la désambiguïsation lexicale. Dans cette tâche, il est difficile de battre
+la \emph{baseline} du sens le plus fréquent. Par exemple, lors de la tâche de
+désambiguïsation lexicale de SemEval-2007, seuls 25~\% des systèmes ont fait
+mieux que cette baseline, et les autres systèmes ont incorporé cette
+information. Nous choisissons de rester pour l'instant dans la simplicité en
+utilisant directement cette baseline :
+
+$$ \text{classe} = \arg\max_{\text{classe}} p(\text{classe} \vert \text{prédicat}) $$
 
 Le second classifieur (issu de \cite{swier2004unsupervised}) assigne une
 probabilité aux différents rôles possibles en s'aidant des rôles déjà
 identifiés.
 
 % TODO belles formules comme dans gildea2002automatic
-$$ \text{rôle} = \arg\max_{\text{rôle}} p(\text{rôle} \vert \text{prédicat}, \text{fonction})$$
+$$ \text{rôle} = \arg\max_{\text{rôle}} p(\text{rôle} \vert \text{prédicat}, \text{fonction})k$$
 
 La fonction est la fonction grammaticale identifiée d'après l'analyse
 syntaxique : si un syntagme apparaît avant le verbe, il est sujet, si il est
@@ -313,14 +330,13 @@ est considérée à part.
 
 Ce classifieur utilise l'information du prédicat et la fonction grammaticale
 détectée. Par exemple, dans notre corpus (section~\ref{subsec:details_exp}),
-l'objet direct du verbe 'négliger' est le plus souvent 'Theme'.
+l'objet direct du verbe \emph{négliger} est le plus souvent \emph{Theme}. La
+précision pour ce modèle est forte, mais il n'assigne des rôles que pour 40~\%
+des arguments : dans les autres cas, nous ne disposons pas d'informations pour
+cette paire (prédicat, fonction grammaticale).
 
-La précision pour ce modèle est forte, mais il n'assigne des rôles que pour
-40~\% des arguments : dans les autres cas, nous ne disposons pas d'informations
-pour cette paire (prédicat, fonction grammaticale).
-
-\section{Mapping VerbNet - FrameNet}
-\label{sec:mapping}
+\subsection{Mapping VerbNet - FrameNet}
+\label{subsec:mapping}
 
 % TODO principe
 % TODO difficultés à réaliser un tel mapping
