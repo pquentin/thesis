@@ -338,10 +338,53 @@ cette paire (prédicat, fonction grammaticale).
 \subsection{Mapping VerbNet - FrameNet}
 \label{subsec:mapping}
 
-% TODO principe
-% TODO difficultés à réaliser un tel mapping
-% TODO impliquant des limites
-% TODO parfait ?
+Le projet SemLink a développé un mapping entre VerbNet et FrameNet. Pour chaque
+frame VerbNet, zéro, une ou plusieurs classes FrameNet ont été choisies.
+Ensuite, pour chaque paire (VerbNet, FrameNet), les rôles des deux ressources
+sont associés.
+% TODO et le second fichier qui traite des verbes ?
+
+\begin{figure}[ht]
+    \begin{minted}{xml}
+    <vncls class='9.1' fnframe='Placing'>
+        <roles>
+        <role fnrole='Agent' vnrole='Agent'/>
+        <role fnrole='Cause' vnrole='Agent'/>
+        <role fnrole='Goal' vnrole='Destination'/>
+        <role fnrole='Theme' vnrole='Theme'/>
+        </roles>
+    </vncls>
+    <vncls class='9.1-1' fnframe='Installing'> <!-- added for 'install' -->
+        <roles>
+        <role fnrole='Agent' vnrole='Agent'/>
+        <role fnrole='Fixed_location' vnrole='Destination'/>
+        <role fnrole='Component' vnrole='Theme'/>
+        </roles>
+    </vncls>
+    <vncls class='9.3' fnframe='Cause_impact'>
+        <roles>
+        <role fnrole='Agent' vnrole='Agent'/>
+        <role fnrole='Impactor' vnrole='Theme'/>
+        <role fnrole='Impactee' vnrole='Destination'/>
+        </roles>
+    </vncls>
+    \end{minted}
+    \caption{\label{fig:mapping}Example de mapping VerbNet-FrameNet}
+\end{figure}
+
+Le résultat est un mapping n-n (figure~\ref{fig:mapping}) : une frame FrameNet
+peut correspondre à plusieurs classes VerbNet, et vice versa. C'est un problème
+de granularité du à la différence construction des deux ressources
+\citep{palmer2009semlink}. Cela implique qu'il est difficile d'utiliser un tel
+mapping pour convertir des annotations en rôles sémantiques, et c'est une des
+limites de notre évaluation.  Celà dit, les difficultés à appliquer un tel
+mapping sont réduites sur le corpus FrameNet : alors qu'en général seul 50~\%
+des rôles sont mis en correspondance, pour le corpus FrameNet en particulier,
+plus de 95~\% des occurrences sont mis en correspondance.
+
+Nous avons modifié ce mapping pour ajouter des correspondances manquantes : en
+attendant que ces modifications soient prises en compte par SemLink, le mapping
+utilisé est disponible à \url{http://TODO}. % TODO mettre en ligne. GitHub ?
 
 \section{Gestion de la voix passive}
 \label{sec:passif}
@@ -604,8 +647,7 @@ identifiés et les remplisseurs pour lesquels un rôle reste encore à identifie
 afin d'améliorer nos modèles de probabilité. En effet, l'information des cadres
 de sous-catégorisation est cruciale pour identifier les arguments, mais
 l'information sémantique concernant le contenu des remplisseurs est aussi utile
-pour déterminer le rôle correct.
-% TODO ref vers chapitre similarité ASFALDA
+pour déterminer le rôle correct (Chapitre~\ref{ch:similarity}).
 
 Enfin, de la même manière que la prise en compte de la voix passive a amélioré
 les résultats, d'autres phénomènes de syntaxe profonde doivent être pris en
