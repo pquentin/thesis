@@ -455,25 +455,29 @@ correcte au format WSJ, ceci réduit les erreurs de 23\% à 3\%.
     \caption{\protect\centering\label{table:tagset_rules}Règles de conversion entre les parties du discours BNC et WSJ}
 \end{table}
 
-% FUTURE SEMAFOR MXPOST/MST
+% TODO FUTURE SEMAFOR MXPOST/MST
 
 \subsection{Procédure d'évaluation}
 
+% TODO relancer le code pour être sur de ces résultats
+% TODO pourquoi telle ou telle combinaison ?
 \begin{table*}[ht]
     \centering
     \begin{tabular}{lcccc}
         \toprule
         Task                                           & F1        & Accuracy \\
         \midrule
-        FM                                             & 70.48\%   & 53.09\%  \\
-        FM + prédicat-fonction (gold args)                & 72.02\%   & 58.28\%  \\
-        FM + passif + prédicat-fonction (gold args)      & 76.40\%   & 62.72\%  \\
+        Correspondance exacte                          & 70.48\%   & 53.09\%  \\
+        Correspondance exacte + probabiliste            & 72.02\%   & 58.28\%  \\
+        Correspondance exacte + probabiliste + Passif   & 76.40\%   & 62.72\%  \\
         \midrule
-        Identification + FM                            & 46.75\%   & 29.12\%  \\
-        Identification + FM + prédicat-fonction           & 46.78\%   & 33.49\%  \\
+        Identification + Correspondance exacte                            & 46.75\%   & 29.12\%  \\
+        Identification + Correspondance exacte + Passif & 46.78\%   & 33.49\%  \\
         \bottomrule
     \end{tabular}
-    \caption{\protect\centering\label{table:results}Résultats pour différentes tâches. FM est le frame matching. \emph{passif} indique la détection de la voix passive. \emph{Identification} est l'identification des arguments.}
+
+    \caption{\protect\centering\label{table:results}Résultats pour différentes tâches. \emph{probabiliste} indique la correspondance probabiliste. \emph{passif} indique la détection de la voix passive. \emph{Identification} est l'identification des arguments.}
+
 \end{table*}
 
 Les rôles annotés de chaque phrase FrameNet sont d'abord transformés en rôles
@@ -482,15 +486,17 @@ ou plusieurs rôles VerbNet :
 
 \begin{itemize}
 
-    \item zéro : n'y pas de correspondance pour les frames FrameNet trop éloignées
-    des classes VerbNet. C'est un problème répandu :  seulement 4605 rôles sur les
-    10052 rôles présents dans FrameNet ont au moins une association VerbNet.
-    % TODO Cependant, en pratique, dans le corpus FrameNet, XX~\% des occurrences
-    % de rôles sont associées à plus d'un rôle VerbNet
+    \item zéro : il n'y pas de correspondance pour les frames FrameNet trop
+        éloignées des classes VerbNet. C'est un problème répandu :  seulement
+        4605 rôles sur les 10052 rôles présents dans FrameNet ont au moins une
+        association VerbNet.
+        % TODO Cependant, en pratique, dans le corpus FrameNet, XX~\% des
+        % occurrences de rôles sont associées à plus d'un rôle VerbNet
 
     \item plusieurs : il y a plusieurs correspondances quand un rôle FrameNet
-    est ambigu par rapport à un rôle VerbNet. Les rôles FrameNet étant définis plus
-    précisément, c'est un problème rare. % TODO dans quelle mesure ?
+        est ambigu par rapport à un rôle VerbNet. Les rôles FrameNet étant
+        définis plus précisément, c'est un problème rare.
+        % TODO dans quelle mesure ?
 
 \end{itemize}
 
@@ -502,13 +508,13 @@ résultats, le reste est un corpus "d'entraînement" : le corpus qui a été
 examiné manuellement pour identifier les erreurs de notre système.
 
 La table~\ref{table:results} montre les résultats des deux tâches sur
-lesquelles nous nous évaluons : le frame matching seul d'une part et le frame
-matching accompagné de l'identification des arguments en amont d'autre part. Le
-frame matching seul utilise les arguments de la vérité-terrain: on sait que ce
-syntagme joue un rôle, il faut alors déterminer lequel. L'identification des
-arguments implique que le texte de départ est une phrase brute : il faut
-l'analyser syntaxiquement, identifier les arguments, puis réaliser le frame
-matching à proprement parler.
+lesquelles nous nous évaluons : la correspondance exacte seule d'une part et la
+correspondance exacte accompagnée de l'identification des arguments en amont
+d'autre part. La correspondance exacte seule utilise les arguments de la
+vérité-terrain: on sait que ce syntagme joue un rôle, il faut alors déterminer
+lequel.  L'identification des arguments implique que le texte de départ est une
+phrase brute : il faut l'analyser syntaxiquement, identifier les arguments,
+puis réaliser la correspondance exacte à proprement parler.
 
 Enfin, différents modèles sont appliqués :
 
@@ -527,33 +533,14 @@ Enfin, différents modèles sont appliqués :
 \subsection{Analyse des résultats}
 
 Premièrement, l'identification des arguments doit être améliorée de manière
-significative car elle pénalise les étapes ultérieures.
-
-La première raison est que seulement 76~\% des syntagmes jouant un rôle sont
-effectivement des sous-arbres de l'analyse syntaxique.
+significative car elle pénalise les étapes ultérieures. La première raison est
+que seulement 76~\% des syntagmes jouant un rôle sont effectivement des
+sous-arbres de l'analyse syntaxique.
 % TODO inclure les mots seuls ? Vérifier la citation de SEMAFOR
 La seconde raison provient des heuristiques utilisées pour l'identification
 elle-même : une analyse plus poussée permettrait de mieux comprendre les
 erreurs qu'elles causent. Des alternatives existent, supervisées ou non
 supervisées \citep{abend2009unsupervised}.
-
-\begin{table}[ht]
-    \centering
-    \begin{tabular}{lccc}
-        \toprule
-        Model          & Precision & Coverage \\
-        \midrule
-        fonction           & 52.45\% & 100\% \\
-        prédicat-fonction & 68.33\% & 38.33\% \\
-        \bottomrule
-    \end{tabular}
-    \caption{\protect\centering\label{table:probabilisticresults}Résultats pour les modèles de probabilité}
-\end{table}
-
-La table~\ref{table:probabilisticresults} montre la complémentarité de nos
-modèles : le modèle prédicat-fonction est précis mais couvre peu de verbes, alors
-que le modèle fonction couvre l'ensemble des verbes.
-% TODO narrative logique, soit on prend soit on prend pas.
 
 \begin{figure}[t]
     \centering
@@ -561,9 +548,10 @@ que le modèle fonction couvre l'ensemble des verbes.
     \caption{\label{fig:fonction_predicate}Performance du modèle fonction-prédicat en entraînant le modèle sur une sous-partie du corpus : de 0 à 100~\%.}
 \end{figure}
 
-La figure~\ref{fig:fonction_predicate} montre que ce niveau de performance ne
-demande pas un gros corpus. C'est un enseignement intéressant pour deux
-raisons~:
+La correspondance probabiliste a une précision 68.33\% mais une couverture
+limitée à 38.33\%. La figure~\ref{fig:fonction_predicate} montre que ce niveau
+de performance ne demande pas un gros corpus. C'est un enseignement intéressant
+pour deux raisons~:
 
 \begin{itemize}
 
@@ -583,7 +571,7 @@ SEMAFOR \citep{das2014frame} est la référence actuelle en annotation en rôle
 sémantiques supervisée : c'est le système qui obtient les meilleurs résultats
 sur le corpus full-text de FrameNet 1.5. Toutes les parties du discours sont
 annotées alors que nous ne nous concentrons que sur les verbes. Sur la tâche
-complète, SEMAFOR obtient un score F1 de XX~\%, score à comparer avec les XX\~
+complète, SEMAFOR obtient un score F1 de XX~\%, score à comparer avec les XX~\%
 de notre système. Le système de SEMAFOR découpe la tâche en trois parties :
 
 \begin{itemize}
