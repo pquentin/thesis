@@ -21,19 +21,22 @@ a été négligé malgré leur complémentarité par rapport aux autres approche
 En nous inspirant de \citep{swier2004unsupervised,swier2005exploiting}, nous
 montrons dans ce chapitre un système d'annotation en rôles sémantiques fondé
 sur la connaissance qui se veut simple à mettre en place et facile à
-reproduire. Dans ce système, la prise en compte de la voix passive réduit le
-taux d'erreur de 15,7~\%, ce qui montre la marge de progrès existante. Malgré
-des performances moindres quand des données d'entraînement existent, l'approche
-facilite l'analyse des erreurs, n'a pas besoin d'un corpus annoté manuellement
-et est a priori indépendante du domaine considéré, ce qui sera étudié plus en
-détail dans le Chapitre~\ref{ch:domainsrl} où les domaines du football, du
-réchauffement climatique et de l'informatique seront considérés.
+reproduire. La prise en compte de divers phénomènes linguistiques doit
+permettre d'améliorer les performances par rapport à un état donné. Par
+exemple, la prise en compte de la voix passive a réduit le taux d'erreur de
+15,7~\%, ce qui montre la marge de progrès existante. Malgré des performances
+moindres par rapport aux approches supervisées quand des données d'entraînement
+existent, l'approche facilite l'analyse des erreurs, n'a pas besoin d'un corpus
+annoté manuellement et est /textit{a priori} indépendante du domaine considéré.
 
 Ce chapitre se concentre sur notre système d'annotation en rôles sémantiques
 dans un cadre général en l'utilisant sur le corpus FrameNet anglais (qui a été
 présenté à la section~\ref{presentation_framenet}). Les chapitres suivants
 montreront la versatilité de ce système dans des contextes différents : en
-domaine spécifique (Chapitre~\ref{ch:domainsrl}) et pour le français
+domaine spécifique avec les domaines du football, du réchauffement climatique
+et de l'informatique (Chapitre~\ref{ch:domainsrl}) puis pour le français
+(Chapitre~\ref{ch:frenchsrl}).
+
 (Chapitre~\ref{ch:frenchsrl}).
 
 \section{Tâche}
@@ -91,9 +94,9 @@ contradictoires, etc.
 \section{Système}
 
 Le système présenté est similaire à celui de
-\cite{swier2004unsupervised,swier2005exploiting}. Cependant, dix ans après, il
-est important d'évaluer à nouveau cette approche pour savoir où elle se situe
-par rapport à l'état de l'art et pour proposer certaines améliorations.
+\cite{swier2004unsupervised,swier2005exploiting}. Dix ans après, il est
+important d'évaluer à nouveau cette approche pour savoir où elle se situe par
+rapport à l'état de l'art. Nous proposons par ailleurs certaines améliorations.
 
 Pour commencer, chaque phrase à annoter doit d'abord être étiquetée en
 morphosyntaxe et analysée syntaxiquement. Nous laissons ici ces analyses à des
@@ -107,7 +110,7 @@ sémantique. Dans VerbNet, chaque classe regroupe un certain nombre de verbes
 acceptant tous les mêmes constructions syntaxiques. Les syntagmes participant à
 ces constructions sont associés à des rôles sémantiques à interpréter dans le
 contexte de la classe. Nous notons ces \emph{frames} de cette façon : NP.Agent
-V NP.Theme. Ici, dans cette constructions transitive (NP V NP, e.g. \emph{Sally
+V NP.Theme. Ici, dans cette construction transitive (NP V NP, e.g. \emph{Sally
 pushed the chair}), le premier syntagme nominal (\emph{Sally}) est Agent alors
 que le second (\emph{the chair}) est Theme. L'interprétation des rôles, ici
 Theme et Agent, dépend de la classe VerbNet considérée. Par exemple, dans la
@@ -118,8 +121,8 @@ Pour une phrase donnée, le système commence par identifier les verbes de cette
 phrase. Pour chacun de ces verbes, un ensemble de classes VerbNet est
 identifié. Ainsi, pour notre phrase d'exemple ci-dessus, les classes possibles
 pour le verbe \emph{declare} sont \texttt{declare-29-4-1-1-1},
-\texttt{say-37.3-1} et \texttt{reflexive\_appearance-48.1.2}. Le choix correct
-est \texttt{say-37.3-1}, mais il ne nous est pas possible de le déterminer
+\texttt{say-37.7-1} et \texttt{reflexive\_appearance-48.1.2}. Le choix correct
+est \texttt{say-37.7-1}, mais il ne nous est pas possible de le déterminer
 avant de considérer les frames listées par VerbNet dans ces différentes
 classes.
 
@@ -156,11 +159,11 @@ informe que :
     \item dans cette classe, le rôle VerbNet Topic correspond au rôle FrameNet Topic.
 \end{itemize}
 
-Nous aboutissons ainsi pour le verbe \emph{eliminate} à la représentation
-voulue pour notre phrase d'exemple.
+Nous aboutissons ainsi à l'annotation en rôles sémantiques voulue pour notre
+phrase d'exemple.
 
 On ne peut pas toujours identifier la classe VerbNet correcte. C'est le cas par
-exemple de \texttt{reflexive\_appearance-48.1.2} et \texttt{say-37.3-1} qui
+exemple de \texttt{reflexive\_appearance-48.1.2} et \texttt{say-37.7-1} qui
 contiennent toutes les deux le cadre NP V NP. Sans corpus annoté, ces
 ambiguïtés ne peuvent pas être résolues.  Cependant, une fois qu'une première
 série de correspondances a été effectuée, il est possible d'utiliser les
@@ -196,7 +199,7 @@ Voici les règles appliquées dans l'ordre :
 \begin{enumerate}
     \item Éliminer les déterminants, les marqueurs d'infinitifs, les conjonctions de coordinations et la ponctuation.
     \item Éliminer les candidats dont le chemin du prédicat au candidat finit par une coordination, une subordination, etc.
-    \item Conserver les candidats qui sont les sujets les plus proches à gauche du prédicat et dont les relations du prédicat p à la tête t du candidat sont toutes montantes (g $\rightarrow$ p).
+    \item Conserver les candidats qui sont les sujets les plus proches à gauche du prédicat et dont les relations du prédicat p à la tête t du candidat sont toutes montantes (t $\rightarrow$ p).
     \item Éliminer les candidats  dont le chemin entre le prédicat et le candidat, sauf la dernière relation, contient une relation de sujet, une relation de modifieur adjectival, etc.
     \item Éliminer les verbes auxiliaires.
     \item Conserver les candidats directement sous le prédicat.
@@ -207,9 +210,10 @@ Voici les règles appliquées dans l'ordre :
 % TODO exemple
 Pour les règles 3 et 4, la liste complète des relations acceptées est listée en
 annexe à la section~\ref{argument_identification}. En pratique, sur le corpus
-FrameNet, ces règles génèrent des candidats qui ne jouent pas de rôle : notre
-système devra par la suite pouvoir écarter ces candidats tout en assignant les
-rôles corrects aux candidats qui jouent bien un rôle.
+FrameNet, ces règles génèrent les candidats valides mais aussi certains qui ne
+jouent pas de rôle : notre système devra par la suite pouvoir écarter ces
+candidats tout en assignant les rôles corrects aux candidats qui jouent bien un
+rôle.
 
 Cette étape d'identification des arguments est facultative : afin de mieux
 comprendre les performances des étapes suivantes, ce seront parfois les
