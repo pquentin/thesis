@@ -27,7 +27,7 @@ exemple, la prise en compte de la voix passive a réduit le taux d'erreur de
 15,7~\%, ce qui montre la marge de progrès existante. Malgré des performances
 moindres par rapport aux approches supervisées quand des données d'entraînement
 existent, l'approche facilite l'analyse des erreurs, n'a pas besoin d'un corpus
-annoté manuellement et est /textit{a priori} indépendante du domaine considéré.
+annoté manuellement et est /emph{a priori} indépendante du domaine considéré.
 
 Ce chapitre se concentre sur notre système d'annotation en rôles sémantiques
 dans un cadre général en l'utilisant sur le corpus FrameNet anglais (qui a été
@@ -86,9 +86,9 @@ représentation de ces deux \emph{frames} pour répondre à la question \emph{Do
 Russia possess tactical nuclear weapons?} L'annotation de la
 figure~\ref{fig:srlrussia} est une information utile, mais elle ne serait pas
 suffisante pour répondre à la question : il faut aussi comprendre la question,
-annoter les coréférences (\emph{it} fait référence à \emph{Russia}), établir la
-crédibilité du \emph{Speaker}, s'intéresser à d'autres phrases potentiellement
-contradictoires, etc.
+annoter les coréférences (\emph{it} fait référence à \emph{Russia}), comprendre
+la sémantique \emph{Removing}, établir la crédibilité du \emph{Speaker},
+s'intéresser à d'autres phrases potentiellement contradictoires, etc.
 
 \section{Système}
 
@@ -108,13 +108,15 @@ section~\ref{presentation_verbnet}) sur l'interface entre la syntaxe et la
 sémantique. Dans VerbNet, chaque classe regroupe un certain nombre de verbes
 acceptant tous les mêmes constructions syntaxiques. Les syntagmes participant à
 ces constructions sont associés à des rôles sémantiques à interpréter dans le
-contexte de la classe. Nous notons ces \emph{frames} de cette façon : NP.Agent
+contexte de la classe. Ces \emph{frames} sont notées de cette façon : NP.Agent
 V NP.Theme. Ici, dans cette construction transitive (NP V NP, e.g. \emph{Sally
 pushed the chair}), le premier syntagme nominal (\emph{Sally}) est Agent alors
-que le second (\emph{the chair}) est Theme. L'interprétation des rôles, ici
-Theme et Agent, dépend de la classe VerbNet considérée. Par exemple, dans la
-classe \texttt{resign-10.11}, l'Agent est la personne qui démissionne et la
-Source est le poste qui a été quitté.
+que le second (\emph{the chair}) est Theme. Bien que des règles précises
+régissent leur attributions, l'interprétation complète des rôles (ici Theme et
+Agent) dépend de la classe VerbNet considérée. Par exemple, la classe
+\texttt{resign-10.11} contient notamment NP.Agent V PP.Source (\emph{I resigned
+from the military}). Dans cette classe, l'Agent est la personne qui démissionne
+et la Source est le poste qui a été quitté.
 
 Pour une phrase donnée, le système commence par identifier les verbes de cette
 phrase. Pour chacun de ces verbes, un ensemble de classes VerbNet est
@@ -164,11 +166,12 @@ phrase d'exemple.
 
 On ne peut pas toujours identifier la classe VerbNet correcte. C'est le cas par
 exemple de \texttt{reflexive\_appearance-48.1.2} et \texttt{say-37.7-1} qui
-contiennent toutes les deux le cadre NP V NP. Sans corpus annoté, ces
-ambiguïtés ne peuvent pas être résolues.  Cependant, une fois qu'une première
-série de correspondances a été effectuée, il est possible d'utiliser les
-connaissances du domaine étudié pour annoter de nouveaux syntagmes nominaux
-(section~\ref{subsec:probability}).
+contiennent toutes les deux le cadre NP V NP. Ainsi, si notre phrase d'exemple
+avait été \emph{Russia declared its intentions}, la classe serait restée
+ambigüe. Sans corpus annoté, ces ambiguïtés ne peuvent pas être résolues.
+Cependant, une fois qu'une première série de correspondances a été effectuée,
+il est possible d'utiliser les connaissances du domaine étudié pour annoter de
+nouveaux syntagmes nominaux (section~\ref{subsec:probability}).
 
 Alors que nous avons jusqu'ici décrit le déroulement général du système afin
 d'en donner l'intuition, les sections suivantes expliquent le déroulement
@@ -183,6 +186,7 @@ verbes, sont ignorés. Les parties du discours acceptées sont toutes celles
 concernant des verbes : md, MD, VB, VBD, VBG, VBN, VBP, VBZ, VV, VVD, VVG, VVN,
 VVP, VVZ, VH, VHD, VHG, VHN, VHP et VHZ.
 % TODO la liste est différente dans argguesser.py/argheuristic.py
+% TODO en annexe !
 
 \subsection{Identification des arguments}
 
@@ -208,7 +212,7 @@ Voici les règles appliquées dans l'ordre :
 \end{enumerate}
 
 % TODO exemple
-Pour les règles 3 et 4, la liste complète des relations acceptées est listée en
+Pour les règles 3 et 4, la liste complète des relations acceptées est donnée en
 annexe à la section~\ref{argument_identification}. En pratique, sur le corpus
 FrameNet, ces règles génèrent les candidats valides mais aussi certains qui ne
 jouent pas de rôle : notre système devra par la suite pouvoir écarter ces
@@ -243,7 +247,7 @@ Regardons comment se déroule cette étape. Premièrement, les syntagmes candida
 sont représentés au format VerbNet. Par exemple, si trois syntagmes nominaux
 ont été identifiés comme arguments, dont un avant le verbe, la représentation
 VerbNet de la phrase devient NP V NP NP. Si le troisième syntagme est un
-syntagme prépositionnel introduit par \textit{in}, la représentation devient NP
+syntagme prépositionnel introduit par \emph{in}, la représentation devient NP
 V NP in PP, et ainsi de suite.
 
 Ensuite, pour comparer la représentation VerbNet de la phrase aux frames
@@ -398,14 +402,16 @@ utilisé est disponible à \url{http://TODO}. % TODO mettre en ligne. GitHub ?
 \section{Gestion de la voix passive}
 \label{sec:passif}
 
-Une analyse d'erreur a révélé que la voix passive était une source d'erreur
+Une analyse d'erreur a révélé que la voix passive était une source d'erreurs
 importante dans l'analyse de notre corpus FrameNet. En effet, VerbNet n'encode
-pas la voix passive qui est un phénomène syntaxique : c'est au moment de
-l'analyse syntaxique que les sujets et objets syntaxiques, profonds ou non,
-doivent être identifiés correctement. Pour annoter la phrase \emph{The
-artifacts were classified by the curator} en rôles sémantiques, il est donc
-important de d'abord transformer la phrase en \emph{the curator classified The
-artifacts} avant la comparaison les frames VerbNet.
+pas la voix passive qui est un phénomène syntaxique, et non un phénomène
+lexical, car (pratiquement) tous les verbes anglais permettent le passif (ce
+qui n'est pas le cas du français). C'est donc au moment de l'analyse syntaxique
+que les sujets et objets syntaxiques, profonds ou non, doivent être identifiés
+correctement. Pour annoter la phrase \emph{the artifacts were classified by the
+curator} en rôles sémantiques, il est donc important de d'abord transformer la
+phrase en \emph{the curator classified the artifacts} avant la comparaison les
+frames VerbNet.
 
 Les sujets et objets profonds ne sont pas encodés dans les corpus annotés en
 syntaxe que nous utilisons (le Wall Street Journal pour l'anglais, cf.
@@ -418,12 +424,13 @@ sémantiques.
 
 Afin de valider cette hypothèse, nous nous sommes concentrés sur la voix
 passive qui était le phénomène de syntaxe profonde le plus présent dans notre
-corpus.  Pour annoter les verbes utilisés avec la voix passive, nous avons
-transformé les frames VerbNet vers la voix passive. Les verbes utilisés au
-passif en anglais sont au participe passé et gouvernés par une forme du verbe
-\emph{to be}. Étant donné une frame VerbNet telle que \emph{NP.Agent V
-NP.Recipient NP.Theme (eg. the curator classified the artifacts)}, nous la
-remplaçons par deux nouvelles frames :
+corpus.  Pour annoter les verbes utilisés avec la voix passive (et uniquement
+pour ceux là), nous avons remplacés les frames VerbNet par leur deux
+équivalents à la voix passive. Les verbes utilisés au passif en anglais sont au
+participe passé et gouvernés par une forme du verbe \emph{to be}. Étant donné
+une frame VerbNet telle que \emph{NP.Agent V NP.Recipient NP.Theme (eg. the
+curator classified the artifacts)}, nous la remplaçons par deux nouvelles
+frames :
 
 \begin{itemize}
     \item NP.Recipient V NP.Theme (the artifacts were classified)
@@ -436,12 +443,12 @@ passive est detectée, ce qui améliore les résultats
 phénomènes syntaxiques. Pour aller plus loin, il faudra non pas modifier
 VerbNet mais bien annoter la phrase en syntaxe profonde avant de réaliser les
 correspondances exactes puis probabilistes. Premièrement, cela limite
-l'ambiguïté provoqué par la transofmration de Verbnet : par exemple,
-\textit{by} n'est pas limité à l'introduction du sujet dans une construction
-passive. Deuxièmement, il est plus naturel d'identifier les sujets profonds
-avant de les comparer à des représentations conçues pour utiliser la voix
-active. Troisièmement, cela permet de généraliser à d'autres phénomènes de
-syntaxe profonde, par exemple en utilisant les systèmes existants
+l'ambiguïté provoquée par la transformation de Verbnet : par exemple, \emph{by}
+n'est pas limité à l'introduction du sujet dans une construction passive.
+Deuxièmement, il est plus naturel d'identifier les sujets profonds avant de les
+comparer à des représentations conçues pour utiliser la voix active.
+Troisièmement, cela permet de généraliser à d'autres phénomènes de syntaxe
+profonde, par exemple en utilisant les systèmes existants
 \citep{bonfante2011modular,ribeyre2013systeme}.
 
 \section{Evaluation}
