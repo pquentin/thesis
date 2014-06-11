@@ -37,19 +37,18 @@ domaine spécifique avec les domaines du football, du réchauffement climatique
 et de l'informatique (Chapitre~\ref{ch:domainsrl}) puis pour le français
 (Chapitre~\ref{ch:frenchsrl}).
 
-(Chapitre~\ref{ch:frenchsrl}).
-
 \section{Tâche}
 
-L'objectif de ce chapitre est de présenter notre système en l'évaluant sur le
-corpus annoté en rôles sémantiques fourni par FrameNet, ce qui permet une
-comparaison avec les approches existantes. La figure~\ref{fig:srlrussia} est un
-exemple d'annotation en rôles sémantiques avec des frames et des rôles
-FrameNet. Nous utiliserons principalement cette phrase d'exemple par la suite
-pour illustrer notre propos. Pour une phrase donnée, les prédicats verbaux et
-la frame qu'ils évoquent sont identifiés. Dans chaque phrase, des syntagmes
-vont remplir un des rôles prévus par la frame dans FrameNet. Ces syntagmes sont
-nommés «~remplisseurs de rôle~» (\emph{role filler} en anglais).
+L'objectif de ce chapitre est de présenter notre système en l'évaluant sur une
+conversion VerbNet du corpus annoté en rôles sémantiques fourni par FrameNet,
+ce qui permet d'évaluer l'annotation en rôles sémantiques Verbnet. La
+figure~\ref{fig:srlrussia} est un exemple d'annotation en rôles sémantiques
+avec des frames et des rôles FrameNet. Nous utiliserons notamment cette phrase
+d'exemple par la suite pour illustrer notre propos. Pour une phrase donnée, les
+prédicats verbaux et la frame qu'ils évoquent sont identifiés. Dans chaque
+phrase, des syntagmes vont remplir un des rôles prévus par la frame dans
+FrameNet. Ces syntagmes sont nommés «~remplisseurs de rôle~» (\emph{role
+filler} en anglais).
 
 \begin{figure}[ht]
     La phrase à annoter est :
@@ -150,6 +149,7 @@ possible d'établir que :
     \item \emph{it will eliminate its tactical nuclear weapons by the end of 2004} est Topic.
 \end{itemize}
 
+% TODO la conversion se fait dans l'autre sens
 Enfin, le mapping entre VerbNet et FrameNet (section~\ref{subsec:mapping}) nous
 informe que :
 
@@ -233,23 +233,24 @@ matching} de \citet{swier2005exploiting}.
 Nous incluons ici deux étapes traditionnellement séparées dans les systèmes
 d'annotation en rôles sémantiques : l'identification des frames FrameNet puis
 l'assignation de rôles aux arguments précédemment identifiés
-\citep{gildea2002automatic,das2014frame}. Ici, on commence par identifier les
-frames possibles, ce qui restreint le nombre de classes VerbNet applicables. En
-effet, si plusieurs classes sont applicables et même si toutes assignent le
-même rôle à un remplisseur donné, il est impossible d'interpréter ce rôle. Au
-contraire, si une seule classe est applicable, alors on peut interpréter le
-rôle assigné au remplisseur. 
+\citep{gildea2002automatic,das2014frame}. Nous commençons ici par identifier
+les frames VerbNet possibles pour restreindre au maximum le nombre de classes
+VerbNet applicables ; le but étant de n'en avoir qu'une. En effet, même si
+toutes les classes VerbNet réutilisent les mêmes rôles, le sens précis d'un
+rôle est déterminé par la classe qu'il faut donc identifier.
 
 Regardons comment se déroule cette étape. Premièrement, les syntagmes candidats
 sont représentés au format VerbNet. Par exemple, si trois syntagmes nominaux
 ont été identifiés comme arguments, dont un avant le verbe, la représentation
-VerbNet de la phrase devient NP V NP NP.
+VerbNet de la phrase devient NP V NP NP. Si le troisième syntagme est un
+syntagme prépositionnel introduit par \textit{in}, la représentation devient NP
+V NP in PP, et ainsi de suite.
 
 Ensuite, pour comparer la représentation VerbNet de la phrase aux frames
 VerbNet, nous identifions toutes les classes VerbNet incluant le prédicat. Par
 exemple, le prédicat \emph{classify} est présent dans deux classes VerbNet~:
-\texttt{characterize-29.2} et \texttt{classify-29.10}. Les frames possibles
-sont~:
+\texttt{characterize-29.2} et \texttt{classify-29.10}. Les frames VerbNet
+possibles sont~:
 
 % TODO séparer par classe, on doit pouvoir suivre la suite sans regarder
 % VerbNet
@@ -264,7 +265,7 @@ sont~:
 % TODO documenter la gestion des PP - demande de savoir comment on unifie avec
 % domainsrl
 
-% TODO trouver une telle phrase dans FrameNet ?
+% TODO commencer par la phrase d'exemple (declare ou eliminate)
 Considérons la phrase \emph{The curator classified the artifacts}. La
 représentation VerbNet de cette phrase est NP V NP, ce qui correspond au
 NP.Agent V NP.Theme de la classe \texttt{classify-29.10}. On en déduit que
@@ -291,17 +292,20 @@ ne sait pas comment l'interpréter.
 \subsection{Correspondances probabiliste des frames}
 \label{subsec:probability}
 
-Maintenant que les correspondances exactes ont étés effectuées, il reste les
-correspondances ambigües pour lesquelles plusieurs frames sont possibles.  Nous
-pouvons utiliser les frames déjà mises en correspondance pour annoter ces
-frames ambigües. La méthode reste non supervisée : bien que nous entraînions
-une forme simple d'algorithme supervisé, nous le faisons sur des données non
-annotées simplement obtenues de manière automatique sur le corpus existant.
-Nous faisons ici l'hypothèse qu'un corpus entier est à annoter, mais dans le
-cas où l'annotation se ferait phrase par phrase, il serait possible
-d'abandonner cette étape ou d'alimenter les classifieurs que nous utilisons au
-fur et à mesure des annotations. Cette étape correspond aux \emph{probability
-models} de \citet{swier2004unsupervised}.
+Maintenant que les correspondances exactes ont étés effectuées, il reste d'une
+part les correspondances impossibles et les correspondances ambigües pour
+lesquelles plusieurs frames sont possibles. Alors que les correspondances
+impossibles sont à corriger au niveau de la ressource VerbNet ou au niveau de
+l'analyse syntaxique, nous pouvons utiliser les frames déjà mises en
+correspondance pour désambiguïser les correspondances ambigües. La méthode
+reste non supervisée : bien que nous entraînions une forme simple d'algorithme
+supervisé, nous le faisons sur des données qui sont initialement non annotées.
+En effet, elles sont simplement obtenues automatiquement sur le corpus existant
+à l'aide la correspondance exacte. Nous faisons ici l'hypothèse qu'un corpus
+entier est à annoter, mais dans le cas où l'annotation se ferait phrase par
+phrase, il serait possible d'abandonner cette étape ou d'alimenter les
+classifieurs que nous utilisons au fur et à mesure des annotations. Cette étape
+correspond aux \emph{probability models} de \citet{swier2004unsupervised}.
 
 L'apprentissage se fait sous la forme d'un simple classifieur statistique. Deux
 classifieurs sont utilisés : le premier détermine la classe VerbNet quand
@@ -324,7 +328,7 @@ probabilité aux différents rôles possibles en s'aidant des rôles déjà
 identifiés.
 
 % TODO belles formules comme dans gildea2002automatic
-$$ \text{rôle} = \arg\max_{\text{rôle}} p(\text{rôle} \vert \text{prédicat}, \text{fonction})k$$
+$$ \text{rôle} = \arg\max_{\text{rôle}} p(\text{rôle} \vert \text{prédicat}, \text{fonction})$$
 
 La fonction est la fonction grammaticale identifiée d'après l'analyse
 syntaxique : si un syntagme apparaît avant le verbe, il est sujet, si il est
@@ -378,13 +382,14 @@ sont associés.
 
 Le résultat est un mapping n-n (figure~\ref{fig:mapping}) : une frame FrameNet
 peut correspondre à plusieurs classes VerbNet, et vice versa. C'est un problème
-de granularité du à la différence construction des deux ressources
+de granularité du à la construction différente des deux ressources
 \citep{palmer2009semlink}. Cela implique qu'il est difficile d'utiliser un tel
-mapping pour convertir des annotations en rôles sémantiques, et c'est une des
+mapping pour convertir entre annotations VerbNet et FrameNet, et c'est une des
 limites de notre évaluation.  Celà dit, les difficultés à appliquer un tel
 mapping sont réduites sur le corpus FrameNet : alors qu'en général seul 50~\%
 des rôles sont mis en correspondance, pour le corpus FrameNet en particulier,
 plus de 95~\% des occurrences sont mis en correspondance.
+% TODO expliciter que la conversion est FrameNet -> VerbNet
 
 Nous avons modifié ce mapping pour ajouter des correspondances manquantes : en
 attendant que ces modifications soient prises en compte par SemLink, le mapping
@@ -408,7 +413,8 @@ section~\ref{subsec:details_exp}). Une étape intermédiaire est donc nécessair
 entre l'analyse syntaxique et l'annotation en rôles sémantiques
 \citep{bonfante2011modular, ribeyre2013systeme}. Cette étape intermédiaire
 pourra identifier les sujets et objets profonds de tous les verbes considérés,
-évitant ainsi des erreurs lors de l'annotation en rôles sémantiques. 
+évitant ainsi toute une classe d'erreurs lors de l'annotation en rôles
+sémantiques. 
 
 Afin de valider cette hypothèse, nous nous sommes concentrés sur la voix
 passive qui était le phénomène de syntaxe profonde le plus présent dans notre
@@ -416,11 +422,12 @@ corpus.  Pour annoter les verbes utilisés avec la voix passive, nous avons
 transformé les frames VerbNet vers la voix passive. Les verbes utilisés au
 passif en anglais sont au participe passé et gouvernés par une forme du verbe
 \emph{to be}. Étant donné une frame VerbNet telle que \emph{NP.Agent V
-NP.Recipient NP.Theme}, nous la remplaçons par deux nouvelles frames :
+NP.Recipient NP.Theme (eg. the curator classified the artifacts)}, nous la
+remplaçons par deux nouvelles frames :
 
 \begin{itemize}
-    \item NP.Recipient V NP.Theme
-    \item NP.Recipient V NP.Theme by NP.Agent
+    \item NP.Recipient V NP.Theme (the artifacts were classified)
+    \item NP.Recipient V NP.Theme by NP.Agent (the artifacts were classified by the curator)
 \end{itemize}
 
 Ce sont ces frames VerbNet transformées qui sont utilisées lorsque qu'une voix
@@ -428,32 +435,43 @@ passive est detectée, ce qui améliore les résultats
 (Table~\ref{table:results}). Cette expérience valide la gestion de tels
 phénomènes syntaxiques. Pour aller plus loin, il faudra non pas modifier
 VerbNet mais bien annoter la phrase en syntaxe profonde avant de réaliser les
-correspondances exactes puis probabilistes.
+correspondances exactes puis probabilistes. Premièrement, cela limite
+l'ambiguïté provoqué par la transofmration de Verbnet : par exemple,
+\textit{by} n'est pas limité à l'introduction du sujet dans une construction
+passive. Deuxièmement, il est plus naturel d'identifier les sujets profonds
+avant de les comparer à des représentations conçues pour utiliser la voix
+active. Troisièmement, cela permet de généraliser à d'autres phénomènes de
+syntaxe profonde, par exemple en utilisant les systèmes existants
+\citep{bonfante2011modular,ribeyre2013systeme}.
 
 \section{Evaluation}
 \label{srl:evaluation}
 
-L'intérêt du système ne réside pas dans l'annotation d'un large corpus annoté
-tel que FrameNet pour lequel les méthodes d'apprentissage supervisées sont les
-plus efficaces \citep{das2014frame}. Néanmoins, FrameNet est un point de
-comparaison utilisé par de nombreux systèmes d'annotation en rôles sémantiques
-auxquels il est intéressant de se comparer.
+L'intérêt du système ne réside pas dans l'annotation automatique d'un large
+corpus annoté tel que FrameNet pour lequel les méthodes d'apprentissage
+supervisées sont les plus efficaces \citep{das2014frame}. Néanmoins, FrameNet
+est un corpus équilibré utile et largement utilisé pour l'annotation en rôles
+sémantiques. Il dispose d'un mapping VerbNet (section~\ref{subsec:mapping}) qui
+rend possible dans une certaine mesure l'évaluation d'un système d'annotation
+VerbNet.
 
 \subsection{Détails expérimentaux}
 \label{subsec:details_exp}
 
 FrameNet dispose de deux corpus. Le premier corpus est le corpus d'exemples :
-des phrases tirées du British National Corpus illustraient la diversité de
-réalisation des frames annotés. Plus tard, les versions 1.3, 1.4 et 1.5 de
-FrameNet ont apporté un corpus dit full-text, plus adapté à la tâche
+des phrases extraites du British National Corpus pour illustrer la diversité de
+réalisation des frames. Plus tard, les versions 1.3, 1.4 et 1.5 de FrameNet ont
+apporté puis agrandi un corpus dit full-text, plus adapté à la tâche
 d'annotation en rôles sémantiques : au lieu d'identifier des exemples
 diversifiés pour toutes les frames, tous les prédicats présents dans un texte
 donné sont annotés en rôles sémantiques. L'objectif est de s'approcher au plus
-près des conditions réelles de l'annotation en rôles sémantiques. Ici, nous
-utilisons le corpus full-text de FrameNet 1.5 et pas le corpus d'exemples. Ce
-corpus full-text est équilibré et inclut des textes de diverses sources : le
-Wall Street Journal, les corpus AQUAINT et MASC, ainsi que d'autres textes
-divers.
+près des conditions réelles de l'annotation en rôles sémantiques. Ce corpus
+full-text est équilibré et inclut des textes de diverses sources : le Wall
+Street Journal, les corpus AQUAINT et MASC, ainsi que d'autres textes divers.
+Ici, nous annotons ce corpus full-text de FrameNet 1.5 et pas le corpus
+d'exemples qui est considéré non seulement plus facile mais aussi difficilement
+utilisable pour annoter le corpus-fulltext.
+% TODO citation SemEval ou autre
 
 Nous utilisons VerbNet 3.2 et le mapping VerbNet-FrameNet 1.2.2c
 \footnote{\url{http://verbs.colorado.edu/semlink/1.2.2c/vn-fn/}}. Notre système
@@ -463,24 +481,35 @@ arguments étudiés par VerbNet.
 % TODO de toute façon il faut utiliser ce qui est fourni par SEMAFOR
 Pour la tâche complète qui inclut l'identification des arguments, nous
 utilisons le parser MST dans sa version 0.5.0 \citep{mcdonald2006multilingual}
-entraîné sur une version modifiée du Wall Street Journal de la manière
-suivante. Nous avons d'abord transformé l'encodage des syntagmes nominaux
-\footnote{\url{http://sydney.edu.au/engineering/it/~dvadas1/}}
-\citep{vadas2007adding} puis appliqué l'outil de conversion
-constituants-dépendances du LTH pour une conversion au format CoNLL
-\footnote{\url{http://nlp.cs.lth.se/software/treebank_converter/}}
-\citep{johansson2007extended}. De plus, FrameNet incluant des parties du corpus
-du Wall Street Journal, nous avons supprimé les fichiers 0558, 0089, 0456,
-1778, 1286 et 1695 du corpus d'entraînement de l'analyseur syntaxique. Ceci
-évite que l'analyseur traite des phrases déjà observées dans le corpus
-d'entraînement, ce qui aurait pu améliorer les résultats artificiellement.
+entraîné sur une version du Wall Street Journal que nous avons modifié de la
+façon suivante.
 
-Enfin, les étiquettes morphosyntaxiques de FrameNet, utilisées lors de
-l'analyse syntaxique, ont été converties de la convention BNC à la convention
-WSJ en utilisant des règles manuelles (Table~\ref{table:tagset_rules}). Sur les
-six fichiers du Wall Street Journal pour lesquels on connaît l'annotation
-correcte au format WSJ, ceci réduit les erreurs de 23\% à 3\%.
+\begin{itemize}
+    \item Nous avons d'abord transformé l'encodage des syntagmes nominaux
+        \footnote{\url{http://sydney.edu.au/engineering/it/~dvadas1/}}
+        \citep{vadas2007adding}.
+    \item Nous avons ensuite appliqué l'outil de conversion
+        constituants-dépendances du LTH pour une conversion au format CoNLL
+        \footnote{\url{http://nlp.cs.lth.se/software/treebank_converter/}}
+        \citep{johansson2007extended}.
+    \item Enfin, FrameNet incluant des fichier du corpus du Wall Street
+        Journal, nous avons supprimé les fichiers 0558, 0089, 0456, 1778, 1286
+        et 1695 du corpus d'entraînement de l'analyseur syntaxique MST. Ceci
+        évite que l'analyseur syntaxique ait à traiter des phrases déjà
+        observées dans le corpus d'entraînement, ce qui aurait pu améliorer les
+        résultats artificiellement.
+    \item Enfin, les étiquettes morphosyntaxiques de FrameNet, utilisées lors
+        de l'analyse syntaxique, ont été converties de la convention BNC à la
+        convention voisine WSJ en utilisant des règles manuelles
+        (Table~\ref{table:tagset_rules}). Sur les six fichiers du Wall Street
+        Journal pour lesquels on connaît l'annotation correcte au format WSJ,
+        ceci réduit les erreurs des étiquettes morphosyntaxiques de 23\% à 3\%.
+        (En effet, nous avons utilisé directement les étiquettes
+        morphosyntaxiques présentes dans FrameNet pour entraîner l'analyseur
+        MST.)
+\end{itemize}
 
+% TODO JJS -> NP ??
 \begin{table}[ht]
     \centering
     \begin{tabular}{ccc|ccc}
@@ -499,33 +528,12 @@ correcte au format WSJ, ceci réduit les erreurs de 23\% à 3\%.
         CD   &$\to$& NP     & DT   &$\to$& NP     \\
         \bottomrule
     \end{tabular}
-    \caption{\protect\centering\label{table:tagset_rules}Règles de conversion entre les parties du discours BNC et WSJ}
+    \caption{\label{table:tagset_rules}Règles de conversion entre les parties du discours BNC et WSJ}
 \end{table}
-
-% TODO FUTURE SEMAFOR MXPOST/MST
+% TODO est-ce bien nécessaire ? est-ce qu'on n'est pas passés au
+% modèle SEMAFOR pour MST et MXPOST pour le pos tagging ?
 
 \subsection{Procédure d'évaluation}
-
-% TODO relancer le code pour être sur de ces résultats
-% TODO pourquoi telle ou telle combinaison ?
-\begin{table*}[ht]
-    \centering
-    \begin{tabular}{lcccc}
-        \toprule
-        Task                                           & F1        & Accuracy \\
-        \midrule
-        Correspondance exacte                          & 70.48\%   & 53.09\%  \\
-        Correspondance exacte + probabiliste            & 72.02\%   & 58.28\%  \\
-        Correspondance exacte + probabiliste + Passif   & 76.40\%   & 62.72\%  \\
-        \midrule
-        Identification + Correspondance exacte                            & 46.75\%   & 29.12\%  \\
-        Identification + Correspondance exacte + Passif & 46.78\%   & 33.49\%  \\
-        \bottomrule
-    \end{tabular}
-
-    \caption{\protect\centering\label{table:results}Résultats pour différentes tâches. \emph{probabiliste} indique la correspondance probabiliste. \emph{passif} indique la détection de la voix passive. \emph{Identification} est l'identification des arguments.}
-
-\end{table*}
 
 Les rôles annotés de chaque phrase FrameNet sont d'abord transformés en rôles
 VerbNet. Pour chaque classe FrameNet, un rôle FrameNet peut correspondre à 0, 1
@@ -551,17 +559,10 @@ Dans tous les autres cas, un rôle FrameNet correspond à un rôle VerbNet uniqu
 et c'est ce rôle VerbNet que notre système doit déterminer. Nous mesurons la
 précision, le rappel et l'exactitude (\emph{accuracy}) des associations
 role/syntagmes candidats. 10~\% du corpus a été utilisé pour obtenir les
-résultats, le reste est un corpus "d'entraînement" : le corpus qui a été
-examiné manuellement pour identifier les erreurs de notre système.
-
-La table~\ref{table:results} montre les résultats des deux tâches sur
-lesquelles nous nous évaluons : la correspondance exacte seule d'une part et la
-correspondance exacte accompagnée de l'identification des arguments en amont
-d'autre part. La correspondance exacte seule utilise les arguments de la
-vérité-terrain: on sait que ce syntagme joue un rôle, il faut alors déterminer
-lequel.  L'identification des arguments implique que le texte de départ est une
-phrase brute : il faut l'analyser syntaxiquement, identifier les arguments,
-puis réaliser la correspondance exacte à proprement parler.
+résultats, le reste correspond au corpus "d'entraînement" traditionnellement
+utilisé en apprentissage automatique. En effet, aucun modèle n'a été appris sur
+ce corpus, mais c'est celui sur lequel nous examiné manuellement les erreurs de
+notre système.
 
 Enfin, différents modèles sont appliqués :
 
@@ -578,6 +579,36 @@ Enfin, différents modèles sont appliqués :
 \section{Résultats}
 
 \subsection{Analyse des résultats}
+
+% TODO relancer le code pour être sur de ces résultats
+% TODO pourquoi telle ou telle combinaison ?
+\begin{table*}[ht]
+    \centering
+    \begin{tabular}{lcccc}
+        \toprule
+        Task                                           & F1        & Accuracy \\
+        \midrule
+        Correspondance exacte                          & 70.48\%   & 53.09\%  \\
+        Correspondance exacte + probabiliste            & 72.02\%   & 58.28\%  \\
+        Correspondance exacte + probabiliste + Passif   & 76.40\%   & 62.72\%  \\
+        \midrule
+        Identification + Correspondance exacte                            & 46.75\%   & 29.12\%  \\
+        Identification + Correspondance exacte + Passif & 46.78\%   & 33.49\%  \\
+        \bottomrule
+    \end{tabular}
+
+    \caption{\label{table:results}Résultats pour différentes tâches. \emph{probabiliste} indique la correspondance probabiliste. \emph{passif} indique la détection de la voix passive. \emph{Identification} est l'identification des arguments.}
+
+\end{table*}
+
+La table~\ref{table:results} montre les résultats des deux tâches sur
+lesquelles nous nous évaluons : la correspondance exacte seule d'une part et la
+correspondance exacte accompagnée de l'identification des arguments en amont
+d'autre part. La correspondance exacte seule utilise les arguments de la
+vérité-terrain: on sait que ce syntagme joue un rôle, il faut alors déterminer
+lequel.  L'identification des arguments implique que le texte de départ est une
+phrase brute : il faut l'analyser syntaxiquement, identifier les arguments,
+puis réaliser la correspondance exacte à proprement parler.
 
 Premièrement, l'identification des arguments doit être améliorée de manière
 significative car elle pénalise les étapes ultérieures. La première raison est
@@ -598,7 +629,7 @@ supervisées \citep{abend2009unsupervised}.
 La correspondance probabiliste a une précision 68.33\% mais une couverture
 limitée à 38.33\%. La figure~\ref{fig:fonction_predicate} montre que ce niveau
 de performance ne demande pas un gros corpus. C'est un enseignement intéressant
-pour deux raisons~:
+pour deux raisons.
 
 \begin{itemize}
 
@@ -614,32 +645,39 @@ pour deux raisons~:
 \subsection{Comparaison avec SEMAFOR}
 
 % TODO scores sont en XX
-SEMAFOR \citep{das2014frame} est la référence actuelle en annotation en rôle
+SEMAFOR \citep{das2014frame} est la référence actuelle en annotation en rôles
 sémantiques supervisée : c'est le système qui obtient les meilleurs résultats
-sur le corpus full-text de FrameNet 1.5. Toutes les parties du discours sont
-annotées alors que nous ne nous concentrons que sur les verbes. Sur la tâche
-complète, SEMAFOR obtient un score F1 de XX~\%, score à comparer avec les XX~\%
-de notre système. Le système de SEMAFOR découpe la tâche en trois parties :
+sur le corpus full-text de FrameNet 1.5. Une comparaison directe n'est pas
+possible :
 
 \begin{itemize}
-    \item identification des prédicats déclencheurs
-    \item identification des frames FrameNet
-    \item identification des arguments et annotation en rôles sémantiques 
+    \item SEMAFOR annote le corpus FrameNet en frames FrameNet et rôles
+FrameNet alors que nous l'annotons en classes VerbNet et rôles VerbNet.
+    \item Toutes les parties du discours sont annotées alors que nous nous
+concentrons sur les verbes.
+    \item Les tâches sont découpées différemment. En effet, SEMAFOR découpe la
+        tâche en trois parties :
+    \begin{itemize}
+        \item identification des prédicats déclencheurs ;
+        \item identification des frames FrameNet ;
+        \item identification des arguments et annotation en rôles sémantiques.
+    \end{itemize}
 \end{itemize}
 
-Une comparaison directe n'est pas possible étant donné que les tâches sont
-découpées différemment dans notre système. Cependant, il est intéressant de
-noter l'importance des données d'entraînement : pour l'identification des
-frames FrameNet avec des prédicats de la vérité-terrain\footnote{les résultats
-pour des déclencheurs identifiés manuellement n'ont été donnés que pour le
-corpus SemEval, un sous-ensemble du corpus FrameNet 1.5 complet}, les mêmes
-modèles grimpent de 74.21~\% à 90.51~\% quand la taille du corpus augmente en
-passant du corpus SemEval (XXX phrases) au corpus FrameNet 1.5 (XXX phrases).
-De la même manière pour l'identification des arguments avec des frames FrameNet
-de la vérité-terrain, les résultats augmentent de 48.09~\% 68.83~\%. C'est très
-encourageant pour les domaines disposant de très gros corpus, mais suggère que
-d'autres solutions sont à identifier pour les domaines où de tels corpus ne
-sont pas disponibles.
+Sur la tâche complète, SEMAFOR obtient un score F1 de XX~\%, score à comparer
+avec les XX~\% de notre système tout en gardant les limites ci-dessus en tête. 
+
+Il est intéressant de noter l'importance des données d'entraînement pour
+SEMAFOR : pour l'identification des frames FrameNet avec des prédicats de la
+vérité-terrain\footnote{les résultats pour des déclencheurs identifiés
+    manuellement n'ont été donnés que pour le corpus SemEval, un sous-ensemble
+du corpus FrameNet 1.5 complet}, les mêmes modèles grimpent de 74.21~\% à
+90.51~\% quand la taille du corpus augmente en passant du corpus SemEval (XXX
+phrases) au corpus FrameNet 1.5 (XXX phrases).  De la même manière pour
+l'identification des arguments avec des frames FrameNet de la vérité-terrain,
+les résultats augmentent de 48.09~\% 68.83~\%. C'est très encourageant pour les
+domaines disposant de très gros corpus, mais suggère que d'autres solutions
+sont à identifier pour les domaines où de tels corpus ne sont pas disponibles.
 
 \section{Travaux futurs}
 
