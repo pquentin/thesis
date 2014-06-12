@@ -9,12 +9,12 @@
 
 Désambiguïsation lexicale et annotation en rôles sémantiques sont deux tâches
 d'analyse sémantique aux applications nombreuses, telles que l'extraction et la
-recherche d'information, la traduction, ou encore le résumé automatique de
-textes. Des ressources ont été développées pour faciliter le traitement de
-chacune de ces tâches, ainsi que différentes approches statistiques. Nous nous
-intéressons ici à l'évaluation des performances de ces deux tâches dans un
-cadre ouvert et aux possibilités de traitement des langues moins dotées que
-l'anglais en ressources sémantiques.
+recherche d'information, la traduction automatique, ou encore le résumé
+automatique de textes. Des ressources ont été développées pour faciliter le
+traitement de chacune de ces tâches, ainsi que différentes approches
+statistiques. Nous nous intéressons ici à l'évaluation des performances de ces
+deux tâches dans un cadre ouvert et aux possibilités de traitement des langues
+moins dotées que l'anglais en ressources sémantiques.
 
 %%%
 %%% Introduction
@@ -74,11 +74,11 @@ La désambiguïsation lexicale a de nombreuses applications potentielles, la
 première étant la traduction automatique. C'est en effet l'application
 historique, identifiée dès 1949 \citep{weaver1949translation}. Le mot italien «
 penna » peut être traduit en français avec les mots « plume », « stylo » et «
-pâtes ». C'est donc clairement le sens des mots qui définit la traduction. Les
-performances actuelles de la désambiguïsation lexicale ne permettent pas
-d'affirmer avec certitude une amélioration pour la traduction
-\citep{apidianaki2009place}, mais des travaux encourageants existent
-\citep{chan2007word}.
+pâtes ». C'est donc clairement le sens des mots qui définit la traduction
+automatique. Les performances actuelles de la désambiguïsation lexicale ne
+permettent pas d'affirmer avec certitude une amélioration pour la traduction
+automatique \citep{apidianaki2009place}, mais des travaux encourageants
+existent \citep{chan2007word}.
 
 Un autre exemple classique est la recherche d'information où le sens des mots
 cherchés peut aider à définir les documents à retourner. En fouille d'opinion,
@@ -903,10 +903,10 @@ domaines. Le meilleur système pour les sens fins a atteint un F-score de
 59.1\%, et le meilleur pour les sens grossiers à atteint 83.21\%. Ces résultats
 suggèrent que WordNet ne permet pas d'atteindre de bons résultats. SemEval 2010
 a présenté trois tâches de désambiguïsation lexicale. Dans La tâche 3, adaptée
-à la traduction,chaque système devait proposer la bonne traduction d'un mot
-donné dans le corpus parallèle Europarl. Les systèmes présentés n'ont pas battu
-la baseline des traductions les plus fréquentes. La tâche 14 a évalué des
-systèmes non supervisés ; l'évaluation ayant posé problème
+à la traduction automatique, chaque système devait proposer la bonne traduction
+d'un mot donné dans le corpus parallèle Europarl. Les systèmes présentés n'ont
+pas battu la baseline des traductions les plus fréquentes. La tâche 14 a évalué
+des systèmes non supervisés ; l'évaluation ayant posé problème
 (\ref{evalunsupervised}) il serait futile de citer des résultats ici. Enfin, la
 tâche 17 s'est concentré sur un domaine particulier (l'environnement). Moins de
 20\% des systèmes présentés ont battu la baseline qui était à 50.5\%. De
