@@ -957,14 +957,68 @@ Chaque sélecteur suit le même principe que le sélecteur par méronymie de par
 \subsubsection{Limites de JAWS}
 \label{subsec:limitations}
 
-JAWS souffre d'un certain nombre de limites. Avant tout, il ne contient que des noms, ce qui empêche de l'utiliser dans de nombreuses applications. Ensuite, la façon dont il a été évalué rend difficile tout jugement sur sa qualité. En effet, JAWS a été évalué en le comparant à l'EuroWordNet du français et à WOLF 0.1.4 (qui date de 2008). Ces deux WordNets du français ne sont pas des annotations de références : ils souffrent soit d'une précision limitée soit d'une couverture limitée.
+JAWS souffre d'un certain nombre de limites. Avant tout, il ne contient que des
+noms, ce qui empêche de l'utiliser dans de nombreuses applications. Ensuite, la
+façon dont il a été évalué rend difficile tout jugement sur sa qualité. En
+effet, JAWS a été évalué en le comparant à l'EuroWordNet du français et à WOLF
+0.1.4 (qui date de 2008). Ces deux WordNets du français ne sont pas des
+annotations de références : ils souffrent soit d'une précision limitée soit
+d'une couverture limitée.
 
-M\&C ont décidé de compléter cette évaluation limitée par une évaluation manuelle des littéraux n'existant pas dans WOLF, mais elle n'a été faite que sur 120 paires (littéral, synset). La précision de JAWS est évaluée à 67,1~\% \citep{mouton2010phd}, ce qui est plus bas que celle de WOLF 0.1.4 et considérablement plus bas que la précision de WOLF 1.0b\footnote{Nous remercions Benoît Sagot pour nous avoir fourni cette version préliminaire de WOLF 1.0.}. Ce score, même bas, est à prendre avec précaution étant donné la taille de l'échantillon de test : l'intervalle de confiance est d'environ 25~\%. Une autre limite de JAWS est qu'il ne contient qu'une seule et unique ressource qui ne correspond pas à tous les besoins.
+M\&C ont décidé de compléter cette évaluation limitée par une évaluation
+manuelle des littéraux n'existant pas dans WOLF, mais elle n'a été faite que
+sur 120 paires (littéral, synset). La précision de JAWS est évaluée à 67,1~\%
+\citep{mouton2010phd}, ce qui est plus bas que celle de WOLF 0.1.4 et
+considérablement plus bas que la précision de WOLF 1.0b\footnote{Nous
+remercions Benoît Sagot pour nous avoir fourni cette version préliminaire de
+WOLF 1.0.}. Ce score, même bas, est à prendre avec précaution étant donné la
+taille de l'échantillon de test : l'intervalle de confiance est d'environ
+25~\%. Une autre limite de JAWS est qu'il ne contient qu'une seule et unique
+ressource qui ne correspond pas à tous les besoins.
 
-À notre connaissance, les traductions automatiques de WordNet actuelles n'existent qu'en une seule version où les auteurs décident eux-mêmes quelle métrique optimiser. Nous fournissons aussi une telle version, mais ajoutons aussi deux ressources qui peuvent servir des besoins différents. Même si notre WoNeF à haute précision est petit, il peut être utilisé comme une annotation de référence et servir pour entraîner un système d'apprentissage. Une ressource à haute couverture peut servir de base à une correction manuelle ou servir pour une intersection à d'autres ressources, ce qui est la raison pour laquelle nous en fournissons une aussi.
+À notre connaissance, les traductions automatiques de WordNet actuelles
+n'existent qu'en une seule version où les auteurs décident eux-mêmes quelle
+métrique optimiser. Nous fournissons aussi une telle version, mais ajoutons
+aussi deux ressources qui peuvent servir des besoins différents. Même si notre
+WoNeF à haute précision est petit, il peut être utilisé comme une annotation de
+référence et servir pour entraîner un système d'apprentissage. Une ressource à
+haute couverture peut servir de base à une correction manuelle ou servir pour
+une intersection à d'autres ressources, ce qui est la raison pour laquelle nous
+en fournissons une aussi.
 
 
 \subsection{VerbNet}
+
+Translating Levin classes and more recently VerbNet is recognized as a useful
+task in the literature. First, automatic methods have led to improvements in
+VerbNet itself: new classes have been incorporated
+\citep{korhonen2004extended} and new verbs have been added from the LCS
+database \citep{dorr2001lcs} or using the Sketch Engine tool
+\citep{bonial2013expanding}.
+
+In other languages, \cite{merlo2002multilingual} have used crosslinguistic
+similarities to convert 20 Levin classes to Italian. Automatic acquisitions
+have also been led in Japanese \citep{suzuki2009classifying}, German
+\citep{im2006experiments}, and Spanish \citep{ferrer2004towards}. The
+only direct translations we are aware of are the Estonian VerbNet
+\citep{jentson2014verbnet} and the Brazilian Portuguese VerbNet
+\citep{scarton2012towards}, which uses the mappings between VerbNet and
+WordNet, and between WordNet.Br and WordNet.
+
+In French, \cite{saintdizier1996constructing} first produced a VerbNet-like
+resource. To the best of our knowledge, effort on this resource has stopped and
+the result is not available. Later work has focused on automatic acquisition of
+subcategorization frames which were clustered according to their syntactic and
+semantic similarity. \cite{sun2010investigating} used a large
+subcategorization frame lexicon \citep{messiant2010acquisition} to cluster
+verbs according to two types of features: syntactic (subcategorization frames)
+and semantic (collocations and lexical preferences of verbs). Evaluation
+against a manually created gold standard led to an F-measure of 55.1\%.
+\cite{falk2012classifying} apply a different clustering algorithm, and use
+different features, improving the F-measure to 70\% on a similar but easier
+dataset. While those resources highlight new ways to separate French verbs, the
+errors they contain are only one source of errors in applications: it is
+important to correct them if possible.
 
 %\subsection{FrameNet}
 
