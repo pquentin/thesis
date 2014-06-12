@@ -776,6 +776,34 @@ complètement supervisés et ont appris aussi sur des larges corpus généraux, 
 qui a permis d'augmenter la performance de désambiguïsation pour les mots non
 spécifiques au domaine.
 
+\subsection{Évaluation des approches non supervisées}
+\label{evalunsupervised}
+
+Les approches non supervisées sont difficiles à évaluer. En effet, il n'y a pas
+de vérité-terrain à laquelle se comparer. Pour pallier ce problème, on peut
+utiliser un mapping depuis les sens induits jusqu'aux sens d'un inventaire pour
+lequel on dispose une vérité-terrain. Deux sources d'erreurs existent alors :
+les deux inventaires ne sont pas nécessairement compatibles et le mapping peut
+être erroné, en liant des sens qui n'ont pas de rapport. Le problème du mapping
+erroné peut être évité en ne faisant pas de mapping mais en considérant
+l'annotation effectuée comme un clustering et en utilisant donc des techniques
+de comparaison de clustering. Différents algorithmes permettent l'évaluation
+d'un algorithme de clustering par rapport à une vérité-terrain.
+
+La campagne d'évaluation d'induction de sens de SemEval 2007
+\citep{manandhar2010semeval} était aussi l'occasion d'évaluer l'efficacité de
+différentes mesures d'efficacité des clustering de sens induits. Il s'avère que
+les différentes mesures d'évaluation ont donné des résultats très différents
+\citep{pedersen2010duluth}. La V-mesure a encouragé les résultats aléatoires,
+le rappel supervisé a ramené tous les systèmes participants à 0.06\% autour de
+la baseline (ce qui rend l'évaluation difficile) et le \textit{paired F-Score}
+a placé la baseline au dessus de tous les systèmes \footnote{ce qui semble
+indiquer qu'un seul sens par mot dans un corpus spécifique est la meilleure
+solution.}. Une mesure d'évaluation fiable et consistente permettrait pourtant
+d'évaluer avec précision les approches prometteuses que sont les approches
+non-supervisées.
+
+\subsection{Évaluation de l'annotation en rôles sémantiques}
 En ce qui concerne l'annotation en rôles sémantiques, le lecteur est invité à
 se référer à \citep{surdeanu2008conll} et \citep{hajic2009conll} qui expliquent
 en détail l'évaluation des différents systèmes ayant participé aux tâches
@@ -797,112 +825,86 @@ pour tous les langages.
 %%
 %% Pistes : pas dans un état de l'art !
 %%
-\section{Voies de recherche (ALL)}
-
-La désambiguïsation lexicale et l'annotation en rôles sémantiques sont des
-domaines très actifs, et un certain nombre de voies restent à explorer. Nous
-citerons ici simeplement la mise en commun des deux tâches d'analyse sémantique
-que nous avons présentées, l'analyse sémantique d'une langue autre que
-l'anglais (ici le français) et l'évaluation des approches non supervisées.
-
-\subsection{Désambiguïsation lexicale et annotation en rôles sémantiques}
-
-La littérature mentionne différents essais visant à combiner les tâches de
-désambiguïsation lexicale et d'annotation en rôles sémantiques, dans le but
-d'améliorer les performances de chacune des tâches
-\citep{dang2005role,moreda2006role,che2010jointly}. En effet, le sens d'un
-verbe permet de déterminer avec une meilleure précision la \textit{frame} qu'il
-doit déclencher. De la même manière, connaître les rôles sémantiques des
-arguments d'un verbe donne des indices supplémentaires pour définir son sens.
-Il est peut-être bénéfique dans ce contexte d'opérer une modélisation jointe
-pour parvenir à un optimum plus global.
-
-Cependant, ces méthodes, même si elles proposent des améliorations
-statistiquement significatives, n'ont pas encore révolutionné ces deux tâches
-d'analyse sémantiques. Il y a notamment un manque de ressources communes qui
-commence à être comblé par différentes ressources. Ontonotes, par exemple, ne
-se contente pas de regrouper des sens WordNet mais inclut aussi un corpus
-annoté syntaxiquement et en rôles sémantiques. De manière plus originale,
-eXtended WordFrameNet \citep{laparra2010extended} est constitué du corpus
-FrameNet désambiguïsé lexicalement et ajoutent des informations de rôles
-sémantiques à WordNet. Les résulats sont prometteurs : les performances d'un
-système de désambiguïsation lexicale ont été améliorées.
-
-\subsection{Analyse sémantique du français}
-
-\subsubsection{Parallélisme sémantique}
-
-L'anglais est la langue la plus utilisée pour le Traitement Automatique des
-Langues, et il est toujours intéressant de se demander si les outils et
-ressources développés sont applicables pour d'autres langues. Par exemple,
-l'anglais n'est pas une langue morphologiquement riche et cela empêche
-l'utilisation d'outils développés pour l'anglais sur des langues plus riches
-\citep{tsarfaty2010statistical}. Au niveau sémantique, les études sont plus
-rares. \cite{pado2007annotation} se demande si les \textit{frames} FrameNet,
-\textit{a priori} indépendantes de la structure syntaxique, sont utilisables
-directement en français en évaluant l'accord inter-annotateurs sur un corpus
-donné. Ce corpus ayant la propriété d'être un corpus parallèle ; cela a permis
-de comparer l'accord avec celui obtenu par \cite{pado2006optimal} pour
-l'allemand, langue réputée plus proche de l'anglais. Il s'avère que les scores
-sont proches, et il est donc raisonnable d'utiliser FrameNet comme base pour le
-français. En ce qui concerne PropBank, les sens sont déterminés à partir
-d'informations syntaxiques spécifiques à l'anglais : une traduction n'est donc
-pas envisageable.
-
-\subsubsection{WordNet en français}
-
-WordNet, malgré sa granularité trop fine, est une ressource libre extrêmement
-intéressante qui permet de nombreuses applications. Les projets souhaitant
-établir directement un WordNet français original n'ayant pas abouti
-complètement, il est devenu naturel de se pencher à une traduction de WordNet ;
-en gardant les différents synsets, mais en traduisant les mots représentés dans
-ces synsets. Différentes approches ont étés utilisées, et nous retiendrons ici
-deux WordNets français : WOLF \cite{sagot2008construction} et JAWS
-\cite{mouton2010jaws}. WOLF était à l'origine très précis pour une couverture
-faible des mots les plus ambigus, mais des efforts sont faits pour étendre la
-ressource aux mots les plus difficiles \citep{sagot2012automatic}. De son côté,
-JAWS a été construit à partir des espaces distributionnels cités plus hauts, et
-a obtenu une précision légèrement inférieure à WOLF pour une couverture plus
-importante.
-
-« Les Verbes Français » est une ressource initialement publiée en 1997 et
-toujours maintenue (dernière modification date de 2011) sous un format XML
-facile d'accès dans le but d'encourager diverses applications du TAL. C'est un
-thésaurus de classes sémantico-syntaxiques qui repose sur l'hypothèse d'une
-adéquation entre « les schèmes syntaxiques de la langue français et
-l'interprétation sémantique qu'en font les locuteurs de cette langue ». À la
-manière de la classification faite par \cite{levin1993english} pour les verbes
-anglais, c'est une ressource extrêmement riche et facile d'accès qui gagnerait
-à être utilisée pour l'annotation en rôles sémantiques. Un PropBank du français
-pourrait être établi à partir de ces classes ; ce qui faciliterait une
-annotation supervisée du français.
-
-\subsection{Évaluation des approches non supervisées}
-\label{evalunsupervised}
-
-Les approches non supervisées sont difficiles à évaluer. En effet, il n'y a pas
-de vérité-terrain à laquelle se comparer. Pour pallier ce problème, on peut
-utiliser un mapping depuis les sens induits jusqu'aux sens d'un inventaire pour
-lequel on dispose une vérité-terrain. Deux sources d'erreurs existent alors :
-les deux inventaires ne sont pas nécessairement compatibles et le mapping peut
-être erroné, en liant des sens qui n'ont pas de rapport. Le problème du mapping
-erroné peut être évité en ne faisant pas de mapping mais en considérant
-l'annotation effectuée comme un clustering et en utilisant donc des techniques
-de comparaison de clustering. Différents algorithmes permettent l'évaluation
-d'un algorithme de clustering par rapport à une vérité-terrain.
-
-La campagne d'évaluation d'induction de sens de SemEval 2007
-\citep{manandhar2010semeval} était aussi l'occasion d'évaluer l'efficacité de
-différentes mesures d'efficacité des clustering de sens induits. Il s'avère que
-les différentes mesures d'évaluation ont donné des résultats très différents
-\citep{pedersen2010duluth}. La V-mesure a encouragé les résultats aléatoires,
-le rappel supervisé a rammené tous les systèmes participants à 0.06\% autour de
-la baseline (ce qui rend l'évaluation difficile) et le \textit{paired F-Score}
-a placé la baseline au dessus de tous les systèmes \footnote{ce qui semble
-indiquer qu'un seul sens par mot dans un corpus spécifique est la meilleure
-solution.}. Une mesure d'évaluation fiable et consistente permettrait pourtant
-d'évaluer avec précision les approches prometteuses que sont les approches
-non-supervisées.
+%\section{Voies de recherche (ALL)}
+%
+%La désambiguïsation lexicale et l'annotation en rôles sémantiques sont des
+%domaines très actifs, et un certain nombre de voies restent à explorer. Nous
+%citerons ici simplement la mise en commun des deux tâches d'analyse sémantique
+%que nous avons présentées, l'analyse sémantique d'une langue autre que
+%l'anglais (ici le français) et l'évaluation des approches non supervisées.
+%
+%\subsection{Désambiguïsation lexicale et annotation en rôles sémantiques}
+%
+%La littérature mentionne différents essais visant à combiner les tâches de
+%désambiguïsation lexicale et d'annotation en rôles sémantiques, dans le but
+%d'améliorer les performances de chacune des tâches
+%\citep{dang2005role,moreda2006role,che2010jointly}. En effet, le sens d'un
+%verbe permet de déterminer avec une meilleure précision la \textit{frame} qu'il
+%doit déclencher. De la même manière, connaître les rôles sémantiques des
+%arguments d'un verbe donne des indices supplémentaires pour définir son sens.
+%Il est peut-être bénéfique dans ce contexte d'opérer une modélisation jointe
+%pour parvenir à un optimum plus global.
+%
+%Cependant, ces méthodes, même si elles proposent des améliorations
+%statistiquement significatives, n'ont pas encore révolutionné ces deux tâches
+%d'analyse sémantiques. Il y a notamment un manque de ressources communes qui
+%commence à être comblé par différentes ressources. Ontonotes, par exemple, ne
+%se contente pas de regrouper des sens WordNet mais inclut aussi un corpus
+%annoté syntaxiquement et en rôles sémantiques. De manière plus originale,
+%eXtended WordFrameNet \citep{laparra2010extended} est constitué du corpus
+%FrameNet désambiguïsé lexicalement et ajoutent des informations de rôles
+%sémantiques à WordNet. Les résulats sont prometteurs : les performances d'un
+%système de désambiguïsation lexicale ont été améliorées.
+%
+%\subsection{Analyse sémantique du français}
+%
+%\subsubsection{Parallélisme sémantique}
+%
+%L'anglais est la langue la plus utilisée pour le Traitement Automatique des
+%Langues, et il est toujours intéressant de se demander si les outils et
+%ressources développés sont applicables pour d'autres langues. Par exemple,
+%l'anglais n'est pas une langue morphologiquement riche et cela empêche
+%l'utilisation d'outils développés pour l'anglais sur des langues plus riches
+%\citep{tsarfaty2010statistical}. Au niveau sémantique, les études sont plus
+%rares. \cite{pado2007annotation} se demande si les \textit{frames} FrameNet,
+%\textit{a priori} indépendantes de la structure syntaxique, sont utilisables
+%directement en français en évaluant l'accord inter-annotateurs sur un corpus
+%donné. Ce corpus ayant la propriété d'être un corpus parallèle ; cela a permis
+%de comparer l'accord avec celui obtenu par \cite{pado2006optimal} pour
+%l'allemand, langue réputée plus proche de l'anglais. Il s'avère que les scores
+%sont proches, et il est donc raisonnable d'utiliser FrameNet comme base pour le
+%français. En ce qui concerne PropBank, les sens sont déterminés à partir
+%d'informations syntaxiques spécifiques à l'anglais : une traduction n'est donc
+%pas envisageable.
+%
+%\subsubsection{WordNet en français}
+%
+%WordNet, malgré sa granularité trop fine, est une ressource libre extrêmement
+%intéressante qui permet de nombreuses applications. Les projets souhaitant
+%établir directement un WordNet français original n'ayant pas abouti
+%complètement, il est devenu naturel de se pencher à une traduction de WordNet ;
+%en gardant les différents synsets, mais en traduisant les mots représentés dans
+%ces synsets. Différentes approches ont étés utilisées, et nous retiendrons ici
+%deux WordNets français : WOLF \cite{sagot2008construction} et JAWS
+%\cite{mouton2010jaws}. WOLF était à l'origine très précis pour une couverture
+%faible des mots les plus ambigus, mais des efforts sont faits pour étendre la
+%ressource aux mots les plus difficiles \citep{sagot2012automatic}. De son côté,
+%JAWS a été construit à partir des espaces distributionnels cités plus hauts, et
+%a obtenu une précision légèrement inférieure à WOLF pour une couverture plus
+%importante.
+%
+%« Les Verbes Français » est une ressource initialement publiée en 1997 et
+%toujours maintenue (dernière modification date de 2011) sous un format XML
+%facile d'accès dans le but d'encourager diverses applications du TAL. C'est un
+%thésaurus de classes sémantico-syntaxiques qui repose sur l'hypothèse d'une
+%adéquation entre « les schèmes syntaxiques de la langue français et
+%l'interprétation sémantique qu'en font les locuteurs de cette langue ». À la
+%manière de la classification faite par \cite{levin1993english} pour les verbes
+%anglais, c'est une ressource extrêmement riche et facile d'accès qui gagnerait
+%à être utilisée pour l'annotation en rôles sémantiques. Un PropBank du français
+%pourrait être établi à partir de ces classes ; ce qui faciliterait une
+%annotation supervisée du français.
+%
 
 \section{Conclusion}
 
