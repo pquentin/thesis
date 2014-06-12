@@ -7,7 +7,14 @@
 %   - qui citer pour plus d'un sens ?
 %   - réutiliser la figure d'un papier ?
 
-Désambiguïsation lexicale et annotation en rôles sémantiques sont deux tâches d'analyse sémantique aux applications nombreuses, telles que l'extraction et la recherche d'information, la traduction, ou encore le résumé automatique de textes. Des ressources ont été développées pour faciliter le traitement de chacune de ces tâches, ainsi que différentes approches statistiques. Nous nous intéressons ici à l'évaluation des performances de ces deux tâches dans un cadre ouvert et aux possibilités de traitement des langues moins dotées que l'anglais en ressources sémantiques.
+Désambiguïsation lexicale et annotation en rôles sémantiques sont deux tâches
+d'analyse sémantique aux applications nombreuses, telles que l'extraction et la
+recherche d'information, la traduction, ou encore le résumé automatique de
+textes. Des ressources ont été développées pour faciliter le traitement de
+chacune de ces tâches, ainsi que différentes approches statistiques. Nous nous
+intéressons ici à l'évaluation des performances de ces deux tâches dans un
+cadre ouvert et aux possibilités de traitement des langues moins dotées que
+l'anglais en ressources sémantiques.
 
 %%%
 %%% Introduction
@@ -15,16 +22,42 @@ Désambiguïsation lexicale et annotation en rôles sémantiques sont deux tâch
 
 \section{Introduction}
 
-En Traitement Automatique des Langues, l'analyse sémantique étudie le sens des messages. Nous nous intéressons ici à deux tâches en particulier : la désambiguïsation lexicale et l'annotation en rôles sémantiques.
+En Traitement Automatique des Langues, l'analyse sémantique étudie le sens des
+messages. Nous nous intéressons ici à deux tâches en particulier : la
+désambiguïsation lexicale et l'annotation en rôles sémantiques.
 
 \begin{itemize}
-  \item \textbf{Désambiguïsation lexicale} Elle a pour but de déterminer le sens correct d'un mot dans son contexte. Par exemple, est-ce que le mot « mineur » réfère à un travailleur ou à une jeune personne ? Il faut d'abord régler la question épineuse de la définition du sens, puis se baser sur le contexte proche pour faire le bon choix.
-  \item \textbf{Annotation en rôles sémantiques} Elle répond à la question « Qui a fait Quoi à Qui, Comment, Où et Quand ? ». Il faut d'abord définir quelle est la situation observée, puis déterminer les rôles que jouent les différents syntagmes de la phrase. Par exemple, pour une phrase décrivant une rencontre, il faudra détecter qu'une rencontre est décrite, puis identifier les deux agents qui se rencontrent, mais aussi potentiellement l'endroit et l'heure de la rencontre, la façon dont ils se sont rencontrés, etc.
+
+  \item \textbf{Désambiguïsation lexicale} Elle a pour but de déterminer le
+      sens correct d'un mot dans son contexte. Par exemple, est-ce que le mot «
+      mineur » réfère à un travailleur ou à une jeune personne ? Il faut
+      d'abord régler la question épineuse de la définition du sens, puis se
+      baser sur le contexte proche pour faire le bon choix.
+
+  \item \textbf{Annotation en rôles sémantiques} Elle répond à la question «
+      Qui a fait Quoi à Qui, Comment, Où et Quand ? ». Il faut d'abord définir
+      quelle est la situation observée, puis déterminer les rôles que jouent
+      les différents syntagmes de la phrase. Par exemple, pour une phrase
+      décrivant une rencontre, il faudra détecter qu'une rencontre est décrite,
+      puis identifier les deux agents qui se rencontrent, mais aussi
+      potentiellement l'endroit et l'heure de la rencontre, la façon dont ils
+      se sont rencontrés, etc.
+
 \end{itemize}
 
-Prenons pour exemple la phrase suivante : « Mrs. Aouda essaya vainement de retenir Mr. Fogg. » (extrait du \textit{Tour du monde en quatre-vingts jours}, Jules Verne). La désambiguïsation lexicale aura pour objectif de déterminer le sens de tous les mots ambigus en s'aidant du contexte. Parmi les mots pleins, « essaya » est ambigu (elle n'essaie pas un vêtement, mais tente quelque chose), ainsi que « retenir » (elle ne veut pas se souvenir de quelque chose, mais empêcher quelqu'un de faire quelque chose). Au contraire, « vainement » n'a qu'un seul sens.
+Prenons pour exemple la phrase suivante : « Mrs. Aouda essaya vainement de
+retenir Mr. Fogg. » (extrait du \textit{Tour du monde en quatre-vingts jours},
+Jules Verne). La désambiguïsation lexicale aura pour objectif de déterminer le
+sens de tous les mots ambigus en s'aidant du contexte. Parmi les mots pleins, «
+essaya » est ambigu (elle n'essaie pas un vêtement, mais tente quelque chose),
+ainsi que « retenir » (elle ne veut pas se souvenir de quelque chose, mais
+empêcher quelqu'un de faire quelque chose). Au contraire, « vainement » n'a
+qu'un seul sens.
 
-L'annotation en rôles sémantique déterminera quant à elle que la phrase correspond à une situation de tentative (grâce à la présence du verbe « essayer »), puis déterminera quel est l'agent, l'activité qui a été tentée, et le résultat (« vainement »). Ainsi, le résultat de l'annotation serait :
+L'annotation en rôles sémantique déterminera quant à elle que la phrase
+correspond à une situation de tentative (grâce à la présence du verbe « essayer
+»), puis déterminera quel est l'agent, l'activité qui a été tentée, et le
+résultat (« vainement »). Ainsi, le résultat de l'annotation serait :
 
 \begin{figure}[htbl]
     \centering
@@ -71,14 +104,43 @@ dans diverses applications, notamment les systèmes de questions-réponses
 \citep{shen2007using} et l'analyse d'opinions \citep{das2012structure}.
 
 %\subsection{Contraintes}
-%Nous souhaitons une analyse sémantique utilisable dans le logiciel LIMA \citep{besancon2010LIMA}. Trois contraintes majeures en découlent.
-%\paragraph{Cadre ouvert} Se contenter de désambiguïser certains mots ou se limiter à un domaine fermé n'est pas satisfaisant ici. Les inventaires de sens utilisés doivent couvrir l'ensemble des sens présents dans une langue.
-%\paragraph{Langue française} Le français dispose d'un nombre limité de ressources sémantiques en cadre ouvert. Il n'existe par exemple pas de WordNet ou de FrameNet français avec une couverture aussi large que celle de leurs équivalents respectifs en langue anglaise. Ne disposant pas des moyens pour créer une telle ressource manuellement, il faut transposer de manière automatique ces ressources vers le français avec pour objectif une couverture maximale.
-%\paragraph{Efficacité} Cette contrainte est moins forte que les deux autres, mais reste nécessaire pour que les solutions présentées puissent être utilisées dans l'analyseur LIMA.
-%C'est un problème difficile de classification automatique. En effet, les sens possibles sont différents pour chaque mot, ce qui nécessite d'entraîner un classifieur sur chaque mot présent dans le texte. Tous les mots doivent alors disposer d'un grand nombre d'exemples annotés pour une approche complètement supervisée, ce qui n'est pas réalisable en pratique. Les techniques que nous présentons ici visent à contourner ces difficultés.
+
+%Nous souhaitons une analyse sémantique utilisable dans le logiciel LIMA
+%\citep{besancon2010LIMA}. Trois contraintes majeures en découlent.
+
+%\paragraph{Cadre ouvert} Se contenter de désambiguïser certains mots ou se
+%limiter à un domaine fermé n'est pas satisfaisant ici. Les inventaires de sens
+%utilisés doivent couvrir l'ensemble des sens présents dans une langue.
+
+%\paragraph{Langue française} Le français dispose d'un nombre limité de
+%ressources sémantiques en cadre ouvert. Il n'existe par exemple pas de WordNet
+%ou de FrameNet français avec une couverture aussi large que celle de leurs
+%équivalents respectifs en langue anglaise. Ne disposant pas des moyens pour
+%créer une telle ressource manuellement, il faut transposer de manière
+%automatique ces ressources vers le français avec pour objectif une couverture
+%maximale.
+
+%\paragraph{Efficacité} Cette contrainte est moins forte que les deux autres,
+%mais reste nécessaire pour que les solutions présentées puissent être
+%utilisées dans l'analyseur LIMA.  C'est un problème difficile de
+%classification automatique. En effet, les sens possibles sont différents pour
+%chaque mot, ce qui nécessite d'entraîner un classifieur sur chaque mot présent
+%dans le texte. Tous les mots doivent alors disposer d'un grand nombre
+%d'exemples annotés pour une approche complètement supervisée, ce qui n'est pas
+%réalisable en pratique. Les techniques que nous présentons ici visent à
+%contourner ces difficultés.
 
 %\subsection{Plan} % Outline
-%Nous commençerons par traiter la désambiguïsation lexicale, en présentant le problème puis les difficultés principales. Nous réitérerons avec l'annotation en rôles sémantiques, avant de citer les principales approches utilisées pour les deux tâches, dans le but d'identifier celles qui seraient semblables ou compatibles. Nous examinerons ensuite différentes méthodes d'évaluation permettant de comparer les performances de différentes méthodes. Nous verrons par la suite les spécificités du français pour les deux tâches considérées, puis identifierons finalement plusieurs pistes nous permettant d'aller au-delà du travail réalisé par \cite{mouton2011phd}.
+
+%Nous commençerons par traiter la désambiguïsation lexicale, en présentant le
+%problème puis les difficultés principales. Nous réitérerons avec l'annotation
+%en rôles sémantiques, avant de citer les principales approches utilisées pour
+%les deux tâches, dans le but d'identifier celles qui seraient semblables ou
+%compatibles. Nous examinerons ensuite différentes méthodes d'évaluation
+%permettant de comparer les performances de différentes méthodes. Nous verrons
+%par la suite les spécificités du français pour les deux tâches considérées,
+%puis identifierons finalement plusieurs pistes nous permettant d'aller au-delà
+%du travail réalisé par \cite{mouton2011phd}.
 
 %% 
 %% Sémantique distributionnelle
@@ -86,101 +148,292 @@ dans diverses applications, notamment les systèmes de questions-réponses
 
 \section{Le sens des mots}
 
-Avant de réaliser un système de désambiguïsation lexicale, il faut établir ce qu'est un sens. Nous nous éloignons ici de toute considération sur les approches cognitives de la représentation du sens et de la modélisation du cerveau \citep{harnad1990symbol}, et nous concentrons en particulier ici sur des inventaires de sens finis\footnote{même si la section \ref{sensfunky} présente d'autres approches possibles}. Cela nous permet de formuler le problème de la désambiguïsation comme un problème de classification : pour chaque occurrence d'un mot dans un texte, nous devons lui assigner un des sens recensés dans notre inventaire. Cette section nous permet de soulever les difficultés liées à la création et à l'utilisation d'un tel inventaire. Si il est établi qu'un mot puisse avoir différents sens, il n'existe pas de solution optimale pour distinguer puis représenter ces différents sens pour chaque mot.
-
-%
+Avant de réaliser un système de désambiguïsation lexicale, il faut établir ce
+qu'est un sens. Nous nous éloignons ici de toute considération sur les
+approches cognitives de la représentation du sens et de la modélisation du
+cerveau \citep{harnad1990symbol}, et nous concentrons en particulier ici sur
+des inventaires de sens finis\footnote{même si la section \ref{sensfunky}
+présente d'autres approches possibles}. Cela nous permet de formuler le
+problème de la désambiguïsation comme un problème de classification : pour
+chaque occurrence d'un mot dans un texte, nous devons lui assigner un des sens
+recensés dans notre inventaire. Cette section nous permet de soulever les
+difficultés liées à la création et à l'utilisation d'un tel inventaire. Si il
+est établi qu'un mot puisse avoir différents sens, il n'existe pas de solution
+optimale pour distinguer puis représenter ces différents sens pour chaque mot.
 
 \subsection{Distinguer deux sens}
 
-Nous nous posons ici la question de la distinction entre deux sens ; si ils ne sont pas suffisamment distincts, alors une seule entrée dans l'inventaire suffit. Cette approche n'est pas suffisante pour établir un inventaire complet, comme nous le verrons à la section \ref{besoincorpus}, mais permet d'identifier un certain nombre de caractéristiques des sens des mots.
+Nous nous posons ici la question de la distinction entre deux sens ; si ils ne
+sont pas suffisamment distincts, alors une seule entrée dans l'inventaire
+suffit. Cette approche n'est pas suffisante pour établir un inventaire complet,
+comme nous le verrons à la section \ref{besoincorpus}, mais permet d'identifier
+un certain nombre de caractéristiques des sens des mots.
 
 \subsubsection{Homonymie et polysémie}
 
-Prenons par exemple la définition du mot « sol » dans le \textit{Dictionnaire de l'Académie Française, huitième édition}. Les sens sont groupés entre eux, et un des groupes contient ces deux sens :
+Prenons par exemple la définition du mot « sol » dans le \textit{Dictionnaire
+de l'Académie Française, huitième édition}. Les sens sont groupés entre eux, et
+un des groupes contient ces deux sens :
+
 \begin{enumerate}
-  \item Surface de la terre où l'on se tient, où l'on marche, sur laquelle on construit, etc.
+
+  \item Surface de la terre où l'on se tient, où l'on marche, sur laquelle on
+      construit, etc.
+
   \item Terrain considéré quant à sa nature ou à ses qualités productives.
+
 \end{enumerate}
 
-Envisageons une phrase quelconque contenant le mot sol : « Le problème des sols pollués ne fait pas recette auprès du grand public ». Est-ce qu'on considère la surface du sol ou sa nature ? Il ne serait pas surprenant d'observer un désaccord entre deux lexicographes sur ce point. Une solution possible pour faire face à ce problème est la distinction homonymie/polysémie.
+Envisageons une phrase quelconque contenant le mot sol : « Le problème des sols
+pollués ne fait pas recette auprès du grand public ». Est-ce qu'on considère la
+surface du sol ou sa nature ? Il ne serait pas surprenant d'observer un
+désaccord entre deux lexicographes sur ce point. Une solution possible pour
+faire face à ce problème est la distinction homonymie/polysémie.
 
-En effet, les deux sens cités ci-dessus partagent la même étymologie (du latin \textit{solum}) et sont considérés comme polysémiques. Au contraire, le sens « Cinquième note de la gamme d'\textit{ut} » est un autre sens qui possède sa propre étymologie (syllabe d'un poème du VIII\textsuperscript{ème} siècle). Le sens « note de musique » est différent et lié aux sens « Surface » par une relation d'homonymie. Dans le \textit{Dictionnaire de l'Académie Français} et le \textit{Trésor de la Langue Français informatisé}, c'est cette distinction polysémie/homonymie qui semble être utilisée pour distinguer les groupements de sens.
+En effet, les deux sens cités ci-dessus partagent la même étymologie (du latin
+\textit{solum}) et sont considérés comme polysémiques. Au contraire, le sens «
+Cinquième note de la gamme d'\textit{ut} » est un autre sens qui possède sa
+propre étymologie (syllabe d'un poème du VIII\textsuperscript{ème} siècle). Le
+sens « note de musique » est différent et lié aux sens « Surface » par une
+relation d'homonymie. Dans le \textit{Dictionnaire de l'Académie Français} et
+le \textit{Trésor de la Langue Français informatisé}, c'est cette distinction
+polysémie/homonymie qui semble être utilisée pour distinguer les groupements de
+sens.
 
-Il semble alors intéressant d'utiliser cette approche pour créer un inventaire de sens : ne distinguer que les homonymes, et s'éloigner des distinctions trop complexes et fines pour être utilisées dans un systèmes de désambiguïsation lexicale. \cite{yarowsky1995unsupervised} obtient d'ailleurs d'excellents résultats en se limitant à la distinction de quelques homonymes.
+Il semble alors intéressant d'utiliser cette approche pour créer un inventaire
+de sens : ne distinguer que les homonymes, et s'éloigner des distinctions trop
+complexes et fines pour être utilisées dans un systèmes de désambiguïsation
+lexicale. \cite{yarowsky1995unsupervised} obtient d'ailleurs d'excellents
+résultats en se limitant à la distinction de quelques homonymes.
 
-Malheureusement, cette approche ne fonctionne que pour des mots choisis avec attention et aux bonnes propriétés, ce qui n'est pas applicable à plus large échelle. Par exemple, le mot « entrée » ne dispose que d'une entrée dans le \textit{TLFi} là où « sol » en avait plusieurs. Pourtant, certains sens, bien que partageant la même étymologie, sont manifestement différents. L'entrée dans un lieu et l'entrée d'un dictionnaire partagent la même origine, mais sont utilisés de manière très différente. Un humain ne considère plus que l'entrée est un moyen de s'introduire dans le dictionnaire, mais simplement que c'est un des mots présents.
+Malheureusement, cette approche ne fonctionne que pour des mots choisis avec
+attention et aux bonnes propriétés, ce qui n'est pas applicable à plus large
+échelle. Par exemple, le mot « entrée » ne dispose que d'une entrée dans le
+\textit{TLFi} là où « sol » en avait plusieurs. Pourtant, certains sens, bien
+que partageant la même étymologie, sont manifestement différents. L'entrée dans
+un lieu et l'entrée d'un dictionnaire partagent la même origine, mais sont
+utilisés de manière très différente. Un humain ne considère plus que l'entrée
+est un moyen de s'introduire dans le dictionnaire, mais simplement que c'est un
+des mots présents.
 
 \subsubsection{Traductions}
 
-Une autre proposition intéressante est celle de la traduction. Si les deux sens d'un mot dans une langue source ont une traduction différente dans une langue cible, alors ils réfèrent à deux sens. Par exemple, « entrée » est traduit par « entry » ou « entrance » suivant qu'il réfère à l'entrée d'un dictionnaire ou d'un lieu. Dans cet esprit, \cite{resnik1997perspective} proposent de traiter comme distincts les sens qui ne sont pas tous traduits de la même manière dans un ensemble de langues cibles donné. Cette approche n'est pas parfaite : par exemple, le mot aile est traduit de la même manière en anglais, allemand, espagnol et italien, qu'il réfère à l'aile d'un bâtiment ou l'aile d'un oiseau. Cependant, l'approche a l'avantage d'être objective ; et c'est la première méthode qui est adaptée à une tâche particulière : c'est en effet la représentation parfaite pour une désambiguïsation lexicale ayant pour application la traduction automatique. Différents travaux ont poursuivi cette voie, en se basant notamment sur EuroWordNet \citep{tufis2006from} et sur des corpus parallèles \citep{chan2007nus,zhong2009word,plas2011automatic}.
+Une autre proposition intéressante est celle de la traduction. Si les deux sens
+d'un mot dans une langue source ont une traduction différente dans une langue
+cible, alors ils réfèrent à deux sens. Par exemple, « entrée » est traduit par
+« entry » ou « entrance » suivant qu'il réfère à l'entrée d'un dictionnaire ou
+d'un lieu. Dans cet esprit, \cite{resnik1997perspective} proposent de traiter
+comme distincts les sens qui ne sont pas tous traduits de la même manière dans
+un ensemble de langues cibles donné. Cette approche n'est pas parfaite : par
+exemple, le mot aile est traduit de la même manière en anglais, allemand,
+espagnol et italien, qu'il réfère à l'aile d'un bâtiment ou l'aile d'un oiseau.
+Cependant, l'approche a l'avantage d'être objective ; et c'est la première
+méthode qui est adaptée à une tâche particulière : c'est en effet la
+représentation parfaite pour une désambiguïsation lexicale ayant pour
+application la traduction automatique. Différents travaux ont poursuivi cette
+voie, en se basant notamment sur EuroWordNet \citep{tufis2006from} et sur des
+corpus parallèles \citep{chan2007nus,zhong2009word,plas2011automatic}.
 
 \subsubsection{Test d'ambiguïté}
 
-\cite{kilgarriff1997don} mentionne l'existence des tests d'ambiguïté pour répondre à la question « Ces deux sens sont-il différents ? ». Le test considéré le plus efficace est présenté : celui des lectures croisées. Pour savoir si les sens « main gauche » et « main droite » doivent être différenciés dans un inventaire, on pourra écrire la phrase suivante : « Paul a levé la main, tout comme Jean ». Paul peut avoir levé la main gauche et Jean la main droite, ce qui signifie que ces sens ne sont pas distincts. Pour distinguer le sens « jeu » et « papillon » du mot « échiquier », on peut penser à la phrase « Paul est arrivé avec un échiquier, tout comme Jean ». Ici, il n'est pas \textit{a priori} possible que Paul soit arrivé avec un jeu, et Jean avec un papillon ; ce qui indique que ces sens sont différents.
+\cite{kilgarriff1997don} mentionne l'existence des tests d'ambiguïté pour
+répondre à la question « Ces deux sens sont-il différents ? ». Le test
+considéré le plus efficace est présenté : celui des lectures croisées. Pour
+savoir si les sens « main gauche » et « main droite » doivent être différenciés
+dans un inventaire, on pourra écrire la phrase suivante : « Paul a levé la
+main, tout comme Jean ». Paul peut avoir levé la main gauche et Jean la main
+droite, ce qui signifie que ces sens ne sont pas distincts. Pour distinguer le
+sens « jeu » et « papillon » du mot « échiquier », on peut penser à la phrase «
+Paul est arrivé avec un échiquier, tout comme Jean ». Ici, il n'est pas
+\textit{a priori} possible que Paul soit arrivé avec un jeu, et Jean avec un
+papillon ; ce qui indique que ces sens sont différents.
 
 \subsection{Le besoin d'un corpus}
 \label{besoincorpus}
 
-Après avoir expliqué en quoi ces tests ne sont pas faciles à construire et ne donnent pas de résultats satisfaisants dans un nombre important de cas, \cite{kilgarriff1997don} indique que la meilleure solution est celle adoptée par les lexicographes. Il faut définir un corpus et utiliser un concordancier montrant les différents usages d'un mot donné. Le lexicographe sépare alors ces différents usages en \textit{clusters}, ce qui lui permet de définir ce qui différencie les sens selon lui. Une phase d'ajustement peut suivre pour harmoniser les clusters étant donné des observations faites précédemment, et ce n'est qu'après ces étapes que l'écriture de l'entrée du dictionnaire peut avoir lieu. L'avantage principal est que le choix est désormais basé sur des données réelles, et n'est pas de la simple spéculation. \cite{kilgarriff1997don} cite ensuite quelques critères utiles pour réaliser le clustering. La faible fréquence est souvent un argument pour laisser un sens de côté : il peut être trop spécialisé pour avoir une utilité générale.
+Après avoir expliqué en quoi ces tests ne sont pas faciles à construire et ne
+donnent pas de résultats satisfaisants dans un nombre important de cas,
+\cite{kilgarriff1997don} indique que la meilleure solution est celle adoptée
+par les lexicographes. Il faut définir un corpus et utiliser un concordancier
+montrant les différents usages d'un mot donné. Le lexicographe sépare alors ces
+différents usages en \textit{clusters}, ce qui lui permet de définir ce qui
+différencie les sens selon lui. Une phase d'ajustement peut suivre pour
+harmoniser les clusters étant donné des observations faites précédemment, et ce
+n'est qu'après ces étapes que l'écriture de l'entrée du dictionnaire peut avoir
+lieu. L'avantage principal est que le choix est désormais basé sur des données
+réelles, et n'est pas de la simple spéculation. \cite{kilgarriff1997don} cite
+ensuite quelques critères utiles pour réaliser le clustering. La faible
+fréquence est souvent un argument pour laisser un sens de côté : il peut être
+trop spécialisé pour avoir une utilité générale.
 
-Ainsi, les sens ne sont pas définis en tant que tels, mais sont avant tout des occurrences dans un contexte donné. L'auteur conclut en affirmant qu'un ensemble de sens n'est défini que par rapport à un corpus donné, et qu'il est illusoire de vouloir définir un dictionnaire général parfait pour tous les sens. Néanmoins, il n'est pas pratique de réaliser manuellement un dictionnaire par corpus ; et il faut simplement être conscient des difficultés théoriques posées par les sens de mots. 
+Ainsi, les sens ne sont pas définis en tant que tels, mais sont avant tout des
+occurrences dans un contexte donné. L'auteur conclut en affirmant qu'un
+ensemble de sens n'est défini que par rapport à un corpus donné, et qu'il est
+illusoire de vouloir définir un dictionnaire général parfait pour tous les
+sens. Néanmoins, il n'est pas pratique de réaliser manuellement un dictionnaire
+par corpus ; et il faut simplement être conscient des difficultés théoriques
+posées par les sens de mots. 
 
 \subsection{Inventaires de sens}
 
-Intéressons-nous maintenant aux inventaires de sens utilisés par les différents systèmes de désambiguïsation lexicale. Les premiers inventaires de sens disponibles étaient les dictionnaires, et ils ont étés naturellement utilisés par les premiers systèmes cherchant une couverture exhaustive de tous les mots d'un texte \citep{lesk1986automatic}. La première campagne d'évaluation Senseval (organisée en 1998) \citep{kilgarriff2000introduction} a d'ailleurs évalué les différents systèmes de désambiguïsation lexicale dans trois langues ; l'inventaire de sens choisi était à chaque fois un dictionnaire. L'utilisation de tels dictionnaires implique cependant un coût d'achat et le respect de la licence restrictive, ce qui explique que ces dictionnaires ont rapidement étés abandonnés au profit de WordNet \citep{edmonds2002introduction}, voire du Wiktionnaire \citep{mouton2010jaws}.%,nguyen2012using}.
+Intéressons-nous maintenant aux inventaires de sens utilisés par les différents
+systèmes de désambiguïsation lexicale. Les premiers inventaires de sens
+disponibles étaient les dictionnaires, et ils ont étés naturellement utilisés
+par les premiers systèmes cherchant une couverture exhaustive de tous les mots
+d'un texte \citep{lesk1986automatic}. La première campagne d'évaluation
+Senseval (organisée en 1998) \citep{kilgarriff2000introduction} a d'ailleurs
+évalué les différents systèmes de désambiguïsation lexicale dans trois langues
+; l'inventaire de sens choisi était à chaque fois un dictionnaire.
+L'utilisation de tels dictionnaires implique cependant un coût d'achat et le
+respect de la licence restrictive, ce qui explique que ces dictionnaires ont
+rapidement étés abandonnés au profit de WordNet
+\citep{edmonds2002introduction}, voire du Wiktionnaire
+\citep{mouton2010jaws}.%,nguyen2012using}.
 
-En effet, WordNet est disponible sous une licence peu restrictive qui permet une utilisation à la fois à des fins de recherche mais aussi de commercialisation. Les sens proposés ont étés utilisés pour annoter le corpus SemCor, ce qui a permi d'entraîner de nombreux systèmes supervisés. WordNet est rapidement devenu le standard de la désambiguïsation lexicale et a été utilisé dans les campagnes d'évaluation internationales d'analyse sémantique \citep{navigli2009word}.
+En effet, WordNet est disponible sous une licence peu restrictive qui permet
+une utilisation à la fois à des fins de recherche mais aussi de
+commercialisation. Les sens proposés ont étés utilisés pour annoter le corpus
+SemCor, ce qui a permi d'entraîner de nombreux systèmes supervisés. WordNet est
+rapidement devenu le standard de la désambiguïsation lexicale et a été utilisé
+dans les campagnes d'évaluation internationales d'analyse sémantique
+\citep{navigli2009word}.
 
-Depuis 2006, différents travaux \citep{navigli2007semeval,hovy2006ontonotes} ont remarqué que les défauts attribués à WordNet \citep{snow2007learning,ide2007making} étaient suffisamment importants pour nécessiter une alternative avec des sens distingués plus grossièrement. Ce problème est attribué selon \cite{edmonds2002introduction} au manque de rigueur lexicographique de WordNet, et à la mise en avant de la similiarité entre les mots à travers les synsets au détriment de la distinction des sens. Il s'est en effet avéré que l'accord inter-annotateurs pour un étiquetage avec WordNet est remarquablement faible (de l'ordre de 70\%), et qu'utiliser un autre inventaire un moyen efficace de s'adapter à différentes applicaions \citep{palmer2004different}. La tendance est désormais à l'utilisation d'inventaires plus grossiers \citep{navigli2007semeval,navigli2012quick}.
+Depuis 2006, différents travaux \citep{navigli2007semeval,hovy2006ontonotes}
+ont remarqué que les défauts attribués à WordNet
+\citep{snow2007learning,ide2007making} étaient suffisamment importants pour
+nécessiter une alternative avec des sens distingués plus grossièrement. Ce
+problème est attribué selon \cite{edmonds2002introduction} au manque de rigueur
+lexicographique de WordNet, et à la mise en avant de la similiarité entre les
+mots à travers les synsets au détriment de la distinction des sens. Il s'est en
+effet avéré que l'accord inter-annotateurs pour un étiquetage avec WordNet est
+remarquablement faible (de l'ordre de 70\%), et qu'utiliser un autre inventaire
+un moyen efficace de s'adapter à différentes applicaions
+\citep{palmer2004different}. La tendance est désormais à l'utilisation
+d'inventaires plus grossiers \citep{navigli2007semeval,navigli2012quick}.
 
-Au-delà des approches statistiques \citep{snow2007learning}, de nouveaux inventaires de sens ont étés developpés :
+Au-delà des approches statistiques \citep{snow2007learning}, de nouveaux
+inventaires de sens ont étés developpés :
+
 \begin{itemize}
-    \item Ontonotes \citep{hovy2006ontonotes} a choisi de regrouper manuellement les sens WordNet jusqu'à obtenir un accord inter-annotateur de 90\% .
-    \item DANTE\footnote{Les entrées pour les mots entre M et R sont disponibles sur http://webdante.com/} \citep{mccarthy2010dante} est un inventaire entièrement nouveau, conçu dans l'objectif de corriger les erreurs faites avec WordNet\citep{kilgarriff2010detailed}.
+
+    \item Ontonotes \citep{hovy2006ontonotes} a choisi de regrouper
+        manuellement les sens WordNet jusqu'à obtenir un accord
+        inter-annotateur de 90\% .
+
+    \item DANTE\footnote{Les entrées pour les mots entre M et R sont
+        disponibles sur http://webdante.com/} \citep{mccarthy2010dante} est un
+        inventaire entièrement nouveau, conçu dans l'objectif de corriger les
+        erreurs faites avec WordNet\citep{kilgarriff2010detailed}.
+
 \end{itemize}
 
-Ces deux inventaires semblent plus adaptés que WordNet pour la désambiguïsation lexicale \citep{navigli2012quick}, mais ils ne sont pas utilisables librement à des fins commerciales et et des applications l'utilisant doivent encore voir le jour.
+Ces deux inventaires semblent plus adaptés que WordNet pour la désambiguïsation
+lexicale \citep{navigli2012quick}, mais ils ne sont pas utilisables librement à
+des fins commerciales et et des applications l'utilisant doivent encore voir le
+jour.
 
 \subsection{Autres représentations du sens}
 \label{sensfunky}
 
-Nous avons jusqu'ici présupposé que les sens d'un mot était représentés sous la forme d'une simple énumération, en signalant à la section \ref{besoincorpus} l'importance du lien avec un corpus, pratique observée dans de nombreux dictionnaires depuis longtemps. Étant donné que c'est de loin l'approche la plus utilisée en désambiguïsation lexicale, les autres possibilités ne sont mentionnées que dans cette section.
+Nous avons jusqu'ici présupposé que les sens d'un mot était représentés sous la
+forme d'une simple énumération, en signalant à la section \ref{besoincorpus}
+l'importance du lien avec un corpus, pratique observée dans de nombreux
+dictionnaires depuis longtemps. Étant donné que c'est de loin l'approche la
+plus utilisée en désambiguïsation lexicale, les autres possibilités ne sont
+mentionnées que dans cette section.
 
-Une approche complètement différente est celle de la structure de qualia \citep{johnston1996qualia} qui s'inscrit dans le contexte plus général du lexique génératif introduit par \cite{pustejovsky1991generative} qui considère qu'une approche énumérative n'est pas viable. Le sens d'un mot est alors défini selon plusieurs aspects prédéfinis (constitution, rôles, facteurs impliqués dans la création, etc.) qui peuvent se retrouver dans plusieurs mots. Par exemple, un couteau contient une lame et sert à couper. Cette approche est semblable à celle qui définit le sens d'un mot comme une simple suite de sèmes.
+Une approche complètement différente est celle de la structure de qualia
+\citep{johnston1996qualia} qui s'inscrit dans le contexte plus général du
+lexique génératif introduit par \cite{pustejovsky1991generative} qui considère
+qu'une approche énumérative n'est pas viable. Le sens d'un mot est alors défini
+selon plusieurs aspects prédéfinis (constitution, rôles, facteurs impliqués
+dans la création, etc.) qui peuvent se retrouver dans plusieurs mots. Par
+exemple, un couteau contient une lame et sert à couper. Cette approche est
+semblable à celle qui définit le sens d'un mot comme une simple suite de sèmes.
 
-Enfin, différents travaux mentionnent la possibilité d'utiliser plus d'un sens pour un mot donné. En particulier, nous avons calculé que 0.3\% des occurrences de SemCor sont étiquetées avec plus d'un sens. \cite{smith2011rumble} note quant à lui la possibilité d'utiliser des distributions de probabilité pour définir un sens précis qui pourrait appartenir à plusieurs sens définir dans un inventaire.
+Enfin, différents travaux mentionnent la possibilité d'utiliser plus d'un sens
+pour un mot donné. En particulier, nous avons calculé que 0.3\% des occurrences
+de SemCor sont étiquetées avec plus d'un sens. \cite{smith2011rumble} note
+quant à lui la possibilité d'utiliser des distributions de probabilité pour
+définir un sens précis qui pourrait appartenir à plusieurs sens définir dans un
+inventaire.
 
 \subsection{Induction de sens}
 \label{distrib}
 
-Le sens d'un mot donné peut souvent s'inférer à partir de son contexte \citep{pantel2002discovering}. L'hypothèse distributionnelle, attribuée à Zadig Harris, nous permet de formaliser cette observation. \cite[p.~786]{harris1954distributional} explique :
+Le sens d'un mot donné peut souvent s'inférer à partir de son contexte
+\citep{pantel2002discovering}. L'hypothèse distributionnelle, attribuée à Zadig
+Harris, nous permet de formaliser cette observation.
+\cite[p.~786]{harris1954distributional} explique :
 
-\begin{quote}
-... si on considère que le sens de deux mots ou morphèmes A et B diffère davantage que le sens que A et C, alors on observe souvent que ls distribution de A et B diffèrent davantage que les distributions de A et C. Autrement dit, la différence de sens est corrélée à la différence de distribution.
-\end{quote}
+\begin{quote} ... si on considère que le sens de deux mots ou morphèmes A et B
+    diffère davantage que le sens que A et C, alors on observe souvent que ls
+    distribution de A et B diffèrent davantage que les distributions de A et C.
+    Autrement dit, la différence de sens est corrélée à la différence de
+    distribution.  \end{quote}
 
-La distribution réfère ici à deux relations \citep{sahlgren2008distributional} :
+La distribution réfère ici à deux relations \citep{sahlgren2008distributional}
+:
+
 \begin{itemize}
-    \item les relations syntagmatiques identifient les mots qui sont présents ensemble dans un texte ;
-    \item les relations paradigmatiques identifient les mots qui sont présent dans un même contexte, sans être présent ensemble.
+
+    \item les relations syntagmatiques identifient les mots qui sont présents
+        ensemble dans un texte ;
+
+    \item les relations paradigmatiques identifient les mots qui sont présent
+        dans un même contexte, sans être présent ensemble.
+
 \end{itemize}
 
-Étant donné les deux phrases « Je bois du café. » et « Je bois du thé. », on peut déduire que les lemmes « boire » et « thé » sont liés par une relation syntagmatique : ils sont présent ensemble. Au contraire, « thé » et « café » ne sont pas présent dans la même phrase, mais apparaissent dans un même contexte (« Je bois du ») : ils sont liés par une relation paradigmatique.
+Étant donné les deux phrases « Je bois du café. » et « Je bois du thé. », on
+peut déduire que les lemmes « boire » et « thé » sont liés par une relation
+syntagmatique : ils sont présent ensemble. Au contraire, « thé » et « café » ne
+sont pas présent dans la même phrase, mais apparaissent dans un même contexte
+(« Je bois du ») : ils sont liés par une relation paradigmatique.
 
-On peut utiliser ces relations pour de la désambiguïsation : si il est possible d'identifier pour un même mot différents usages correspondant à des relations sémantiques avec des mots différents, alors ces deux sens sont différents. La validité de cette approche a été vérifiée expérimentalement citep{yarowsky1993one,pantel2002discovering,claire} et étudiée de manière plus théorique \citep{sahlgren2006word,sahlgren2008distributional}. Comme nous le verrons par la suite, c'est un moyen très utile de différencier le sens des mots qui est souvent associé à des approches peu supervisées.
+On peut utiliser ces relations pour de la désambiguïsation : si il est possible
+d'identifier pour un même mot différents usages correspondant à des relations
+sémantiques avec des mots différents, alors ces deux sens sont différents. La
+validité de cette approche a été vérifiée expérimentalement
+citep{yarowsky1993one,pantel2002discovering,claire} et étudiée de manière plus
+théorique \citep{sahlgren2006word,sahlgren2008distributional}. Comme nous le
+verrons par la suite, c'est un moyen très utile de différencier le sens des
+mots qui est souvent associé à des approches peu supervisées.
 
-Différents travaux ont considéré comme vraie l'hypothèse distributionnelle et ont établi à partir d'un corpus l'ensemble des sens présents pour chaque mot. Par exemple, \cite{schutze1998automatic,pantel2002discovering,niu2007three,pedersen2010duluth} ont établi pour chaque mot des clusters correspondant chacun à un sens du mot (voir \cite{liu2012semantic} pour un exemple récent dans un domaine spécifique).
+Différents travaux ont considéré comme vraie l'hypothèse distributionnelle et
+ont établi à partir d'un corpus l'ensemble des sens présents pour chaque mot.
+Par exemple,
+\cite{schutze1998automatic,pantel2002discovering,niu2007three,pedersen2010duluth}
+ont établi pour chaque mot des clusters correspondant chacun à un sens du mot
+(voir \cite{liu2012semantic} pour un exemple récent dans un domaine
+spécifique).
 
 \section{Le sens des situations}
 \label{senssituation}
 
-Après avoir établi ce que pouvait être le sens d'un mot, nous nous intéressons ici au même problème du point de vue de l'annotation en rôles sémantiques. Nous verrons les différentes façon de définir les rôles sémantiques, et examinerons les deux ressources les plus utilisées dans le domaine : FrameNet et PropBank.
+Après avoir établi ce que pouvait être le sens d'un mot, nous nous intéressons
+ici au même problème du point de vue de l'annotation en rôles sémantiques. Nous
+verrons les différentes façon de définir les rôles sémantiques, et examinerons
+les deux ressources les plus utilisées dans le domaine : FrameNet et PropBank.
 
 \subsection{Les rôles en linguistique}
 
-Comment aller au-delà d'une analyse syntaxique pour représenter le sens d'une phrase ? La notion de rôle sémantique semble particulièrement adaptée aux approches statistiques que nous présentons ici. Ces rôles permettent d'abstraire un nombre important d'alternances diathésiques présentes dans le langage naturel. TODO ... . De nombreuses théories linguistiques semblent proposer différentes représentations puor ces rôles ; nous nous intéresserons ici à la théorie élaborée par \cite{fillmore1968case} qui établit que le cas grammatical montre des relations plus profondes et sémantiques. De nombreuses langues marquent ces relations au niveau morphologique ; l'élatif est un exemple de cas grammatical qui exprime le lieu de l'intérieur duquel provient un mouvement et qui est marqué morphologiquement en finnois, hongrois et estonien.
+Comment aller au-delà d'une analyse syntaxique pour représenter le sens d'une
+phrase ? La notion de rôle sémantique semble particulièrement adaptée aux
+approches statistiques que nous présentons ici. Ces rôles permettent
+d'abstraire un nombre important d'alternances diathésiques présentes dans le
+langage naturel. TODO ... . De nombreuses théories linguistiques semblent
+proposer différentes représentations puor ces rôles ; nous nous intéresserons
+ici à la théorie élaborée par \cite{fillmore1968case} qui établit que le cas
+grammatical montre des relations plus profondes et sémantiques. De nombreuses
+langues marquent ces relations au niveau morphologique ; l'élatif est un
+exemple de cas grammatical qui exprime le lieu de l'intérieur duquel provient
+un mouvement et qui est marqué morphologiquement en finnois, hongrois et
+estonien.
 
-Il n'y a pas de réel consensus sur un inventaire de cas donnés. Parmi les rôles sémantiques généralement acceptés, on peut citer :
+Il n'y a pas de réel consensus sur un inventaire de cas donnés. Parmi les rôles
+sémantiques généralement acceptés, on peut citer :
+
 \begin{itemize}
     \item l'\textbf{Agent} qui est à l'origine de l'action
     \item le \textbf{Patient} qui subit un changement d'état
@@ -190,143 +443,406 @@ Il n'y a pas de réel consensus sur un inventaire de cas donnés. Parmi les rôl
 
 \subsection{Ressources disponibles}
 
-Il existe en anglais différentes ressources pour l'annotation en rôles sémantique : nous aborderons ici FrameNet, PropBank et NomBank.
+Il existe en anglais différentes ressources pour l'annotation en rôles
+sémantique : nous aborderons ici FrameNet, PropBank et NomBank.
 
 \subsubsection{FrameNet}
 
-FrameNet repose sur la théorie des \textit{Frame Semantics}, élaborée par Fillmore en modifiant sa théorie initiale. Ici, les rôles sémantiques \textit{frame elements} sont spécifiques à chaque situation (\textit{frame}) tout en se recoupant par endroits. On retrouve ainsi le rôle d'agent, mais aussi des rôles spécifiques comme \textbf{Food} dans \textbf{Apply\_heat} ou \textbf{Completeness} dans \textbf{Activity\_pause}. Les rôles sont classifiés selon leur importance dans la situation : centraux (nécessaires), périphériques (toujours liés à la situation mais optionnels) et circonstanciels (potentiellement présent dans toutes les situations, par exemple le lieu ou le temps).
+FrameNet repose sur la théorie des \textit{Frame Semantics}, élaborée par
+Fillmore en modifiant sa théorie initiale. Ici, les rôles sémantiques
+\textit{frame elements} sont spécifiques à chaque situation (\textit{frame})
+tout en se recoupant par endroits. On retrouve ainsi le rôle d'agent, mais
+aussi des rôles spécifiques comme \textbf{Food} dans \textbf{Apply\_heat} ou
+\textbf{Completeness} dans \textbf{Activity\_pause}. Les rôles sont classifiés
+selon leur importance dans la situation : centraux (nécessaires), périphériques
+(toujours liés à la situation mais optionnels) et circonstanciels
+(potentiellement présent dans toutes les situations, par exemple le lieu ou le
+temps).
 
 \subsubsection{PropBank}
 
-Malgré quelques critiques \citep{riemer2011conception}, l'interface syntaxe-sémantique nous permet d'utiliser les informations syntaxiques d'un verbe pour distinguer différents sens et identifer ses arguments sémantique. En introduction, nous avons d'ailleurs expliqué les différences entre les deux sens du verbe « retenir » ainsi :
+Malgré quelques critiques \citep{riemer2011conception}, l'interface
+syntaxe-sémantique nous permet d'utiliser les informations syntaxiques d'un
+verbe pour distinguer différents sens et identifer ses arguments sémantique. En
+introduction, nous avons d'ailleurs expliqué les différences entre les deux
+sens du verbe « retenir » ainsi :
+
 \begin{enumerate}
     \item se souvenir de quelque chose
     \item empêcher quelqu'un de faire quelque chose
 \end{enumerate}
 
-PropBank \citep{palmer2005proposition} a décidé d'utiliser les annotations syntaxiques du Penn TreeBank \citep{marcus1993building} pour annoter en rôles sémantiques les phrases incluant un des 5000 verbes les plus fréquents du corpus. Pour chaque phrase, les annotateurs ont identifié les syntagmes jouant un rôles sémantique. L'objectif principal de PropBank est de permettre d'utiliser l'apprentissage automatique pour l'annotation en rôles sémantiques. C'est pour cette raison que les étiquettes disponibles sont très générales. Ainsi, il est fréquent que \textit{ARG0} désigne l'agent, \textit{ARG1} le patient. D'autres arguments sont disponibles pour étiqueter des rôles plus spécifiques (\textit{ARG2}, \textit{ARG3}, etc.) ainsi que des rôles secondaires (\textit{Location}, \textit{Extent}, \textit{Manner}, etc.)
+PropBank \citep{palmer2005proposition} a décidé d'utiliser les annotations
+syntaxiques du Penn TreeBank \citep{marcus1993building} pour annoter en rôles
+sémantiques les phrases incluant un des 5000 verbes les plus fréquents du
+corpus. Pour chaque phrase, les annotateurs ont identifié les syntagmes jouant
+un rôles sémantique. L'objectif principal de PropBank est de permettre
+d'utiliser l'apprentissage automatique pour l'annotation en rôles sémantiques.
+C'est pour cette raison que les étiquettes disponibles sont très générales.
+Ainsi, il est fréquent que \textit{ARG0} désigne l'agent, \textit{ARG1} le
+patient. D'autres arguments sont disponibles pour étiqueter des rôles plus
+spécifiques (\textit{ARG2}, \textit{ARG3}, etc.) ainsi que des rôles
+secondaires (\textit{Location}, \textit{Extent}, \textit{Manner}, etc.)
 
 \subsubsection{NomBank}
 
-NomBank \citep{meyers2004nombank} a été conçu à l'image de PropBank mais se concentre, comme son nom l'indique, sur les noms communs, plus particulièrement sur les 5 000 noms communs les plus fréquents dans le Penn TreeBank. Sur le million de mots présent dans le corpus, 250 000 sont des noms communs. 100 000 d'entre eux sont des noms issus d'un verbe ou qui se comportent à la façon d'un verbe. Par exemple, le nom commun français « achat » est lié au verbe « acheter », et les arguments sémantiqes seront probablement les mêmes : dans « Il a acheté un arbre » et « l'achat d'un arbre », \textit{ARG1} sera dans les deux cas l'arbre. D'autres catégories incluent les noms partitifs, relationnels et environnementaux.
+NomBank \citep{meyers2004nombank} a été conçu à l'image de PropBank mais se
+concentre, comme son nom l'indique, sur les noms communs, plus particulièrement
+sur les 5 000 noms communs les plus fréquents dans le Penn TreeBank. Sur le
+million de mots présent dans le corpus, 250 000 sont des noms communs. 100 000
+d'entre eux sont des noms issus d'un verbe ou qui se comportent à la façon d'un
+verbe. Par exemple, le nom commun français « achat » est lié au verbe « acheter
+», et les arguments sémantiqes seront probablement les mêmes : dans « Il a
+acheté un arbre » et « l'achat d'un arbre », \textit{ARG1} sera dans les deux
+cas l'arbre. D'autres catégories incluent les noms partitifs, relationnels et
+environnementaux.
 
-Pour une phrase telle que « They gave the chefs a standing ovation », les annotations PropBank et NomBank peuvent montrer les liens possibles entre ces deux ressources. Cette similarité volontaire a permis de lier ces ressources \citep{pustejovsky2005merging,verhagen2007combining}, mais des applications utilisant de telles ressources unifiées doivent encore voir le jour.
+Pour une phrase telle que « They gave the chefs a standing ovation », les
+annotations PropBank et NomBank peuvent montrer les liens possibles entre ces
+deux ressources. Cette similarité volontaire a permis de lier ces ressources
+\citep{pustejovsky2005merging,verhagen2007combining}, mais des applications
+utilisant de telles ressources unifiées doivent encore voir le jour.
 
-Plus récemment, \cite{gerber2010beyond} ont étendu NomBank aux arguments implicites, améliorant ainsi la couverture de NomBank de 65\%, c'est-à-dire en augmentant le nombre moyen de rôles remplis dans chaque exemple annoté. Il n'est pas rare que les arguments soient implicites mais présent dans d'autres phrases. Les annotations étant limitées à la phrase actuelle, il n'est pas possible de référer à un argument présent dans une prase précédente.
+Plus récemment, \cite{gerber2010beyond} ont étendu NomBank aux arguments
+implicites, améliorant ainsi la couverture de NomBank de 65\%, c'est-à-dire en
+augmentant le nombre moyen de rôles remplis dans chaque exemple annoté. Il
+n'est pas rare que les arguments soient implicites mais présent dans d'autres
+phrases. Les annotations étant limitées à la phrase actuelle, il n'est pas
+possible de référer à un argument présent dans une prase précédente.
 
 \section{Apprentissage automatique pour l'analyse sémantique}
 
-Les systèmes de désambiguïsation lexicale et d'annotation en rôles sémantiques utilisent pour la plupart des techniques d'apprentissage automatique. Après avoir présenté de manière générale les différentes ressources et approches, des techniques plus spécifiques sont abordées. Enfin, les traits utilisés pour l'apprentissage sont précisés.
+Les systèmes de désambiguïsation lexicale et d'annotation en rôles sémantiques
+utilisent pour la plupart des techniques d'apprentissage automatique. Après
+avoir présenté de manière générale les différentes ressources et approches, des
+techniques plus spécifiques sont abordées. Enfin, les traits utilisés pour
+l'apprentissage sont précisés.
 
 \subsection{Approches}
 
 Deux types de ressources sont généralement utilisées :
+
 \begin{enumerate}
-    \item Les \textbf{inventaires} examinés dans les deux sections précédentes permettent de fournir un socle commun à différents systèmes. Dans le cas de la désambiguïsation lexicale, c'est souvent WordNet. Pour l'annotation en rôles sémantiques, ce sera par exemple la définition des \textit{frames}, des \textit{frame elements}, et des prédicats possibles.
-    \item Les \textbf{corpus annotés} par des humains qui utilisent un inventaire donné pour réaliser la tâche qu'on essaie de faire apprendre aux systèmes. Cela permet à la fois d'entraîner les systèmes et de les évaluer. Par exemple, SemCor est annoté avec des sens WordNet, et FrameNet contient de nombreux exemples annotés en plus des rôles sémantiques définis pour chacune des situations.
+
+    \item Les \textbf{inventaires} examinés dans les deux sections précédentes
+        permettent de fournir un socle commun à différents systèmes. Dans le
+        cas de la désambiguïsation lexicale, c'est souvent WordNet. Pour
+        l'annotation en rôles sémantiques, ce sera par exemple la définition
+        des \textit{frames}, des \textit{frame elements}, et des prédicats
+        possibles.
+
+    \item Les \textbf{corpus annotés} par des humains qui utilisent un
+        inventaire donné pour réaliser la tâche qu'on essaie de faire apprendre
+        aux systèmes. Cela permet à la fois d'entraîner les systèmes et de les
+        évaluer. Par exemple, SemCor est annoté avec des sens WordNet, et
+        FrameNet contient de nombreux exemples annotés en plus des rôles
+        sémantiques définis pour chacune des situations.
+
 \end{enumerate}
 
-Ces ressources sont utilisées différemment suivant les méthodes, souvent divisées en trois approches générales : supervisées, fondées sur la connaissance et non supervisées. \citep{navigli2009word}.
+Ces ressources sont utilisées différemment suivant les méthodes, souvent
+divisées en trois approches générales : supervisées, fondées sur la
+connaissance et non supervisées. \citep{navigli2009word}.
 
 \subsubsection{Supervisées}
 
-Les méthodes supervisées utilisent un corpus annoté, et adoptent donc l'inventaire associé. Des techniques classiques d'apprentissage automatique sont utilisées pour déterminer le sens correct de chaque occurrence d'un mot étant donné les informations obtenues à partir du contexte de cette occurrence. La désambiguïsation lexicale utilise des algorithmes de classification classiques, et même si de nombreux algorithmes ont fait leur preuves, SVM est considéré comme l'algorithme le plus performant \cite{navigli2012quick}. L'annotation en rôles sémantiques supervisée, quant à elle, est souvent divisées en deux sous-tâches : l'\textbf{identification des arguments} qui établit les syntagmes jouant un rôle dans la phrase et la \textbf{classification des rôles} qui détermine le rôle effectif de chaque syntagme parmi ceux retenus à la phase précédente.
+Les méthodes supervisées utilisent un corpus annoté, et adoptent donc
+l'inventaire associé. Des techniques classiques d'apprentissage automatique
+sont utilisées pour déterminer le sens correct de chaque occurrence d'un mot
+étant donné les informations obtenues à partir du contexte de cette occurrence.
+La désambiguïsation lexicale utilise des algorithmes de classification
+classiques, et même si de nombreux algorithmes ont fait leur preuves, SVM est
+considéré comme l'algorithme le plus performant \cite{navigli2012quick}.
+L'annotation en rôles sémantiques supervisée, quant à elle, est souvent
+divisées en deux sous-tâches : l'\textbf{identification des arguments} qui
+établit les syntagmes jouant un rôle dans la phrase et la
+\textbf{classification des rôles} qui détermine le rôle effectif de chaque
+syntagme parmi ceux retenus à la phase précédente.
 
-Ces méthodes supervisées ont des difficultés pour couvrir un large éventail de phrases. Pour la désambiguïsation lexicale, ces méthodes ont souvent été confrontées à un manque de données d'entraînement du au fait qu'il faut un nombre conséquent d'exemples annotés pour chaque mot ambigu. Étant donné d'une part la fréquence d'utilisation de mots ambigus dans une langue\footnote{d'après nos calculs, seulement 17\% des mots sont polysémiques dans WordNet 3.0, mais 73\% des occurrences de SemCor apparaissent avec plus d'un sens et 87\% des occurrences concernent des mots polysémiques dans Wordnet 3.0.}, et d'autre part la distribution asymétrique de ces mêmes mots\footnote{d'après nos calculs, 95\% des annotations d'occurences de mots dans SemCor concernent moins de 5\% des lemmes les plus fréquents, ce qui limite le nombre d'occurrences pour les mots moins fréquents}, il faut disposer d'une référence énorme, ce qui rend l'annotation difficile. On appelle ce phénomène le \textit{language acquisition bottleneck} \citep{gale1992using}. Le problème du manque de données se retrouve aussi en annotation en rôles sémantiques : il s'agit alors d'obtenir une couverture suffisamment importante des situations possibles dans un texte en cadre ouvert \cite[p.~155]{marquez2008semantic}.
+Ces méthodes supervisées ont des difficultés pour couvrir un large éventail de
+phrases. Pour la désambiguïsation lexicale, ces méthodes ont souvent été
+confrontées à un manque de données d'entraînement du au fait qu'il faut un
+nombre conséquent d'exemples annotés pour chaque mot ambigu. Étant donné d'une
+part la fréquence d'utilisation de mots ambigus dans une
+langue\footnote{d'après nos calculs, seulement 17\% des mots sont polysémiques
+    dans WordNet 3.0, mais 73\% des occurrences de SemCor apparaissent avec
+    plus d'un sens et 87\% des occurrences concernent des mots polysémiques
+dans Wordnet 3.0.}, et d'autre part la distribution asymétrique de ces mêmes
+mots\footnote{d'après nos calculs, 95\% des annotations d'occurences de mots
+    dans SemCor concernent moins de 5\% des lemmes les plus fréquents, ce qui
+limite le nombre d'occurrences pour les mots moins fréquents}, il faut disposer
+d'une référence énorme, ce qui rend l'annotation difficile. On appelle ce
+phénomène le \textit{language acquisition bottleneck} \citep{gale1992using}. Le
+problème du manque de données se retrouve aussi en annotation en rôles
+sémantiques : il s'agit alors d'obtenir une couverture suffisamment importante
+des situations possibles dans un texte en cadre ouvert
+\cite[p.~155]{marquez2008semantic}.
 
 \subsubsection{Fondées sur la connaissance}
 
-Contrairement aux approches supervisées, ces approches n'utilisent pas de corpus annoté. Les systèmes s'affranchissent alors de la petite taille inhérente à tout corpus annoté et peuvent utiliser un large corpus non annoté tel que le web. Un inventaire de sens est tout de même utilisé, et il faut toujours faire de la classification ; la difficulté principale étant ici d'obtenir des informations utiles à partir des exemples non annotés. Étant donné que ces méthodes continuent à utiliser un inventaire, il reste possible de comparer les résultats entre différents systèmes et de réaliser une évaluation sur une vérité-terrain. Il est toujours possible d'utiliser un corpus pour régler les paramètres à l'aide d'un échantillon de validation ou comme base pour annoter de nouveaux exemples ; mais des corpus plus conséquents sont toujours utiilisés.
+Contrairement aux approches supervisées, ces approches n'utilisent pas de
+corpus annoté. Les systèmes s'affranchissent alors de la petite taille
+inhérente à tout corpus annoté et peuvent utiliser un large corpus non annoté
+tel que le web. Un inventaire de sens est tout de même utilisé, et il faut
+toujours faire de la classification ; la difficulté principale étant ici
+d'obtenir des informations utiles à partir des exemples non annotés. Étant
+donné que ces méthodes continuent à utiliser un inventaire, il reste possible
+de comparer les résultats entre différents systèmes et de réaliser une
+évaluation sur une vérité-terrain. Il est toujours possible d'utiliser un
+corpus pour régler les paramètres à l'aide d'un échantillon de validation ou
+comme base pour annoter de nouveaux exemples ; mais des corpus plus conséquents
+sont toujours utiilisés.
 
 \subsubsection{Non supervisées}
 
-Ces approches n'utilisent aucune connaissance \textit{a priori}, que ce soit un inventaire ou un corpus annoté. Une approche non supervisée doit nécessairement construire son propre inventaire. Cette construction peut se faire via du \textit{clustering} de sens à partir des occurrences de contextes trouvées dans le corpus, en considérant l'hypothèse distributionnelle (section \ref{distrib}). Une fois que l'inventaire de sens est défini, il faut l'utiliser pour étiqueter le texte.
+Ces approches n'utilisent aucune connaissance \textit{a priori}, que ce soit un
+inventaire ou un corpus annoté. Une approche non supervisée doit nécessairement
+construire son propre inventaire. Cette construction peut se faire via du
+\textit{clustering} de sens à partir des occurrences de contextes trouvées dans
+le corpus, en considérant l'hypothèse distributionnelle (section
+\ref{distrib}). Une fois que l'inventaire de sens est défini, il faut
+l'utiliser pour étiqueter le texte.
 
-Les avantages potentiels sont nombreux. Ces algorithmes ne nécessitent aucune ressource, et offrent de fait deux propriétés intéressantes :
+Les avantages potentiels sont nombreux. Ces algorithmes ne nécessitent aucune
+ressource, et offrent de fait deux propriétés intéressantes :
+
 \begin{itemize}
-    \item L'inventaire choisi colle au plus près du corpus utilisé, ce qui lui permet à la fois d'éviter des distinctions trop fines et de s'adapter à de nouveaux domaines via de nouveaux corpus, le domaine ayant un impact important sur les sens utilisés.
-    \item Plus la quantité de texte disponible augmente, plus le système peut devenir efficace.
+
+    \item L'inventaire choisi colle au plus près du corpus utilisé, ce qui lui
+        permet à la fois d'éviter des distinctions trop fines et de s'adapter à
+        de nouveaux domaines via de nouveaux corpus, le domaine ayant un impact
+        important sur les sens utilisés.
+
+    \item Plus la quantité de texte disponible augmente, plus le système peut
+        devenir efficace.
+
 \end{itemize}
 
-Malheureusement, les systèmes utilisant une approche non supervisée sont difficiles à évaluer et à utiliser directement dans des systèmes plus importants. Par exemple, dans le cadre de la traduction automatique, distinguer les sens ne suffit pas ; il faut aussi savoir quelle traduction appliquer.
+Malheureusement, les systèmes utilisant une approche non supervisée sont
+difficiles à évaluer et à utiliser directement dans des systèmes plus
+importants. Par exemple, dans le cadre de la traduction automatique, distinguer
+les sens ne suffit pas ; il faut aussi savoir quelle traduction appliquer.
 
 \subsection{Traits utilisés}
 
 \subsubsection{Désambiguïsation lexicale}
 
-Pour la désambiguïsation lexicale supervisée, il s'agit toujours de représenter le contexte d'un mot donné afin de le représenter comme un simple trait. Deux approches sont très représentées dans la littérature : un contexte purement local à base de fenêtre glissante, et un contexte syntaxique qui permet l'identification de différents types de relations entre les mots.
+Pour la désambiguïsation lexicale supervisée, il s'agit toujours de représenter
+le contexte d'un mot donné afin de le représenter comme un simple trait. Deux
+approches sont très représentées dans la littérature : un contexte purement
+local à base de fenêtre glissante, et un contexte syntaxique qui permet
+l'identification de différents types de relations entre les mots.
+
 \begin{itemize}
-    \item \textbf{Fenêtre glissante} : Différentes études \citep{kaplan1955experimental,choueka1985disambiguation,karlgren2001from,kohomban2005learning,dinu2007sometimes} suggèrent qu'un contexte total de cinq mots (deux mots avant, deux mots après) est la fenêtre qui réduit le mieux l'ambiguïté. Cette fenêtre peut donner lieu à plusieurs traits ; \cite{chan2007nus} utilise ainsi 11 traits correspondant à différentes parties de la fenêtre.
-    \item \textbf{Contexte syntaxique} Les analyseurs syntaxiques étant de plus en plus performants, et permettent d'apporter d'améliorer les résultats \citep{martinez2002syntactic}. La richesse de la relation considérée est importante.
+
+    \item \textbf{Fenêtre glissante} : Différentes études
+        \citep{kaplan1955experimental,choueka1985disambiguation,karlgren2001from,kohomban2005learning,dinu2007sometimes}
+        suggèrent qu'un contexte total de cinq mots (deux mots avant, deux mots
+        après) est la fenêtre qui réduit le mieux l'ambiguïté. Cette fenêtre
+        peut donner lieu à plusieurs traits ; \cite{chan2007nus} utilise ainsi
+        11 traits correspondant à différentes parties de la fenêtre.
+
+    \item \textbf{Contexte syntaxique} Les analyseurs syntaxiques étant de plus
+        en plus performants, et permettent d'apporter d'améliorer les résultats
+        \citep{martinez2002syntactic}. La richesse de la relation considérée
+        est importante.
+
 \end{itemize}
 
 \paragraph{Graphes}
 
-Néanmoins ces approches locales ne sont pas uniques, et la désambiguïsation lexicale n'échappe à la tendance à utiliser des représentations plus structurées et plus globales pour améliorer les performances \citep{marquez2012special}. En désambiguïsation lexicale, cette tendance est principalement marquée pour les approches fondées sur les connaissances et non supervisées \citep[p~.14]{navigli2009word}. Ainsi, les méthodes à base de graphes \cite{navigli2005semantic,agirre2009personalizing} obtiennent de bons résultats depuis quelques années \citep{navigli2007semeval,ponzetto2010knowledge}. %\cite{zouaq2010can} explorent ainsi l'utilisation de graphes syntaxiques et logiques.
+Néanmoins ces approches locales ne sont pas uniques, et la désambiguïsation
+lexicale n'échappe à la tendance à utiliser des représentations plus
+structurées et plus globales pour améliorer les performances
+\citep{marquez2012special}. En désambiguïsation lexicale, cette tendance est
+principalement marquée pour les approches fondées sur les connaissances et non
+supervisées \citep[p~.14]{navigli2009word}. Ainsi, les méthodes à base de
+graphes \cite{navigli2005semantic,agirre2009personalizing} obtiennent de bons
+résultats depuis quelques années
+\citep{navigli2007semeval,ponzetto2010knowledge}. %\cite{zouaq2010can}
+explorent ainsi l'utilisation de graphes syntaxiques et logiques.
 
 \paragraph{Espaces distributionnels}
 \label{espacesdistrib}
 
-\cite{mouton2009induction} reprend la notion d'espaces sémantiques \citep{sahlgren2006word} en se concentrant sur des informations syntaxiques multiple. En utilisant les 38 relations syntaxiques extraites par LIMA \citep{besancon2010lima} sur un corpus extrait du web \citep{grefenstette2007conquering}, une matrice est extraite pour chacune des relations. Ces matrices creuses permettent de stocker les relations syntaxiques fines entre les 68 000 mots les plus fréquents de la langue française. Elle parvient ainsi à représenter le contexte plus finement, ce qui permet de réaliser plus de distinctions entre les sens.
+\cite{mouton2009induction} reprend la notion d'espaces sémantiques
+\citep{sahlgren2006word} en se concentrant sur des informations syntaxiques
+multiple. En utilisant les 38 relations syntaxiques extraites par LIMA
+\citep{besancon2010lima} sur un corpus extrait du web
+\citep{grefenstette2007conquering}, une matrice est extraite pour chacune des
+relations. Ces matrices creuses permettent de stocker les relations syntaxiques
+fines entre les 68 000 mots les plus fréquents de la langue française. Elle
+parvient ainsi à représenter le contexte plus finement, ce qui permet de
+réaliser plus de distinctions entre les sens.
 
 
 \subsubsection{Annotation en rôles sémantiques}
 
-L'article de référence sur l'annotation en rôles sémantiques \citep{gildea2002automatic} a introduit différents traits d'apprentissage qui ont étés réutilisés par la suite. Nous introduisons les plus intéressants ici (se référer à \citep{palmer2010semantic} pour une liste plus complète) puis identifions les traits efficaces apparus par la suite. Il s'agit à chaque fois de capturer au mieux les informations syntaxiques et lexicales disponibles pour en déduire une information sémantique. Les traits sont relatifs au syntagme étudié pour lequel on essaie de déterminer le rôle sémantique. Nous utiliserons la figure suivante pour illustrer notre propos.
+L'article de référence sur l'annotation en rôles sémantiques
+\citep{gildea2002automatic} a introduit différents traits d'apprentissage qui
+ont étés réutilisés par la suite. Nous introduisons les plus intéressants ici
+(se référer à \citep{palmer2010semantic} pour une liste plus complète) puis
+identifions les traits efficaces apparus par la suite. Il s'agit à chaque fois
+de capturer au mieux les informations syntaxiques et lexicales disponibles pour
+en déduire une information sémantique. Les traits sont relatifs au syntagme
+étudié pour lequel on essaie de déterminer le rôle sémantique. Nous utiliserons
+la figure suivante pour illustrer notre propos.
 
 \begin{figure}[htbl]
     \Tree [.S  SN1 [.VP V SN2 ] ]
     \caption{Exemple d'analyse syntaxique}
 \end{figure}
 
-\paragraph{Type de syntagme} Un syntagme nominal et un syntagme verbal ont tendance à jouer des rôles différents. Par exemple, le rôle \textit{Moyen} qui apparaît dans de nombreuses \textit{frames} FrameNet est souvent joué par un syntagme prépositionnel, alors que les rôles d'agent sont souvent joués par des syntagmes nominaux.
+\paragraph{Type de syntagme} Un syntagme nominal et un syntagme verbal ont
+tendance à jouer des rôles différents. Par exemple, le rôle \textit{Moyen} qui
+apparaît dans de nombreuses \textit{frames} FrameNet est souvent joué par un
+syntagme prépositionnel, alors que les rôles d'agent sont souvent joués par des
+syntagmes nominaux.
 
-\paragraph{Catégorie principale} Ce trait indique si un syntagme donné est sujet ou objet du verbe. Pour capturer cette information, ce trait peut être « S » ou « SV » suivant la position du syntagme qu'on cherche à désambiguïser dans l'arbre syntaxique. Dans notre exemple, le trait vaudra S pour SN1, et SV pour SN2. Ainsi, SN1 a plus de chance \textit{a priori} d'être agent que SN2.
+\paragraph{Catégorie principale} Ce trait indique si un syntagme donné est
+sujet ou objet du verbe. Pour capturer cette information, ce trait peut être «
+S » ou « SV » suivant la position du syntagme qu'on cherche à désambiguïser
+dans l'arbre syntaxique. Dans notre exemple, le trait vaudra S pour SN1, et SV
+pour SN2. Ainsi, SN1 a plus de chance \textit{a priori} d'être agent que SN2.
 
-\paragraph{Voix} Le contre exemple classique est la voix passive où le sujet syntaxique est l'objet sémantique, par exemple dans la phrase « Le nuage est observé par l'enfant. ». Selon \cite{roland2002verb}, environ 7\% des phrases utilisent la voix passive dans le Brown Corpus et le Wall Street Journal Corpus. Dans notre exemple, si l'analyse syntaxique a détecté l'utilisation de la voix passive, SN1 n'est probablement plus agent, mais bien patient.
+\paragraph{Voix} Le contre exemple classique est la voix passive où le sujet
+syntaxique est l'objet sémantique, par exemple dans la phrase « Le nuage est
+observé par l'enfant. ». Selon \cite{roland2002verb}, environ 7\% des phrases
+utilisent la voix passive dans le Brown Corpus et le Wall Street Journal
+Corpus. Dans notre exemple, si l'analyse syntaxique a détecté l'utilisation de
+la voix passive, SN1 n'est probablement plus agent, mais bien patient.
 
-\paragraph{Chemin syntaxique} Contient l'ensemble du chemin depuis le syntagme considéré jusqu'au prédicat. Par exemple, en considérant SN1 et sachant que V est le prédicat, le chemin sera : $SN1 \uparrow VP \downarrow V$. Ce trait peut être considérée comme plus spécifique que la catégorie principale, et permet d'identifier précisément la manière dont un syntagme donné est relié à son prédicat. \cite{gildea2002automatic} ont choisi après expérimentation de généraliser les étiquettes des verbes ($VBZ$ et $VBD$ apparaissent sous la forme $VB$).
+\paragraph{Chemin syntaxique} Contient l'ensemble du chemin depuis le syntagme
+considéré jusqu'au prédicat. Par exemple, en considérant SN1 et sachant que V
+est le prédicat, le chemin sera : $SN1 \uparrow VP \downarrow V$. Ce trait peut
+être considérée comme plus spécifique que la catégorie principale, et permet
+d'identifier précisément la manière dont un syntagme donné est relié à son
+prédicat. \cite{gildea2002automatic} ont choisi après expérimentation de
+généraliser les étiquettes des verbes ($VBZ$ et $VBD$ apparaissent sous la
+forme $VB$).
 
-\paragraph{Position} Ce trait n'est pas directement syntaxique et est conçu pour limiter les erreurs dues à une mauvaise analyse syntaxique initiale qui auraient faussé le trait « Catégorie principale ». Dans la phrase « Il a mangé des pancakes », « pancakes » est à droite du prédicat, alors que « Il » est à gauche.
+\paragraph{Position} Ce trait n'est pas directement syntaxique et est conçu
+pour limiter les erreurs dues à une mauvaise analyse syntaxique initiale qui
+auraient faussé le trait « Catégorie principale ». Dans la phrase « Il a mangé
+des pancakes », « pancakes » est à droite du prédicat, alors que « Il » est à
+gauche.
 
-\paragraph{Tête du syntagme} Ce trait lexical permet de capturer les mots qui sont souvent associés à un rôle donné. Par exemple, « Il » est souvent agent, alors que « histoire » représenterait plutôt le thème. Les mots grammaticaux se retrouvant en tête de syntagme sont souvent utiles, ce qui est le cas de \textit{that}, \textit{of} ou \textit{along} en anglais.
+\paragraph{Tête du syntagme} Ce trait lexical permet de capturer les mots qui
+sont souvent associés à un rôle donné. Par exemple, « Il » est souvent agent,
+alors que « histoire » représenterait plutôt le thème. Les mots grammaticaux se
+retrouvant en tête de syntagme sont souvent utiles, ce qui est le cas de
+\textit{that}, \textit{of} ou \textit{along} en anglais.
 
-\paragraph{Cadre de sous-catégorisation} Indique l'ensemble des arguments syntaxiques d'un verbe, ce qui permet notamment de distinguer un usage intransitif d'un usage transitif.
+\paragraph{Cadre de sous-catégorisation} Indique l'ensemble des arguments
+syntaxiques d'un verbe, ce qui permet notamment de distinguer un usage
+intransitif d'un usage transitif.
 
-Depuis \cite{gildea2002automatic}, de nombreux auteurs ont proposés de nouveaux traits améliorant quelque peu les performances. Citons ici :
+Depuis \cite{gildea2002automatic}, de nombreux auteurs ont proposés de nouveaux
+traits améliorant quelque peu les performances. Citons ici :
+
 \begin{itemize}
-    \item l'utilisation de la partie du discours de la tête de syntagme, introduite par \cite{surdeanu2003using} ;
-    \item l'appartenance du verbe à un cluster donné de verbes syntaxiquement proches et donc potentiellement sémantiquement proches (comme « manger » et « dévorer »), introduite par \cite{pradhan2004shallow} ;
-    \item une {syntactic frame}, représentation différente du chemin syntaxique avec des meilleures propriétés de généralisation \citep{xue2004calibrating} ;
-    \item les entités nommées présentes dans les syntagmes, introduite par \cite{pradhan2005semantic} pour identifier les rôles secondaires de PropBank ;
-    \item des traits moins syntaxiques comme des n-grams de parties du discours, des sac de mots pleins, etc. \citep{surdeanu2007combination}.
+
+    \item l'utilisation de la partie du discours de la tête de syntagme,
+        introduite par \cite{surdeanu2003using} ;
+
+    \item l'appartenance du verbe à un cluster donné de verbes syntaxiquement
+        proches et donc potentiellement sémantiquement proches (comme « manger
+        » et « dévorer »), introduite par \cite{pradhan2004shallow} ;
+
+    \item une {syntactic frame}, représentation différente du chemin syntaxique
+        avec des meilleures propriétés de généralisation
+        \citep{xue2004calibrating} ;
+
+    \item les entités nommées présentes dans les syntagmes, introduite par
+        \cite{pradhan2005semantic} pour identifier les rôles secondaires de
+        PropBank ;
+
+    \item des traits moins syntaxiques comme des n-grams de parties du
+        discours, des sac de mots pleins, etc. \citep{surdeanu2007combination}.
+
 \end{itemize}
 
-Des listes plus complètes ont étés établies par ailleurs dans la littérature \citep{pradhan2005semantic,marquez2008semantic,palmer2010semantic}.
+Des listes plus complètes ont étés établies par ailleurs dans la littérature
+\citep{pradhan2005semantic,marquez2008semantic,palmer2010semantic}.
 
 \subsection{Techniques d'apprentissages}
 
-Cette section introduit des techniques qui ne sont pas spécifique à un trait ou à une algorithme de classification. Au contraire, elles sont applicables plus généralement.
+Cette section introduit des techniques qui ne sont pas spécifique à un trait ou
+à une algorithme de classification. Au contraire, elles sont applicables plus
+généralement.
 
 \subsubsection{Sélection automatique des traits}
 
-\cite{dinu2007sometimes} suit \cite{mihalcea2002instance} en choisissant automatique les traits à appliquer pour son algorithme. Les deux papiers obtiennent le même résultat : utiliser moins de traits permet d'obtenir un meilleur score. Ces résultats encourageant sont peut-être dus à la petite taille du corpus. En effet, pour éviter le surapprentissage, réduire le nombre de traits est un bon moyen d'améliorer la précision \citep{van2004bias}.
+\cite{dinu2007sometimes} suit \cite{mihalcea2002instance} en choisissant
+automatique les traits à appliquer pour son algorithme. Les deux papiers
+obtiennent le même résultat : utiliser moins de traits permet d'obtenir un
+meilleur score. Ces résultats encourageant sont peut-être dus à la petite
+taille du corpus. En effet, pour éviter le surapprentissage, réduire le nombre
+de traits est un bon moyen d'améliorer la précision \citep{van2004bias}.
 
 % Oh tiens, j'ai dit pareil en plus long là.
 
-Réduire le nombre de traits peut améliorer la performance d'un système \cite{mihalcea2002instance,dinu2007sometimes}. Du point de vue de l'apprentissage automatique, une des causes possibles pour des faibles performances est le sur-apprentissage ; où on apprend davantage à être performant sur les exemples observés tout en généralisant mal sur les exemples nouveaux. Une des raisons possibles de ce problèmes est le trop grand nombre de traits utilisés. La littérature sur l'annotation en rôles sémantiques en particulier utilise un très grand nombre de traits, qui ne sont pas forcément utilisés à leur plein potentiel suivant la taille des corpus d'apprentissage.
+Réduire le nombre de traits peut améliorer la performance d'un système
+\cite{mihalcea2002instance,dinu2007sometimes}. Du point de vue de
+l'apprentissage automatique, une des causes possibles pour des faibles
+performances est le sur-apprentissage ; où on apprend davantage à être
+performant sur les exemples observés tout en généralisant mal sur les exemples
+nouveaux. Une des raisons possibles de ce problèmes est le trop grand nombre de
+traits utilisés. La littérature sur l'annotation en rôles sémantiques en
+particulier utilise un très grand nombre de traits, qui ne sont pas forcément
+utilisés à leur plein potentiel suivant la taille des corpus d'apprentissage.
 
-Dans les deux tâches étudiées, la littérature a observé l'avantage de valider expérimentalement l'utilisation d'un trait donné. Dans le cas de l'annotation en rôles sémantiques, \cite{xue2004calibrating} a remarqué que de nombreux traits potentiellement intéressants n'apportaient en réalité aucune information nouvelle. Plus radicalement, \cite{mihalcea2002instance,dinu2007sometimes} ont choisi pour la tâche d'annotation en rôles sémantiques d'utiliser l'ensemble des traits donnant les meilleurs résultats ; et se rendent compte que l'approche donnant les meilleurs résultats est celle de \textit{forward selection}. Le principe est de commencer sans trait, puis d'itérer en ajoutant le trait améliorant le plus les résultats à chaque étape. Dès que les résultats ne s'améliorent plus, le processus est arrêté et les traits sélectionnés sont utilisés pour le modèle final. Les résultats ont étés améliorés de manière significative.
+Dans les deux tâches étudiées, la littérature a observé l'avantage de valider
+expérimentalement l'utilisation d'un trait donné. Dans le cas de l'annotation
+en rôles sémantiques, \cite{xue2004calibrating} a remarqué que de nombreux
+traits potentiellement intéressants n'apportaient en réalité aucune information
+nouvelle. Plus radicalement, \cite{mihalcea2002instance,dinu2007sometimes} ont
+choisi pour la tâche d'annotation en rôles sémantiques d'utiliser l'ensemble
+des traits donnant les meilleurs résultats ; et se rendent compte que
+l'approche donnant les meilleurs résultats est celle de \textit{forward
+selection}. Le principe est de commencer sans trait, puis d'itérer en ajoutant
+le trait améliorant le plus les résultats à chaque étape. Dès que les résultats
+ne s'améliorent plus, le processus est arrêté et les traits sélectionnés sont
+utilisés pour le modèle final. Les résultats ont étés améliorés de manière
+significative.
 
-Il est important pour pouvoir utiliser cette technique d'avoir un cycle apprentissage-évaluation relativement rapide. Il faut en effet à chaque étape évaluer l'apport de chacune des fonctionnalités. En effet, la complexité dans le pire des cas est en $O(n^2)$, $n$ étant le nombre de traits possibles.
+Il est important pour pouvoir utiliser cette technique d'avoir un cycle
+apprentissage-évaluation relativement rapide. Il faut en effet à chaque étape
+évaluer l'apport de chacune des fonctionnalités. En effet, la complexité dans
+le pire des cas est en $O(n^2)$, $n$ étant le nombre de traits possibles.
 
 \subsubsection{Combinaison de classifieurs}
 
-Il a souvent été observé qu'un ensemble de classifieurs combinés par la suite permettait d'obtenir des résultats intéressants. Par exemple, \cite{kohomban2005learning,dinu2007sometimes} obtiennent des classifieurs individuels (un par trait) souvent inférieurs à la baseline ; puis les combinent à l'aide de différentes techniques de vote. Le résultat obtenu est alors non seulement supérieur à la performance individuelle des classifieurs mais aussi supérieur à un classifieur intégrant l'ensemble des traits. \cite{mouton2009induction} utilise une version modifiée de l'algorithme Shared Nearest Neighbours pour prendre en compte ses différents espaces distributionnels  (cf. section \ref{espacesdistrib}).
+Il a souvent été observé qu'un ensemble de classifieurs combinés par la suite
+permettait d'obtenir des résultats intéressants. Par exemple,
+\cite{kohomban2005learning,dinu2007sometimes} obtiennent des classifieurs
+individuels (un par trait) souvent inférieurs à la baseline ; puis les
+combinent à l'aide de différentes techniques de vote. Le résultat obtenu est
+alors non seulement supérieur à la performance individuelle des classifieurs
+mais aussi supérieur à un classifieur intégrant l'ensemble des traits.
+\cite{mouton2009induction} utilise une version modifiée de l'algorithme Shared
+Nearest Neighbours pour prendre en compte ses différents espaces
+distributionnels  (cf. section \ref{espacesdistrib}).
 
 \subsubsection{Tirer profit de l'ensemble des données d'apprentissage}
 
-\cite{kohomban2005learning} choisissent de faire un apprentissage sur des classes très générales (les « top nouns » de WordNet), ce qui permet d'entraîner un seul classifieur sur les noms. Ce classifieur utilise, sur une fenêtre de 2+2 mots pleins, les traits suivants : formes, étiquettes morphosyntaxiques et relations syntaxiques (par ex. modifieur adverbial ou sujet du verbe). Pour chacun de ces traits, un classifieur k-NN est entraîné en rapprochant artificiellement les exemples qui ont étés étiquetés avec une classe qui existe dans les sens du mot considéré. Par exemple, les occurences annotées du mot « journal » en tant que \textit{GROUP} ne sont pas considérées au moment d'annoter le mot « bande magnétiqe », étant donné que \textit{GROUP} n'est le « top noun » d'aucun des sens de « bande magnétique ». Ceci est fait via l'exemplar weighting implémenté dans TiMBL, le logiciel utilisé pour la classification. Cette technique permet d'utiliser un maximum d'exemples annotés tout en diminuant le bruit quand c'est posible. Le sens WordNet le plus fréquent est aussi choisi comme traits. Les différents traits sont ensuite combinés via un système de vote, ce qui permet de battre la baseline, alors que chaque trait utilisé indépendemment est moins performant que la baseline.
+\cite{kohomban2005learning} choisissent de faire un apprentissage sur des
+classes très générales (les « top nouns » de WordNet), ce qui permet
+d'entraîner un seul classifieur sur les noms. Ce classifieur utilise, sur une
+fenêtre de 2+2 mots pleins, les traits suivants : formes, étiquettes
+morphosyntaxiques et relations syntaxiques (par ex. modifieur adverbial ou
+sujet du verbe). Pour chacun de ces traits, un classifieur k-NN est entraîné en
+rapprochant artificiellement les exemples qui ont étés étiquetés avec une
+classe qui existe dans les sens du mot considéré. Par exemple, les occurences
+annotées du mot « journal » en tant que \textit{GROUP} ne sont pas considérées
+au moment d'annoter le mot « bande magnétiqe », étant donné que \textit{GROUP}
+n'est le « top noun » d'aucun des sens de « bande magnétique ». Ceci est fait
+via l'exemplar weighting implémenté dans TiMBL, le logiciel utilisé pour la
+classification. Cette technique permet d'utiliser un maximum d'exemples annotés
+tout en diminuant le bruit quand c'est posible. Le sens WordNet le plus
+fréquent est aussi choisi comme traits. Les différents traits sont ensuite
+combinés via un système de vote, ce qui permet de battre la baseline, alors que
+chaque trait utilisé indépendemment est moins performant que la baseline.
 
 TODO papier qui utilise pas les top nouns mais va un peu plus loin dans l'arbre WordNet
 
@@ -337,58 +853,207 @@ TODO papier qui utilise pas les top nouns mais va un peu plus loin dans l'arbre 
 \section{Évaluation des systèmes d'analyse sémantique}
 \label{evaluation}
 
-L'évaluation est un problème central en apprentissage automatique et en Traitement Automatique des Langues, et l'analyse sémantique ne fait pas exception. L'idéal est d'évaluer l'amélioration obtenue en incorporant le système développé dans un système plus large et directement utile, comme ça a été fait pour les systèmes de questions-réponses \citep{shen2007using} ou l'analyse d'opinions \citep{das2012structure}. Ce sont des évaluations \textit{in vivo}. Quand ce n'est pas possible, on se content d'évaluations \textit{in vitro} qui sont très utile pour attester de la pertinence des système d'analyse sémantique. Dès lors qu'une vérité-terrain est disponible, la littérature utilise la précision, le rappel et la F-mesure tels qu'ils sont définis en recherche d'information pour l'évaluation. Quand ce n'est pas le cas, le problème est plus complexe (cf. section \ref{evalunsupervised}).
+L'évaluation est un problème central en apprentissage automatique et en
+Traitement Automatique des Langues, et l'analyse sémantique ne fait pas
+exception. L'idéal est d'évaluer l'amélioration obtenue en incorporant le
+système développé dans un système plus large et directement utile, comme ça a
+été fait pour les systèmes de questions-réponses \citep{shen2007using} ou
+l'analyse d'opinions \citep{das2012structure}. Ce sont des évaluations
+\textit{in vivo}. Quand ce n'est pas possible, on se content d'évaluations
+\textit{in vitro} qui sont très utile pour attester de la pertinence des
+système d'analyse sémantique. Dès lors qu'une vérité-terrain est disponible, la
+littérature utilise la précision, le rappel et la F-mesure tels qu'ils sont
+définis en recherche d'information pour l'évaluation. Quand ce n'est pas le
+cas, le problème est plus complexe (cf. section \ref{evalunsupervised}).
 
-Des \textit{baselines} sont souvent établies ; ce sont des algorithmes souvent extrêmement simples qui représentent la limite basse qu'un système de désambiguïsation lexicale doit dépasser. La \textit{baseline} la plus courante est celle du sens le plus fréquent ; et c'est une baseline dite forte. En effet, pour un mot donné, choisir le sens le plus fréquent permet d'atteindre un score assez honorable. Par exemple, lors de SemEval-2007, la \textit{baseline} avait une exactitude\footnote{\textit{accuracy} en anglais, soit le nombre de vrais positifs et de vrais négatifs sur l'ensemble des exemples} de 78.9\% pour une désambiguïsation de tous les mots avec des sens grossiers. Le meilleur système a atteint un score 82.5\%, et seulement 25\% des systèmes ont battu la baseline.
+Des \textit{baselines} sont souvent établies ; ce sont des algorithmes souvent
+extrêmement simples qui représentent la limite basse qu'un système de
+désambiguïsation lexicale doit dépasser. La \textit{baseline} la plus courante
+est celle du sens le plus fréquent ; et c'est une baseline dite forte. En
+effet, pour un mot donné, choisir le sens le plus fréquent permet d'atteindre
+un score assez honorable. Par exemple, lors de SemEval-2007, la
+\textit{baseline} avait une exactitude\footnote{\textit{accuracy} en anglais,
+soit le nombre de vrais positifs et de vrais négatifs sur l'ensemble des
+exemples} de 78.9\% pour une désambiguïsation de tous les mots avec des sens
+grossiers. Le meilleur système a atteint un score 82.5\%, et seulement 25\% des
+systèmes ont battu la baseline.
 
-Quid de la limite haute ? C'est l'accord inter-annotateurs qui est traditionellement utilisé pour mesurer la limite haute. \cite{navigli2007semeval}
-ont remarqué que l'utilisation de sens grossiers augmentait à la fois l'accord inter-annotateurs et la performance des systèmes, qui restaient tout de même en dessous de ce score, ce qui souligne les améliorations possibles de performance.
+Quid de la limite haute ? C'est l'accord inter-annotateurs qui est
+traditionellement utilisé pour mesurer la limite haute.
+\cite{navigli2007semeval} ont remarqué que l'utilisation de sens grossiers
+augmentait à la fois l'accord inter-annotateurs et la performance des systèmes,
+qui restaient tout de même en dessous de ce score, ce qui souligne les
+améliorations possibles de performance.
 
-Entre 1998 et 2010, des campagnes d'évaluation ont permi à différents systèmes de désambiguïsation lexicale de se comparer, les prochaines campagnes étant prévues en 2012 et 2013\footnote{respectivement http://www.cs.york.ac.uk/semeval-2012/ et http://www.cs.york.ac.uk/semeval-2013/}. Nous traiterons ici des fait les plus marquants des campagnes récentes : SemEval-2007 et SemEval-2010. Pour une analyse plus complète et détaillée des campagnes jusqu'à 2007, se référer à \cite{navigli2009word}.
+Entre 1998 et 2010, des campagnes d'évaluation ont permi à différents systèmes
+de désambiguïsation lexicale de se comparer, les prochaines campagnes étant
+prévues en 2012 et 2013\footnote{respectivement
+http://www.cs.york.ac.uk/semeval-2012/ et
+http://www.cs.york.ac.uk/semeval-2013/}. Nous traiterons ici des fait les plus
+marquants des campagnes récentes : SemEval-2007 et SemEval-2010. Pour une
+analyse plus complète et détaillée des campagnes jusqu'à 2007, se référer à
+\cite{navigli2009word}.
 
-Les dernières campagnes évaluant la désambiguïsation lexicale sur tous les mots d'un texte sans domaine particulier sont les tâches 7 et 17 de SemEval-2007, la différence principale étant l'inventaire de sens utilisé. En effet, la tâche 17 a utilisé WordNet 2.1 et le WSJ, alors que la tâche 7 a utilisé un inventaire de sens grossier basé sur WordNet et des textes provenant de différents domaines. Le meilleur système pour les sens fins a atteint un F-score de 59.1\%, et le meilleur pour les sens grossiers à atteint 83.21\%. Ces résultats suggèrent que WordNet ne permet pas d'atteindre de bons résultats. SemEval 2010 a présenté trois tâches de désambiguïsation lexicale. Dans La tâche 3, adaptée à la traduction,chaque système devait proposer la bonne traduction d'un mot donné dans le corpus parallèle Europarl. Les systèmes présentés n'ont pas battu la baseline des traductions les plus fréquentes. La tâche 14 a évalué des systèmes non supervisés ; l'évaluation ayant posé problème (\ref{evalunsupervised}) il serait futile de citer des résultats ici. Enfin, la tâche 17 s'est concentré sur un domaine particulier (l'environnement). Moins de 20\% des systèmes présentés ont battu la baseline qui était à 50.5\%. De manière intéressante, les meilleurs systèmes sont ceux qui n'étaient pas complètement supervisés et ont appris aussi sur des larges corpus généraux, ce qui a permis d'augmenter la performance de désambiguïsation pour les mots non spécifiques au domaine.
+Les dernières campagnes évaluant la désambiguïsation lexicale sur tous les mots
+d'un texte sans domaine particulier sont les tâches 7 et 17 de SemEval-2007, la
+différence principale étant l'inventaire de sens utilisé. En effet, la tâche 17
+a utilisé WordNet 2.1 et le WSJ, alors que la tâche 7 a utilisé un inventaire
+de sens grossier basé sur WordNet et des textes provenant de différents
+domaines. Le meilleur système pour les sens fins a atteint un F-score de
+59.1\%, et le meilleur pour les sens grossiers à atteint 83.21\%. Ces résultats
+suggèrent que WordNet ne permet pas d'atteindre de bons résultats. SemEval 2010
+a présenté trois tâches de désambiguïsation lexicale. Dans La tâche 3, adaptée
+à la traduction,chaque système devait proposer la bonne traduction d'un mot
+donné dans le corpus parallèle Europarl. Les systèmes présentés n'ont pas battu
+la baseline des traductions les plus fréquentes. La tâche 14 a évalué des
+systèmes non supervisés ; l'évaluation ayant posé problème
+(\ref{evalunsupervised}) il serait futile de citer des résultats ici. Enfin, la
+tâche 17 s'est concentré sur un domaine particulier (l'environnement). Moins de
+20\% des systèmes présentés ont battu la baseline qui était à 50.5\%. De
+manière intéressante, les meilleurs systèmes sont ceux qui n'étaient pas
+complètement supervisés et ont appris aussi sur des larges corpus généraux, ce
+qui a permis d'augmenter la performance de désambiguïsation pour les mots non
+spécifiques au domaine.
 
-En ce qui concerne l'annotation en rôles sémantiques, le lecteur est invité à se référer à \citep{surdeanu2008conll} et \citep{hajic2009conll} qui expliquent en détail l'évaluation des différents systèmes ayant participé aux tâches d'annotation en rôles sémantique de CoNLL en 2009 et 2009. Il est intéressant de noter que l'annotation en rôles sémantiques multilingue a extrêmement bien fonctionné, avec les meilleurs systèmes obtenant des scores proches de 80\% pour tous les langages.
+En ce qui concerne l'annotation en rôles sémantiques, le lecteur est invité à
+se référer à \citep{surdeanu2008conll} et \citep{hajic2009conll} qui expliquent
+en détail l'évaluation des différents systèmes ayant participé aux tâches
+d'annotation en rôles sémantique de CoNLL en 2009 et 2009. Il est intéressant
+de noter que l'annotation en rôles sémantiques multilingue a extrêmement bien
+fonctionné, avec les meilleurs systèmes obtenant des scores proches de 80\%
+pour tous les langages.
 
-%La V-mesure a été introduite par  et utilise deux attributs (homogénéité et complétude), à la manière de la précision et du rappel, puis combinée pour obtenir la V-mesure, à la manière du F-score. Par exemple, quand le résultat est identique à la vérité-terrain, l'homogénéité, la complétude et la V-mesure valent tous 1. L'\textbf{homogénéité} évalue, pour chaque cluster produit par un système, la proportion d'éléments qui viennent du même cluster de la vérité terrain. La complétude évalue quant à elle, pour chaque cluster de la vérité terrain, la proportion d'éléments qui sont présents dans un même cluster produit par le système.
+%La V-mesure a été introduite par  et utilise deux attributs (homogénéité et
+%complétude), à la manière de la précision et du rappel, puis combinée pour
+%obtenir la V-mesure, à la manière du F-score. Par exemple, quand le résultat
+%est identique à la vérité-terrain, l'homogénéité, la complétude et la V-mesure
+%valent tous 1. L'\textbf{homogénéité} évalue, pour chaque cluster produit par
+%un système, la proportion d'éléments qui viennent du même cluster de la vérité
+%terrain. La complétude évalue quant à elle, pour chaque cluster de la vérité
+%terrain, la proportion d'éléments qui sont présents dans un même cluster
+%produit par le système.
 
 %%
 %% Pistes
 %%
 \section{Voies de recherche}
 
-La désambiguïsation lexicale et l'annotation en rôles sémantiques sont des domaines très actifs, et un certain nombre de voies restent à explorer. Nous citerons ici simeplement la mise en commun des deux tâches d'analyse sémantique que nous avons présentées, l'analyse sémantique d'une langue autre que l'anglais (ici le français) et l'évaluation des approches non supervisées.
+La désambiguïsation lexicale et l'annotation en rôles sémantiques sont des
+domaines très actifs, et un certain nombre de voies restent à explorer. Nous
+citerons ici simeplement la mise en commun des deux tâches d'analyse sémantique
+que nous avons présentées, l'analyse sémantique d'une langue autre que
+l'anglais (ici le français) et l'évaluation des approches non supervisées.
 
 \subsection{Désambiguïsation lexicale et annotation en rôles sémantiques}
 
-La littérature mentionne différents essais visant à combiner les tâches de désambiguïsation lexicale et d'annotation en rôles sémantiques, dans le but d'améliorer les performances de chacune des tâches \citep{dang2005role,moreda2006role,che2010jointly}. En effet, le sens d'un verbe permet de déterminer avec une meilleure précision la \textit{frame} qu'il doit déclencher. De la même manière, connaître les rôles sémantiques des arguments d'un verbe donne des indices supplémentaires pour définir son sens. Il est peut-être bénéfique dans ce contexte d'opérer une modélisation jointe pour parvenir à un optimum plus global.
+La littérature mentionne différents essais visant à combiner les tâches de
+désambiguïsation lexicale et d'annotation en rôles sémantiques, dans le but
+d'améliorer les performances de chacune des tâches
+\citep{dang2005role,moreda2006role,che2010jointly}. En effet, le sens d'un
+verbe permet de déterminer avec une meilleure précision la \textit{frame} qu'il
+doit déclencher. De la même manière, connaître les rôles sémantiques des
+arguments d'un verbe donne des indices supplémentaires pour définir son sens.
+Il est peut-être bénéfique dans ce contexte d'opérer une modélisation jointe
+pour parvenir à un optimum plus global.
 
-Cependant, ces méthodes, même si elles proposent des améliorations statistiquement significatives, n'ont pas encore révolutionné ces deux tâches d'analyse sémantiques. Il y a notamment un manque de ressources communes qui commence à être comblé par différentes ressources. Ontonotes, par exemple, ne se contente pas de regrouper des sens WordNet mais inclut aussi un corpus annoté syntaxiquement et en rôles sémantiques. De manière plus originale, eXtended WordFrameNet \citep{laparra2010extended} est constitué du corpus FrameNet désambiguïsé lexicalement et ajoutent des informations de rôles sémantiques à WordNet. Les résulats sont prometteurs : les performances d'un système de désambiguïsation lexicale ont été améliorées.
+Cependant, ces méthodes, même si elles proposent des améliorations
+statistiquement significatives, n'ont pas encore révolutionné ces deux tâches
+d'analyse sémantiques. Il y a notamment un manque de ressources communes qui
+commence à être comblé par différentes ressources. Ontonotes, par exemple, ne
+se contente pas de regrouper des sens WordNet mais inclut aussi un corpus
+annoté syntaxiquement et en rôles sémantiques. De manière plus originale,
+eXtended WordFrameNet \citep{laparra2010extended} est constitué du corpus
+FrameNet désambiguïsé lexicalement et ajoutent des informations de rôles
+sémantiques à WordNet. Les résulats sont prometteurs : les performances d'un
+système de désambiguïsation lexicale ont été améliorées.
 
 \subsection{Analyse sémantique du français}
 
 \subsubsection{Parallélisme sémantique}
 
-L'anglais est la langue la plus utilisée pour le Traitement Automatique des Langues, et il est toujours intéressant de se demander si les outils et ressources développés sont applicables pour d'autres langues. Par exemple, l'anglais n'est pas une langue morphologiquement riche et cela empêche l'utilisation d'outils développés pour l'anglais sur des langues plus riches \citep{tsarfaty2010statistical}. Au niveau sémantique, les études sont plus rares. \cite{pado2007annotation} se demande si les \textit{frames} FrameNet, \textit{a priori} indépendantes de la structure syntaxique, sont utilisables directement en français en évaluant l'accord inter-annotateurs sur un corpus donné. Ce corpus ayant la propriété d'être un corpus parallèle ; cela a permis de comparer l'accord avec celui obtenu par \cite{pado2006optimal} pour l'allemand, langue réputée plus proche de l'anglais. Il s'avère que les scores sont proches, et il est donc raisonnable d'utiliser FrameNet comme base pour le français. En ce qui concerne PropBank, les sens sont déterminés à partir d'informations syntaxiques spécifiques à l'anglais : une traduction n'est donc pas envisageable.
+L'anglais est la langue la plus utilisée pour le Traitement Automatique des
+Langues, et il est toujours intéressant de se demander si les outils et
+ressources développés sont applicables pour d'autres langues. Par exemple,
+l'anglais n'est pas une langue morphologiquement riche et cela empêche
+l'utilisation d'outils développés pour l'anglais sur des langues plus riches
+\citep{tsarfaty2010statistical}. Au niveau sémantique, les études sont plus
+rares. \cite{pado2007annotation} se demande si les \textit{frames} FrameNet,
+\textit{a priori} indépendantes de la structure syntaxique, sont utilisables
+directement en français en évaluant l'accord inter-annotateurs sur un corpus
+donné. Ce corpus ayant la propriété d'être un corpus parallèle ; cela a permis
+de comparer l'accord avec celui obtenu par \cite{pado2006optimal} pour
+l'allemand, langue réputée plus proche de l'anglais. Il s'avère que les scores
+sont proches, et il est donc raisonnable d'utiliser FrameNet comme base pour le
+français. En ce qui concerne PropBank, les sens sont déterminés à partir
+d'informations syntaxiques spécifiques à l'anglais : une traduction n'est donc
+pas envisageable.
 
 \subsubsection{WordNet en français}
 
-WordNet, malgré sa granularité trop fine, est une ressource libre extrêmement intéressante qui permet de nombreuses applications. Les projets souhaitant établir directement un WordNet français original n'ayant pas abouti complètement, il est devenu naturel de se pencher à une traduction de WordNet ; en gardant les différents synsets, mais en traduisant les mots représentés dans ces synsets. Différentes approches ont étés utilisées, et nous retiendrons ici deux WordNets français : WOLF \cite{sagot2008construction} et JAWS \cite{mouton2010jaws}. WOLF était à l'origine très précis pour une couverture faible des mots les plus ambigus, mais des efforts sont faits pour étendre la ressource aux mots les plus difficiles \citep{sagot2012automatic}. De son côté, JAWS a été construit à partir des espaces distributionnels cités plus hauts, et a obtenu une précision légèrement inférieure à WOLF pour une couverture plus importante.
+WordNet, malgré sa granularité trop fine, est une ressource libre extrêmement
+intéressante qui permet de nombreuses applications. Les projets souhaitant
+établir directement un WordNet français original n'ayant pas abouti
+complètement, il est devenu naturel de se pencher à une traduction de WordNet ;
+en gardant les différents synsets, mais en traduisant les mots représentés dans
+ces synsets. Différentes approches ont étés utilisées, et nous retiendrons ici
+deux WordNets français : WOLF \cite{sagot2008construction} et JAWS
+\cite{mouton2010jaws}. WOLF était à l'origine très précis pour une couverture
+faible des mots les plus ambigus, mais des efforts sont faits pour étendre la
+ressource aux mots les plus difficiles \citep{sagot2012automatic}. De son côté,
+JAWS a été construit à partir des espaces distributionnels cités plus hauts, et
+a obtenu une précision légèrement inférieure à WOLF pour une couverture plus
+importante.
 
-« Les Verbes Français » est une ressource initialement publiée en 1997 et toujours maintenue (dernière modification date de 2011) sous un format XML facile d'accès dans le but d'encourager diverses applications du TAL. C'est un thésaurus de classes sémantico-syntaxiques qui repose sur l'hypothèse d'une adéquation entre « les schèmes syntaxiques de la langue français et l'interprétation sémantique qu'en font les locuteurs de cette langue ». À la manière de la classification faite par \cite{levin1993english} pour les verbes anglais, c'est une ressource extrêmement riche et facile d'accès qui gagnerait à être utilisée pour l'annotation en rôles sémantiques. Un PropBank du français pourrait être établi à partir de ces classes ; ce qui faciliterait une annotation supervisée du français.
+« Les Verbes Français » est une ressource initialement publiée en 1997 et
+toujours maintenue (dernière modification date de 2011) sous un format XML
+facile d'accès dans le but d'encourager diverses applications du TAL. C'est un
+thésaurus de classes sémantico-syntaxiques qui repose sur l'hypothèse d'une
+adéquation entre « les schèmes syntaxiques de la langue français et
+l'interprétation sémantique qu'en font les locuteurs de cette langue ». À la
+manière de la classification faite par \cite{levin1993english} pour les verbes
+anglais, c'est une ressource extrêmement riche et facile d'accès qui gagnerait
+à être utilisée pour l'annotation en rôles sémantiques. Un PropBank du français
+pourrait être établi à partir de ces classes ; ce qui faciliterait une
+annotation supervisée du français.
 
 \subsection{Évaluation des approches non supervisées}
 \label{evalunsupervised}
 
-Les approches non supervisées sont difficiles à évaluer. En effet, il n'y a pas de vérité-terrain à laquelle se comparer. Pour pallier ce problème, on peut utiliser un mapping depuis les sens induits jusqu'aux sens d'un inventaire pour lequel on dispose une vérité-terrain. Deux sources d'erreurs existent alors : les deux inventaires ne sont pas nécessairement compatibles et le mapping peut être erroné, en liant des sens qui n'ont pas de rapport. Le problème du mapping erroné peut être évité en ne faisant pas de mapping mais en considérant l'annotation effectuée comme un clustering et en utilisant donc des techniques de comparaison de clustering. Différents algorithmes permettent l'évaluation d'un algorithme de clustering par rapport à une vérité-terrain.
+Les approches non supervisées sont difficiles à évaluer. En effet, il n'y a pas
+de vérité-terrain à laquelle se comparer. Pour pallier ce problème, on peut
+utiliser un mapping depuis les sens induits jusqu'aux sens d'un inventaire pour
+lequel on dispose une vérité-terrain. Deux sources d'erreurs existent alors :
+les deux inventaires ne sont pas nécessairement compatibles et le mapping peut
+être erroné, en liant des sens qui n'ont pas de rapport. Le problème du mapping
+erroné peut être évité en ne faisant pas de mapping mais en considérant
+l'annotation effectuée comme un clustering et en utilisant donc des techniques
+de comparaison de clustering. Différents algorithmes permettent l'évaluation
+d'un algorithme de clustering par rapport à une vérité-terrain.
 
-La campagne d'évaluation d'induction de sens de SemEval 2007 \citep{manandhar2010semeval} était aussi l'occasion d'évaluer l'efficacité de différentes mesures d'efficacité des clustering de sens induits. Il s'avère que les différentes mesures d'évaluation ont donné des résultats très différents \citep{pedersen2010duluth}. La V-mesure a encouragé les résultats aléatoires, le rappel supervisé a rammené tous les systèmes participants à 0.06\% autour de la baseline (ce qui rend l'évaluation difficile) et le \textit{paired F-Score} a placé la baseline au dessus de tous les systèmes \footnote{ce qui semble indiquer qu'un seul sens par mot dans un corpus spécifique est la meilleure solution.}. Une mesure d'évaluation fiable et consistente permettrait pourtant d'évaluer avec précision les approches prometteuses que sont les approches non-supervisées.
+La campagne d'évaluation d'induction de sens de SemEval 2007
+\citep{manandhar2010semeval} était aussi l'occasion d'évaluer l'efficacité de
+différentes mesures d'efficacité des clustering de sens induits. Il s'avère que
+les différentes mesures d'évaluation ont donné des résultats très différents
+\citep{pedersen2010duluth}. La V-mesure a encouragé les résultats aléatoires,
+le rappel supervisé a rammené tous les systèmes participants à 0.06\% autour de
+la baseline (ce qui rend l'évaluation difficile) et le \textit{paired F-Score}
+a placé la baseline au dessus de tous les systèmes \footnote{ce qui semble
+indiquer qu'un seul sens par mot dans un corpus spécifique est la meilleure
+solution.}. Une mesure d'évaluation fiable et consistente permettrait pourtant
+d'évaluer avec précision les approches prometteuses que sont les approches
+non-supervisées.
 
 \section{Conclusion}
 
-Désambiguïsation lexicale et annotation en rôles sémantiques sont deux tâches qui, traitées par des approches statistiques, permettent d'obtenir des résultats intéressants. La route vers l'intégration plus systématique à des systèmes existants est encore longue, mais les progrès et performances sont déjà satisfaisants. Nous avons dans cet état de l'art abordé les questions de l'apprentissage statistique et des ressources nécessaires pour un tel apprentissage. Les possibilités sont encore nombreuses et restent à être explorées, en particulier dans le traitement d'autres langues comme le français.
-
-
+Désambiguïsation lexicale et annotation en rôles sémantiques sont deux tâches
+qui, traitées par des approches statistiques, permettent d'obtenir des
+résultats intéressants. La route vers l'intégration plus systématique à des
+systèmes existants est encore longue, mais les progrès et performances sont
+déjà satisfaisants. Nous avons dans cet état de l'art abordé les questions de
+l'apprentissage statistique et des ressources nécessaires pour un tel
+apprentissage. Les possibilités sont encore nombreuses et restent à être
+explorées, en particulier dans le traitement d'autres langues comme le
+français.
 
 
 
