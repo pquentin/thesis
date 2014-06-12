@@ -72,3 +72,396 @@ Un des intérêts des classes de Levin et de VerbNet par rapport aux ressources 
 \subsection{VerbNet et universaux linguistiques}
 
 Portuguais, français, ...
+
+\section{LREC}
+
+VerbNet is an English lexical resource for verbs that has proven
+useful for English NLP due to its high coverage and coherent classification.
+Such a resource doesn't exist for other languages, despite some (mostly
+automatic and unsupervised) attempts. We show how to semi-automatically adapt
+VerbNet using existing resources designed for different purposes. This study
+focuses on French and uses two French resources: a semantic lexicon (Les Verbes
+Français) and a syntactic lexicon (Lexique-Grammaire).
+
+\section{Introduction}
+
+% TAL a besoin d'infos sur les verbes, c'est difficile et fragile, et on a
+% besoin d'énormes corpus
+Natural Language Processing needs lexicons and a large amount of data to
+efficiently analyze open-domain text. Getting this amount of data is a problem
+in itself, and is known as the knowledge acquisition bottleneck in the word
+sense disambiguation literature \citep{gale1992using}. While annotating
+more and more data will reduce the bottlenecks for some domains, encoding
+lexicons in a cost-effective way can lead to better improvements by explicitly
+stating similarities and differences between words.
+
+% VerbNet a montré son efficacité dans le domaine de par son approche
+% pragmatique. Vient des classes de Levin, donne des correspondances entre
+% syntaxe et sémantique
+The two main issues faced by sense lexicon creators are sense granularity and
+sense distinction, both of which are addressed by Levin classes
+\citep{levin1993english}. In those classes, verbs are classified according
+to their semantics and to their syntactic alternations. VerbNet
+\citep{kipperschuler2005verbnet} is an electronic lexicon which is inspired
+by Levin classes. It encodes thematic roles and semantic decomposition
+(Section~\ref{french}).  New constructions, new classes and new corrections
+have been added to VerbNet over the years.
+
+% Une des tâches qui nous plait est le semantic role labeling
+With VerbNet, one can use a syntactic alternation to map syntactic chunks of a
+sentence to thematic roles
+\citep{swier2005exploiting,pradet2013revisiting}. This task, semantic role
+labeling, has grown steadily in importance: it helps information extraction
+\citep{surdeanu2003using}, question-answering \citep{shen2007using},
+event extraction \citep{exner2011using}, plagiarism detection
+\citep{osman2012improved}, machine translation
+\citep{bazrafshan2013semantic}, or even stock prediction
+\citep{xie2013semantic}. Thanks to its high coverage (more than four
+thousand distinct verbs) and useful verb separation, VerbNet is well-suited for
+semantic role labeling.
+
+% Dans les langues autres que l'anglais, cette ressource utile n'existe pas
+% mais ne demande qu'à exister étant donné le potentiel \textit{cross-lingual}
+% de VerbNet. Il y a souvent des ressources proches, moins utiles, plus
+% linguistiques, existent.
+However, a high-quality version of VerbNet is currently only available for the
+English language. Such a resource would be even more useful for less-resourced
+languages where role-labeled corpora are missing. VerbNet has cross-linguistic
+potential, as shown with the Portuguese language \citep[section
+2.2.2]{kipperschuler2005verbnet}. Adapting VerbNet to a new language would make
+it possible to reuse its structure, keep most semantic information, and produce
+a useful lexicon without years of manual work.
+
+% En particulier, en français, les tables du LADL décrivent le comportement
+% syntaxique des verbes et le LVF découpe les verbes du français
+% sémantiquement. Un certain nombre de difficultés empêche d'utiliser ces
+% ressources en TAL
+With the goal of developing a French version of VerbNet (called \verbenet{}) in
+mind, we first have translated top-level VerbNet members in French and used
+French linguistic resources that encode the syntactic and semantic behavior of
+verbs (Section~\ref{french}) to keep only the right translations
+(Section~\ref{first}).
+%All 270 classes of VerbNet were annotated, effectively translating VerbNet
+%members.
+The second step in building \verbenet{}, which is still underway, is to adapt
+VerbNet syntactic alternations for French, which gives rise to various problems
+that we will discuss in Section~\ref{second}.
+
+\section{Related work}
+
+Translating Levin classes and more recently VerbNet is recognized as a useful
+task in the literature. First, automatic methods have led to improvements in
+VerbNet itself: new classes have been incorporated
+\citep{korhonen2004extended} and new verbs have been added from the LCS
+database \citep{dorr2001lcs} or using the Sketch Engine tool
+\citep{bonial2013expanding}.
+
+In other languages, \cite{merlo2002multilingual} have used crosslinguistic
+similarities to convert 20 Levin classes to Italian. Automatic acquisitions
+have also been led in Japanese \citep{suzuki2009classifying}, German
+\citep{im2006experiments}, and Spanish \citep{ferrer2004towards}. The
+only direct translations we are aware of are the Estonian VerbNet
+\citep{jentson2014verbnet} and the Brazilian Portuguese VerbNet
+\citep{scarton2012towards}, which uses the mappings between VerbNet and
+WordNet, and between WordNet.Br and WordNet.
+
+In French, \cite{saintdizier1996constructing} first produced a VerbNet-like
+resource. To the best of our knowledge, effort on this resource has stopped and
+the result is not available. Later work has focused on automatic acquisition of
+subcategorization frames which were clustered according to their syntactic and
+semantic similarity. \cite{sun2010investigating} used a large
+subcategorization frame lexicon \citep{messiant2010acquisition} to cluster
+verbs according to two types of features: syntactic (subcategorization frames)
+and semantic (collocations and lexical preferences of verbs). Evaluation
+against a manually created gold standard led to an F-measure of 55.1\%.
+\cite{falk2012classifying} apply a different clustering algorithm, and use
+different features, improving the F-measure to 70\% on a similar but easier
+dataset. While those resources highlight new ways to separate French verbs, the
+errors they contain are only one source of errors in applications: it is
+important to correct them if possible. While the results can still be improved,
+we believe that there is also a need for a manually validated French VerbNet.
+Our translation will be linked to the English VerbNet and the two linguistic
+resources we use, Les Verbes Français and the Lexique-Grammaire. It will also
+be open: we want to foster external contributions with our web-based tool and
+make the resource easy to use by using the same file formats than VerbNet.
+
+\section{Presentation of VerbNet and French Lexical resources}\label{french}
+
+The top hierarchy in VerbNet is made up of 270 classes. Any class can be
+further divided into sub-classes organized in a tree structure. For each
+(sub-)class, this electronic lexicon gives:  the list of verbs belonging to it,
+the relevant thematic roles which are possibly associated with selection
+restrictions, and the list of frames. A frame includes an illustrating example,
+a syntactic formula explicating the relation between syntactic arguments and
+thematic roles, and a semantic formula  based on predicates that denote
+relations between participants and events.
+
+Starting in the 70's two main lexical resources for French verbs, LVF and LG,
+were manually developed:
+% \footnote{Later in the 90's yet another resource was developed, DICOVALENCE.
+% As it has no structure, we use it only marginally.}:
+
+
+\begin{itemize}
+
+    \item LVF (Les Verbes Français, \cite{dubois1997verbes}) includes around
+    25000 entries classified into 14 semantic classes with 54 syntactico-semantic
+    subclasses and 248 subsubclasses.
+
+    \item LG (Lexique-Grammaire, \cite{gross1975methodes,boons1976structure})
+    includes around 14000 entries classified into 67 ``tables'', each table
+    grouping verbs with the same frames and possibly with similar semantics. Each
+    column of the table encodes additional restrictions that will apply to some of
+    the verbs of that table.
+
+    %\item DICOVALENCE \citep{} is based on the ``pronominal approach''
+    %\citep{}; this lexicon includes 5000 entries among the most frequent ones;
+    %it  has a flat structure, which makes that we use it only marginally.
+
+\end{itemize}
+
+Both LVF's classes and LG's tables can be compared to VerbNet's classes.
+However, these (old) French resources record neither thematic roles nor
+semantic formulae\footnote{The uses of thematic role and event were not
+much widespread in the 70's.}. This is why we want to build a new French
+resource, \verbenet{}. It will take advantage, on the one hand, of the existing
+French resources with a rich encoding of syntactic information, and on the
+other hand, of the semantic information in VerbNet built for English, a
+language relatively close to French.
+
+\section{Building \verbenet{}}
+
+Our basic principle is that the top hierarchy in \verbenet{} should be as close
+as possible to that in VerbNet with 270 classes. Nevertheless, some classes may
+disappear. This can be simply due to morphological reasons. Any VerbNet class
+made up only of verbs that are zero-related to nominals doesn't have a French
+equivalent, eg. class pit-10.7 with verbs such as \emph{bark} and \emph{bone}
+or week-end-56 with verbs such as \emph{week-end} and \emph{december}. On the
+other hand, class 10.8 with verbs formed by the prefix \emph{dé-} plus a
+nominal (\emph{debark, debone}) does have a French equivalent with verbs formed
+by the prefix \emph{dé-} or \emph{é-} (\emph{déveiner, équeuter}).
+
+Given this basic principle, building \verbenet{} goes in two steps.
+
+\subsection{First step}\label{first}
+
+The first step in building \verbenet{} was to determine which French verbs
+belong to one of  VerbNet's 270 classes. This was done in three stages:
+
+\begin{enumerate}
+
+    \item For a given VerbNet class \Ce{}, we  manually assigned the LVF class(es)
+    \Clvf{} and the LG's table(s) \Clg{} that fit its semantic definition (e.g.
+    {\color{blue}put-9.1} {\color{red}L3b} {\color{green}38LD} or
+    {\color{blue}body\_internal\_motion-49} {\color{red}M1a} {\color{green}32CL or
+    32R3 or 32C}),
+
+    \item we used two bilingual dictionaries (SCI-FRAN-EURADIC and the French
+    Wiktionary) which give the list \Ltrad{} of the French translations of the
+    English verbs belonging to \Ce{} or a subclass of \Ce{},
+
+    \item we computed the verbs of the French class \Cf{} which are a priori the
+    simple verbs of \Ltrad{} which belong to the intersection of \Clvf{} and \Clg{}
+    (e.g. \emph{mettre, poser} or \emph{installer} in {\color{blue}put-9.1}).
+
+\end{enumerate}
+
+This step was performed quickly and gave accurate results: by keeping only
+verbs at the intersection of \Ltrad{}, \Clvf{} and \Clg{}\footnote{When the
+intersection is empty, the non-empty list (\Clvf{} or \Clg{}) was chosen.}, the
+results are precise and syntactically and semantically coherent. For example,
+the {\color{blue}scribble-25.2} class contains 18 verbs in English; it is
+associated with LVF {\color{red}R3a.1} and LG {\color{green}32A},  which leads to a
+list of 16 French verbs: \emph{composer}, \emph{couper}, \emph{donner},
+\emph{exécuter}, \emph{fabriquer}, \emph{faire}, \emph{forger}, \emph{former},
+\emph{imprimer}, \emph{lever}, \emph{produire}, \emph{reproduire},
+\emph{sculpter}, \emph{tailler}, \emph{tirer} and \emph{tracer}. All these
+verbs are valid for this class.  This method results in a lexicon with 4058
+verbs (2128 distinct verbs).
+
+% TODO An evaluation on 10 randomly chosen classes shows that XX.X\% of verbs are indeed valid.
+
+
+\subsection{Second step}\label{second}
+
+The second step in building \verbenet{} has proven much more difficult than the
+first. For each of the 270 \Cf{} sub-classes, we determine whenever possible:
+
+\begin{itemize}
+
+    \item the possible subclasses in order to assign the verbs found in the
+    first step to one of these sub-classes (if possible)
+
+    \item the frames that are valid for French with possible adjustments for
+    thematic roles and selection restrictions.
+
+\end{itemize}
+
+This step has first required to develop an editing tool
+(Section~\ref{toolquentin}) to help and maintain the lexicographers' work.
+Next, it has required to set up basic principles on French frames, when they
+differ from English ones (Section~\ref{princp}). Finally, a fine grained
+case-by-case study reveals some tough differences between French and English,
+which are illustrated in (Section~\ref{durty}).
+
+
+\subsubsection{\verbenet{} editing tool}\label{toolquentin}
+
+This step  required us to develop a web-based tool which makes it possible to
+collaboratively edit VerbNet classes and frames by manipulating their
+representation on the website. This online interface developed with Django (a
+Python web framework) hides a PostgreSQL database that stores all this
+information and tracks all changes to the data.  The tool was first filled with
+VerbNet frames and verb translations found in the first step. It allows
+us to edit a frame and to suppress or add a (sub-)class or a frame. For
+example, all the frames involving a conative, dative or benefactive alternation
+can be systematically suppressed because these alternations don't exist in
+French.
+
+\begin{figure}
+ \centering
+ \includegraphics[width=0.48\textwidth]{fig/tool_screenshot.png}
+ \caption{\label{tool}Web interface to analyze and edit \verbenet{}. Every
+    frame can be modified and the structure can be reorganized.  The translations
+    in purple belong to the intersection of \Clvf{} and \Clg{}; the translations in
+    red (resp. green) belong only to \Clvf{} (resp. \Clg{}).}
+\end{figure}
+
+
+With the help of this tool (illustrated in Figure~\ref{tool}),  the work for
+the second step can be very easy. For example, the four sub-classes of
+image-creation-25 have direct equivalent classes in French, so the only thing
+to do is to provide French examples with the right preposition(s), e.g.
+\emph{with} in 25.3 has to be replaced in French with \emph{de} or \emph{avec}.
+
+\subsubsection{Principles on frames}\label{princp}
+
+So far, we have found two general differences between the  coding of French and
+English frames in \verbenet{} and VerbNet respectively.
+
+The first one concerns ``sub-frames'', i.e. frames with missing complements such
+as \emph{NP V} in 25.1 illustrated by \emph{Smith was inscribing} which could
+be  a sub-frame of e.g. \emph{NP V NP.destination} (\emph{Smith was inscribing
+the rings}). The coding of such sub-frames is dubious when based on
+introspection so it requires some corpus study.  We don't know how this coding
+has been made in VerbNet and we don't have at our disposal enough French corpus
+data.  So we decided for the time being to remove sub-frames from \verbenet{}.
+For example in class remove-10.1, VerbNet encodes not only NP V NP PP.Source
+PP.Destination (\emph{Doug removed the smudges from the tabletop}) but also NP
+V NP (\emph{Doug removed the smudges}). \verbenet{} only includes the first
+one; it is understood that the second one can be automatically inferred from
+the first one, without being (manually) validated\footnote{However, this
+principle concerning sub-frames is not applied for verbs which accept a single
+double-locative complement ``from here to there (a single complement PP.source
+PP.destination)''  without accepting a single source complement (PP.source),
+while accepting a single destination complement (PP.destination) : \emph{Fred a
+transferré le vin de la cruche en pierre vers la cruche en terre cuite  (Fred
+transferred the wine from the stone jar to the terra-cotta jar), *Fred a
+transferré le vin de la cruche en pierre (*Fred transferred the wine from the
+stone jar), Fred a transferré le vin vers la cruche en terre cuite (Fred
+transferred the wine to the terra-cotta  jar.}}.
+
+The second one concerns the order of the complements. VerbNet sometimes encodes
+two frames which differ only by the order of the complements, e.g. in bring
+11-3 the frames NP V NP PP.destination (\emph{Nora brought the book to the
+meeting}) and NP V PP.destination NP (\emph{Nora brought to lunch the book}).
+In French, the order of complements  depends on a number of syntactic and
+semantic factors \citep{thuilier2012contraintes}, but it doesn't seem that
+it depends on a lexical factor, i.e. what is the lexical verb governing the
+complements. As a consequence, \verbenet{} only records one frame in such
+cases, e.g. it only records \emph{NP V NP PP.destination} (\emph{Nora a
+apporté le livre au meeting}) with the direct object before the PP; it is
+understood that the other frame, \emph{NP V  PP.destination NP} (\emph{Nora a
+apporté au meeting le livre}) can be automatically inferred from the first
+one.
+
+\subsubsection{Case by case work}\label{durty}
+
+In some cases, the second step in building \verbenet{} is hard. There are two
+main reasons for that. First, there exist semantic differences which are taken
+into account in VerbNet but not in LVF or in LG. For example, among the verbs
+of Sending and Carrying (VerbNet super-class 11), the verbs in  classes 11.3,
+11.4 and 11.5 describe an accompanied motion (both the Agent and the Theme
+change location as in \emph{Pamela drove packages to NY}), while those in
+classes 11.1 and 11.2 describe an unaccompanied motion (only the Theme changes
+location as in \emph{Pamela sent packages to NY}). In the French resources,
+classes do exist for verbs with a change of location for a Theme caused by an
+Agent, but nothing is said about the Agent being or not being in motion.  In
+the face  of this difficulty, two solutions are possible: either make a study
+of French verbs of sending and carrying to distinguish accompanied and
+unaccompanied motions, or simply ignore this semantic difference. We opted for
+the second solution since this semantic difference does not appear to be
+relevant for a task such as semantic role labeling.\footnote{Moreover, it seems
+that, for some English verbs, the Agent can be moving or not as reflected by
+the difference between VerbNet's classes 11.4 and 11.4-1.} Ignoring this
+semantic difference leads us to adopt in \verbenet{} a hierarchy for verbs of
+Sending and Carrying different from that in VerbNet: there is no equivalent in
+\verbenet{} of  class 11.4, the verbs belonging to this class being added to
+11.1 or 11.2. Let us add that there is no French equivalent of class 11.3 made
+up of the two verbs \emph{bring} and \emph{take} with a deictically-specified
+direction \citep[page 135]{levin1993english} since the French locative
+deictic \emph{ici} and \emph{là} don't work as \emph{here} and
+\emph{there}\footnote{\emph{Je suis là} (lit. \emph{I am there}) can mean
+\emph{Je suis ici} (lit \emph{I am here}).}.
+
+The second main source of difficulty comes from crucial differences between
+French and English. There exist translation problems between these two
+languages which are very well-known and documented, for example translation of
+motion verbs as illustrated in  \emph{John swam across the river} $\rightarrow$
+\emph{Jean a traversé la rivière à la nage} (lit. John crossed the river with
+the swim). We put aside those well-known cases here to discuss  more subtle
+difficulties as illustrated with the verbs of change of possession. In VerbNet,
+there exist ten classes dedicated to these verbs. It seems that such a
+hierarchy cannot be adopted for French. Without going into all the details, let
+us underline the following points:
+
+\begin{itemize}
+
+    \item  The absence of dative and benefactive alternations in French means that
+    the difference between VerbNet's classes 13.1 and 13.2 should probably not be
+    kept.
+
+    \item  The semantic difference between 13.1 and 13.3 (namely HAS-POSSESSION
+    versus FUTURE-POSSESSION) is perhaps too subtle and could be ignored.
+
+    \item  The preposition \emph{with} in the frame corresponding to \emph{Agent V
+    Recipient {with} Theme} used in 13.4-1 and 13.4-2 has to be replaced with
+    \emph{en} and/or \emph{de} according to the verb (e.g. \emph{Luc livre Max
+    en/*de lait}, \emph{Luc équipe Max en/de téléviseurs}, \emph{Luc dote Max
+    *en/de téléviseurs}), which requires a reorganization into (sub-)classes.
+
+\end{itemize}
+
+All in all, it turns out that entering into the frame details has led us to
+revise the hierarchy of \verbenet{} though we are trying to minimize the amount
+of revision in order to keep as much semantic information from VerbNet as
+possible.
+
+
+\section{Conclusion} We have presented a method for adapting the English
+syntactic and semantic resource VerbNet to a new language. This method combines
+the automation of structures transfer, automatic translation of the lexicon and
+linguistic expertise. We have applied this method to French and have reached a
+state where it is validated and the systematic work on each class is currently
+being realized.  We are not  able to give an evaluation of this resource since
+it is not yet completed. When it will be completed, we will make it freely
+available along with the web-based tool which makes it possible to
+collaboratively edit it.
+
+In this work, we acknowledge the structural differences existing between
+languages: the class structure of \verbenet{} does not follow exactly VerbNet.
+We keep track of such changes so that the differences between the two resources
+are explicit and well-documented. Thus they will be available for interacting
+with other resources through mappings, making our resource useful for
+multilingual applications.
+
+This work is part of the
+ASFALDA\footnote{https://sites.google.com/site/anrasfalda/} project which goals
+include the creation of a French FrameNet and mappings between it and other
+semantic resources, like LVF, LG and \verbenet{}.
+%Some goals of the ASFALDA project we are members of are to produce
+%FrameNet-based semantic role labeling tools and a mapping between LVF and
+%FrameNet. Even is ASFALDA emphasis is on supervised SRL using a French
+%annotated corpus, our own knowledge-based approach based on \verbenet{} will
+%be complementary thanks to the mappings we are drawing between \verbenet{} and
+%LVF.
