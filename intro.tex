@@ -7,16 +7,14 @@ d'analyse sémantique aux applications nombreuses, telles que l'extraction et la
 recherche d'information, la traduction automatique, ou encore le résumé
 automatique de textes. Des ressources ont été développées pour faciliter le
 traitement de chacune de ces tâches, ainsi que différentes approches
-statistiques. Nous nous intéressons ici à l'évaluation des performances de ces
-deux tâches dans un cadre ouvert et aux possibilités de traitement des langues
-moins dotées que l'anglais en ressources sémantiques.
+statistiques. Nous nous intéressons ici à l'évaluation des performances de ces deux tâches dans un cadre ouvert et aux possibilités de traitement des langues moins dotées que l'anglais en ressources sémantiques.
 
 \section{Introduction}
 
 % L'idée d'avoir une phrase sur laquelle examiner toutes les "choses" qu'on
 % souhaite décrire est bonne. Qu'est-ce qu'on souhaite décrire ? SRL oui, WSD
 % pas trop. Autre chose ?
-% C'est pour cette raison que le système n'est pas encore découpé
+% C'est pour cette raison que cette section n'est pas encore découpée
 
 En Traitement Automatique des Langues, l'analyse sémantique étudie le sens des
 énoncés. Nous nous intéressons ici à deux tâches en particulier : la
@@ -64,30 +62,30 @@ résultat (« vainement »). Ainsi, le résultat de l'annotation serait :
     \caption{Une phrase annotée en rôles sémantiques}
 \end{figure}
 
-\subsection{Applications WSD}
+%\subsection{Applications WSD}
+%
+%La désambiguïsation lexicale a de nombreuses applications potentielles, la
+%première étant la traduction automatique. C'est en effet l'application
+%historique, identifiée dès 1949 \citep{weaver1949translation}. Le mot italien «
+%penna » peut être traduit en français avec les mots « plume », « stylo » et «
+%pâtes ». C'est donc clairement le sens des mots qui définit la traduction
+%automatique. Les performances actuelles de la désambiguïsation lexicale ne
+%permettent pas d'affirmer avec certitude une amélioration pour la traduction
+%automatique \citep{apidianaki2009place}, mais des travaux encourageants
+%existent \citep{chan2007word}.
+%
+%Un autre exemple classique est la recherche d'information où le sens des mots
+%cherchés peut aider à définir les documents à retourner. En fouille d'opinion,
+%établir le sens des mots utilisés est aussi important : par exemple, un navet
+%sera négatif dans le domaine du cinéma, neutre en cuisine. Étant donné la
+%difficulté à introduire des outils de désambiguïsation lexicale dans des
+%systèmes existants \citep{navigli2009word}, et dans le but de poursuivre leur
+%amélioration, ceux-ci sont évalués \textit{in vitro}, comme l'attestent les
+%tâches présentées lors des dernières campagnes d'évaluation sur la
+%désambiguïsation lexicale
+%\citep{agirre2010semeval,manandhar2010semeval,lefever2010semeval}.
 
-La désambiguïsation lexicale a de nombreuses applications potentielles, la
-première étant la traduction automatique. C'est en effet l'application
-historique, identifiée dès 1949 \citep{weaver1949translation}. Le mot italien «
-penna » peut être traduit en français avec les mots « plume », « stylo » et «
-pâtes ». C'est donc clairement le sens des mots qui définit la traduction
-automatique. Les performances actuelles de la désambiguïsation lexicale ne
-permettent pas d'affirmer avec certitude une amélioration pour la traduction
-automatique \citep{apidianaki2009place}, mais des travaux encourageants
-existent \citep{chan2007word}.
-
-Un autre exemple classique est la recherche d'information où le sens des mots
-cherchés peut aider à définir les documents à retourner. En fouille d'opinion,
-établir le sens des mots utilisés est aussi important : par exemple, un navet
-sera négatif dans le domaine du cinéma, neutre en cuisine. Étant donné la
-difficulté à introduire des outils de désambiguïsation lexicale dans des
-systèmes existants \citep{navigli2009word}, et dans le but de poursuivre leur
-amélioration, ceux-ci sont évalués \textit{in vitro}, comme l'attestent les
-tâches présentées lors des dernières campagnes d'évaluation sur la
-désambiguïsation lexicale
-\citep{agirre2010semeval,manandhar2010semeval,lefever2010semeval}.
-
-\subsection{Applications SRL}
+\subsection{Applications}
 
 En ce qui concerne l'annotation en rôles sémantiques, elle est issue des
 travaux sur l'extraction d'information où les systèmes traitent des situations
@@ -101,7 +99,7 @@ d'évoluer vers une généralisation de ces systèmes. Elle a depuis été utili
 dans diverses applications, notamment les systèmes de questions-réponses
 \citep{shen2007using} et l'analyse d'opinions \citep{das2012structure}.
 
-\subsection{Contraintes (ALL)}
+\subsection{Contraintes}
 
 Nous souhaitons une analyse sémantique utilisable dans le logiciel LIMA
 \citep{besancon2010lima}. Trois contraintes majeures en découlent.
@@ -137,3 +135,14 @@ d'exemples annotés pour une approche complètement supervisée, ce qui n'est pa
 réalisable en pratique. Les techniques que nous présentons ici visent à
 contourner ces difficultés.
 
+\section{Knowledge-based semantic role labeling}
+\label{sec:srl}
+
+Knowledge-based semantic role labeling refers to algorithms that don't use a
+priori training data which would be biased and hamper performance on new
+domains. The "knowledge" is contained in VerbNet-like databases which encode
+syntactic and semantic informations about verbs in a way that allows one to map
+syntactic structure to semantic roles. Previous work on this task used the word
+"unsupervised" instead of "knowledge-based", but unsupervised semantic role
+labeling now refers to truly unsupervised work where no semantic knowledge is
+needed at all.

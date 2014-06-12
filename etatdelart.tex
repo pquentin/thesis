@@ -7,24 +7,30 @@
 %   - qui citer pour plus d'un sens ?
 %   - réutiliser la figure d'un papier ?
 
-\section{Le sens des mots (WSD)} % WSD, mais ces idées doivent apparaître quelque part
+\section{Le sens des mots}
 
 Avant de réaliser un système de désambiguïsation lexicale, il faut établir ce
 qu'est un sens. Nous nous éloignons ici de toute considération sur les
 approches cognitives de la représentation du sens et de la modélisation du
-cerveau \citep{harnad1990symbol}, et nous concentrons en particulier ici sur
-des inventaires de sens finis\footnote{même si la section \ref{sensfunky}
-présente d'autres approches possibles}. Cela nous permet de formuler le
-problème de la désambiguïsation comme un problème de classification : pour
-chaque occurrence d'un mot dans un texte, nous devons lui assigner un des sens
-recensés dans notre inventaire. Cette section nous permet de soulever les
-difficultés liées à la création et à l'utilisation d'un tel inventaire. Si il
-est établi qu'un mot puisse avoir différents sens, il n'existe pas de solution
-optimale pour distinguer puis représenter ces différents sens pour chaque mot.
+cerveau \citep{harnad1990symbol} pour nous concentrer sur des inventaires de
+sens finis.
 
-\subsection{Distinguer deux sens}
 
-Nous nous posons ici la question de la distinction entre deux sens ; si ils ne
+Même si la section \ref{sensfunky} présente d'autres approches, même si WordNet
+est une approche cognitive, et même si les réseaux de neurones seraient
+"inspirés du cerveau"?
+
+Cela nous permet de formuler le problème de la
+désambiguïsation comme un problème de classification : pour chaque occurrence
+d'un mot dans un texte, nous devons lui assigner un des sens recensés dans
+notre inventaire. Cette section nous permet de soulever les difficultés liées à
+la création et à l'utilisation d'un tel inventaire. Si il est établi qu'un mot
+puisse avoir différents sens, il n'existe pas de solution optimale pour
+distinguer puis représenter ces différents sens pour chaque mot.
+
+\subsection{Représentations discrètes}
+
+Nous nous posons ici la question de la distinction entre deux sens ; s'ils ne
 sont pas suffisamment distincts, alors une seule entrée dans l'inventaire
 suffit. Cette approche n'est pas suffisante pour établir un inventaire complet,
 comme nous le verrons à la section \ref{besoincorpus}, mais permet d'identifier
@@ -109,7 +115,7 @@ Paul est arrivé avec un échiquier, tout comme Jean ». Ici, il n'est pas
 \textit{a priori} possible que Paul soit arrivé avec un jeu, et Jean avec un
 papillon ; ce qui indique que ces sens sont différents.
 
-\subsection{Le besoin d'un corpus}
+\subsubsection{Le besoin d'un corpus}
 \label{besoincorpus}
 
 Après avoir expliqué en quoi ces tests ne sont pas faciles à construire et ne
@@ -135,7 +141,7 @@ sens. Néanmoins, il n'est pas pratique de réaliser manuellement un dictionnair
 par corpus ; et il faut simplement être conscient des difficultés théoriques
 posées par les sens de mots. 
 
-\subsection{Inventaires de sens}
+\subsubsection{Inventaires de sens}
 
 Intéressons-nous maintenant aux inventaires de sens utilisés par les différents
 systèmes de désambiguïsation lexicale. Les premiers inventaires de sens
@@ -193,7 +199,7 @@ lexicale \citep{navigli2012quick}, mais ils ne sont pas utilisables librement à
 des fins commerciales et et des applications l'utilisant doivent encore voir le
 jour.
 
-\subsection{Autres représentations du sens}
+\subsection{Représentations continues}
 \label{sensfunky}
 
 Nous avons jusqu'ici présupposé que les sens d'un mot était représentés sous la
@@ -219,7 +225,7 @@ quant à lui la possibilité d'utiliser des distributions de probabilité pour
 définir un sens précis qui pourrait appartenir à plusieurs sens définir dans un
 inventaire.
 
-\subsection{Induction de sens}
+\subsubsection{Induction de sens}
 \label{distrib}
 
 Le sens d'un mot donné peut souvent s'inférer à partir de son contexte
@@ -252,7 +258,7 @@ syntagmatique : ils sont présent ensemble. Au contraire, « thé » et « café
 sont pas présent dans la même phrase, mais apparaissent dans un même contexte
 (« Je bois du ») : ils sont liés par une relation paradigmatique.
 
-On peut utiliser ces relations pour de la désambiguïsation : si il est possible
+On peut utiliser ces relations pour de la désambiguïsation : s'il est possible
 d'identifier pour un même mot différents usages correspondant à des relations
 sémantiques avec des mots différents, alors ces deux sens sont différents. La
 validité de cette approche a été vérifiée expérimentalement
@@ -269,7 +275,9 @@ ont établi pour chaque mot des clusters correspondant chacun à un sens du mot
 (voir \cite{liu2012semantic} pour un exemple récent dans un domaine
 spécifique).
 
-\section{Le sens des situations (SRL)}
+\subsection{Modèles de langues neuronaux}
+
+\section{Annotation en rôles sémantiques}
 \label{senssituation}
 
 Après avoir établi ce que pouvait être le sens d'un mot, nous nous intéressons
@@ -277,7 +285,7 @@ ici au même problème du point de vue de l'annotation en rôles sémantiques. N
 verrons les différentes façon de définir les rôles sémantiques, et examinerons
 les deux ressources les plus utilisées dans le domaine : FrameNet et PropBank.
 
-\subsection{Les rôles en linguistique}
+\subsection{Les rôles sémantiques}
 
 Comment aller au-delà d'une analyse syntaxique pour représenter le sens d'une
 phrase ? La notion de rôle sémantique semble particulièrement adaptée aux
@@ -302,7 +310,7 @@ sémantiques généralement acceptés, on peut citer :
     \item le \textbf{Bénéficiaire} qui tire profit de l'action
 \end{itemize}
 
-\subsection{Ressources disponibles}
+\subsection{Lexiques et corpus}
 
 Il existe en anglais différentes ressources pour l'annotation en rôles
 sémantique : nous aborderons ici FrameNet, PropBank et NomBank.
@@ -371,15 +379,35 @@ n'est pas rare que les arguments soient implicites mais présent dans d'autres
 phrases. Les annotations étant limitées à la phrase actuelle, il n'est pas
 possible de référer à un argument présent dans une prase précédente.
 
-\section{Apprentissage automatique pour l'analyse sémantique (ALL)}
+\subsection{Approches d'annotation}
+
+Existing approaches to semantic role labeling are divided into two main
+branches. The first one, supervised semantic role labeling, uses a
+manually-annotated corpus and manually engineered features to train supervised
+models on the task. The most used frame-semantics resource and associated
+annotated corpus in this domain is FrameNet \citep{baker1998berkeley}.
+While this approach yields the best performance \citep{das2014frame}, the
+cost is high: the corpus used are annotated over several years and it would be
+in general too long and costly to annotate a new corpus for each new considered
+domain. To address those issues, the second mainstream approach, named semantic
+role induction, uses fully unsupervised methods: given a corpus, the goal is to
+cluster all verbs sharing the same behavior. While this is completely general,
+the results are noisier and the semantic roles are only induced and cannot
+always be mapped to human-understandable labels such as \textit{Agent} or
+\textit{Topic}.
+
+A third approach, knowledge-based semantic role labeling
+\citep{swier2004unsupervised,swier2005exploiting}, has not received much
+attention lately. The goal is to use external lexical-semantic resources for
+each new considered language and to use those resources to annotate text. The
+quality of annotation suffers, but bringing semantic role labeling to new
+domains and languages becomes easier: no corpus has to be hand-annotated.
 
 Les systèmes de désambiguïsation lexicale et d'annotation en rôles sémantiques
 utilisent pour la plupart des techniques d'apprentissage automatique. Après
 avoir présenté de manière générale les différentes ressources et approches, des
 techniques plus spécifiques sont abordées. Enfin, les traits utilisés pour
 l'apprentissage sont précisés.
-
-\subsection{Approches}
 
 Deux types de ressources sont généralement utilisées :
 
@@ -484,57 +512,57 @@ difficiles à évaluer et à utiliser directement dans des systèmes plus
 importants. Par exemple, dans le cadre de la traduction automatique, distinguer
 les sens ne suffit pas ; il faut aussi savoir quelle traduction appliquer.
 
-\subsection{Traits utilisés}
+\subsubsection{Traits}
 
-\subsubsection{Désambiguïsation lexicale (WSD)}
-
-Pour la désambiguïsation lexicale supervisée, il s'agit toujours de représenter
-le contexte d'un mot donné afin de le représenter comme un simple trait. Deux
-approches sont très représentées dans la littérature : un contexte purement
-local à base de fenêtre glissante, et un contexte syntaxique qui permet
-l'identification de différents types de relations entre les mots.
-
-\begin{itemize}
-
-    \item \textbf{Fenêtre glissante} : Différentes études
-        \citep{kaplan1955experimental,choueka1985disambiguation,karlgren2001from,kohomban2005learning,dinu2007sometimes}
-        suggèrent qu'un contexte total de cinq mots (deux mots avant, deux mots
-        après) est la fenêtre qui réduit le mieux l'ambiguïté. Cette fenêtre
-        peut donner lieu à plusieurs traits ; \cite{chan2007nus} utilise ainsi
-        11 traits correspondant à différentes parties de la fenêtre.
-
-    \item \textbf{Contexte syntaxique} Les analyseurs syntaxiques étant de plus
-        en plus performants, et permettent d'apporter d'améliorer les résultats
-        \citep{martinez2002syntactic}. La richesse de la relation considérée
-        est importante.
-
-\end{itemize}
-
-\paragraph{Graphes}
-
-Néanmoins ces approches locales ne sont pas uniques, et la désambiguïsation
-lexicale n'échappe à la tendance à utiliser des représentations plus
-structurées et plus globales pour améliorer les performances
-\citep{marquez2012special}. En désambiguïsation lexicale, cette tendance est
-principalement marquée pour les approches fondées sur les connaissances et non
-supervisées \citep[p~.14]{navigli2009word}. Ainsi, les méthodes à base de
-graphes \cite{navigli2005semantic,agirre2009personalizing} obtiennent de bons
-résultats depuis quelques années
-\citep{navigli2007semeval,ponzetto2010knowledge}. %\cite{zouaq2010can}
-explorent ainsi l'utilisation de graphes syntaxiques et logiques.
-
-\paragraph{Espaces distributionnels}
-\label{espacesdistrib}
-
-\cite{mouton2009induction} reprend la notion d'espaces sémantiques
-\citep{sahlgren2006word} en se concentrant sur des informations syntaxiques
-multiple. En utilisant les 38 relations syntaxiques extraites par LIMA
-\citep{besancon2010lima} sur un corpus extrait du web
-\citep{grefenstette2007conquering}, une matrice est extraite pour chacune des
-relations. Ces matrices creuses permettent de stocker les relations syntaxiques
-fines entre les 68 000 mots les plus fréquents de la langue française. Elle
-parvient ainsi à représenter le contexte plus finement, ce qui permet de
-réaliser plus de distinctions entre les sens.
+%\subsubsection{Désambiguïsation lexicale (WSD)}
+%
+%Pour la désambiguïsation lexicale supervisée, il s'agit toujours de représenter
+%le contexte d'un mot donné afin de le représenter comme un simple trait. Deux
+%approches sont très représentées dans la littérature : un contexte purement
+%local à base de fenêtre glissante, et un contexte syntaxique qui permet
+%l'identification de différents types de relations entre les mots.
+%
+%\begin{itemize}
+%
+%    \item \textbf{Fenêtre glissante} : Différentes études
+%        \citep{kaplan1955experimental,choueka1985disambiguation,karlgren2001from,kohomban2005learning,dinu2007sometimes}
+%        suggèrent qu'un contexte total de cinq mots (deux mots avant, deux mots
+%        après) est la fenêtre qui réduit le mieux l'ambiguïté. Cette fenêtre
+%        peut donner lieu à plusieurs traits ; \cite{chan2007nus} utilise ainsi
+%        11 traits correspondant à différentes parties de la fenêtre.
+%
+%    \item \textbf{Contexte syntaxique} Les analyseurs syntaxiques étant de plus
+%        en plus performants, et permettent d'apporter d'améliorer les résultats
+%        \citep{martinez2002syntactic}. La richesse de la relation considérée
+%        est importante.
+%
+%\end{itemize}
+%
+%\paragraph{Graphes}
+%
+%Néanmoins ces approches locales ne sont pas uniques, et la désambiguïsation
+%lexicale n'échappe à la tendance à utiliser des représentations plus
+%structurées et plus globales pour améliorer les performances
+%\citep{marquez2012special}. En désambiguïsation lexicale, cette tendance est
+%principalement marquée pour les approches fondées sur les connaissances et non
+%supervisées \citep[p~.14]{navigli2009word}. Ainsi, les méthodes à base de
+%graphes \cite{navigli2005semantic,agirre2009personalizing} obtiennent de bons
+%résultats depuis quelques années
+%\citep{navigli2007semeval,ponzetto2010knowledge}. %\cite{zouaq2010can}
+%explorent ainsi l'utilisation de graphes syntaxiques et logiques.
+%
+%\paragraph{Espaces distributionnels}
+%\label{espacesdistrib}
+%
+%\cite{mouton2009induction} reprend la notion d'espaces sémantiques
+%\citep{sahlgren2006word} en se concentrant sur des informations syntaxiques
+%multiple. En utilisant les 38 relations syntaxiques extraites par LIMA
+%\citep{besancon2010lima} sur un corpus extrait du web
+%\citep{grefenstette2007conquering}, une matrice est extraite pour chacune des
+%relations. Ces matrices creuses permettent de stocker les relations syntaxiques
+%fines entre les 68 000 mots les plus fréquents de la langue française. Elle
+%parvient ainsi à représenter le contexte plus finement, ce qui permet de
+%réaliser plus de distinctions entre les sens.
 
 
 \subsubsection{Annotation en rôles sémantiques (SRL)}
@@ -626,7 +654,7 @@ traits améliorant quelque peu les performances. Citons ici :
 Des listes plus complètes ont étés établies par ailleurs dans la littérature
 \citep{pradhan2005semantic,marquez2008semantic,palmer2010semantic}.
 
-\subsection{Techniques d'apprentissages}
+\subsubsection{Techniques d'apprentissages}
 
 Cette section introduit des techniques qui ne sont pas spécifique à un trait ou
 à une algorithme de classification. Au contraire, elles sont applicables plus
@@ -711,8 +739,8 @@ TODO papier qui utilise pas les top nouns mais va un peu plus loin dans l'arbre 
 %% Évaluation
 %%
 
-\section{Évaluation des systèmes d'analyse sémantique (ALL)}
-\label{evaluation}
+\subsection{Évaluation}
+\label{subsec:evaluation}
 
 L'évaluation est un problème central en apprentissage automatique et en
 Traitement Automatique des Langues, et l'analyse sémantique ne fait pas
@@ -776,7 +804,7 @@ complètement supervisés et ont appris aussi sur des larges corpus généraux, 
 qui a permis d'augmenter la performance de désambiguïsation pour les mots non
 spécifiques au domaine.
 
-\subsection{Évaluation des approches non supervisées}
+\subsubsection{Évaluation des approches non supervisées}
 \label{evalunsupervised}
 
 Les approches non supervisées sont difficiles à évaluer. En effet, il n'y a pas
@@ -803,7 +831,7 @@ solution.}. Une mesure d'évaluation fiable et consistente permettrait pourtant
 d'évaluer avec précision les approches prometteuses que sont les approches
 non-supervisées.
 
-\subsection{Évaluation de l'annotation en rôles sémantiques}
+\subsubsection{Évaluation de l'annotation en rôles sémantiques}
 En ce qui concerne l'annotation en rôles sémantiques, le lecteur est invité à
 se référer à \citep{surdeanu2008conll} et \citep{hajic2009conll} qui expliquent
 en détail l'évaluation des différents systèmes ayant participé aux tâches
@@ -821,6 +849,124 @@ pour tous les langages.
 %terrain. La complétude évalue quant à elle, pour chaque cluster de la vérité
 %terrain, la proportion d'éléments qui sont présents dans un même cluster
 %produit par le système.
+
+\subsection{Adaptation au domaine}
+
+syntaxe, sémantique
+
+\section{Traductions de ressources linguistiques}
+
+\subsection{WordNet}
+
+Les traductions automatiques de WordNet emploient une approche dite d'extension
+(\textit{extend approach}) : la structure de WordNet est préservée et seuls les
+littéraux sont traduits. Trois techniques principales représentent cette
+approche dans la littérature. La plus simple utilise des dictionnaires
+bilingues pour faciliter le travail des lexicographes qui filtrent ensuite
+manuellement les entrées proposées
+\citep{vossen1998eurowordnet,pianta2002developing,tufis2004balkanet}. Une
+deuxième méthode de traduction utilise des corpus parallèles, ce qui évite
+l'utilisation de dictionnaires qui peuvent entraîner un biais lexicographique.
+\cite{dyvik2004translations} représente cette méthode en s'appuyant sur des
+\textit{back-translations} entre le norvégien et l'anglais, alors que
+\citep{sagot2008construction} combinent un lexique multilingue et les
+différents WordNets de BalkaNet comme autant de sources aidant à la
+désambiguïsation. Enfin, plus récemment, des ressources telles que Wikipédia ou
+le Wiktionnaire ont été explorées. Grâce aux nombreux liens entre les
+différentes langues de ces ressources, il est possible de créer de nouveaux
+wordnets \citep{demelo2009towards,navigli2010babelnet} ou d'améliorer des
+wordnets existants \citep{hanoka2012wordnet}.
+
+Concernant le français, l'EuroWordNet \citep{vossen1998eurowordnet} est la
+première traduction française de WordNet. C'est une ressource d'une couverture
+limitée qui demande des améliorations significatives avant de pouvoir être
+utilisée \citep{jacquin2006systemes}, et qui n'est ni libre ni librement
+accessible. WOLF est une seconde traduction initialement construite à l'aide de
+corpus parallèles \citep{sagot2008construction} et étendue depuis avec
+différentes techniques \citep{apidianaki2012applying}. WOLF est distribué sous
+une licence libre compatible avec la LGPL et c'est aujourd'hui le WordNet
+français standard. Enfin, JAWS \citep{mouton2010jaws} est une traduction des
+noms de WordNet développée à l'aide de dictionnaires bilingues et d'un modèle
+de langue syntaxique.
+
+\subsubsection{Processus de traduction}
+\label{subsec:translation_process}
+
+\cite{mouton2010jaws} ont conçu JAWS comme un algorithme faiblement supervisé qui ne demande aucune donnée annotée manuellement. Pour traduire un wordnet source, JAWS s'appuie sur un dictionnaire bilingue et un modèle de langue syntaxique pour le langage cible.
+
+Le dictionnaire bilingue est une concaténation du dictionnaire bilingue
+SCI-FRAN-EurADic\footnote{\url{http://catalog.elra.info/product_info.php?products_id=666}}
+et des liens entre les Wiktionnaires français et
+anglais\footnote{\url{http://www.wiktionary.org/}}. Le modèle de langue
+syntaxique a été entraîné sur un grand corpus extrait du web
+\citep{grefenstette2007conquering}. Le corpus a été analysé par LIMA
+\citep{besancon2010lima}, une chaîne d'analyse linguistique ici utilisée comme
+un analyseur syntaxique à base de règles produisant des dépendances syntaxiques
+fines. Pour une relation donnée $r$ et un mot $x$, le modèle de langue indique
+quels sont les 100 premiers mots co-occurrant le plus fréquemment avec $x$ dans
+la relation $r$. Avec le mot \textit{avion} et la relation de complément du
+nom, le mot \textit{billet} modifie le plus \textit{avion} : \textit{billet
+d'avion} est fréquent dans le corpus. Ce modèle de langue peut-être visualisé
+sur \url{http://www.kalisteo.fr/demo/semanticmap/index.php}.
+
+Grâce aux dictionnaires, JAWS n'a pas besoin de sélectionner les littéraux de chaque synset parmi l'ensemble du vocabulaire mais seulement parmi un petit nombre de candidats (9 en moyenne). Le processus de traduction se fait en trois étapes :
+\begin{enumerate}
+    \item Créer un wordnet vide : la structure de WordNet est préservée, mais les synsets eux-mêmes n'ont pas de littéraux associés.
+    \item Choisir les traductions les plus faciles parmi les candidats des dictionnaires pour commencer à remplir JAWS.
+    \item Étendre JAWS de manière incrémentale en utilisant le modèle de langue, les relations entre synsets et le JAWS déjà existant.
+\end{enumerate}
+
+\paragraph{Sélecteurs initiaux} Quatre algorithmes que nous nommons sélecteurs initiaux choisissent des traductions correctes parmi celles qui sont proposées par les dictionnaires. Premièrement, les mots qui apparaissent dans un seul synset ne sont pas ambigüs et il suffit d'ajouter toutes leurs traductions au WordNet français : c'est le sélecteur par monosémie. C'est le cas de \textit{grumpy} : toutes ses traductions sont validées dans le synset où il apparaît. Deuxièmement, le sélecteur par unicité identifie les mots n'ayant qu'une seule traduction et la valident dans tous les synsets où elle est présente. Les cinq synsets contenant \textit{pill} en anglais sont ainsi complétés avec \textit{pilule}. Un troisième sélecteur vise à traduire les mots qui ne sont pas dans le dictionnaire en utilisant directement la traduction anglaise : c'est le sélecteur des transfuges. Un quatrième sélecteur utilise la distance d'édition de Levenshtein : si la distance entre un mot anglais et sa traduction est petite, on peut considérer que c'est le même sens (c'est le cas par exemple pour \textit{portion} ou encore \textit{university}), malgré l'existence de certains faux amis. Ces quatre sélecteurs produisent une première version du WordNet français qui contient assez de traductions pour pouvoir ensuite utiliser le modèle de langue et continuer de compléter les synsets.
+
+\paragraph{Expansion de JAWS} JAWS étant partiellement rempli, une nouvelle étape d'expansion tire parti des relations entre les synsets de WordNet pour valider de nouvelles traductions. Par exemple, si :
+
+\begin{itemize}
+    \item un synset S1 est méronyme d'un synset S2 dans WordNet,
+    \item il existe un contexte où un littéral dans S1 est méronyme d'un littéral candidat C dans S2,
+\end{itemize}
+alors ce littéral est considéré comme correct. La tâche de traduction est ainsi réduite à une tâche de comparaison entre d'une part les relations lexicales entre les synsets de WordNet et d'autre part les relations lexicales entre les lexèmes du français.
+
+Prenoms l'exemple de \textit{quill} qui peut se traduire par \textit{piquant} ou \textit{plume} (Figure \ref{meronymyexample}). Dans WordNet, \textit{quill} est méronyme de \textit{porcupine} qui a déjà été traduit par \textit{porc-épic} par un sélecteur initial. Dans le modèle de langue, \textit{piquant} fait partie des compléments du noms de \textit{porc-épic} mais ce n'est pas le cas de \textit{plume}. Ici, la relation de complément du nom implique la méronymie et c'est donc \textit{piquant} qu'il faut choisir comme la traduction correcte de \textit{quill}. Le modèle de langue a permis la désambiguïsation parmi les deux traductions possibles.
+
+\tikzstyle{block}=[draw, fill=blue!5, rectangle, minimum height=0.5cm, minimum width=3cm, text width=5cm]
+
+\begin{figure}[!ht]
+  \centering
+  \begin{tikzpicture}[auto, node distance=2cm,>=latex']
+    % Inspired from http://www.texample.net/tikz/examples/control-system-principles/
+    % first place and connect the outer blocks that represent synsets
+      \node [block, text width=5cm] (quill) {~\\\textbf{Synset S1} \\ - Anglais : quill \\ - Français : piquant? plume? \\ (a stiff hollow protective spine on a porcupine) \\ ~ };
+      \node [block, text width=4.0cm, right of=quill, node distance=9cm] (porcupine) {\textbf{Synset S2} \\ - Anglais : porcupine, hedgehog \\ - Français : porc-épic \\ (rodents with sharp erectile bristles mingled with the fur)};
+    \draw [<-] (porcupine) -- node[above] {méronyme de} (quill);
+    \draw [<-] (porcupine) -- node[below] {(relation WordNet)} (quill);
+
+    % then the syntactic model relations
+    \node [block, below of=porcupine, text width=4.0cm, node distance=3cm] (porcupinesynt1) {porc-épic};
+    \node [block, below of=quill, node distance=3cm] (quillsynt1) {\Large{mémoire}, \Large{piquant}, \large{poil}, \large{épine}, yéti, ragoût, grotte, \small{tactique}, \small{pelage}, \small{dextre}, \small{aiguille}, ...};
+    \draw [<-] (porcupinesynt1) -- node[above] {complément du nom de} (quillsynt1);
+    \draw [<-] (porcupinesynt1) -- node[below] {(modèle de langue)} (quillsynt1);
+
+  \end{tikzpicture}
+  \caption{\protect\centering\label{meronymyexample}Traduction via la relation de méronymie de partie.}
+\end{figure}
+
+Un problème potentiel avec cette approche est que la relation de complément du nom n'est pas limitée à la méronymie. Par exemple, le mot \textit{mémoire} qui apparaît dans le modèle de langue vient d'un livre intitulé \textit{Mémoires d'un porc-épic}. Heureusement, \textit{mémoire} n'est pas dans les candidats de \textit{quill} et ne peut pas être choisi comme une traduction. Paradoxalement, le modèle de langue ne peut pas choisir entre deux mots très différents, mais est capable de choisir la traduction correcte d'un mot polysémique. Alors que traduire WordNet automatiquement avec un dictionnaire ou un modèle de langue syntaxique est impossible, combiner les deux ressources permet de résoudre le problème.
+
+Chaque sélecteur suit le même principe que le sélecteur par méronymie de partie et traduit de nouveaux synsets en identifiant les relations entre lexèmes via le modèle de langue syntaxique. La correspondance entre la relation de complément du nom et la relation de méronymie est directe, mais ce n'est pas le cas pour les autres relations : il n'y a par exemple pas de relation syntaxique qui exprime directement la synonymie entre deux lexèmes. Pour ces relations, il est nécessaire d'employer soit des motifs lexicaux \citep{hearst1992automatic} soit des relations syntaxiques de deuxième ordre \citep{lenci2012identifying}. Ce sont ces dernières, aussi nommées relations paradigmatiques, que JAWS utilise. Pour la synonymie, si deux mots partagent les mêmes co-occurents dans une relation syntaxique donnée, alors ils peuvent être synonymes dans ce contexte. Pour les noms, les relations syntaxiques qui donnent les meilleurs résultats sont les relations de complément du nom, d'objet du verbe et d'apposition. Concrètement, si deux noms qui modifient les mêmes noms sont les objets des mêmes verbes ou sont apposés aux mêmes noms, alors il est probable qu'ils soient synonymes et si l'un des deux est déjà dans un synset, alors on peut y ajouter le second. Par exemple, \textit{avant-propos} et \textit{préface} partagent les mêmes compléments du noms : \textit{livre, édition, ouvrage}. Le sélecteur par synonymie peut ajouter \textit{avant-propos} une fois que le littéral \textit{préface} est dans JAWS. \citep{mouton2010jaws,mouton2010phd} décrivent d'autres sélecteurs exploitant notamment les relations d'hyperonymie et d'hyponymie.
+
+\subsubsection{Limites de JAWS}
+\label{subsec:limitations}
+
+JAWS souffre d'un certain nombre de limites. Avant tout, il ne contient que des noms, ce qui empêche de l'utiliser dans de nombreuses applications. Ensuite, la façon dont il a été évalué rend difficile tout jugement sur sa qualité. En effet, JAWS a été évalué en le comparant à l'EuroWordNet du français et à WOLF 0.1.4 (qui date de 2008). Ces deux WordNets du français ne sont pas des annotations de références : ils souffrent soit d'une précision limitée soit d'une couverture limitée.
+
+M\&C ont décidé de compléter cette évaluation limitée par une évaluation manuelle des littéraux n'existant pas dans WOLF, mais elle n'a été faite que sur 120 paires (littéral, synset). La précision de JAWS est évaluée à 67,1~\% \citep{mouton2010phd}, ce qui est plus bas que celle de WOLF 0.1.4 et considérablement plus bas que la précision de WOLF 1.0b\footnote{Nous remercions Benoît Sagot pour nous avoir fourni cette version préliminaire de WOLF 1.0.}. Ce score, même bas, est à prendre avec précaution étant donné la taille de l'échantillon de test : l'intervalle de confiance est d'environ 25~\%. Une autre limite de JAWS est qu'il ne contient qu'une seule et unique ressource qui ne correspond pas à tous les besoins.
+
+À notre connaissance, les traductions automatiques de WordNet actuelles n'existent qu'en une seule version où les auteurs décident eux-mêmes quelle métrique optimiser. Nous fournissons aussi une telle version, mais ajoutons aussi deux ressources qui peuvent servir des besoins différents. Même si notre WoNeF à haute précision est petit, il peut être utilisé comme une annotation de référence et servir pour entraîner un système d'apprentissage. Une ressource à haute couverture peut servir de base à une correction manuelle ou servir pour une intersection à d'autres ressources, ce qui est la raison pour laquelle nous en fournissons une aussi.
+
+
+\subsection{VerbNet}
+
+%\subsection{FrameNet}
 
 %%
 %% Pistes : pas dans un état de l'art !
@@ -906,7 +1052,7 @@ pour tous les langages.
 %annotation supervisée du français.
 %
 
-\section{Conclusion}
+\section{Bilan}
 
 Désambiguïsation lexicale et annotation en rôles sémantiques sont deux tâches
 qui, traitées par des approches statistiques, permettent d'obtenir des
@@ -918,48 +1064,3 @@ apprentissage. Les possibilités sont encore nombreuses et restent à être
 explorées, en particulier dans le traitement d'autres langues comme le
 français.
 
-
-
-Existing approaches to semantic role labeling are divided into two main
-branches. The first one, supervised semantic role labeling, uses a
-manually-annotated corpus and manually engineered features to train supervised
-models on the task. The most used frame-semantics resource and associated
-annotated corpus in this domain is FrameNet \citep{baker1998berkeley}.
-While this approach yields the best performance \citep{das2014frame}, the
-cost is high: the corpus used are annotated over several years and it would be
-in general too long and costly to annotate a new corpus for each new considered
-domain. To address those issues, the second mainstream approach, named semantic
-role induction, uses fully unsupervised methods: given a corpus, the goal is to
-cluster all verbs sharing the same behavior. While this is completely general,
-the results are noisier and the semantic roles are only induced and cannot
-always be mapped to human-understandable labels such as \textit{Agent} or
-\textit{Topic}.
-
-A third approach, knowledge-based semantic role labeling
-\citep{swier2004unsupervised,swier2005exploiting}, has not received much
-attention lately. The goal is to use external lexical-semantic resources for
-each new considered language and to use those resources to annotate text. The
-quality of annotation suffers, but bringing semantic role labeling to new
-domains and languages becomes easier: no corpus has to be hand-annotated.
-
-Existing work on the knowledge-based semantic role labeling task is now dated
-but the resources have much improved since then: \citep{swier2005exploiting}
-could only use VerbNet 1.5, but VerbNet 3.2 is now available. They also had to
-use a custom mapping to FrameNet for the evaluation of their method while the
-SemLink project has provided us an ``official'' FrameNet-VerbNet mapping.
-FrameNet has been also vastly improved and extended since 2005: new training
-data is available, many corrections have been made, and a full-text corpus can
-now be used to evaluate semantic role labeling in a more realistic way.
-
-
-\section{Knowledge-based semantic role labeling}
-\label{sec:srl}
-
-Knowledge-based semantic role labeling refers to algorithms that don't use a
-priori training data which would be biased and hamper performance on new
-domains. The "knowledge" is contained in VerbNet-like databases which encode
-syntactic and semantic informations about verbs in a way that allows one to map
-syntactic structure to semantic roles. Previous work on this task used the word
-"unsupervised" instead of "knowledge-based", but unsupervised semantic role
-labeling now refers to truly unsupervised work where no semantic knowledge is
-needed at all.

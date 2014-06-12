@@ -97,6 +97,18 @@ Le système présenté est similaire à celui de
 important d'évaluer à nouveau cette approche pour savoir où elle se situe par
 rapport à l'état de l'art. Nous proposons par ailleurs certaines améliorations.
 
+% Explain what's wrong with swier & stevenson
+Existing work on the knowledge-based semantic role labeling task is now dated
+but the resources have much improved since then: \citep{swier2005exploiting}
+could only use VerbNet 1.5, but VerbNet 3.2 is now available. They also had to
+use a custom mapping to FrameNet for the evaluation of their method while the
+SemLink project has provided us an ``official'' FrameNet-VerbNet mapping.
+FrameNet has been also vastly improved and extended since 2005: new training
+data is available, many corrections have been made, and a full-text corpus can
+now be used to evaluate semantic role labeling in a more realistic way.
+
+
+
 Pour commencer, chaque phrase à annoter doit d'abord être étiquetée en
 morphosyntaxe et analysée syntaxiquement. Nous laissons ici ces analyses à des
 systèmes externes présentés à la section~\ref{subsec:details_exp}. Ces analyses
@@ -335,7 +347,7 @@ identifiés.
 $$ \text{rôle} = \arg\max_{\text{rôle}} p(\text{rôle} \vert \text{prédicat}, \text{fonction})$$
 
 La fonction est la fonction grammaticale identifiée d'après l'analyse
-syntaxique : si un syntagme apparaît avant le verbe, il est sujet, si il est
+syntaxique : si un syntagme apparaît avant le verbe, il est sujet, s'il est
 après le verbe, et il est objet, et ainsi de suite. Les syntagmes
 prépositionnels sont traités à part : la préposition qui introduit le syntagme
 est considérée à part.

@@ -23,90 +23,11 @@ couverture contenant 109~447 paires (littéral, synset).
 
 WordNet est une base de données lexicale en développement depuis les années 80 \citep{fellbaum1998wordnet}. Cette base est organisée autour du concept de \textbf{synset} (ensemble de synonymes), chaque synset représentant un sens très précis à l'aide d'une définition et d'un certain nombre de mots que nous nommons littéraux. Ces synsets sont liés par différentes relations sémantiques telles que la méronymie et l'hyponymie. Malgré des défauts reconnus \citep{boyd2006adding} principalement liés à la granularité trop fine des sens, WordNet reste une ressource extrêmement utile et reproduire ce travail pour d'autres langues serait coûteux et difficile à maintenir. Et malgré quelques problèmes théoriques, \cite{fellbaum2007connecting,demelo2008utility} montrent que traduire WordNet en gardant sa structure et ses synsets mène à des ressources linguistiques utiles.
 
-Les traductions automatiques de WordNet emploient une approche dite d'extension (\textit{extend approach}) : la structure de WordNet est préservée et seuls les littéraux sont traduits. Trois techniques principales représentent cette approche dans la littérature. La plus simple utilise des dictionnaires bilingues pour faciliter le travail des lexicographes qui filtrent ensuite manuellement les entrées proposées \citep{vossen1998eurowordnet,pianta2002developing,tufis2004balkanet}. Une deuxième méthode de traduction utilise des corpus parallèles, ce qui évite l'utilisation de dictionnaires qui peuvent entraîner un biais lexicographique. \cite{dyvik2004translations} représente cette méthode en s'appuyant sur des \textit{back-translations} entre le norvégien et l'anglais, alors que \citep{sagot2008construction} combinent un lexique multilingue et les différents WordNets de BalkaNet comme autant de sources aidant à la désambiguïsation. Enfin, plus récemment, des ressources telles que Wikipédia ou le Wiktionnaire ont été explorées. Grâce aux nombreux liens entre les différentes langues de ces ressources, il est possible de créer de nouveaux wordnets \citep{demelo2009towards,navigli2010babelnet} ou d'améliorer des wordnets existants \citep{hanoka2012wordnet}.
-
-Concernant le français, l'EuroWordNet \citep{vossen1998eurowordnet} est la première traduction française de WordNet. C'est une ressource d'une couverture limitée qui demande des améliorations significatives avant de pouvoir être utilisée \citep{jacquin2006systemes}, et qui n'est ni libre ni librement accessible. WOLF est une seconde traduction initialement construite à l'aide de corpus parallèles \citep{sagot2008construction} et étendue depuis avec différentes techniques \citep{apidianaki2012applying}. WOLF est distribué sous une licence libre compatible avec la LGPL et c'est aujourd'hui le WordNet français standard. Enfin, JAWS \citep{mouton2010jaws} est une traduction des noms de WordNet développée à l'aide de dictionnaires bilingues et d'un modèle de langue syntaxique.
+% état de l'art supprimé, /!\ transition
 
 Nos travaux étendent et améliorent les techniques utilisées dans JAWS et l'évaluent à l'aide d'une adjudication de deux annotateurs. Le résultat de ce travail est WoNeF\footnote{Ce travail a été en partie financé par le projet ANR ASFALDA ANR-12-CORD-0023.}. Il se décline en trois versions pour répondre à différents besoins. Le WoNeF principal a un F-score de 70.9~\%, une autre version a une précision de 93.3~\%, et une dernière contient 109~447 paires (littéral, synset).
 
 L'approche de JAWS consiste à combiner des sélecteurs variés permettant de choisir les traductions adaptées à chaque synset (section \ref{sec:jaws}). Les contributions principales de cet article sont l'amélioration de JAWS et sa complétion en ajoutant les verbes et les adjectifs (section \ref{sec:improving_jaws}) et son évaluation (sections \ref{sec:evaluating_jaws} et \ref{sec:results}). Cette évaluation se fait à travers une adjudication elle-même validée par la mesure de l'accord inter-annotateur, ce qui montre la validité de l'approche par extension pour traduire WordNet.
-
-\section{JAWS}
-\label{sec:jaws}
-
-\subsection{Processus de traduction}
-\label{subsec:translation_process}
-
-\cite{mouton2010jaws} ont conçu JAWS comme un algorithme faiblement supervisé qui ne demande aucune donnée annotée manuellement. Pour traduire un wordnet source, JAWS s'appuie sur un dictionnaire bilingue et un modèle de langue syntaxique pour le langage cible.
-
-Le dictionnaire bilingue est une concaténation du dictionnaire bilingue
-SCI-FRAN-EurADic\footnote{\url{http://catalog.elra.info/product_info.php?products_id=666}}
-et des liens entre les Wiktionnaires français et
-anglais\footnote{\url{http://www.wiktionary.org/}}. Le modèle de langue
-syntaxique a été entraîné sur un grand corpus extrait du web
-\citep{grefenstette2007conquering}. Le corpus a été analysé par LIMA
-\citep{besancon2010lima}, une chaîne d'analyse linguistique ici utilisée comme
-un analyseur syntaxique à base de règles produisant des dépendances syntaxiques
-fines. Pour une relation donnée $r$ et un mot $x$, le modèle de langue indique
-quels sont les 100 premiers mots co-occurrant le plus fréquemment avec $x$ dans
-la relation $r$. Avec le mot \textit{avion} et la relation de complément du
-nom, le mot \textit{billet} modifie le plus \textit{avion} : \textit{billet
-d'avion} est fréquent dans le corpus. Ce modèle de langue peut-être visualisé
-sur \url{http://www.kalisteo.fr/demo/semanticmap/index.php}.
-
-Grâce aux dictionnaires, JAWS n'a pas besoin de sélectionner les littéraux de chaque synset parmi l'ensemble du vocabulaire mais seulement parmi un petit nombre de candidats (9 en moyenne). Le processus de traduction se fait en trois étapes :
-\begin{enumerate}
-    \item Créer un wordnet vide : la structure de WordNet est préservée, mais les synsets eux-mêmes n'ont pas de littéraux associés.
-    \item Choisir les traductions les plus faciles parmi les candidats des dictionnaires pour commencer à remplir JAWS.
-    \item Étendre JAWS de manière incrémentale en utilisant le modèle de langue, les relations entre synsets et le JAWS déjà existant.
-\end{enumerate}
-
-\paragraph{Sélecteurs initiaux} Quatre algorithmes que nous nommons sélecteurs initiaux choisissent des traductions correctes parmi celles qui sont proposées par les dictionnaires. Premièrement, les mots qui apparaissent dans un seul synset ne sont pas ambigüs et il suffit d'ajouter toutes leurs traductions au WordNet français : c'est le sélecteur par monosémie. C'est le cas de \textit{grumpy} : toutes ses traductions sont validées dans le synset où il apparaît. Deuxièmement, le sélecteur par unicité identifie les mots n'ayant qu'une seule traduction et la valident dans tous les synsets où elle est présente. Les cinq synsets contenant \textit{pill} en anglais sont ainsi complétés avec \textit{pilule}. Un troisième sélecteur vise à traduire les mots qui ne sont pas dans le dictionnaire en utilisant directement la traduction anglaise : c'est le sélecteur des transfuges. Un quatrième sélecteur utilise la distance d'édition de Levenshtein : si la distance entre un mot anglais et sa traduction est petite, on peut considérer que c'est le même sens (c'est le cas par exemple pour \textit{portion} ou encore \textit{university}), malgré l'existence de certains faux amis. Ces quatre sélecteurs produisent une première version du WordNet français qui contient assez de traductions pour pouvoir ensuite utiliser le modèle de langue et continuer de compléter les synsets.
-
-\paragraph{Expansion de JAWS} JAWS étant partiellement rempli, une nouvelle étape d'expansion tire parti des relations entre les synsets de WordNet pour valider de nouvelles traductions. Par exemple, si :
-
-\begin{itemize}
-    \item un synset S1 est méronyme d'un synset S2 dans WordNet,
-    \item il existe un contexte où un littéral dans S1 est méronyme d'un littéral candidat C dans S2,
-\end{itemize}
-alors ce littéral est considéré comme correct. La tâche de traduction est ainsi réduite à une tâche de comparaison entre d'une part les relations lexicales entre les synsets de WordNet et d'autre part les relations lexicales entre les lexèmes du français.
-
-Prenoms l'exemple de \textit{quill} qui peut se traduire par \textit{piquant} ou \textit{plume} (Figure \ref{meronymyexample}). Dans WordNet, \textit{quill} est méronyme de \textit{porcupine} qui a déjà été traduit par \textit{porc-épic} par un sélecteur initial. Dans le modèle de langue, \textit{piquant} fait partie des compléments du noms de \textit{porc-épic} mais ce n'est pas le cas de \textit{plume}. Ici, la relation de complément du nom implique la méronymie et c'est donc \textit{piquant} qu'il faut choisir comme la traduction correcte de \textit{quill}. Le modèle de langue a permis la désambiguïsation parmi les deux traductions possibles.
-
-\tikzstyle{block}=[draw, fill=blue!5, rectangle, minimum height=0.5cm, minimum width=3cm, text width=5cm]
-
-\begin{figure}[!ht]
-  \centering
-  \begin{tikzpicture}[auto, node distance=2cm,>=latex']
-    % Inspired from http://www.texample.net/tikz/examples/control-system-principles/
-    % first place and connect the outer blocks that represent synsets
-      \node [block, text width=5cm] (quill) {~\\\textbf{Synset S1} \\ - Anglais : quill \\ - Français : piquant? plume? \\ (a stiff hollow protective spine on a porcupine) \\ ~ };
-      \node [block, text width=4.0cm, right of=quill, node distance=9cm] (porcupine) {\textbf{Synset S2} \\ - Anglais : porcupine, hedgehog \\ - Français : porc-épic \\ (rodents with sharp erectile bristles mingled with the fur)};
-    \draw [<-] (porcupine) -- node[above] {méronyme de} (quill);
-    \draw [<-] (porcupine) -- node[below] {(relation WordNet)} (quill);
-
-    % then the syntactic model relations
-    \node [block, below of=porcupine, text width=4.0cm, node distance=3cm] (porcupinesynt1) {porc-épic};
-    \node [block, below of=quill, node distance=3cm] (quillsynt1) {\Large{mémoire}, \Large{piquant}, \large{poil}, \large{épine}, yéti, ragoût, grotte, \small{tactique}, \small{pelage}, \small{dextre}, \small{aiguille}, ...};
-    \draw [<-] (porcupinesynt1) -- node[above] {complément du nom de} (quillsynt1);
-    \draw [<-] (porcupinesynt1) -- node[below] {(modèle de langue)} (quillsynt1);
-
-  \end{tikzpicture}
-  \caption{\protect\centering\label{meronymyexample}Traduction via la relation de méronymie de partie.}
-\end{figure}
-
-Un problème potentiel avec cette approche est que la relation de complément du nom n'est pas limitée à la méronymie. Par exemple, le mot \textit{mémoire} qui apparaît dans le modèle de langue vient d'un livre intitulé \textit{Mémoires d'un porc-épic}. Heureusement, \textit{mémoire} n'est pas dans les candidats de \textit{quill} et ne peut pas être choisi comme une traduction. Paradoxalement, le modèle de langue ne peut pas choisir entre deux mots très différents, mais est capable de choisir la traduction correcte d'un mot polysémique. Alors que traduire WordNet automatiquement avec un dictionnaire ou un modèle de langue syntaxique est impossible, combiner les deux ressources permet de résoudre le problème.
-
-Chaque sélecteur suit le même principe que le sélecteur par méronymie de partie et traduit de nouveaux synsets en identifiant les relations entre lexèmes via le modèle de langue syntaxique. La correspondance entre la relation de complément du nom et la relation de méronymie est directe, mais ce n'est pas le cas pour les autres relations : il n'y a par exemple pas de relation syntaxique qui exprime directement la synonymie entre deux lexèmes. Pour ces relations, il est nécessaire d'employer soit des motifs lexicaux \citep{hearst1992automatic} soit des relations syntaxiques de deuxième ordre \citep{lenci2012identifying}. Ce sont ces dernières, aussi nommées relations paradigmatiques, que JAWS utilise. Pour la synonymie, si deux mots partagent les mêmes co-occurents dans une relation syntaxique donnée, alors ils peuvent être synonymes dans ce contexte. Pour les noms, les relations syntaxiques qui donnent les meilleurs résultats sont les relations de complément du nom, d'objet du verbe et d'apposition. Concrètement, si deux noms qui modifient les mêmes noms sont les objets des mêmes verbes ou sont apposés aux mêmes noms, alors il est probable qu'ils soient synonymes et si l'un des deux est déjà dans un synset, alors on peut y ajouter le second. Par exemple, \textit{avant-propos} et \textit{préface} partagent les mêmes compléments du noms : \textit{livre, édition, ouvrage}. Le sélecteur par synonymie peut ajouter \textit{avant-propos} une fois que le littéral \textit{préface} est dans JAWS. \citep{mouton2010jaws,mouton2010phd} décrivent d'autres sélecteurs exploitant notamment les relations d'hyperonymie et d'hyponymie.
-
-\subsection{Limites de JAWS}
-\label{subsec:limitations}
-
-JAWS souffre d'un certain nombre de limites. Avant tout, il ne contient que des noms, ce qui empêche de l'utiliser dans de nombreuses applications. Ensuite, la façon dont il a été évalué rend difficile tout jugement sur sa qualité. En effet, JAWS a été évalué en le comparant à l'EuroWordNet du français et à WOLF 0.1.4 (qui date de 2008). Ces deux WordNets du français ne sont pas des annotations de références : ils souffrent soit d'une précision limitée soit d'une couverture limitée.
-
-M\&C ont décidé de compléter cette évaluation limitée par une évaluation manuelle des littéraux n'existant pas dans WOLF, mais elle n'a été faite que sur 120 paires (littéral, synset). La précision de JAWS est évaluée à 67,1~\% \citep{mouton2010phd}, ce qui est plus bas que celle de WOLF 0.1.4 et considérablement plus bas que la précision de WOLF 1.0b\footnote{Nous remercions Benoît Sagot pour nous avoir fourni cette version préliminaire de WOLF 1.0.}. Ce score, même bas, est à prendre avec précaution étant donné la taille de l'échantillon de test : l'intervalle de confiance est d'environ 25~\%. Une autre limite de JAWS est qu'il ne contient qu'une seule et unique ressource qui ne correspond pas à tous les besoins.
-
-À notre connaissance, les traductions automatiques de WordNet actuelles n'existent qu'en une seule version où les auteurs décident eux-mêmes quelle métrique optimiser. Nous fournissons aussi une telle version, mais ajoutons aussi deux ressources qui peuvent servir des besoins différents. Même si notre WoNeF à haute précision est petit, il peut être utilisé comme une annotation de référence et servir pour entraîner un système d'apprentissage. Une ressource à haute couverture peut servir de base à une correction manuelle ou servir pour une intersection à d'autres ressources, ce qui est la raison pour laquelle nous en fournissons une aussi.
 
 \section{WoNeF: un JAWS nominal amélioré}
 \label{sec:improving_jaws}
