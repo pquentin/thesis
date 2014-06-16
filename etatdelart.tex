@@ -9,38 +9,34 @@
 
 \section{Le sens des mots}
 
-Avant de réaliser un système de désambiguïsation lexicale, il faut établir ce
-qu'est un sens. Nous nous éloignons ici de toute considération sur les
-approches cognitives de la représentation du sens et de la modélisation du
-cerveau \citep{harnad1990symbol} pour nous concentrer sur des inventaires de
-sens finis.
+La question du sens des mots occupe une place importante dans nos travaux,
+notamment pour la traduction des ressources lexicales (Chapitres~\ref{ch:wonef}
+et \ref{ch:verbnet}). Nous commençons par étudier des critères permettant de
+distinguer deux sens d'un même mot afin d'arriver à la création d'un inventaire
+de sens dit «~discret~» dans lequel les différents sens d'un mot sont tous
+distincts. Dans cette première partie, nous nous éloignons de toute
+considération sur les approches cognitives de la représentation du sens et de
+la modélisation du cerveau \citep{harnad1990symbol} pour nous concentrer, donc,
+sur des inventaires de sens finis.
+
+Ensuite, nous présentons deux familles de modèles de langue : les modèles à
+base de n-grams et les modèles neuronaux. Enfin, nous étudions la question de
+la similarité entre deux mots et deux groupes de mots à l'aide de ces modèles
+de langue.
 
 
-Même si la section \ref{sensfunky} présente d'autres approches, même si WordNet
-est une approche cognitive, et même si les réseaux de neurones seraient
-"inspirés du cerveau"?
+\subsection{Distinction de deux sens}
 
-Cela nous permet de formuler le problème de la
-désambiguïsation comme un problème de classification : pour chaque occurrence
-d'un mot dans un texte, nous devons lui assigner un des sens recensés dans
-notre inventaire. Cette section nous permet de soulever les difficultés liées à
-la création et à l'utilisation d'un tel inventaire. Si il est établi qu'un mot
-puisse avoir différents sens, il n'existe pas de solution optimale pour
-distinguer puis représenter ces différents sens pour chaque mot.
-
-\subsection{Représentations discrètes}
-
-Nous nous posons ici la question de la distinction entre deux sens ; s'ils ne
-sont pas suffisamment distincts, alors une seule entrée dans l'inventaire
-suffit. Cette approche n'est pas suffisante pour établir un inventaire complet,
-comme nous le verrons à la section \ref{besoincorpus}, mais permet d'identifier
-un certain nombre de caractéristiques des sens des mots.
+Nous nous posons ici la question de la distinction entre deux sens. Si deux
+sens considérés ne peuvent pas être distingués, alors ils appartiennent à la
+même entrée dans notre inventaire de sens. La réponse à cette question est une
+première étape vers la création d'un inventaire de tous les sens d'un mot.
 
 \subsubsection{Homonymie et polysémie}
 
-Prenons par exemple la définition du mot « sol » dans le \textit{Dictionnaire
-de l'Académie Française, huitième édition}. Les sens sont groupés entre eux, et
-un des groupes contient ces deux sens :
+La première question est de savoir si deux sens sont en relation d'homonymie ou
+de polysémie. Considérons ces deux sens de la définition du mot « sol » dans le
+\emph{Dictionnaire de l'Académie Française, huitième édition} :
 
 \begin{enumerate}
 
@@ -51,88 +47,79 @@ un des groupes contient ces deux sens :
 
 \end{enumerate}
 
-Envisageons une phrase quelconque contenant le mot sol : « Le problème des sols
-pollués ne fait pas recette auprès du grand public ». Est-ce qu'on considère la
-surface du sol ou sa nature ? Il ne serait pas surprenant d'observer un
-désaccord entre deux lexicographes sur ce point. Une solution possible pour
-faire face à ce problème est la distinction homonymie/polysémie.
+Pour la phrase \emph{Le problème des sols pollués ne fait pas recette auprès du
+grand public}, le sens correct n'est pas clair et deux annotateurs risquent
+d'être en désaccord étant donné que les deux sens de la définition rentrent en
+jeu dans cette phrase. Il est possible de construire une telle phrase ambigüe
+parce que le mot est polysémique. En effet, les deux sens cités ci-dessus
+partagent la même étymologie (du latin \textit{solum}).
 
-En effet, les deux sens cités ci-dessus partagent la même étymologie (du latin
-\textit{solum}) et sont considérés comme polysémiques. Au contraire, le sens «
-Cinquième note de la gamme d'\textit{ut} » est un autre sens qui possède sa
-propre étymologie (syllabe d'un poème du VIII\textsuperscript{ème} siècle). Le
-sens « note de musique » est différent et lié aux sens « Surface » par une
-relation d'homonymie. Dans le \textit{Dictionnaire de l'Académie Français} et
-le \textit{Trésor de la Langue Français informatisé}, c'est cette distinction
-polysémie/homonymie qui semble être utilisée pour distinguer les groupements de
-sens.
-
-Il semble alors intéressant d'utiliser cette approche pour créer un inventaire
-de sens : ne distinguer que les homonymes, et s'éloigner des distinctions trop
-complexes et fines pour être utilisées dans un systèmes de désambiguïsation
-lexicale. \cite{yarowsky1995unsupervised} obtient d'ailleurs d'excellents
-résultats en se limitant à la distinction de quelques homonymes.
-
-Malheureusement, cette approche ne fonctionne que pour des mots choisis avec
-attention et aux bonnes propriétés, ce qui n'est pas applicable à plus large
-échelle. Par exemple, le mot « entrée » ne dispose que d'une entrée dans le
-\textit{TLFi} là où « sol » en avait plusieurs. Pourtant, certains sens, bien
-que partageant la même étymologie, sont manifestement différents. L'entrée dans
-un lieu et l'entrée d'un dictionnaire partagent la même origine, mais sont
-utilisés de manière très différente. Un humain ne considère plus que l'entrée
+Au contraire, un autre sens de sol («~Cinquième note de la gamme
+d'\textit{ut}~») a lui sa propre étymologie (syllabe d'un poème du
+VIII\textsuperscript{ème} siècle). Les sens « note de musique » et « surface »
+sont eux liés par une relation d'homonymie et sont très faciles à distinguer.
+\cite{yarowsky1995unsupervised} obtient d'ailleurs d'excellents résultats sur
+la tâche de désambiguïsation lexicale en se limitant à la distinction de
+quelques homonymes. Certains sens, bien que partageant la même étymologie et
+n'étant donc pas homonymes, sont aussi très faciles à distinguer . L'entrée
+dans un lieu et l'entrée d'un dictionnaire partagent la même origine, mais sont
+utilisés de manière très différente : un humain ne considère plus que l'entrée
 est un moyen de s'introduire dans le dictionnaire, mais simplement que c'est un
-des mots présents.
+des mots présents dans ce dictionnaires.
+
+La suite de cette section ne considère pas explicitement ces relations
+homonymes ou proches de l'homonymie pour se concentrer sur les distinctions
+plus subtiles et en entraînant le plus de désaccords.
 
 \subsubsection{Traductions}
 
-Une autre proposition intéressante est celle de la traduction. Si les deux sens
-d'un mot dans une langue source ont une traduction différente dans une langue
-cible, alors ils réfèrent à deux sens. Par exemple, « entrée » est traduit par
-« entry » ou « entrance » suivant qu'il réfère à l'entrée d'un dictionnaire ou
-d'un lieu. Dans cet esprit, \cite{resnik1997perspective} proposent de traiter
-comme distincts les sens qui ne sont pas tous traduits de la même manière dans
-un ensemble de langues cibles donné. Cette approche n'est pas parfaite : par
-exemple, le mot aile est traduit de la même manière en anglais, allemand,
-espagnol et italien, qu'il réfère à l'aile d'un bâtiment ou l'aile d'un oiseau.
-Cependant, l'approche a l'avantage d'être objective ; et c'est la première
-méthode qui est adaptée à une tâche particulière : c'est en effet la
-représentation parfaite pour une désambiguïsation lexicale ayant pour
-application la traduction automatique. Différents travaux ont poursuivi cette
-voie, en se basant notamment sur EuroWordNet \citep{tufis2006from} et sur des
-corpus parallèles \citep{chan2007nus,zhong2009word,plas2011automatic}.
+Un premier moyen de distinguer deux sens est de considérer une application qui
+se servira de cette distinction, afin de s'adapter au mieux à cette
+application. La traduction automatique est un bon exemple, et donne ce critère
+: si un mot dans une langue source a plusieurs traductions dans une langue
+cible, alors il faut distinguer ces deux sens \citep{resnik1997perspective}.
+Par exemple, « entrée » est traduit par « entry » ou « entrance » suivant qu'il
+réfère à l'entrée d'un dictionnaire ou d'un lieu. Cette approche n'est pas
+parfaite : par exemple, le mot aile est traduit de la même manière en anglais,
+allemand, espagnol et italien, qu'il réfère à l'aile d'un bâtiment ou l'aile
+d'un oiseau.  Cependant, l'approche a l'avantage d'être objective ; et c'est la
+première méthode qui est adaptée à une tâche particulière.
+% TODO citations
+Différents travaux ont poursuivi cette voie, en se basant notamment sur
+EuroWordNet \citep{tufis2006from} et sur des corpus parallèles
+\citep{chan2007nus,zhong2009word,plas2011automatic}.
 
 \subsubsection{Test d'ambiguïté}
 
-\cite{kilgarriff1997don} mentionne l'existence des tests d'ambiguïté pour
-répondre à la question « Ces deux sens sont-il différents ? ». Le test
-considéré le plus efficace est présenté : celui des lectures croisées. Pour
-savoir si les sens « main gauche » et « main droite » doivent être différenciés
-dans un inventaire, on pourra écrire la phrase suivante : « Paul a levé la
-main, tout comme Jean ». Paul peut avoir levé la main gauche et Jean la main
-droite, ce qui signifie que ces sens ne sont pas distincts. Pour distinguer le
-sens « jeu » et « papillon » du mot « échiquier », on peut penser à la phrase «
-Paul est arrivé avec un échiquier, tout comme Jean ». Ici, il n'est pas
-\textit{a priori} possible que Paul soit arrivé avec un jeu, et Jean avec un
-papillon ; ce qui indique que ces sens sont différents.
+\cite{kilgarriff1997don} mentionne l'existence différents tests d'ambiguïté, le
+plus efficace étant celui des lectures croisées. Pour savoir si les sens « main
+gauche » et « main droite » doivent être différenciés dans un inventaire, on
+pourra écrire la phrase suivante : « Paul a levé la main, tout comme Jean ».
+Paul peut avoir levé la main gauche et Jean la main droite, ce qui signifie que
+ces sens ne sont pas distincts. Pour distinguer le sens « jeu » et « papillon »
+du mot « échiquier », on peut penser à la phrase « Paul est arrivé avec un
+échiquier, tout comme Jean ». Ici, il n'est pas \textit{a priori} possible que
+Paul soit arrivé avec un jeu, et Jean avec un papillon ; ce qui indique que ces
+sens sont différents, ce qui valide l'utilisation du test.
 
-\subsubsection{Le besoin d'un corpus}
+\subsection{Concordancier sur un corpus}
 \label{besoincorpus}
 
-Après avoir expliqué en quoi ces tests ne sont pas faciles à construire et ne
-donnent pas de résultats satisfaisants dans un nombre important de cas,
-\cite{kilgarriff1997don} indique que la meilleure solution est celle adoptée
-par les lexicographes. Il faut définir un corpus et utiliser un concordancier
-montrant les différents usages d'un mot donné. Le lexicographe sépare alors ces
-différents usages en \textit{clusters}, ce qui lui permet de définir ce qui
-différencie les sens selon lui. Une phase d'ajustement peut suivre pour
-harmoniser les clusters étant donné des observations faites précédemment, et ce
-n'est qu'après ces étapes que l'écriture de l'entrée du dictionnaire peut avoir
-lieu. L'avantage principal est que le choix est désormais basé sur des données
-réelles, et n'est pas de la simple spéculation. \cite{kilgarriff1997don} cite
-ensuite quelques critères utiles pour réaliser le clustering. La faible
-fréquence est souvent un argument pour laisser un sens de côté : il peut être
-trop spécialisé pour avoir une utilité générale.
+Cependant, les tests d'ambiguïté ne sont pas faciles à construire et ne donnent
+pas de résultats satisfaisants dans un nombre important de cas. La meilleure
+solution, utilisée par les lexicographes aujourd'hui selon
+\cite{kilgarriff1997don}, est d'utiliser un concordancier sur un corpus
+important. Le lexicographe sépare alors ces différents usages, ce qui lui
+permet de définir ce qui différencie les sens selon lui. Une phase d'ajustement
+peut suivre pour harmoniser les groupes obtenus étant donné des observations
+faites précédemment, et ce n'est qu'après ces étapes que l'écriture de l'entrée
+du dictionnaire peut avoir lieu. L'avantage principal est que le choix est
+désormais basé sur des données réelles, et n'est pas de la simple spéculation.
+\cite{kilgarriff1997don} cite ensuite quelques critères utiles pour réaliser le
+clustering. La faible fréquence est souvent un argument pour laisser un sens de
+côté : il peut être trop spécialisé pour avoir une utilité générale.
 
+% parler de domaines
 Ainsi, les sens ne sont pas définis en tant que tels, mais sont avant tout des
 occurrences dans un contexte donné. L'auteur conclut en affirmant qu'un
 ensemble de sens n'est défini que par rapport à un corpus donné, et qu'il est
@@ -156,11 +143,12 @@ respect de la licence restrictive, ce qui explique que ces dictionnaires ont
 rapidement étés abandonnés au profit de WordNet
 \citep{edmonds2002introduction}, voire du Wiktionnaire
 \citep{mouton2010jaws}.%,nguyen2012using}.
+% pas le seul inconvénient des dictionnaires
 
 En effet, WordNet est disponible sous une licence peu restrictive qui permet
 une utilisation à la fois à des fins de recherche mais aussi de
 commercialisation. Les sens proposés ont étés utilisés pour annoter le corpus
-SemCor, ce qui a permi d'entraîner de nombreux systèmes supervisés. WordNet est
+SemCor, ce qui a permis d'entraîner de nombreux systèmes supervisés. WordNet est
 rapidement devenu le standard de la désambiguïsation lexicale et a été utilisé
 dans les campagnes d'évaluation internationales d'analyse sémantique
 \citep{navigli2009word}.
@@ -183,7 +171,7 @@ inventaires de sens ont étés developpés :
 
 \begin{itemize}
 
-    \item Ontonotes \citep{hovy2006ontonotes} a choisi de regrouper
+    \item OntoNotes \citep{hovy2006ontonotes} a choisi de regrouper
         manuellement les sens WordNet jusqu'à obtenir un accord
         inter-annotateur de 90\% .
 
@@ -192,12 +180,14 @@ inventaires de sens ont étés developpés :
         inventaire entièrement nouveau, conçu dans l'objectif de corriger les
         erreurs faites avec WordNet\citep{kilgarriff2010detailed}.
 
+        % Sens-Texte Nancy ?
+
 \end{itemize}
 
 Ces deux inventaires semblent plus adaptés que WordNet pour la désambiguïsation
 lexicale \citep{navigli2012quick}, mais ils ne sont pas utilisables librement à
-des fins commerciales et et des applications l'utilisant doivent encore voir le
-jour.
+des fins commerciales et et des applications les utilisant doivent encore voir
+le jour.
 
 \subsection{Représentations continues}
 \label{sensfunky}
@@ -219,11 +209,12 @@ exemple, un couteau contient une lame et sert à couper. Cette approche est
 semblable à celle qui définit le sens d'un mot comme une simple suite de sèmes.
 
 Enfin, différents travaux mentionnent la possibilité d'utiliser plus d'un sens
-pour un mot donné. En particulier, nous avons calculé que 0.3\% des occurrences
-de SemCor sont étiquetées avec plus d'un sens. \cite{smith2011rumble} note
-quant à lui la possibilité d'utiliser des distributions de probabilité pour
-définir un sens précis qui pourrait appartenir à plusieurs sens définir dans un
-inventaire.
+pour un mot donné.
+% TODO citer DianaMcCarthy
+En particulier, nous avons calculé que 0.3\% des occurrences de SemCor sont
+étiquetées avec plus d'un sens. \cite{smith2011rumble} note quant à lui la
+possibilité d'utiliser des distributions de probabilité pour définir un sens
+précis qui pourrait appartenir à plusieurs sens définir dans un inventaire.
 
 \subsubsection{Induction de sens}
 \label{distrib}
