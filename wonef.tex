@@ -2,7 +2,6 @@
 \chapter{WoNeF : une traduction de WordNet}
 \label{ch:wonef} 
 
-% Gaël: abstract trying to be "à la" Gregory grefenstette
 Identifier les sens possibles des mots du vocabulaire est un problème difficile
 demandant un travail manuel très conséquent. Ce travail a été entrepris pour
 l'anglais : le résultat est la base de données lexicale WordNet, pour laquelle
@@ -21,75 +20,202 @@ couverture contenant 109~447 paires (littéral, synset).
 \section{Introduction}
 \label{sec:intro}
 
-WordNet est une base de données lexicale en développement depuis les années 80 \citep{fellbaum1998wordnet}. Cette base est organisée autour du concept de \textbf{synset} (ensemble de synonymes), chaque synset représentant un sens très précis à l'aide d'une définition et d'un certain nombre de mots que nous nommons littéraux. Ces synsets sont liés par différentes relations sémantiques telles que la méronymie et l'hyponymie. Malgré des défauts reconnus \citep{boyd2006adding} principalement liés à la granularité trop fine des sens, WordNet reste une ressource extrêmement utile et reproduire ce travail pour d'autres langues serait coûteux et difficile à maintenir. Et malgré quelques problèmes théoriques, \cite{fellbaum2007connecting,demelo2008utility} montrent que traduire WordNet en gardant sa structure et ses synsets mène à des ressources linguistiques utiles.
+WordNet est une base de données lexicale en développement depuis les années 80
+\citep{fellbaum1998wordnet}. Cette base est organisée autour du concept de
+\textbf{synset} (ensemble de synonymes), chaque synset représentant un sens
+très précis à l'aide d'une définition et d'un certain nombre de mots que nous
+nommons littéraux. Ces synsets sont liés par différentes relations sémantiques
+telles que la méronymie et l'hyponymie. Malgré des défauts reconnus
+\citep{boyd2006adding} principalement liés à la granularité trop fine des sens,
+WordNet reste une ressource extrêmement utile et reproduire ce travail pour
+d'autres langues serait coûteux et difficile à maintenir. Et malgré quelques
+problèmes théoriques, \cite{fellbaum2007connecting,demelo2008utility} montrent
+que traduire WordNet en gardant sa structure et ses synsets mène à des
+ressources linguistiques utiles.
 
 % état de l'art supprimé, /!\ transition
 
-Nos travaux étendent et améliorent les techniques utilisées dans JAWS et l'évaluent à l'aide d'une adjudication de deux annotateurs. Le résultat de ce travail est WoNeF\footnote{Ce travail a été en partie financé par le projet ANR ASFALDA ANR-12-CORD-0023.}. Il se décline en trois versions pour répondre à différents besoins. Le WoNeF principal a un F-score de 70.9~\%, une autre version a une précision de 93.3~\%, et une dernière contient 109~447 paires (littéral, synset).
+Nos travaux étendent et améliorent les techniques utilisées dans JAWS et
+l'évaluent à l'aide d'une adjudication de deux annotateurs. Le résultat de ce
+travail est WoNeF\footnote{Ce travail a été en partie financé par le projet ANR
+ASFALDA ANR-12-CORD-0023.}. Il se décline en trois versions pour répondre à
+différents besoins. Le WoNeF principal a un F-score de 70.9~\%, une autre
+version a une précision de 93.3~\%, et une dernière contient 109~447 paires
+(littéral, synset).
 
-L'approche de JAWS consiste à combiner des sélecteurs variés permettant de choisir les traductions adaptées à chaque synset (section \ref{sec:jaws}). Les contributions principales de cet article sont l'amélioration de JAWS et sa complétion en ajoutant les verbes et les adjectifs (section \ref{sec:improving_jaws}) et son évaluation (sections \ref{sec:evaluating_jaws} et \ref{sec:results}). Cette évaluation se fait à travers une adjudication elle-même validée par la mesure de l'accord inter-annotateur, ce qui montre la validité de l'approche par extension pour traduire WordNet.
+L'approche de JAWS consiste à combiner des sélecteurs variés permettant de
+choisir les traductions adaptées à chaque synset (section \ref{sec:jaws}). Les
+contributions principales de cet article sont l'amélioration de JAWS et sa
+complétion en ajoutant les verbes et les adjectifs (section
+\ref{sec:improving_jaws}) et son évaluation (sections \ref{sec:evaluating_jaws}
+et \ref{sec:results}). Cette évaluation se fait à travers une adjudication
+elle-même validée par la mesure de l'accord inter-annotateur, ce qui montre la
+validité de l'approche par extension pour traduire WordNet.
 
 \section{WoNeF: un JAWS nominal amélioré}
 \label{sec:improving_jaws}
 
-Cette section présente les trois améliorations essentielles qui ont étés apportées à JAWS. Un changement non détaillé est celui qui a mené à une meilleure rapidité d'exécution : JAWS se construit en plusieurs heures contre moins d'une minute pour WoNeF, ce qui a facilité les expérimentations.
+Cette section présente les trois améliorations essentielles qui ont étés
+apportées à JAWS. Un changement non détaillé est celui qui a mené à une
+meilleure rapidité d'exécution : JAWS se construit en plusieurs heures contre
+moins d'une minute pour WoNeF, ce qui a facilité les expérimentations.
 
 \subsection{Sélecteurs initiaux}
 \label{subsec:revisiting_extraction_heuristics}
 
-% (En fait on ne l'a pas fait) JAWS extraction heuristics were suboptimal. To overcome this problem, we first allowed multiword expressions (MWE) as translation candidates. Even if the syntactic language model does not handle multiword expressions, heuristics do not share this limitation. 97~\% of nouns MWE, 75~\% of verbs MWE and 95~\% of adjectives MWE are monosemous: we expect heuristics to produce good results on multiword expressions.
+% (En fait on ne l'a pas fait) JAWS extraction heuristics were suboptimal. To
+% overcome this problem, we first allowed multiword expressions (MWE) as
+% translation candidates. Even if the syntactic language model does not handle
+% multiword expressions, heuristics do not share this limitation. 97~\% of
+% nouns MWE, 75~\% of verbs MWE and 95~\% of adjectives MWE are monosemous: we
+% expect heuristics to produce good results on multiword expressions.
 
-Les sélecteurs initiaux de JAWS ne sont pas optimaux. Alors que les sélecteurs par monosémie et par unicité sont conservés, nous avons changé les autres sélecteurs. Premièrement, le sélecteur des transfuges est supprimé : sa précision était très basse, même pour les noms.
+Les sélecteurs initiaux de JAWS ne sont pas optimaux. Alors que les sélecteurs
+par monosémie et par unicité sont conservés, nous avons changé les autres
+sélecteurs. Premièrement, le sélecteur des transfuges est supprimé : sa
+précision était très basse, même pour les noms.
 
-Deuxièmement, un nouveau sélecteur considère les traductions candidates provenant de plusieurs mots anglais différents dans un synset donné : c'est le sélecteur par sources multiples. Par exemple, dans le synset \textit{line, railway line, rail line (the road consisting of railroad track and roadbed)}, les littéraux français \textit{ligne de chemin de fer} et \textit{voie} sont des traductions à la fois de \textit{line} et \textit{railway line}, et sont donc choisis comme traductions.
+Deuxièmement, un nouveau sélecteur considère les traductions candidates
+provenant de plusieurs mots anglais différents dans un synset donné : c'est le
+sélecteur par sources multiples. Par exemple, dans le synset \textit{line,
+railway line, rail line (the road consisting of railroad track and roadbed)},
+les littéraux français \textit{ligne de chemin de fer} et \textit{voie} sont
+des traductions à la fois de \textit{line} et \textit{railway line}, et sont
+donc choisis comme traductions.
 
-Troisièmement, le sélecteur de la distance de Levenshtein a été amélioré. 28~\% du vocabulaire anglais est d'origine française \citep{finkenstaedt1973ordered}, et l'anglicisation a produit des transformations prévisibles. Il est possible d'appliquer ces mêmes transformations aux littéraux candidats français, et seulement alors d'appliquer la distance de Levenshtein. Nous commençons par supprimer les accents, puis appliquons différentes opérations. Par exemple, l'inversion des lettres "r" et "e" prend en compte (\textit{order}/\textit{ordre}) et (\textit{tiger}/\textit{tigre})\footnote{La distance de Damerau-Levenshtein qui prend en compte les inversions n'importe-où dans un mot \citep{damerau1964technique} a donné de moins bons résultats.}. Toutes les transformations ne s'appliquent qu'à la fin des mots : \textit{-que} est transformé en \textit{-k} ou \textit{-c} (\textit{marque} devient \textit{mark}), \textit{-té} vers \textit{-ty} (\textit{extremité} devient \textit{extremity}), etc. Les faux-amis ne sont toujours pas explicitement pris en compte.
+Troisièmement, le sélecteur de la distance de Levenshtein a été amélioré. 28~\%
+du vocabulaire anglais est d'origine française \citep{finkenstaedt1973ordered},
+et l'anglicisation a produit des transformations prévisibles. Il est possible
+d'appliquer ces mêmes transformations aux littéraux candidats français, et
+seulement alors d'appliquer la distance de Levenshtein. Nous commençons par
+supprimer les accents, puis appliquons différentes opérations. Par exemple,
+l'inversion des lettres "r" et "e" prend en compte
+(\textit{order}/\textit{ordre}) et (\textit{tiger}/\textit{tigre})\footnote{La
+distance de Damerau-Levenshtein qui prend en compte les inversions n'importe-où
+dans un mot \citep{damerau1964technique} a donné de moins bons résultats.}.
+Toutes les transformations ne s'appliquent qu'à la fin des mots : \textit{-que}
+est transformé en \textit{-k} ou \textit{-c} (\textit{marque} devient
+\textit{mark}), \textit{-té} vers \textit{-ty} (\textit{extremité} devient
+\textit{extremity}), etc. Les faux-amis ne sont toujours pas explicitement pris
+en compte.
 
 \subsection{Apprentissage de seuils}
 \label{subsec:learning_thresholds}
 
-Dans JAWS, chaque littéral anglais ne peut avoir qu'une traduction française correspondante. La traduction choisie est celle qui a le meilleur score, indépendamment des scores des traductions moins bien notées. Cela a pour effet de rejeter des candidats valides et d'accepter des candidats erronés. Par exemple, JAWS n'inclut pas \textit{particulier} au synset \textit{(a human being) ``there was too much for one person to do''} parce que \textit{personne} est déjà inclus avec un score supérieur.
+Dans JAWS, chaque littéral anglais ne peut avoir qu'une traduction française
+correspondante. La traduction choisie est celle qui a le meilleur score,
+indépendamment des scores des traductions moins bien notées. Cela a pour effet
+de rejeter des candidats valides et d'accepter des candidats erronés. Par
+exemple, JAWS n'inclut pas \textit{particulier} au synset \textit{(a human
+being) ``there was too much for one person to do''} parce que \textit{personne}
+est déjà inclus avec un score supérieur.
 
-Dans WoNeF, nous avons donc appris un seuil pour chaque partie du discours et sélecteur. Nous avons d'abord généré les scores pour toutes les paires (littéral, synset) candidates, puis trié ces paires par score. Les 12 399 paires présentes dans l'évaluation manuelle associée à WOLF 1.0b (notre ensemble d'apprentissage) ont été jugées correctes tandis que les paires n'y étant pas ont été jugées erronées. Nous avons ensuite calculé les seuils maximisant la précision et le F-score. Le seuil qui maximise le F-score est utilisé dans les ressources à haut F-score et à haute couverture, tandis que le seuil maximisant la précision est utilisé dans la ressource à haute précision.
+Dans WoNeF, nous avons donc appris un seuil pour chaque partie du discours et
+sélecteur. Nous avons d'abord généré les scores pour toutes les paires
+(littéral, synset) candidates, puis trié ces paires par score. Les 12 399
+paires présentes dans l'évaluation manuelle associée à WOLF 1.0b (notre
+ensemble d'apprentissage) ont été jugées correctes tandis que les paires n'y
+étant pas ont été jugées erronées. Nous avons ensuite calculé les seuils
+maximisant la précision et le F-score. Le seuil qui maximise le F-score est
+utilisé dans les ressources à haut F-score et à haute couverture, tandis que le
+seuil maximisant la précision est utilisé dans la ressource à haute précision.
 
-Une fois que ces seuils sont définis, les sélecteurs choisissent tous les candidats au-dessus du nouveau seuil, ce qui a deux effets positifs :
+Une fois que ces seuils sont définis, les sélecteurs choisissent tous les
+candidats au-dessus du nouveau seuil, ce qui a deux effets positifs :
 
 \begin{itemize}
-    \item des candidats valides ne sont plus rejetés simplement parce qu'un meilleur candidat est aussi sélectionné, ce qui améliore à la fois le rappel et la couverture.
-    \item les candidats invalides qui étaient jusque-là acceptés sont maintenant rejetés grâce au seuil plus strict : la précision s'en retrouve augmentée.
+
+    \item des candidats valides ne sont plus rejetés simplement parce qu'un
+        meilleur candidat est aussi sélectionné, ce qui améliore à la fois le
+        rappel et la couverture.
+
+    \item les candidats invalides qui étaient jusque-là acceptés sont
+        maintenant rejetés grâce au seuil plus strict : la précision s'en
+        retrouve augmentée.
+
 \end{itemize}
 
 \subsection{Vote}
 \label{subsec:voting}
 
-Après l'application des différents sélecteurs, notre WordNet est large mais contient des synsets bruités. Comme toutes les traductions automatiques de WordNet, WoNeF doit alors être nettoyé \citep{sagot2012cleaning}. Dans WoNeF, le bruit provient de différents facteurs :
+Après l'application des différents sélecteurs, notre WordNet est large mais
+contient des synsets bruités. Comme toutes les traductions automatiques de
+WordNet, WoNeF doit alors être nettoyé \citep{sagot2012cleaning}. Dans WoNeF,
+le bruit provient de différents facteurs :
 
 \begin{itemize}
-    \item les sélecteurs essaient d'inférer des informations sémantiques à partir d'une analyse syntaxique sans prendre en compte toute la complexité de l'interface syntaxe-sémantique,
+
+    \item les sélecteurs essaient d'inférer des informations sémantiques à
+        partir d'une analyse syntaxique sans prendre en compte toute la
+        complexité de l'interface syntaxe-sémantique,
+
     \item l'analyseur syntaxique produit lui-même des résultats bruités,
-    \item le modèle de langue syntaxique est produit à partir d'un corpus extrait du web lui-même bruité (texte mal écrit, contenu non textuel, phrases non françaises) et n'est pas une «~distribution idéale~» \citep{copestake2013lexicalised},
-    \item les traductions déjà choisies sont considérées comme valides dans les étapes suivantes alors que ce n'est pas toujours le cas.
+
+    \item le modèle de langue syntaxique est produit à partir d'un corpus
+        extrait du web lui-même bruité (texte mal écrit, contenu non textuel,
+        phrases non françaises) et n'est pas une «~distribution idéale~»
+        \citep{copestake2013lexicalised},
+
+    \item les traductions déjà choisies sont considérées comme valides dans les
+        étapes suivantes alors que ce n'est pas toujours le cas.
+
 \end{itemize}
 
-Pour la ressource haute-précision, il fallait donc un moyen de ne garder que les littéraux pour lesquels les sélecteurs étaient les plus confiants. Étant donné que, contrairement à JAWS, plusieurs sélecteurs peuvent choisir une même traduction (sous-section \ref{subsec:learning_thresholds}), notre solution est simple et efficace : les traductions validées par un bon sélecteur ou par plusieurs sélecteurs moyens sont conservées tandis que les autres sont supprimées. Ce principe de vote est aussi appelé méthode d'ensemble en apprentissage automatique. Les sélecteurs performants varient d'une partie du discours à une autre : le choix est fait sur un ensemble de développement contenant 10~\% de notre référence.
+Pour la ressource haute-précision, il fallait donc un moyen de ne garder que
+les littéraux pour lesquels les sélecteurs étaient les plus confiants. Étant
+donné que, contrairement à JAWS, plusieurs sélecteurs peuvent choisir une même
+traduction (sous-section \ref{subsec:learning_thresholds}), notre solution est
+simple et efficace : les traductions validées par un bon sélecteur ou par
+plusieurs sélecteurs moyens sont conservées tandis que les autres sont
+supprimées. Ce principe de vote est aussi appelé méthode d'ensemble en
+apprentissage automatique. Les sélecteurs performants varient d'une partie du
+discours à une autre : le choix est fait sur un ensemble de développement
+contenant 10~\% de notre référence.
 
-Cette opération de nettoyage ne conserve que 18~\% des traductions (de 87~757 paires (littéral, synset) à 15~625) mais la précision grimpe de 68,4~\% à 93,3~\%. Cette ressource à haute précision peut être utilisée comme donnée d'entraînement. Un défaut classique des méthodes de vote est de ne choisir que des exemples faciles et peu intéressants, mais la ressource obtenue ici est équilibrée entre les synsets ne contenant que des mots monosémiques et d'autres synsets contenant des mots polysémiques et plus difficiles à désambiguïser (section \ref{subsec:allvsbcs}).
+Cette opération de nettoyage ne conserve que 18~\% des traductions (de 87~757
+paires (littéral, synset) à 15~625) mais la précision grimpe de 68,4~\% à
+93,3~\%. Cette ressource à haute précision peut être utilisée comme donnée
+d'entraînement. Un défaut classique des méthodes de vote est de ne choisir que
+des exemples faciles et peu intéressants, mais la ressource obtenue ici est
+équilibrée entre les synsets ne contenant que des mots monosémiques et d'autres
+synsets contenant des mots polysémiques et plus difficiles à désambiguïser
+(section \ref{subsec:allvsbcs}).
 
 \subsection{Extension aux verbes, adjectifs et adverbes}
 \label{sec:extending_jaws}
 
-Les travaux sur JAWS ont commencé par les noms parce qu'ils représentent 70~\% des synsets dans WordNet. Nous avons continué ce travail sur les autres parties du discours qui sont aussi importantes pour examiner le sens d'un texte donné : verbes, adjectifs et adverbes. Les sélecteurs génériques ont ici été modifiés, mais il s'agira dans le futur d'implémenter des sélecteurs prenant en compte les spécificités des différentes parties du discours dans WordNet.
+Les travaux sur JAWS ont commencé par les noms parce qu'ils représentent 70~\%
+des synsets dans WordNet. Nous avons continué ce travail sur les autres parties
+du discours qui sont aussi importantes pour examiner le sens d'un texte donné :
+verbes, adjectifs et adverbes. Les sélecteurs génériques ont ici été modifiés,
+mais il s'agira dans le futur d'implémenter des sélecteurs prenant en compte
+les spécificités des différentes parties du discours dans WordNet.
 
-\paragraph{Verbes}
-Les sélecteurs choisis pour les verbes sont le sélecteur par unicité et par monosémie. En effet, la distance de Levenshtein a donné des résultats médiocres pour les verbes : seuls 25~\% des verbes choisis par ce sélecteur étaient des traductions correctes. Concernant les sélecteurs syntaxiques, seul le sélecteur par synonymie a donné de bons résultats, alors que le sélecteur par hyponymie avait les performances d'un classifieur aléatoire.
+\paragraph{Verbes} Les sélecteurs choisis pour les verbes sont le sélecteur par
+unicité et par monosémie. En effet, la distance de Levenshtein a donné des
+résultats médiocres pour les verbes : seuls 25~\% des verbes choisis par ce
+sélecteur étaient des traductions correctes. Concernant les sélecteurs
+syntaxiques, seul le sélecteur par synonymie a donné de bons résultats, alors
+que le sélecteur par hyponymie avait les performances d'un classifieur
+aléatoire.
 
-\paragraph{Adjectifs}
-Les adjectifs sont traduits de la même manière que les noms : tout d'abord un nombre limité de sélecteurs initiaux remplit un WordNet vide, puis les sélecteurs syntaxiques complètent cette traduction avec le modèle de langue syntaxique. Tous les sélecteurs initiaux sont ici choisis, et le sélecteur syntaxique choisi est le sélecteur par synonymie. Ils ont donné de bons résultats qui sont présentés dans la section \ref{subsec:selectors}.
+\paragraph{Adjectifs} Les adjectifs sont traduits de la même manière que les
+noms : tout d'abord un nombre limité de sélecteurs initiaux remplit un WordNet
+vide, puis les sélecteurs syntaxiques complètent cette traduction avec le
+modèle de langue syntaxique. Tous les sélecteurs initiaux sont ici choisis, et
+le sélecteur syntaxique choisi est le sélecteur par synonymie. Ils ont donné de
+bons résultats qui sont présentés dans la section \ref{subsec:selectors}.
 
 \paragraph{Adverbes}
 
 % TODO adverbes évalués à LREC
-Nous n'avons pas d'annotation de référence pour les adverbes, ce qui explique qu'ils ne sont pas inclus dans WoNeF : nous ne pouvons évaluer leur précision. Cependant, la comparaison avec WOLF (section~\ref{subsec:vswolf}) montre que les adverbes ont de meilleurs résultats que les autres parties du discours, ce qui laisse penser que c'est une ressource de qualité. C'est une ressource aussi très complémentaire : 87~\% des adverbes proposés ne sont pas dans WOLF. Une fusion entre WoNeF et WOLF aurait trois fois plus d'adverbes que WOLF seul.
+Nous n'avons pas d'annotation de référence pour les adverbes, ce qui explique
+qu'ils ne sont pas inclus dans WoNeF : nous ne pouvons évaluer leur précision.
+Cependant, la comparaison avec WOLF (section~\ref{subsec:vswolf}) montre que
+les adverbes ont de meilleurs résultats que les autres parties du discours, ce
+qui laisse penser que c'est une ressource de qualité. C'est une ressource aussi
+très complémentaire : 87~\% des adverbes proposés ne sont pas dans WOLF. Une
+fusion entre WoNeF et WOLF aurait trois fois plus d'adverbes que WOLF seul.
 
 \section{WoNeF: un JAWS évalué}
 \label{sec:evaluating_jaws}
@@ -97,16 +223,65 @@ Nous n'avons pas d'annotation de référence pour les adverbes, ce qui explique 
 \subsection{Développement d'une annotation de référence}
 \label{subsec:gold_standard}
 
-L'évaluation de JAWS souffre d'un certain nombre de limites (section \ref{subsec:limitations}). Pour évaluer rigoureusement notre propre traduction de WordNet, nous avons produit une annotation de référence. Pour chaque partie du discours, 300 synsets ont été annotés par deux annotateurs locuteurs natifs du français. Pour chaque traduction candidate fournie par nos dictionnaires, il fallait décider si oui ou non elle appartenait au synset. Puisque les dictionnaires ne proposent pas de candidats pour tous les synsets et que certains synsets n'ont pas de candidat valable, le nombre réel de synsets non vides est inférieur à 300 (section \ref{subsec:interannotator_agreement}).
+L'évaluation de JAWS souffre d'un certain nombre de limites (section
+\ref{subsec:limitations}). Pour évaluer rigoureusement notre propre traduction
+de WordNet, nous avons produit une annotation de référence. Pour chaque partie
+du discours, 300 synsets ont été annotés par deux annotateurs locuteurs natifs
+du français. Pour chaque traduction candidate fournie par nos dictionnaires, il
+fallait décider si oui ou non elle appartenait au synset. Puisque les
+dictionnaires ne proposent pas de candidats pour tous les synsets et que
+certains synsets n'ont pas de candidat valable, le nombre réel de synsets non
+vides est inférieur à 300 (section \ref{subsec:interannotator_agreement}).
 
-Durant l'annotation manuelle, nous avons rencontré une difficulté importante découlant de la tentative de traduire WordNet dans une autre langue. Dans le cas de l'anglais vers le français, la plupart des difficultés proviennent des verbes et adjectifs figurant dans une collocation. Dans WordNet, ils peuvent être regroupés d'une manière qui fait sens en anglais, mais qui ne se retrouve pas directement dans une autre langue. Par exemple, l'adjectif \textit{pointed} est le seul élément d'un synset défini comme \textit{direct and obvious in meaning or reference; often unpleasant; ``a pointed critique''; ``a pointed allusion to what was going on''; ``another pointed look in their direction''}. Ces exemples se traduiraient par trois adjectifs différents en français : \textit{une critique dure}, \textit{une allusion claire} et \textit{un regard appuyé}. Il n'existe pas de solution satisfaisante lors de la traduction d'un tel synset : le synset résultant contiendra soit trop soit trop peu de traductions. Nous avons décidé de ne pas traduire ces synsets dans notre annotation manuelle. Ces problèmes de granularité concernent 3~\% des synsets nominaux, 8~\% des synsets verbaux et 6~\% des synsets adjectivaux. Actuellement, WoNeF ne détecte pas de tels synsets.
+Durant l'annotation manuelle, nous avons rencontré une difficulté importante
+découlant de la tentative de traduire WordNet dans une autre langue. Dans le
+cas de l'anglais vers le français, la plupart des difficultés proviennent des
+verbes et adjectifs figurant dans une collocation. Dans WordNet, ils peuvent
+être regroupés d'une manière qui fait sens en anglais, mais qui ne se retrouve
+pas directement dans une autre langue. Par exemple, l'adjectif \textit{pointed}
+est le seul élément d'un synset défini comme \textit{direct and obvious in
+meaning or reference; often unpleasant; ``a pointed critique''; ``a pointed
+allusion to what was going on''; ``another pointed look in their direction''}.
+Ces exemples se traduiraient par trois adjectifs différents en français :
+\textit{une critique dure}, \textit{une allusion claire} et \textit{un regard
+appuyé}. Il n'existe pas de solution satisfaisante lors de la traduction d'un
+tel synset : le synset résultant contiendra soit trop soit trop peu de
+traductions. Nous avons décidé de ne pas traduire ces synsets dans notre
+annotation manuelle. Ces problèmes de granularité concernent 3~\% des synsets
+nominaux, 8~\% des synsets verbaux et 6~\% des synsets adjectivaux.
+Actuellement, WoNeF ne détecte pas de tels synsets.
 
-L'autre difficulté principale découle de traductions manquantes, ce qui peut être considéré comme un défaut de nos ressources. Les sens rares d'un mot sont parfois absents. Par exemple, le sens \textit{to catch} du jeu du chat (ou du loup) et le sens \textit{coat with beaten egg} du verbe \textit{to egg} ne sont pas présents. Aucun de ces sens ne sont dans les synsets les polysémiques (définis à la section~\ref{subsec:allvsbcs}), ce qui confirme que cela ne se produit que pour les sens rares. Pourtant, WoNeF pourrait être amélioré en utilisant des dictionnaires spécifiques pour, par exemple, les espèces (comme dans \cite{sagot2008construction}), les termes médicaux, les entités nommées (en utilisant Wikipedia) et ainsi de suite. Un autre exemple est celui des adjectifs de jugement : il n'y a pas de bonne traduction de \textit{weird} en français. Même si la plupart des dictionnaires fournissent \textit{bizarre} comme traduction, on ne retrouve pas dans \textit{bizarre} l'aspect \textit{stupide} du mot \textit{weird}: les deux adjectifs ne sont pas substituables dans tous les contextes, ce qui est un problème si l'on considère que le sens d'un synset doit être conservé par la traduction.
+L'autre difficulté principale découle de traductions manquantes, ce qui peut
+être considéré comme un défaut de nos ressources. Les sens rares d'un mot sont
+parfois absents. Par exemple, le sens \textit{to catch} du jeu du chat (ou du
+loup) et le sens \textit{coat with beaten egg} du verbe \textit{to egg} ne sont
+pas présents. Aucun de ces sens ne sont dans les synsets les polysémiques
+(définis à la section~\ref{subsec:allvsbcs}), ce qui confirme que cela ne se
+produit que pour les sens rares. Pourtant, WoNeF pourrait être amélioré en
+utilisant des dictionnaires spécifiques pour, par exemple, les espèces (comme
+dans \cite{sagot2008construction}), les termes médicaux, les entités nommées
+(en utilisant Wikipedia) et ainsi de suite. Un autre exemple est celui des
+adjectifs de jugement : il n'y a pas de bonne traduction de \textit{weird} en
+français. Même si la plupart des dictionnaires fournissent \textit{bizarre}
+comme traduction, on ne retrouve pas dans \textit{bizarre} l'aspect
+\textit{stupide} du mot \textit{weird}: les deux adjectifs ne sont pas
+substituables dans tous les contextes, ce qui est un problème si l'on considère
+que le sens d'un synset doit être conservé par la traduction.
 
 \subsection{Accord inter-annotateurs}
 \label{subsec:interannotator_agreement}
 
-Malgré les difficultés mentionnées ci-dessus, l'annotation résultante a été validée par la mesure de l'accord inter-annotateurs, qui montre que l'approche par extension pour la création de nouveaux wordnets est valide et peut produire des ressources utiles. Deux annotateurs humains, auteurs de cet article, respectivement linguiste informaticien et informaticien linguiste, ont annoté de façon indépendante les mêmes synsets choisis au hasard pour chaque partie du discours. Ils ont utilisé WordNet pour examiner les synsets voisins, le dictionnaire Merriam-Webster, le TLFi \citep{TLFi} et des moteurs de recherche pour attester l'utilisation des divers sens des mots considérés. Après adjudication faite par ces deux annotateurs en confrontant leurs opinions en cas de désaccord, l'annotation de référence a été formée.
+Malgré les difficultés mentionnées ci-dessus, l'annotation résultante a été
+validée par la mesure de l'accord inter-annotateurs, qui montre que l'approche
+par extension pour la création de nouveaux wordnets est valide et peut produire
+des ressources utiles. Deux annotateurs humains, auteurs de cet article,
+respectivement linguiste informaticien et informaticien linguiste, ont annoté
+de façon indépendante les mêmes synsets choisis au hasard pour chaque partie du
+discours. Ils ont utilisé WordNet pour examiner les synsets voisins, le
+dictionnaire Merriam-Webster, le TLFi \citep{TLFi} et des moteurs de recherche
+pour attester l'utilisation des divers sens des mots considérés. Après
+adjudication faite par ces deux annotateurs en confrontant leurs opinions en
+cas de désaccord, l'annotation de référence a été formée.
 
 \begin{table}[ht]
 \centering
@@ -123,21 +298,39 @@ Malgré les difficultés mentionnées ci-dessus, l'annotation résultante a ét�
 \caption{\protect\centering\label{table:kappa}Accord inter-annotateurs sur l'annotation de référence}
 \end{table}
 
-La table~\ref{table:kappa} montre l'accord inter-annotateur évalué par le kappa de Fleiss pour les trois parties du discours annotées. Même s'il s'agit d'une métrique discutée \citep{powers2012problem}, toutes les tables d'évaluation existantes considèrent ces scores comme étant suffisamment élevés pour décrire cet accord inter-annotateurs comme «~bon~» \citep{gwet2001handbook}, ce qui nous permet de dire que notre annotation de référence est de bonne qualité. L'approche par extension pour la traduction de WordNet est elle aussi validée.
+La table~\ref{table:kappa} montre l'accord inter-annotateur évalué par le kappa
+de Fleiss pour les trois parties du discours annotées. Même s'il s'agit d'une
+métrique discutée \citep{powers2012problem}, toutes les tables d'évaluation
+existantes considèrent ces scores comme étant suffisamment élevés pour décrire
+cet accord inter-annotateurs comme «~bon~» \citep{gwet2001handbook}, ce qui
+nous permet de dire que notre annotation de référence est de bonne qualité.
+L'approche par extension pour la traduction de WordNet est elle aussi validée.
 
 \section{Résultats}
 \label{sec:results}
 
-% DONE arrondir les résultats
-% DONE mettre en gras les bons trucs.
-% DONE F1 partout ?
-
-Nous présentons dans cette section les résultats de WoNeF. Nous commençons par décrire les résultats après l'application de l'étape des sélecteurs initiaux seulement puis ceux de la ressource complète. Notre annotation de référence est découpée en deux parties : 10~\% des littéraux forment l'ensemble de développement utilisé pour choisir les sélecteurs s'appliquant aux différentes versions de WoNeF, tandis que les 90~\% restant forment l'ensemble de test servant à l'évaluation. Précision et rappel sont calculés sur l'intersection des synsets présents dans WoNeF et l'annotation de référence considérée, que ce soit l'ensemble de test de notre propre adjudication (sections \ref{subsec:heuristics} à \ref{subsec:selectors}) ou WOLF (section \ref{subsec:vswolf}). Par exemple, la précision est la fraction des paires (littéral, synset) correctes au sein de l'intersection en question.
+Nous présentons dans cette section les résultats de WoNeF. Nous commençons par
+décrire les résultats après l'application de l'étape des sélecteurs initiaux
+seulement puis ceux de la ressource complète. Notre annotation de référence est
+découpée en deux parties : 10~\% des littéraux forment l'ensemble de
+développement utilisé pour choisir les sélecteurs s'appliquant aux différentes
+versions de WoNeF, tandis que les 90~\% restant forment l'ensemble de test
+servant à l'évaluation. Précision et rappel sont calculés sur l'intersection
+des synsets présents dans WoNeF et l'annotation de référence considérée, que ce
+soit l'ensemble de test de notre propre adjudication (sections
+\ref{subsec:heuristics} à \ref{subsec:selectors}) ou WOLF (section
+\ref{subsec:vswolf}). Par exemple, la précision est la fraction des paires
+(littéral, synset) correctes au sein de l'intersection en question.
 
 \subsection{Sélecteurs initiaux}
 \label{subsec:heuristics}
 
-Pour les noms, les verbes et les adjectifs, nous avons calculé l'efficacité de chaque sélecteur initial sur notre ensemble de développement, et utilisé ces données pour déterminer ceux qui doivent être inclus dans la version ayant une haute précision, celle ayant un F-score élevé et celle présentant une grande couverture. Les scores ci-dessous sont calculés sur l'ensemble de test, plus grand et plus représentatif.
+Pour les noms, les verbes et les adjectifs, nous avons calculé l'efficacité de
+chaque sélecteur initial sur notre ensemble de développement, et utilisé ces
+données pour déterminer ceux qui doivent être inclus dans la version ayant une
+haute précision, celle ayant un F-score élevé et celle présentant une grande
+couverture. Les scores ci-dessous sont calculés sur l'ensemble de test, plus
+grand et plus représentatif.
 
 \let\b\textbf
 
@@ -178,7 +371,15 @@ Pour les noms, les verbes et les adjectifs, nous avons calculé l'efficacité de
 %\caption{\protect\centering\label{table:heuristics}Résultats des sélecteurs initiaux pour chaque partie du discours. C est la couverture : nombre de paires (littéral, synset).} % explain why greater than 8616
 %\end{table}
 
-La table~\ref{table:heuristics} montre les résultats de cette opération. La couverture donne une idée de la taille des ressources. En fonction des objectifs de chaque ressource, les sélecteurs initiaux choisis seront différents. Différents sélecteurs peuvent choisir plusieurs fois une même traduction, ce qui explique que la somme des couvertures soit supérieure à la couverture de la ressource à haute couverture. Fait intéressant non visible dans la table, le sélecteur le moins efficace pour les verbes est la distance de Levenshtein avec une précision de l'ordre de 25~\%~: les faux amis semblent être plus nombreux pour les verbes.
+La table~\ref{table:heuristics} montre les résultats de cette opération. La
+couverture donne une idée de la taille des ressources. En fonction des
+objectifs de chaque ressource, les sélecteurs initiaux choisis seront
+différents. Différents sélecteurs peuvent choisir plusieurs fois une même
+traduction, ce qui explique que la somme des couvertures soit supérieure à la
+couverture de la ressource à haute couverture. Fait intéressant non visible
+dans la table, le sélecteur le moins efficace pour les verbes est la distance
+de Levenshtein avec une précision de l'ordre de 25~\%~: les faux amis semblent
+être plus nombreux pour les verbes.
 
 %\begin{table}[ht]
 %\centering
@@ -197,7 +398,11 @@ La table~\ref{table:heuristics} montre les résultats de cette opération. La co
 \subsection{Résultats globaux}
 \label{subsec:allvsbcs}
 
-Nous nous intéressons maintenant aux résultats globaux (Table~\ref{table:allvsbcs}). Ils comprennent l'application des sélecteurs initiaux et des sélecteurs syntaxiques. Le mode de haute précision applique également un vote (section \ref{subsec:voting}). Comme pour la table précédente, la couverture C indique le nombre de paires (littéral, synset).
+Nous nous intéressons maintenant aux résultats globaux
+(Table~\ref{table:allvsbcs}). Ils comprennent l'application des sélecteurs
+initiaux et des sélecteurs syntaxiques. Le mode de haute précision applique
+également un vote (section \ref{subsec:voting}). Comme pour la table
+précédente, la couverture C indique le nombre de paires (littéral, synset).
 
 \begin{table}[ht]
 \centering
@@ -214,7 +419,19 @@ Nous nous intéressons maintenant aux résultats globaux (Table~\ref{table:allvs
 \end{table}
 
 
-Dans WordNet, les mots sont majoritairement monosémiques, mais c'est une petite minorité de mots polysémiques qui est la plus représentée dans les textes. C'est justement sur cette minorité que nous souhaitons produire une ressource de qualité. Pour l'évaluer, nous utilisons la liste des synsets \textbf{BCS} (Basic Concept Set) fournie par le projet BalkaNet \citep{tufis2004balkanet}. Cette liste contient les 8~516 synsets lexicalisés dans six traductions différentes de WordNet, et représente les synsets les plus fréquents et ceux qui comportent le plus de mots polysémiques. Les résultats montrent le nombre de synsets BCS pour les ressources à haut F-score et haute couverture. Alors que les ressources à haut F-score et à haute couverture perdent en précision pour les synsets BCS, ce n'est pas le cas pour la ressource à haute précision. En effet, le mécanisme de vote rend la ressource haute-précision très robuste, et ce même pour les synsets BCS.
+Dans WordNet, les mots sont majoritairement monosémiques, mais c'est une petite
+minorité de mots polysémiques qui est la plus représentée dans les textes.
+C'est justement sur cette minorité que nous souhaitons produire une ressource
+de qualité. Pour l'évaluer, nous utilisons la liste des synsets \textbf{BCS}
+(Basic Concept Set) fournie par le projet BalkaNet \citep{tufis2004balkanet}.
+Cette liste contient les 8~516 synsets lexicalisés dans six traductions
+différentes de WordNet, et représente les synsets les plus fréquents et ceux
+qui comportent le plus de mots polysémiques. Les résultats montrent le nombre
+de synsets BCS pour les ressources à haut F-score et haute couverture. Alors
+que les ressources à haut F-score et à haute couverture perdent en précision
+pour les synsets BCS, ce n'est pas le cas pour la ressource à haute précision.
+En effet, le mécanisme de vote rend la ressource haute-précision très robuste,
+et ce même pour les synsets BCS.
 
 
 
@@ -280,10 +497,22 @@ Dans WordNet, les mots sont majoritairement monosémiques, mais c'est une petite
                                     & adjectifs & 69.8     & \b{71.9}     & \b{70.8}     & \b{20~385} \\ 
   \bottomrule
 \end{tabular}
-\caption{\protect\centering\label{table:posfull}Résultats par partie du discours. JAWS ne contient que des noms : il est comparé à la ressource nominale à haut F-score.}
+
+\caption{\protect\centering\label{table:posfull}Résultats par partie du
+discours. JAWS ne contient que des noms : il est comparé à la ressource
+nominale à haut F-score.}
+
 \end{table}
 
-La table~\ref{table:posfull} montre les résultats détaillés pour chaque partie du discours. Concernant les noms, le mode de haute précision utilise deux sélecteurs, tous deux fondés sur la relation syntaxique de complément du nom : le sélecteur par méronymie décrit à la section \ref{subsec:translation_process}, et le sélecteur par hyponymie. La ressource de haute précision pour les noms est notre meilleure ressource. La version avec le F-score optimisé a un F-score de 72,4~\%, ce qui garantit que peu de paires (littéral, synset) sont absentes tout en ayant une précision légèrement supérieure à celle de JAWS.
+La table~\ref{table:posfull} montre les résultats détaillés pour chaque partie
+du discours. Concernant les noms, le mode de haute précision utilise deux
+sélecteurs, tous deux fondés sur la relation syntaxique de complément du nom :
+le sélecteur par méronymie décrit à la section
+\ref{subsec:translation_process}, et le sélecteur par hyponymie. La ressource
+de haute précision pour les noms est notre meilleure ressource. La version avec
+le F-score optimisé a un F-score de 72,4~\%, ce qui garantit que peu de paires
+(littéral, synset) sont absentes tout en ayant une précision légèrement
+supérieure à celle de JAWS.
 
 %\begin{table}[ht]
 %\centering
@@ -301,9 +530,23 @@ La table~\ref{table:posfull} montre les résultats détaillés pour chaque parti
 
 Les résultats des verbes 
 %(Table~\ref{table:verbfull}) 
-sont moins élevés. L'explication principale est que les verbes sont en moyenne plus polysémiques dans WordNet et nos dictionnaires que les autres parties du discours~: les synsets verbaux ont deux fois plus de candidats que les noms et les adjectifs (Table~\ref{table:kappa}). Cela montre l'importance du dictionnaire pour limiter le nombre initial de littéraux parmi lesquels les algorithmes doivent choisir.
+sont moins élevés. L'explication principale est que les verbes sont en moyenne
+plus polysémiques dans WordNet et nos dictionnaires que les autres parties du
+discours~: les synsets verbaux ont deux fois plus de candidats que les noms et
+les adjectifs (Table~\ref{table:kappa}). Cela montre l'importance du
+dictionnaire pour limiter le nombre initial de littéraux parmi lesquels les
+algorithmes doivent choisir.
 
-Le sélecteur par synonymie est le seul sélecteur syntaxique appliqué aux verbes. Il utilise les relations syntaxiques de second ordre pour trois types de dépendances syntaxiques verbales~: si deux verbes partagent les mêmes objets, ils sont susceptibles d'être synonymes ou quasi-synonymes. C'est le cas des verbes \textit{dévorer} et \textit {manger} qui acceptent tous deux l'objet \textit{pain}. Les autres sélecteurs syntaxiques n'ont pas été retenus pour les verbes en raison de leurs faibles résultats. En effet, alors que la détection de l'hyponymie en utilisant seulement l'inclusion de contextes a été efficace sur les noms, elle a les performances d'un classifieur aléatoire pour les verbes. Cela met en évidence la complexité de la polysémie des verbes.
+Le sélecteur par synonymie est le seul sélecteur syntaxique appliqué aux
+verbes. Il utilise les relations syntaxiques de second ordre pour trois types
+de dépendances syntaxiques verbales~: si deux verbes partagent les mêmes
+objets, ils sont susceptibles d'être synonymes ou quasi-synonymes. C'est le cas
+des verbes \textit{dévorer} et \textit {manger} qui acceptent tous deux l'objet
+\textit{pain}. Les autres sélecteurs syntaxiques n'ont pas été retenus pour les
+verbes en raison de leurs faibles résultats. En effet, alors que la détection
+de l'hyponymie en utilisant seulement l'inclusion de contextes a été efficace
+sur les noms, elle a les performances d'un classifieur aléatoire pour les
+verbes. Cela met en évidence la complexité de la polysémie des verbes.
 
 %\begin{table}[ht]
 %\centering
@@ -319,8 +562,16 @@ Le sélecteur par synonymie est le seul sélecteur syntaxique appliqué aux verb
 %\caption{\protect\centering\label{table:adjfull}Adjectifs}
 %\end{table}
 
-% Les résultats pour les adjectifs sont présentés dans la table~\ref{table:adjfull}. 
-Pour les adjectifs, comme pour les verbes, seul le sélecteur de synonymie a été appliqué. Pour les ressources à haut F-score et haute couverture, ce sont les mêmes sélecteurs (initiaux et syntaxiques) qui sont appliqués, ce qui explique que les résultats sont les mêmes. Alors que l'accord inter-annotateurs était plus bas sur les adjectifs que sur les verbes, les résultats eux sont bien meilleurs pour les adjectifs. Cela s'explique principalement par le nombre de candidats parmi lesquels sélectionner : il y en a deux fois moins pour les adjectifs. Cela met en avant l'importance des dictionnaires.
+% Les résultats pour les adjectifs sont présentés dans la
+% table~\ref{table:adjfull}. 
+Pour les adjectifs, comme pour les verbes, seul le sélecteur de synonymie a été
+appliqué. Pour les ressources à haut F-score et haute couverture, ce sont les
+mêmes sélecteurs (initiaux et syntaxiques) qui sont appliqués, ce qui explique
+que les résultats sont les mêmes. Alors que l'accord inter-annotateurs était
+plus bas sur les adjectifs que sur les verbes, les résultats eux sont bien
+meilleurs pour les adjectifs. Cela s'explique principalement par le nombre de
+candidats parmi lesquels sélectionner : il y en a deux fois moins pour les
+adjectifs. Cela met en avant l'importance des dictionnaires.
 
 \subsection{Évaluation par rapport à WOLF}
 \label{subsec:vswolf}
@@ -341,20 +592,79 @@ Pour les adjectifs, comme pour les verbes, seul le sélecteur de synonymie a ét
 \end{table}
 
 
-Il n'est pas possible de comparer WOLF et WoNeF en utilisant notre annotation de référence : tout mot correct de WOLF non présent dans les dictionnaires pénalisera WOLF injustement. Nous avons décidé d'évaluer WoNeF en considérant WOLF 0.1.4 et WOLF 1.0b comme des références (Table~\ref{table:wolfcomparison}). Les mesures ne sont pas de véritables précision et rappel puisque WOLF lui-même n'est pas entièrement validé. Le dernier article pF donnant des chiffres globaux \citep{sagot2012automatic} : iindique un nombre de paires autour de 77~000 pour une précision de 86~\% \footnote{Les résultats détaillés pour WOLF 1.0b ne sont pas actuellement disponibles.}. Nous appelons donc pseudo-précision (pP) le pourcentage des éléments présents dans WoNeF qui sont également présents dans WOLF, et pseudo-rappel le pourcentage d'éléments de WOLF qui sont présents dans WoNeF. Ces chiffres montrent que même si WoNeF est encore plus petit que WOLF, il s'agit d'une ressource complémentaire, surtout quand on se souvient que le WoNeF utilisé pour cette comparaison est celui présentant une précision élevée, avec une précision globale de 93,3~\%. Il convient également de noter que la comparaison de la différence entre WOLF 0.1.4 et \ WOLF 1.0b est instructive puisque elle montre l'étendue des améliorations apportées à WOLF.
+Il n'est pas possible de comparer WOLF et WoNeF en utilisant notre annotation
+de référence : tout mot correct de WOLF non présent dans les dictionnaires
+pénalisera WOLF injustement. Nous avons décidé d'évaluer WoNeF en considérant
+WOLF 0.1.4 et WOLF 1.0b comme des références
+(Table~\ref{table:wolfcomparison}). Les mesures ne sont pas de véritables
+précision et rappel puisque WOLF lui-même n'est pas entièrement validé. Le
+dernier article pF donnant des chiffres globaux \citep{sagot2012automatic} :
+iindique un nombre de paires autour de 77~000 pour une précision de 86~\%
+\footnote{Les résultats détaillés pour WOLF 1.0b ne sont pas actuellement
+disponibles.}. Nous appelons donc pseudo-précision (pP) le pourcentage des
+éléments présents dans WoNeF qui sont également présents dans WOLF, et
+pseudo-rappel le pourcentage d'éléments de WOLF qui sont présents dans WoNeF.
+Ces chiffres montrent que même si WoNeF est encore plus petit que WOLF, il
+s'agit d'une ressource complémentaire, surtout quand on se souvient que le
+WoNeF utilisé pour cette comparaison est celui présentant une précision élevée,
+avec une précision globale de 93,3~\%. Il convient également de noter que la
+comparaison de la différence entre WOLF 0.1.4 et \ WOLF 1.0b est instructive
+puisque elle montre l'étendue des améliorations apportées à WOLF.
 
-La colonne «~Ajouts~» donne le nombre de traductions qui sont présentes dans WoNeF mais pas dans WOLF. Pour les noms, les verbes et les adjectifs, cela signifie que nous pouvons contribuer 11~098 nouvelles paires (littéral, synset) de haute précision en cas de fusion de WOLF et WoNeF, soit 94~\% des paires du WoNeF haute précision ce qui montre la complémentarité des approches : ce sont des littéraux différents qui sont ici choisis. Cela produira un wordnet français 13~\% plus grand que WOLF avec une précision améliorée. Une fusion avec la ressource de F-score élevée aurait une précision légèrement inférieure, mais fournirait 57~032 nouvelles paires (littéral, synset) par rapport à WOLF 1.0b, résultant en une fusion contenant 73~712 synsets non vides et 159~705 paires (littéral, synset), augmentant la couverture de WOLF de 56~\% et celle de WoNeF de 83~\%.
+La colonne «~Ajouts~» donne le nombre de traductions qui sont présentes dans
+WoNeF mais pas dans WOLF. Pour les noms, les verbes et les adjectifs, cela
+signifie que nous pouvons contribuer 11~098 nouvelles paires (littéral, synset)
+de haute précision en cas de fusion de WOLF et WoNeF, soit 94~\% des paires du
+WoNeF haute précision ce qui montre la complémentarité des approches : ce sont
+des littéraux différents qui sont ici choisis. Cela produira un wordnet
+français 13~\% plus grand que WOLF avec une précision améliorée. Une fusion
+avec la ressource de F-score élevée aurait une précision légèrement inférieure,
+mais fournirait 57~032 nouvelles paires (littéral, synset) par rapport à WOLF
+1.0b, résultant en une fusion contenant 73~712 synsets non vides et 159~705
+paires (littéral, synset), augmentant la couverture de WOLF de 56~\% et celle
+de WoNeF de 83~\%.
 
 %\subsection{Hyponymy detection}
 %There is no clear inclusion relationship between the distributions of hyponyms/hypernyms. As a result, research used other ways to detect hypernymy \citep{hearst1992automatic, entailment baroni}. Our works show that it is in fact possible to use ... syntactic language model ... dictionaries ... but only works on nouns so far Result of 60%...
 
 \section*{Conclusion}
 
-Dans ce travail, nous avons montré que l'utilisation d'un modèle de langue syntaxique pour identifier des relations lexicales entre des lexèmes est possible dans un environnement contraint et conduit à des résultats ayant une précision au niveau de l'état de l'art pour la tâche de traduction de WordNet. Nous offrons trois ressources différentes, chacune d'elles ayant un objectif différent. Enfin, nous fournissons une annotation de référence validée de haute qualité qui nous a permis de montrer à la fois la validité de l'approche de traduction de WordNet par extension et la validité de notre approche spécifique. Cette annotation de référence peut également être utilisée pour évaluer et développer d'autres traductions françaises de WordNet. WoNeF est disponible librement au format XML DEBVisDic\footnote{\url{http://nlp.fi.muni.cz/trac/deb2/wiki/WordNetFormat}} sur \url{http://wonef.fr/} sous la licence CC-BY-SA.
+Dans ce travail, nous avons montré que l'utilisation d'un modèle de langue
+syntaxique pour identifier des relations lexicales entre des lexèmes est
+possible dans un environnement contraint et conduit à des résultats ayant une
+précision au niveau de l'état de l'art pour la tâche de traduction de WordNet.
+Nous offrons trois ressources différentes, chacune d'elles ayant un objectif
+différent. Enfin, nous fournissons une annotation de référence validée de haute
+qualité qui nous a permis de montrer à la fois la validité de l'approche de
+traduction de WordNet par extension et la validité de notre approche
+spécifique. Cette annotation de référence peut également être utilisée pour
+évaluer et développer d'autres traductions françaises de WordNet. WoNeF est
+disponible librement au format XML
+DEBVisDic\footnote{\url{http://nlp.fi.muni.cz/trac/deb2/wiki/WordNetFormat}}
+sur \url{http://wonef.fr/} sous la licence CC-BY-SA.
 
-Les travaux futurs sur WoNeF mettront l'accent sur les verbes, les adjectifs et les adverbes, pour lesquels de nouveaux sélecteurs efficaces peuvent être envisagés pour améliorer la couverture. Par exemple, le sélecteur de similarité peut être étendu à la relation de quasi-synonymité que partagent certains adjectifs dans WordNet. En effet, la synonymie entre les adjectifs est limitée par rapport à la quasi-synonymie: alors que \textit{fast} est le seul mot dans son synset, c'est le quasi-synonyme de 20 synsets. Puisque les techniques de sémantique distributionnelle ont plutôt tendance à identifier des quasi-synonymes plutôt que des synonymes, utiliser cette relation de WordNet pour identifier de nouveaux adjectifs fait partie de nos objectifs.
+Les travaux futurs sur WoNeF mettront l'accent sur les verbes, les adjectifs et
+les adverbes, pour lesquels de nouveaux sélecteurs efficaces peuvent être
+envisagés pour améliorer la couverture. Par exemple, le sélecteur de similarité
+peut être étendu à la relation de quasi-synonymité que partagent certains
+adjectifs dans WordNet. En effet, la synonymie entre les adjectifs est limitée
+par rapport à la quasi-synonymie: alors que \textit{fast} est le seul mot dans
+son synset, c'est le quasi-synonyme de 20 synsets. Puisque les techniques de
+sémantique distributionnelle ont plutôt tendance à identifier des
+quasi-synonymes plutôt que des synonymes, utiliser cette relation de WordNet
+pour identifier de nouveaux adjectifs fait partie de nos objectifs.
 
-Une autre source importante d'amélioration sera l'enrichissement de notre modèle de langue syntaxique qui pourra prendre en compte les verbes pronominaux et les expressions multi-mots. Nous aimerions aussi nous orienter vers un modèle de langue continu \citep{haison2012continuous} plus performant. Cela sera couplé avec la collecte d'un corpus issu du Web plus récent et plus grand analysé avec une version récente de notre analyseur linguistique LIMA. Cela nous permettra de mesurer l'impact de la qualité du modèle de langue sur la traduction de WordNet.
+Une autre source importante d'amélioration sera l'enrichissement de notre
+modèle de langue syntaxique qui pourra prendre en compte les verbes pronominaux
+et les expressions multi-mots. Nous aimerions aussi nous orienter vers un
+modèle de langue continu \citep{haison2012continuous} plus performant. Cela
+sera couplé avec la collecte d'un corpus issu du Web plus récent et plus grand
+analysé avec une version récente de notre analyseur linguistique LIMA. Cela
+nous permettra de mesurer l'impact de la qualité du modèle de langue sur la
+traduction de WordNet.
 
-Le wordnet français WOLF a été construit en utilisant plusieurs techniques. La fusion de WOLF et de WoNeF permettra de bientôt améliorer à nouveau le statut de la traduction française de WordNet: nous travaillons avec les auteurs de WOLF afin de fusionner WOLF et WoNeF.
+Le wordnet français WOLF a été construit en utilisant plusieurs techniques. La
+fusion de WOLF et de WoNeF permettra de bientôt améliorer à nouveau le statut
+de la traduction française de WordNet: nous travaillons avec les auteurs de
+WOLF afin de fusionner WOLF et WoNeF.
 
