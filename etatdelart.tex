@@ -870,38 +870,6 @@ Un problème potentiel avec cette approche est que la relation de complément du
 
 Chaque sélecteur suit le même principe que le sélecteur par méronymie de partie et traduit de nouveaux synsets en identifiant les relations entre lexèmes via le modèle de langue syntaxique. La correspondance entre la relation de complément du nom et la relation de méronymie est directe, mais ce n'est pas le cas pour les autres relations : il n'y a par exemple pas de relation syntaxique qui exprime directement la synonymie entre deux lexèmes. Pour ces relations, il est nécessaire d'employer soit des motifs lexicaux \citep{hearst1992automatic} soit des relations syntaxiques de deuxième ordre \citep{lenci2012identifying}. Ce sont ces dernières, aussi nommées relations paradigmatiques, que JAWS utilise. Pour la synonymie, si deux mots partagent les mêmes co-occurents dans une relation syntaxique donnée, alors ils peuvent être synonymes dans ce contexte. Pour les noms, les relations syntaxiques qui donnent les meilleurs résultats sont les relations de complément du nom, d'objet du verbe et d'apposition. Concrètement, si deux noms qui modifient les mêmes noms sont les objets des mêmes verbes ou sont apposés aux mêmes noms, alors il est probable qu'ils soient synonymes et si l'un des deux est déjà dans un synset, alors on peut y ajouter le second. Par exemple, \textit{avant-propos} et \textit{préface} partagent les mêmes compléments du noms : \textit{livre, édition, ouvrage}. Le sélecteur par synonymie peut ajouter \textit{avant-propos} une fois que le littéral \textit{préface} est dans JAWS. \citep{mouton2010jaws,mouton2010phd} décrivent d'autres sélecteurs exploitant notamment les relations d'hyperonymie et d'hyponymie.
 
-\subsubsection{Limites de JAWS}
-\label{subsec:limitations}
-
-JAWS souffre d'un certain nombre de limites. Avant tout, il ne contient que des
-noms, ce qui empêche de l'utiliser dans de nombreuses applications. Ensuite, la
-façon dont il a été évalué rend difficile tout jugement sur sa qualité. En
-effet, JAWS a été évalué en le comparant à l'EuroWordNet du français et à WOLF
-0.1.4 (qui date de 2008). Ces deux WordNets du français ne sont pas des
-annotations de références : ils souffrent soit d'une précision limitée soit
-d'une couverture limitée.
-
-M\&C ont décidé de compléter cette évaluation limitée par une évaluation
-manuelle des littéraux n'existant pas dans WOLF, mais elle n'a été faite que
-sur 120 paires (littéral, synset). La précision de JAWS est évaluée à 67,1~\%
-\citep{mouton2010phd}, ce qui est plus bas que celle de WOLF 0.1.4 et
-considérablement plus bas que la précision de WOLF 1.0b\footnote{Nous
-remercions Benoît Sagot pour nous avoir fourni cette version préliminaire de
-WOLF 1.0.}. Ce score, même bas, est à prendre avec précaution étant donné la
-taille de l'échantillon de test : l'intervalle de confiance est d'environ
-25~\%. Une autre limite de JAWS est qu'il ne contient qu'une seule et unique
-ressource qui ne correspond pas à tous les besoins.
-
-À notre connaissance, les traductions automatiques de WordNet actuelles
-n'existent qu'en une seule version où les auteurs décident eux-mêmes quelle
-métrique optimiser. Nous fournissons aussi une telle version, mais ajoutons
-aussi deux ressources qui peuvent servir des besoins différents. Même si notre
-WoNeF à haute précision est petit, il peut être utilisé comme une annotation de
-référence et servir pour entraîner un système d'apprentissage. Une ressource à
-haute couverture peut servir de base à une correction manuelle ou servir pour
-une intersection à d'autres ressources, ce qui est la raison pour laquelle nous
-en fournissons une aussi.
-
 
 \subsection{VerbNet}
 
