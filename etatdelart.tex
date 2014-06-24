@@ -7,47 +7,68 @@
 %   - qui citer pour plus d'un sens ?
 %   - réutiliser la figure d'un papier ?
 
+La question de la représentation du sens des mots occupe une place importante
+dans nos travaux, en particulier pour la traduction de la ressource WordNet
+(Chapitre~\ref{ch:wonef}). La question de la représentation des prédicats
+(importante pour la question de l'annotation en rôles sémantiques) est abordée
+à la section~\ref{subsec:roles_semantiques}.
+
 \section{Représentation des mots}
 
-La question de la représentation du sens des mots occupe une place importante
-dans nos travaux, en particulier lors de la traduction de la ressource WordNet
-au Chapitre~\ref{ch:wonef}. La question de la représentation des prédicats est
-elle abordée à la section~\ref{subsec:roles_semantiques}. Nous étudierons ici
-différentes façons de représenter les mots et leur sens en étudiant les
-dictionnaires, les ressources lexicales (en s'attardant sur WordNet) et les
-modèles de langue.
-
 % TODO \citep{harnad1990symbol} ?
+Nous étudierons ici différentes façons de représenter les mots et leur sens en
+étudiant les dictionnaires, les ressources lexicales (en s'attardant sur
+WordNet) et les modèles de langue.
+
 
 \subsection{Représentation du sens des mots}
 
-Le travail lexicographique est un premier moyen de distinguer le sens des mots.
+La lexicographie est la science qui consiste à recenser les mots, les classer,
+les définir et les illustrer, par des exemples ou des expressions, pour rendre
+compte de l'ensemble de leurs significations et de leurs acceptions au sein
+d'une langue, afin de constituer un dictionnaire
+\citep{wikipedia2014lexicographie}. La lexicographie est donc un socle sur
+lequel le Traitement Automatique des Langues peut s'appuyer pour représenter le
+sens des mots.
 
-Les tests d'ambiguïté ne sont pas faciles à construire et ne donnent
-pas de résultats satisfaisants dans un nombre important de cas. La meilleure
-solution, utilisée par les lexicographes aujourd'hui selon
-\cite{kilgarriff1997don}, est d'utiliser un concordancier sur un corpus
-important. Le lexicographe sépare alors ces différents usages, ce qui lui
-permet de définir ce qui différencie les sens selon lui. Une phase d'ajustement
-peut suivre pour harmoniser les groupes obtenus étant donné des observations
-faites précédemment, et ce n'est qu'après ces étapes que l'écriture de l'entrée
-du dictionnaire peut avoir lieu. L'avantage principal est que le choix est
-désormais basé sur des données réelles, et n'est pas de la simple spéculation.
-\cite{kilgarriff1997don} cite ensuite quelques critères utiles pour réaliser le
-clustering. La faible fréquence est souvent un argument pour laisser un sens de
-côté : il peut être trop spécialisé pour avoir une utilité générale.
-
-% parler de domaines
+Pour pouvoir identifier les différents sens d'un mot, les lexicographes
+n'opèrent pas par intuition linguistique \citep{kilgarriff1997don}. Ils
+commencent par établir un corpus équilibré et de taille assez importante pour
+représenter la langue étudiée. Ce corpus peut par exemple être constitué de
+textes de journaux, de fiction, ou encore de blogs. Pour un mot donné, le
+lexicographe examine ses différents usages dans le corpus pour les séparer.
+Cette séparation permet d'établir des critères objectifs : ces critères, une
+fois établis, permettent de valider la séparation. Ils serviront aussi de base
+à la définition, alors que les utilisations de mots dans le corpus pourront
+servir d'exemple dans le dictionnaire. Une phase d'ajustement peut suivre pour
+harmoniser les groupes obtenus étant donné des critères établis, et ce n'est
+qu'après toutes ces étapes que l'écriture de l'entrée du dictionnaire peut
+avoir lieu.  L'avantage principal est que le choix est désormais basé sur des
+données réelles, et n'est pas de la simple spéculation. Certains sens, jugés
+trop peu fréquents, sont laissés de côté, tandis que d'autres, jugés trop
+proches, sont regroupés.
 
 Ainsi, les sens ne sont pas définis en tant que tels, mais sont avant tout des
 occurrences dans un contexte donné. L'auteur conclut en affirmant qu'un
 ensemble de sens n'est défini que par rapport à un corpus donné, et qu'il est
-illusoire de vouloir définir un dictionnaire général parfait pour tous les
-sens. Néanmoins, il n'est pas pratique de réaliser manuellement un dictionnaire
-par corpus ; et il faut simplement être conscient des difficultés théoriques
-posées par les sens de mots. 
+illusoire de vouloir définir un dictionnaire général parfait pour tous les sens
+possibles d'un mot. Néanmoins, il n'est pas concevable de réaliser manuellement
+un dictionnaire par corpus ; et il faut simplement être conscient des
+difficultés théoriques posées par les sens de mots.
+
+Des choix différents seraient faits pour un dictionnaire spécialisé qui
+s'appuierait sur un corpus différent.
+% donner un exemple
 
 \subsubsection{Inventaires de sens}
+
+La qualité du travail lexicographique des dictionnaires n'a pas été remise en
+cause par l'ère numérique. Cependant, les ordinateurs rendent possibles
+d'autres formats pour les dictionnaires, la première raison étant qu'il n'est
+plus nécessaire de les trier par ordre alphabétique pour pouvoir identifier un
+mot rapidement \citep{miller1985wordnet}, la seconde raison étant que le
+lexique est mieux représenté par un graphe que par un texte
+\citep{polguere2012lexicographique}.
 
 % pas de biais lexicographique ?
 Intéressons-nous maintenant aux inventaires de sens utilisés par les différents
