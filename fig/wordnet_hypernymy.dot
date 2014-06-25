@@ -1,0 +1,27 @@
+digraph G {
+    size="10,20";
+    dpi=400;
+    node[shape=box, fontname="Nimbus Roman No9 L", width=5,fontsize=16];
+
+    entity [label=<<b>entity</b><br/>that wich is perceived or known or inferred<br/>to have its own existence (living or nonliving)>];
+    abstraction [label=<<b>abstraction, abstract entity</b><br/>a general concept formed by extracting<br/>common features from specific examples>];
+    measure [label=<<b>measure, quantity, amount</b><br/>how much there are of something<br/>that you can quantify>];
+    time [label=<<b>time unit, unit of time</b><br/>a unit for measuring time periods>];
+    entity -> abstraction -> measure -> time -> day;
+
+    day [label=<<b>day, 24-hour interval, solar day</b><br/>time for Earth to make a complete rotation on its axis<br/><i>"two days later they left"</i>, <i>"there are 30,000 passengers per day"</i>>, style=filled, fillcolor="#999999"];
+    tomorrow [label=<<b>tomorrow</b>>,width=0];
+    today [label=<<b>today</b>>, width=0];
+
+    date [label=<<b>date, day of the month</b>>,width=0];
+    due_date [label=<<b>maturity date, due date</b>>,width=0];
+    birthday [label=<<b>birthday, natal day</b>>,width=0];
+    day -> date;
+    date -> due_date;
+    date -> birthday;
+
+    day -> tomorrow;
+    day -> today;
+    day -> other_day;
+    other_day [label="...",width=0];
+}

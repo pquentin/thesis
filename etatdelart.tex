@@ -90,10 +90,14 @@ n'a pas été remise en cause, mais l'Informatique a rendu possible d'autres
 formats pour les dictionnaires :
 
 \begin{itemize}
+
     \item il n'est pas nécessaire de trier les entrées par ordre alphabétique
-        pour pouvoir identifier un mot rapidement \citep{miller1985wordnet},
+        pour pouvoir identifier un mot rapidement
+        \citep{miller1990introduction},
+
     \item le lexique est mieux représenté par un graphe que par un texte
         \citep{polguere2013tissage}.
+
 \end{itemize}
 
 De plus, l'utilisation de dictionnaires récents implique un coût d'achat et le
@@ -104,8 +108,32 @@ Wiktionnaire \citep{mouton2010jaws,nguyen2012using}. En effet, ces deux
 ressources autorisent une utilisation à la fois à des fins de recherche mais
 aussi pour un usage commercial, ce qui leur a assuré une large diffusion.
 
-
 % Histoire, intéret de WordNet
+La première ressource lexicale à tirer partie de la possibilité de représenter
+le lexique sous la forme d'un graphe est WordNet, dont l'élaboration a commencé
+en 1985 \citep{miller1990introduction}. Établi sur des principes
+psycholinguistiques, WordNet propose quatre graphes pour les quatre parties du
+discours formant une classe ouverte : noms, verbes, adjectifs, adverbes. Les
+noeuds du graphes sont des ensembles de synonymes (\emph{synonym sets} ou
+\emph{synsets}. Un synset regroupe plusieurs mots, une définition, et
+potentiellement des exemples.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{fig/wordnet_hypernymy.png}
+    \caption{\label{fig:wordnet_hypernymy}Hypéronymie dans WordNet autour du
+synset day. Les synsets au-dessus de day (fond gris) sont ses hypéronymes (day
+est-un time unit), alors que les synets dessous font partie de ses hyponymes
+(tomorrow est-un day).}
+\end{figure}
+
+Chaque synset est lié à d'autres synsets à travers un certain nombre de
+relations telles que l'hypéronymie, la méronymie de partie (guidon est un
+méronyme de vélo), l'antonymie, etc. Si on ne considère que l'hypéronymie,
+WordNet peut être visualisé comme un arbre
+(Figure~\ref{fig:wordnet_hypernymy}). En considérant les autres relations,
+WordNet est un graphe (Figure~\ref{fig:wordnet_relations}).
+
 
 Les sens proposés ont étés utilisés pour annoter le corpus SemCor, ce qui a
 permis d'entraîner de nombreux systèmes supervisés. WordNet est rapidement
