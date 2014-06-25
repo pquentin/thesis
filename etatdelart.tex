@@ -7,6 +7,7 @@
 %   - qui citer pour plus d'un sens ?
 %   - réutiliser la figure d'un papier ?
 
+
 La question de la représentation du sens des mots occupe une place importante
 dans nos travaux, en particulier pour la traduction de la ressource WordNet
 (Chapitre~\ref{ch:wonef}). La question de la représentation des prédicats
@@ -17,9 +18,9 @@ dans nos travaux, en particulier pour la traduction de la ressource WordNet
 
 % TODO \citep{harnad1990symbol} ?
 Nous étudierons ici différentes façons de représenter les mots et leur sens en
-étudiant les dictionnaires, les ressources lexicales (en s'attardant sur
-WordNet) et les modèles de langue.
-
+commençant par les dictionnaires, puis en étudiant les ressources lexicales
+représentant le sens des mots avant d'étudier les modèles de langue qui sont
+une manière plus directe de représenter les mots à partir d'un corpus.
 
 \subsection{Représentation du sens des mots}
 
@@ -36,63 +37,84 @@ n'opèrent pas par intuition linguistique \citep{kilgarriff1997don}. Ils
 commencent par établir un corpus équilibré et de taille assez importante pour
 représenter la langue étudiée. Ce corpus peut par exemple être constitué de
 textes de journaux, de fiction, ou encore de blogs. Pour un mot donné, le
-lexicographe examine ses différents usages dans le corpus pour les séparer.
-Cette séparation permet d'établir des critères objectifs : ces critères, une
-fois établis, permettent de valider la séparation. Ils serviront aussi de base
-à la définition, alors que les utilisations de mots dans le corpus pourront
-servir d'exemple dans le dictionnaire. Une phase d'ajustement peut suivre pour
-harmoniser les groupes obtenus étant donné des critères établis, et ce n'est
-qu'après toutes ces étapes que l'écriture de l'entrée du dictionnaire peut
-avoir lieu.  L'avantage principal est que le choix est désormais basé sur des
-données réelles, et n'est pas de la simple spéculation. Certains sens, jugés
-trop peu fréquents, sont laissés de côté, tandis que d'autres, jugés trop
-proches, sont regroupés.
+lexicographe examine ses différents usages dans ce corpus dans le but de
+séparer ces différents usages en sens. En étudiant cette séparation, le
+lexicographe peut établir des critères objectifs pour distinguer les différents
+sens : ces critères, une fois établis, permettent de valider la séparation, ou
+si besoin, de la modifier. Ces critères serviront aussi de base à la
+définition, et les occurrences de mots dans le corpus pourront servir d'exemple
+dans le dictionnaire. Une phase d'ajustement peut suivre pour harmoniser les
+groupes obtenus étant donné des critères établis, et ce n'est qu'après toutes
+ces étapes que l'écriture de l'entrée du dictionnaire peut avoir lieu.
+L'avantage principal est que le choix est désormais basé sur des données
+réelles, et n'est pas de la simple spéculation. Certains sens, jugés trop peu
+fréquents, sont laissés de côté, tandis que d'autres, jugés trop proches, sont
+regroupés.
+
+% exemple
 
 Ainsi, les sens ne sont pas définis en tant que tels, mais sont avant tout des
-occurrences dans un contexte donné. L'auteur conclut en affirmant qu'un
-ensemble de sens n'est défini que par rapport à un corpus donné, et qu'il est
-illusoire de vouloir définir un dictionnaire général parfait pour tous les sens
-possibles d'un mot. Néanmoins, il n'est pas concevable de réaliser manuellement
-un dictionnaire par corpus ; et il faut simplement être conscient des
-difficultés théoriques posées par les sens de mots.
+occurrences dans un contexte donné. C'est une des façons de comprendre la
+citation de \citep{firth1957synopsys} : \emph{You shall know a word by the
+company it keeps}\footnote{Vous devriez connaître un mot par ce qui
+l'accompagne.}.  L'auteur conclut en affirmant qu'un ensemble de sens n'est
+donc défini que par rapport à un corpus donné, et qu'il est illusoire de
+vouloir définir un dictionnaire parfait pour tous les sens possibles d'un mot.
+Néanmoins, il n'est pas concevable de réaliser manuellement un dictionnaire par
+corpus ; et il faut simplement être conscient des difficultés théoriques posées
+par les sens de mots.
 
-Des choix différents seraient faits pour un dictionnaire spécialisé qui
-s'appuierait sur un corpus différent.
-% donner un exemple
+Sans s'attarder sur des difficultés théoriques, on considèrera dans ce travail
+que les sens définis dans un dictionnaire classique relèvent du «~domaine
+général~», et que les sens qui apparaissent dans d'autres domaines sont des
+sens «~spécialisés~». Par exemple, le dictionnaire DicoInfo \citep{corpusolst}
+spécialisé dans les domaines de l'Informatique et d'Internet mentionne un sens
+spécifique pour le nom \emph{compilation} : action effectuée par un compilateur
+qui consiste à transformer du code créé au moyen d'un langage de programmation
+évolué en un langage compréhensible par l'ordinateur. Ce sens est par exemple
+absent du TLFi \citep{TLFi}.
 
 \subsubsection{Inventaires de sens}
 
-La qualité du travail lexicographique des dictionnaires n'a pas été remise en
-cause par l'ère numérique. Cependant, les ordinateurs rendent possibles
-d'autres formats pour les dictionnaires, la première raison étant qu'il n'est
-plus nécessaire de les trier par ordre alphabétique pour pouvoir identifier un
-mot rapidement \citep{miller1985wordnet}, la seconde raison étant que le
-lexique est mieux représenté par un graphe que par un texte
-\citep{polguere2012lexicographique}.
+Les premiers inventaires de sens disponibles étant les dictionnaires, ils ont
+étés naturellement utilisés par les premiers systèmes cherchant une couverture
+exhaustive de tous les mots d'un texte, tel que le système de désambiguïsation
+de \cite{lesk1986automatic}. La première campagne d'évaluation Senseval
+organisée en 1998 \citep{kilgarriff2000introduction} a d'ailleurs fourni un
+dictionnaire par langue pour les systèmes de désambiguïsation lexicale.
 
-% pas de biais lexicographique ?
-Intéressons-nous maintenant aux inventaires de sens utilisés par les différents
-systèmes de désambiguïsation lexicale. Les premiers inventaires de sens
-disponibles étaient les dictionnaires, et ils ont étés naturellement utilisés
-par les premiers systèmes cherchant une couverture exhaustive de tous les mots
-d'un texte \citep{lesk1986automatic}. La première campagne d'évaluation
-Senseval (organisée en 1998) \citep{kilgarriff2000introduction} a d'ailleurs
-évalué les différents systèmes de désambiguïsation lexicale dans trois langues
-; l'inventaire de sens choisi était à chaque fois un dictionnaire.
-L'utilisation de tels dictionnaires implique cependant un coût d'achat et le
+% Ce paragraphe doit résumer les défauts (tous relatifs) des dictionnaires
+Les dictionnaires ont cependant été rapidement abandonnés dans les campagnes
+suivantes. La qualité du travail lexicographique exposé dans les dictionnaires
+n'a pas été remise en cause, mais l'Informatique a rendu possible d'autres
+formats pour les dictionnaires :
+
+\begin{itemize}
+    \item il n'est pas nécessaire de trier les entrées par ordre alphabétique
+        pour pouvoir identifier un mot rapidement \citep{miller1985wordnet},
+    \item le lexique est mieux représenté par un graphe que par un texte
+        \citep{polguere2013tissage}.
+\end{itemize}
+
+De plus, l'utilisation de dictionnaires récents implique un coût d'achat et le
 respect de la licence restrictive, ce qui explique que ces dictionnaires ont
-rapidement étés abandonnés au profit de WordNet
-\citep{edmonds2002introduction}, voire du Wiktionnaire
-\citep{mouton2010jaws}.%,nguyen2012using}.
-% pas le seul inconvénient des dictionnaires
+rapidement étés abandonnés au profit d'autres ressources disponibles sous une
+ressource libre comme WordNet \citep{edmonds2002introduction} ou le
+Wiktionnaire \citep{mouton2010jaws,nguyen2012using}. En effet, ces deux
+ressources autorisent une utilisation à la fois à des fins de recherche mais
+aussi pour un usage commercial, ce qui leur a assuré une large diffusion.
 
-En effet, WordNet est disponible sous une licence peu restrictive qui permet
-une utilisation à la fois à des fins de recherche mais aussi de
-commercialisation. Les sens proposés ont étés utilisés pour annoter le corpus
-SemCor, ce qui a permis d'entraîner de nombreux systèmes supervisés. WordNet est
-rapidement devenu le standard de la désambiguïsation lexicale et a été utilisé
-dans les campagnes d'évaluation internationales d'analyse sémantique
+
+% Histoire, intéret de WordNet
+
+Les sens proposés ont étés utilisés pour annoter le corpus SemCor, ce qui a
+permis d'entraîner de nombreux systèmes supervisés. WordNet est rapidement
+devenu le standard de la désambiguïsation lexicale et a été utilisé dans les
+campagnes d'évaluation internationales d'analyse sémantique
 \citep{navigli2009word}.
+
+% Corrections apportées à WordNet (regrouper les sens, annoter plus d'un sens
+% par mot..)
 
 Depuis 2006, différents travaux \citep{navigli2007semeval,hovy2006ontonotes}
 ont remarqué que les défauts attribués à WordNet
@@ -106,6 +128,8 @@ remarquablement faible (de l'ordre de 70\%), et qu'utiliser un autre inventaire
 un moyen efficace de s'adapter à différentes applicaions
 \citep{palmer2004different}. La tendance est désormais à l'utilisation
 d'inventaires plus grossiers \citep{navigli2007semeval,navigli2012quick}.
+
+% Nouveaux inventaires (mérite mieux qu'une liste)
 
 Au-delà des approches statistiques \citep{snow2007learning}, de nouveaux
 inventaires de sens ont étés developpés :
@@ -121,7 +145,7 @@ inventaires de sens ont étés developpés :
         inventaire entièrement nouveau, conçu dans l'objectif de corriger les
         erreurs faites avec WordNet\citep{kilgarriff2010detailed}.
 
-        % Sens-Texte Nancy ?
+        % Sens-Texte Nancy !
 
 \end{itemize}
 
