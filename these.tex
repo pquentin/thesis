@@ -67,22 +67,26 @@
 \maketitle
 
 \frontmatter
-\setcounter{tocdepth}{3}
-\tableofcontents
-\listoffigures
-\listoftables
 
 \chapter{Remerciements}
 
 I would like to thank my supervisor, Professor Someone. This
 research was funded by the Imaginary Research Council.
 
+% TODO in one chapter
 \chapter{Résumé}
 
-A brief summary of the project goes here.
+Un résumé d'une page.
 
-% A glossary and list of acronyms may go here
-% or may go in the back matter.
+\chapter{Abstract}
+
+A one-page abstract.
+
+\setcounter{tocdepth}{3}
+\tableofcontents
+%\listoffigures
+%\listoftables
+
 
 \mainmatter
 
@@ -95,6 +99,7 @@ A brief summary of the project goes here.
 \include{etatdelart}
 
 \part{Ressources pour l'annotation en rôles sémantiques}
+\label{part:translation}
 
 
 % TODO justifier l'utilisation de ressources
@@ -103,7 +108,7 @@ l'utilisation de ressources lexicales. La première, WordNet, représente le sen
 des mots et les liens entre ces sens, alors que la seconde, VerbNet classifie
 les verbes selon leurs comportements syntaxiques. Cette partie présentes la
 traduction de ces deux ressources vers le français (produisant respectivement
-WoNeF et VerbeNet). Quant à elle, la partie \ref{part:methodes} traite de
+WoNeF et VerbeNet). Quant à elle, la partie \ref{part:srl} traite de
 l'utilisation de ces ressources pour l'annotation en rôles sémantiques.
 
 \include{wonef}
@@ -111,7 +116,7 @@ l'utilisation de ces ressources pour l'annotation en rôles sémantiques.
 \include{verbnet}
 
 \part{Méthodes pour l'annotation en rôles sémantiques}
-\label{part:methodes}
+\label{part:srl}
 
 Trois raisons expliquent l'importance de l'annotation en rôles sémantiques :
 
