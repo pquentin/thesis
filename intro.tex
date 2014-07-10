@@ -2,56 +2,32 @@
 \chapter{Introduction}
 \label{ch:intro}
 
-Désambiguïsation lexicale et annotation en rôles sémantiques sont deux tâches
-d'analyse sémantique aux applications nombreuses, telles que l'extraction et la
-recherche d'information, la traduction automatique, ou encore le résumé
-automatique de textes. Des ressources ont été développées pour faciliter le
-traitement de chacune de ces tâches, ainsi que différentes approches
-statistiques. Nous nous intéressons ici à l'évaluation des performances de ces deux tâches dans un cadre ouvert et aux possibilités de traitement des langues moins dotées que l'anglais en ressources sémantiques.
+\section{L'annotation en rôles sémantiques}
 
-\section{Introduction}
+L'annotation en rôles sémantiques est une tâche d'analyse sémantique aux
+applications nombreuses, telles que l'extraction et la recherche d'information,
+la traduction automatique, ou encore le résumé automatique de textes.
 
 % L'idée d'avoir une phrase sur laquelle examiner toutes les "choses" qu'on
 % souhaite décrire est bonne. Qu'est-ce qu'on souhaite décrire ? SRL oui, WSD
 % pas trop. Autre chose ?
 % C'est pour cette raison que cette section n'est pas encore découpée
 
-En Traitement Automatique des Langues, l'analyse sémantique étudie le sens des
-énoncés. Nous nous intéressons ici à deux tâches en particulier : la
-désambiguïsation lexicale et l'annotation en rôles sémantiques.
+% TODO utiliser exemple stage Guilhem ?
+Elle répond à la question « Qui a fait Quoi à Qui, Comment, Où et Quand ? ».
+Il faut d'abord définir quelle est la situation observée, puis déterminer les
+rôles que jouent les différents syntagmes de la phrase. Par exemple, pour une
+phrase décrivant une rencontre, il faudra détecter qu'une rencontre est
+décrite, puis identifier les deux agents qui se rencontrent, mais aussi
+potentiellement l'endroit et l'heure de la rencontre, la façon dont ils se sont
+rencontrés, etc.
 
-\begin{itemize}
-
-  \item \textbf{Désambiguïsation lexicale} Elle a pour but de déterminer le
-      sens correct d'un mot dans son contexte. Par exemple, est-ce que le mot «
-      mineur » réfère à un travailleur ou à une jeune personne ? Il faut
-      d'abord régler la question épineuse de la définition du sens, puis se
-      baser sur le contexte proche pour faire le bon choix.
-
-  \item \textbf{Annotation en rôles sémantiques} Elle répond à la question «
-      Qui a fait Quoi à Qui, Comment, Où et Quand ? ». Il faut d'abord définir
-      quelle est la situation observée, puis déterminer les rôles que jouent
-      les différents syntagmes de la phrase. Par exemple, pour une phrase
-      décrivant une rencontre, il faudra détecter qu'une rencontre est décrite,
-      puis identifier les deux agents qui se rencontrent, mais aussi
-      potentiellement l'endroit et l'heure de la rencontre, la façon dont ils
-      se sont rencontrés, etc.
-
-\end{itemize}
-
-Prenons pour exemple la phrase suivante : « Mrs. Aouda essaya vainement de
-retenir Mr. Fogg. » (extrait du \textit{Tour du monde en quatre-vingts jours},
-Jules Verne). La désambiguïsation lexicale aura pour objectif de déterminer le
-sens de tous les mots ambigus en s'aidant du contexte. Parmi les mots pleins, «
-essaya » est ambigu (elle n'essaie pas un vêtement, mais tente quelque chose),
-ainsi que « retenir » (elle ne veut pas se souvenir de quelque chose, mais
-empêcher quelqu'un de faire quelque chose). Au contraire, « vainement » n'a
-qu'un seul sens.
-
-L'annotation en rôles sémantique déterminera quant à elle que la phrase
-correspond à une situation de tentative (grâce à la présence du verbe « essayer
-»), puis déterminera quel est l'agent, l'activité qui a été tentée, et le
-résultat (« vainement »). Ainsi, le résultat de l'annotation serait :
+Prenons pour exemple \emph{Mrs. Aouda essaya vainement de retenir Mr. Fogg}
+(extrait du \emph{Tour du monde en quatre-vingts jours} de Jules Verne).
+L'annotation en rôles sémantique déterminera que la phrase correspond à une
+situation de tentative (grâce à la présence du verbe « essayer »), puis
+déterminera quel est l'agent, l'activité qui a été tentée, et le résultat («
+vainement »). Ainsi, le résultat de l'annotation serait :
 
 \begin{figure}[htbl]
     \centering
@@ -62,44 +38,22 @@ résultat (« vainement »). Ainsi, le résultat de l'annotation serait :
     \caption{Une phrase annotée en rôles sémantiques}
 \end{figure}
 
-%\subsection{Applications WSD}
-%
-%La désambiguïsation lexicale a de nombreuses applications potentielles, la
-%première étant la traduction automatique. C'est en effet l'application
-%historique, identifiée dès 1949 \citep{weaver1949translation}. Le mot italien «
-%penna » peut être traduit en français avec les mots « plume », « stylo » et «
-%pâtes ». C'est donc clairement le sens des mots qui définit la traduction
-%automatique. Les performances actuelles de la désambiguïsation lexicale ne
-%permettent pas d'affirmer avec certitude une amélioration pour la traduction
-%automatique \citep{apidianaki2009place}, mais des travaux encourageants
-%existent \citep{chan2007word}.
-%
-%Un autre exemple classique est la recherche d'information où le sens des mots
-%cherchés peut aider à définir les documents à retourner. En fouille d'opinion,
-%établir le sens des mots utilisés est aussi important : par exemple, un navet
-%sera négatif dans le domaine du cinéma, neutre en cuisine. Étant donné la
-%difficulté à introduire des outils de désambiguïsation lexicale dans des
-%systèmes existants \citep{navigli2009word}, et dans le but de poursuivre leur
-%amélioration, ceux-ci sont évalués \textit{in vitro}, comme l'attestent les
-%tâches présentées lors des dernières campagnes d'évaluation sur la
-%désambiguïsation lexicale
-%\citep{agirre2010semeval,manandhar2010semeval,lefever2010semeval}.
+\section{Applications}
 
-\subsection{Applications}
-
-En ce qui concerne l'annotation en rôles sémantiques, elle est issue des
+% Ici on répète gildea&jurafsky, le rendre plus explicite
+L'annotation en rôles sémantiques est une évolution naturelle de certains
 travaux sur l'extraction d'information où les systèmes traitent des situations
 très spécifiques, par exemple la détection de résultats d'évènements sportifs
 ou la détection dans des corpus journalistiques de l'acquisition d'entreprises.
-À chaque nouveau système d'extraction d'information dans un domaine différent,
-il est nécessaire de redéfinir les différents patrons sémantiques et
+En effet, À chaque nouveau système d'extraction d'information dans un domaine
+différent, il est nécessaire de redéfinir les différents patrons sémantiques et
 d'entraîner un nouveau système sur de nouvelles données. L'annotation en rôles
 sémantiques a été pensée par \cite{gildea2002automatic} comme un moyen
 d'évoluer vers une généralisation de ces systèmes. Elle a depuis été utilisée
 dans diverses applications, notamment les systèmes de questions-réponses
 \citep{shen2007using} et l'analyse d'opinions \citep{das2012structure}.
 
-\subsection{Contraintes}
+\section{Contraintes}
 
 Nous souhaitons une analyse sémantique utilisable dans le logiciel LIMA
 \citep{besancon2010lima}. Trois contraintes majeures en découlent.
@@ -134,15 +88,3 @@ dans le texte. Tous les mots doivent alors disposer d'un grand nombre
 d'exemples annotés pour une approche complètement supervisée, ce qui n'est pas
 réalisable en pratique. Les techniques que nous présentons ici visent à
 contourner ces difficultés.
-
-\section{Knowledge-based semantic role labeling}
-\label{sec:srl}
-
-Knowledge-based semantic role labeling refers to algorithms that don't use a
-priori training data which would be biased and hamper performance on new
-domains. The "knowledge" is contained in VerbNet-like databases which encode
-syntactic and semantic informations about verbs in a way that allows one to map
-syntactic structure to semantic roles. Previous work on this task used the word
-"unsupervised" instead of "knowledge-based", but unsupervised semantic role
-labeling now refers to truly unsupervised work where no semantic knowledge is
-needed at all.
