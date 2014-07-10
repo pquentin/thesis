@@ -214,7 +214,8 @@ corpus, pratique observée dans de nombreux dictionnaires depuis longtemps.
 Étant donné que c'est de loin l'approche la plus utilisée en désambiguïsation
 lexicale, les autres possibilités ne sont mentionnées que dans cette section.
 
-\subsubsection{Induction de sens}
+% Attention, orienté WSD. Mais présente des idées intéressantes ?
+%\subsubsection{Induction de sens}
 \label{distrib}
 
 Le sens d'un mot donné peut souvent s'inférer à partir de son contexte
@@ -264,7 +265,7 @@ ont établi pour chaque mot des clusters correspondant chacun à un sens du mot
 (voir \cite{liu2012semantic} pour un exemple récent dans un domaine
 spécifique).
 
-\subsubsection{Modèles de langues neuronaux}
+% Modèles de langues neuronaux
 
 \section{Traductions de ressources linguistiques}
 \label{sec:translation}
@@ -301,9 +302,6 @@ une licence libre compatible avec la LGPL et c'est aujourd'hui le WordNet
 français standard. Enfin, JAWS \citep{mouton2010jaws} est une traduction des
 noms de WordNet développée à l'aide de dictionnaires bilingues et d'un modèle
 de langue syntaxique.
-
-\subsubsection{Processus de traduction}
-\label{subsec:translation_process}
 
 \cite{mouton2010jaws} ont conçu JAWS comme un algorithme faiblement supervisé
 qui ne demande aucune donnée annotée manuellement. Pour traduire un wordnet
@@ -342,7 +340,7 @@ Grâce aux dictionnaires, JAWS n'a pas besoin de sélectionner les littéraux de
 \end{itemize}
 alors ce littéral est considéré comme correct. La tâche de traduction est ainsi réduite à une tâche de comparaison entre d'une part les relations lexicales entre les synsets de WordNet et d'autre part les relations lexicales entre les lexèmes du français.
 
-Prenoms l'exemple de \textit{quill} qui peut se traduire par \textit{piquant} ou \textit{plume} (Figure \ref{meronymyexample}). Dans WordNet, \textit{quill} est méronyme de \textit{porcupine} qui a déjà été traduit par \textit{porc-épic} par un sélecteur initial. Dans le modèle de langue, \textit{piquant} fait partie des compléments du noms de \textit{porc-épic} mais ce n'est pas le cas de \textit{plume}. Ici, la relation de complément du nom implique la méronymie et c'est donc \textit{piquant} qu'il faut choisir comme la traduction correcte de \textit{quill}. Le modèle de langue a permis la désambiguïsation parmi les deux traductions possibles.
+Prenons l'exemple de \textit{quill} qui peut se traduire par \textit{piquant} ou \textit{plume} (Figure \ref{meronymyexample}). Dans WordNet, \textit{quill} est méronyme de \textit{porcupine} qui a déjà été traduit par \textit{porc-épic} par un sélecteur initial. Dans le modèle de langue, \textit{piquant} fait partie des compléments du noms de \textit{porc-épic} mais ce n'est pas le cas de \textit{plume}. Ici, la relation de complément du nom implique la méronymie et c'est donc \textit{piquant} qu'il faut choisir comme la traduction correcte de \textit{quill}. Le modèle de langue a permis la désambiguïsation parmi les deux traductions possibles.
 
 \tikzstyle{block}=[draw, fill=blue!5, rectangle, minimum height=0.5cm, minimum width=3cm, text width=5cm]
 
@@ -641,6 +639,8 @@ difficiles à évaluer et à utiliser directement dans des systèmes plus
 importants. Par exemple, dans le cadre de la traduction automatique, distinguer
 les sens ne suffit pas ; il faut aussi savoir quelle traduction appliquer.
 
+\subsection{Techniques d'apprentissage supervisé}
+
 \subsubsection{Traits}
 
 %\subsubsection{Désambiguïsation lexicale (WSD)}
@@ -683,8 +683,7 @@ les sens ne suffit pas ; il faut aussi savoir quelle traduction appliquer.
 \paragraph{Espaces distributionnels}
 \label{espacesdistrib}
 
-% TODO à dire sans WSD
-
+% TODO à dire sans WSD - et à placer avant ?
 \cite{mouton2009induction} reprend la notion d'espaces sémantiques
 \citep{sahlgren2006word} en se concentrant sur des informations syntaxiques
 multiple. En utilisant les 38 relations syntaxiques extraites par LIMA
@@ -694,9 +693,6 @@ relations. Ces matrices creuses permettent de stocker les relations syntaxiques
 fines entre les 68 000 mots les plus fréquents de la langue française. Elle
 parvient ainsi à représenter le contexte plus finement, ce qui permet de
 réaliser plus de distinctions entre les sens.
-
-
-\subsubsection{Annotation en rôles sémantiques (SRL)}
 
 L'article de référence sur l'annotation en rôles sémantiques
 \citep{gildea2002automatic} a introduit différents traits d'apprentissage qui
@@ -785,8 +781,6 @@ traits améliorant quelque peu les performances. Citons ici :
 Des listes plus complètes ont étés établies par ailleurs dans la littérature
 \citep{pradhan2005semantic,marquez2008semantic,palmer2010semantic}.
 
-\subsubsection{Techniques d'apprentissages}
-
 Cette section introduit des techniques qui ne sont pas spécifique à un trait ou
 à une algorithme de classification. Au contraire, elles sont applicables plus
 généralement.
@@ -844,7 +838,7 @@ mais aussi supérieur à un classifieur intégrant l'ensemble des traits.
 Nearest Neighbours pour prendre en compte ses différents espaces
 distributionnels  (cf. section \ref{espacesdistrib}).
 
-\subsubsection{Tirer profit de l'ensemble des données d'apprentissage}
+\subsubsection{Utiliser un seul classifieur}
 
 \cite{kohomban2005learning} choisissent de faire un apprentissage sur des
 classes très générales (les « top nouns » de WordNet), ce qui permet
@@ -864,7 +858,9 @@ fréquent est aussi choisi comme traits. Les différents traits sont ensuite
 combinés via un système de vote, ce qui permet de battre la baseline, alors que
 chaque trait utilisé indépendemment est moins performant que la baseline.
 
-TODO papier qui utilise pas les top nouns mais va un peu plus loin dans l'arbre WordNet
+% TODO papier qui utilise pas les top nouns mais va un peu plus loin dans l'arbre WordNet
+
+% TODO VerbNet unknown verbs classifier
 
 %%
 %% Évaluation
@@ -872,6 +868,8 @@ TODO papier qui utilise pas les top nouns mais va un peu plus loin dans l'arbre 
 
 \subsection{Évaluation}
 \label{subsec:evaluation}
+
+% TODO WSD à supprimer !
 
 L'évaluation est un problème central en apprentissage automatique et en
 Traitement Automatique des Langues, et l'analyse sémantique ne fait pas
@@ -884,7 +882,7 @@ l'analyse d'opinions \citep{das2012structure}. Ce sont des évaluations
 système d'analyse sémantique. Dès lors qu'une vérité-terrain est disponible, la
 littérature utilise la précision, le rappel et la F-mesure tels qu'ils sont
 définis en recherche d'information pour l'évaluation. Quand ce n'est pas le
-cas, le problème est plus complexe (cf. section \ref{evalunsupervised}).
+cas, le problème est plus complexe (cf. section \ref{sec:evalunsupervised}).
 
 Des \textit{baselines} sont souvent établies ; ce sont des algorithmes souvent
 extrêmement simples qui représentent la limite basse qu'un système de
@@ -936,7 +934,7 @@ qui a permis d'augmenter la performance de désambiguïsation pour les mots non
 spécifiques au domaine.
 
 \subsubsection{Évaluation des approches non supervisées}
-\label{evalunsupervised}
+\label{sec:evalunsupervised}
 
 Les approches non supervisées sont difficiles à évaluer. En effet, il n'y a pas
 de vérité-terrain à laquelle se comparer. Pour pallier ce problème, on peut
@@ -962,7 +960,6 @@ solution.}. Une mesure d'évaluation fiable et consistente permettrait pourtant
 d'évaluer avec précision les approches prometteuses que sont les approches
 non-supervisées.
 
-\subsubsection{Évaluation de l'annotation en rôles sémantiques}
 En ce qui concerne l'annotation en rôles sémantiques, le lecteur est invité à
 se référer à \citep{surdeanu2008conll} et \citep{hajic2009conll} qui expliquent
 en détail l'évaluation des différents systèmes ayant participé aux tâches
