@@ -8,26 +8,14 @@ L'annotation en rôles sémantiques est une tâche d'analyse sémantique aux
 applications nombreuses, telles que l'extraction et la recherche d'information,
 la traduction automatique, ou encore le résumé automatique de textes.
 
-% L'idée d'avoir une phrase sur laquelle examiner toutes les "choses" qu'on
-% souhaite décrire est bonne. Qu'est-ce qu'on souhaite décrire ? SRL oui, WSD
-% pas trop. Autre chose ?
-% C'est pour cette raison que cette section n'est pas encore découpée
-
-% TODO utiliser exemple de l'offre de stage Guilhem ?
 Elle répond à la question « Qui a fait Quoi à Qui, Comment, Où et Quand ? ».
-Il faut d'abord définir quelle est la situation observée, puis déterminer les
-rôles que jouent les différents syntagmes de la phrase. Par exemple, pour une
-phrase décrivant une rencontre, il faudra détecter qu'une rencontre est
-décrite, puis identifier les deux agents qui se rencontrent, mais aussi
-potentiellement l'endroit et l'heure de la rencontre, la façon dont ils se sont
-rencontrés, etc.
-
 Prenons pour exemple \emph{Mrs. Aouda essaya vainement de retenir Mr. Fogg}
 (extrait du \emph{Tour du monde en quatre-vingts jours} de Jules Verne).
 L'annotation en rôles sémantique déterminera que la phrase correspond à une
 situation de tentative (grâce à la présence du verbe « essayer »), puis
-déterminera quel est l'agent, l'activité qui a été tentée, et le résultat («
-vainement »). Ainsi, le résultat de l'annotation serait :
+déterminera parmi les syntagmes liés aux verbes quel est l'Agent, l'Activité
+tentée, et le Résultat (\emph{vainement}). Ainsi, le résultat de l'annotation
+serait :
 
 \begin{figure}[htbl]
     \centering
@@ -35,73 +23,85 @@ vainement »). Ainsi, le résultat de l'annotation serait :
       [Agent]  & \textbf{Tentative} & [Résultat]  & [Activité]           \tabularnewline
     Mrs. Aouda & \textbf{essaya}  & vainement  & de retenir Mr. Fogg. \tabularnewline
     \end{tabular}
-    \caption{Une phrase annotée en rôles sémantiques}
+    \caption{\label{fig:introsrl}Le verbe \emph{essayer} déclenche la situation \emph{Tentative}.
+    Les différents syntagmes liés au verbe jouent chacun un rôle sémantique.}
 \end{figure}
+
+% TODO définir frame
+
+Différents informations sont disponibles après l'annotation en rôles sémantiques.
+
+\begin{itemize}
+    \item Le prédicat ayant déclenché la frame est identifié. Dans la
+        figure~\ref{fig:introsrl}, c'est un verbe, mais d'autres parties du
+        discours peuvent déclencher une frame.
+    \item La frame est identifiée, ici \emph{Tentative}.
+    \item Enfin, les rôles exprimés sont annotés. Par exemple, \emph{Mrs.
+        Aouda} est l'Agent.
+\end{itemize}
 
 \section{Applications}
 
-% Ici on répète gildea&jurafsky, le rendre plus explicite
-L'annotation en rôles sémantiques est une évolution naturelle de certains
-travaux sur l'extraction d'information où les systèmes traitent des situations
-très spécifiques, par exemple la détection de résultats d'évènements sportifs
-ou la détection dans des corpus journalistiques de l'acquisition d'entreprises.
-En effet, À chaque nouveau système d'extraction d'information dans un domaine
-différent, il est nécessaire de redéfinir les différents patrons sémantiques et
-d'entraîner un nouveau système sur de nouvelles données. L'annotation en rôles
-sémantiques a été pensée par \cite{gildea2002automatic} comme un moyen
-d'évoluer vers une généralisation de ces systèmes. Elle a depuis été utilisée
-dans diverses applications, notamment les systèmes de questions-réponses
-\citep{shen2007using} et l'analyse d'opinions \citep{das2012structure}.
+Selon \cite{gildea2002automatic}, l'annotation en rôles sémantiques est une
+évolution naturelle de certains travaux sur l'extraction d'information où les
+systèmes traitent des situations très spécifiques, par exemple la détection de
+résultats d'évènements sportifs ou la détection dans des corpus journalistiques
+de l'acquisition d'entreprises. En effet, à chaque nouveau système d'extraction
+d'information dans un domaine différent, il est nécessaire de redéfinir les
+différents patrons sémantiques et d'entraîner un nouveau système sur de
+nouvelles données. En s'appuyant sur le corpus FrameNet et pour évoluer vers
+une généralisation de ces systèmes, \cite{gildea2002automatic} présentent le
+premier système général d'annotation en rôles sémantiques. Sans pour autant
+remplacer les systèmes d'extraction d'information, l'annotation en rôles
+sémantiques a été utilisée dans diverses applications, notamment les systèmes
+de questions-réponses \citep{shen2007using}, l'extraction d'évènements
+\citep{exner2011using},  l'analyse d'opinions \citep{das2012structure} ou la
+traduction automatique \citep{bazrafshan2013semantic}. Un des intérêts de la
+généralité de l'annotation en rôles sémantiques est de ne pas être limitée aux
+tâches les plus classiques en Traitement Automatique des Langues. Ainsi,
+l'annotation en rôles sémantiques à été utilisée pour la détection de plagiats
+\citep{osman2012improved}, la prédiction des cours de bourses
+\citep{xie2013semantic}, la génération de scènes 3D \citep{chang2014semantic},
+ou l'interprétation de recettes de cuisine \citep{malmaud2014cooking}.
 
 \section{Contraintes}
 
-Nous souhaitons une analyse sémantique utilisable dans le logiciel LIMA
-\citep{besancon2010lima}. Trois contraintes majeures en découlent.
+Afin que le système puisse être utile pour différentes tâches en Traitement
+Automatique des Langues, nous souhaitons une analyse sémantique utilisable dans
+l'analyseur linguistique libre LIMA \citep{besancon2010lima}. Trois contraintes
+majeures en découlent.
 
 \paragraph{Cadre ouvert} Se contenter de désambiguïser certains mots ou se
 limiter à un domaine fermé n'est pas satisfaisant ici. Les inventaires de sens
-utilisés doivent couvrir l'ensemble des sens présents dans une langue.
+utilisés doivent couvrir l'ensemble des sens présents dans une langue. La
+contrainte de traiter l'ensemble des verbes du vocabulaire est ici plus
+importante que de pouvoir traiter les noms, adjectifs et adverbes.
 
 \paragraph{Langue française} Le français dispose d'un nombre limité de
-ressources sémantiques en cadre ouvert. Il n'existe par exemple pas de WordNet
-ou de FrameNet français avec une couverture aussi large que celle de leurs
-équivalents respectifs en langue anglaise. Ne disposant pas des moyens pour
-créer une telle ressource manuellement, il faut transposer de manière
-automatique ces ressources vers le français avec pour objectif une couverture
-maximale.
+ressources sémantiques en cadre ouvert. Il n'existe pas aujourd'hui de VerbNet,
+WordNet ou de FrameNet du français avec une couverture et une qualité proche de
+leurs équivalents respectifs en langue anglaise. Ne disposant pas des moyens
+pour créer de telles ressources manuellement, le système présenté doit pouvoir
+se contenter de transpositions automatiques de ces ressources vers le français.
 
 \paragraph{Simplicité} Il n'est pas possible de faire abstraction des réalités
 d'un laboratoire qui se situe à l'interface entre la recherche et l'industrie
-et dans lequel une partie du personnel est amenée à pouvoir faire des projets
-sur le long terme alors qu'une autre partie doit s'assurer que les travaux
-effectués pourront être repris par d'autres personnes ensuite. La stratégie que
-nous adoptons pour pallier ce problème est de considérer la simplicité des
-systèmes comme un objectif majeur, qui pourra être repris et amélioré par la
-suite.
+et dans lequel une partie du personnel peut réfléchir sur des projets sur le
+long terme alors qu'une autre partie doit s'assurer que les travaux effectués
+soient finis au terme de leur contrat pour être potentiellement utilisés et
+repris par d'autres personnes ensuite. La stratégie que nous adoptons pour
+pallier ce problème est de simplifier nos systèmes, et des les améliorer dès
+qu'ils ont montré leurs limites.
 
-\paragraph{Efficacité} Cette contrainte est moins forte que les deux autres,
-mais reste nécessaire pour que les solutions présentées puissent être
-utilisées dans l'analyseur LIMA.  C'est un problème difficile de
-classification automatique. En effet, les sens possibles sont différents pour
-chaque mot, ce qui nécessite d'entraîner un classifieur sur chaque mot présent
-dans le texte. Tous les mots doivent alors disposer d'un grand nombre
-d'exemples annotés pour une approche complètement supervisée, ce qui n'est pas
-réalisable en pratique. Les techniques que nous présentons ici visent à
-contourner ces difficultés.
+\paragraph{Efficacité} Cette contrainte est moins forte que les autres, mais
+reste nécessaire pour que les solutions présentées puissent être utilisées dans
+l'analyseur LIMA. L'annotation en rôles sémantiques est un problème difficile
+de classification automatique et certains systèmes ont des temps d'entraînement
+et d'exécution trop longs pour une utilisation à large échelle.
 
 \section{FrameNet}
 \label{presentation_framenet}
 % TODO définir FrameNet (peut être une sous-section)
-
-Computing automatically a semantic representation of a given text has been
-defined as the single greatest limitation on the general application of natural
-language processing techniques \citep{dang1998investigating}. Semantic role
-labeling provides such a representation where chunks of a sentence are
-annotated with semantic roles that denote the sense of those chunks related to
-the verb. In this work we use VerbNet \citep{kipperschuler2005verbnet} and give
-some details about it later. Figure~\ref{fig:example_srl} shows an example
-highlighting the difficulty of the task which can not rely exclusively on
-syntactic clues but also needs semantic knowledge.
 
 \begin{figure}[ht]
     \centering
@@ -117,21 +117,6 @@ syntactic clues but also needs semantic knowledge.
     \caption{\label{fig:example_srl}Ces deux phrases annotées avec la classe VerbNet carve-21.2 mettent en évidence que la position des arguments ne détermine pas directement les rôles: le sens et la voix de \textit{crush} ne change pas mais l'annotation sémantique est différente.}
 \end{figure}
 
-Semantic role labeling has tremendously helped to compute semantic
-representations and has been shown to improve multiple tasks such as
-information extraction \citep{surdeanu2003using}, question-answering
-\citep{shen2007using}, event extraction \citep{exner2011using}, plagarism
-detection \citep{osman2012improved}, machine translation
-\citep{bazrafshan2013semantic} or even stock price prediction
-\citep{xie2013semantic}.
-
-Un autre exemple d'utilité de l'annotation en rôles sémantiques est celui de
-l'évaluation : au delà du score BLEU qui ne considère que des suites de mots,
-\cite{lo2011smt} proposent un score HMEANT qui évalue la sémantique de la
-phrase : si l'annotation en rôles sémantique est correcte après traduction,
-alors la phrase est correctement traduite. Cette mesure, bien que difficile à
-mettre en place, est corrélée aux évaluations humaines tout en demandant une
-fraction de l'effort.
 
 \section{VerbNet}
 \label{presentation_verbnet}
