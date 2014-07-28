@@ -27,8 +27,9 @@ partie~\ref{part:translation}. Enfin, l'annotation en rôles sémantiques
 % TODO \citep{harnad1990symbol} ?
 Nous étudions ici différentes façons de représenter les mots et leur sens en
 commençant par les dictionnaires, puis en étudiant différentes ressources
-lexicales représentant le sens des mots avant d'étudier les modèles de langue
-qui sont une manière plus directe de représenter les mots à partir d'un corpus.
+lexicales représentant le sens des mots. Enfin, nous présentons les modèles de
+langue qui sont une manière plus directe de représenter les mots à partir d'un
+corpus.
 
 \subsection{Représentation du sens des mots}
 
@@ -61,15 +62,15 @@ intuitions linguistiques.
 % exemple
 
 Ainsi, les sens ne sont pas définis en tant que tels, mais sont avant tout des
-occurrences dans un contexte donné. C'est une des façons de comprendre la
-citation de \citep{firth1957synopsys} : \emph{You shall know a word by the
-company it keeps}\footnote{Vous devriez connaître un mot par ce qui
-l'accompagne.}. En effet, selon \citep{kilgarriff1997don}, un ensemble de sens
-n'est défini que par rapport à un corpus donné, et il est illusoire de vouloir
-définir un dictionnaire parfait pour tous les sens possibles d'un mot.
-Néanmoins, il n'est pas concevable de réaliser manuellement un dictionnaire par
-corpus ; et il faut simplement être conscient des difficultés théoriques posées
-par le sens des mots.
+occurrences dans un contexte donné. C'est une façon de comprendre la citation
+de \citep{firth1957synopsys} : \emph{You shall know a word by the company it
+keeps}\footnote{Vous devriez connaître un mot par ce qui l'accompagne.}. En
+effet, selon \citep{kilgarriff1997don}, un ensemble de sens n'est défini que
+par rapport à un corpus donné, et il est illusoire de vouloir définir un
+dictionnaire parfait pour tous les sens possibles d'un mot.  Néanmoins, il
+n'est pas concevable de réaliser manuellement un dictionnaire par corpus ; et
+il faut simplement être conscient des difficultés théoriques posées par le sens
+des mots.
 
 Sans s'attarder sur des difficultés théoriques, on considèrera dans ce travail
 que les sens définis dans un dictionnaire classique relèvent du «~domaine
@@ -132,6 +133,13 @@ synset day. Les synsets au-dessus de day (fond gris) sont ses hypéronymes (day
 est-un time unit), alors que les synets dessous font partie de ses hyponymes
 (tomorrow est-un day).}
 \end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{fig/wordnet_relations.png}
+    \caption{\label{fig:wordnet_relations}}
+\end{figure}
+
 
 Chaque synset est lié à d'autres synsets à travers un certain nombre de
 relations telles que l'hypéronymie, la méronymie de partie (guidon est un
@@ -207,16 +215,9 @@ précis qui pourrait appartenir à plusieurs sens définir dans un inventaire.
 
 
 \subsection{Modèles de langue}
+\label{subsec:modeles_de_langue}
 
-Nous avons jusqu'ici présupposé que les sens d'un mot était représentés sous la
-forme d'une simple énumération, en signalant l'importance du lien avec un
-corpus, pratique observée dans de nombreux dictionnaires depuis longtemps.
-Étant donné que c'est de loin l'approche la plus utilisée en désambiguïsation
-lexicale, les autres possibilités ne sont mentionnées que dans cette section.
-
-% Attention, orienté WSD. Mais présente des idées intéressantes ?
-%\subsubsection{Induction de sens}
-\label{distrib}
+% Commencer par donner des intuitions rapidement sur les contextes avec Sahlgren et Harris
 
 Le sens d'un mot donné peut souvent s'inférer à partir de son contexte
 \citep{pantel2002discovering}. L'hypothèse distributionnelle, attribuée à Zadig
@@ -224,11 +225,12 @@ Harris, nous permet de formaliser cette observation.
 \cite[p.~786]{harris1954distributional} explique :
 
 \begin{quote} ... si on considère que le sens de deux mots ou morphèmes A et B
-    diffère davantage que le sens que A et C, alors on observe souvent que ls
+    diffère davantage que le sens que A et C, alors on observe souvent que les
     distribution de A et B diffèrent davantage que les distributions de A et C.
     Autrement dit, la différence de sens est corrélée à la différence de
-    distribution.  \end{quote}
+    distribution.\end{quote}
 
+% Est-il utile de faire cette distinction ? Probablement pour JAWS
 La distribution réfère ici à deux relations \citep{sahlgren2008distributional}
 :
 
@@ -237,26 +239,26 @@ La distribution réfère ici à deux relations \citep{sahlgren2008distributional
     \item les relations syntagmatiques identifient les mots qui sont présents
         ensemble dans un texte ;
 
-    \item les relations paradigmatiques identifient les mots qui sont présent
-        dans un même contexte, sans être présent ensemble.
+    \item les relations paradigmatiques identifient les mots qui sont présents
+        dans un même contexte, sans être présents ensemble.
 
 \end{itemize}
 
-Étant donné les deux phrases « Je bois du café. » et « Je bois du thé. », on
-peut déduire que les lemmes « boire » et « thé » sont liés par une relation
-syntagmatique : ils sont présent ensemble. Au contraire, « thé » et « café » ne
-sont pas présent dans la même phrase, mais apparaissent dans un même contexte
-(« Je bois du ») : ils sont liés par une relation paradigmatique.
+Étant donné les deux phrases \emph{Je bois du café} et \emph{Je bois du thé},
+on peut déduire que les lemmes \emph{boire} et \emph{thé} sont liés par une
+relation syntagmatique : ils sont présents ensemble. Au contraire, \emph{thé}
+et \emph{café} ne sont pas présent dans la même phrase, mais apparaissent dans
+un même contexte (\emph{Je bois du}) : ils sont liés par une relation
+paradigmatique.
 
 On peut utiliser ces relations pour de la désambiguïsation : s'il est possible
 d'identifier pour un même mot différents usages correspondant à des relations
 sémantiques avec des mots différents, alors ces deux sens sont différents. La
 validité de cette approche a été vérifiée expérimentalement
-citep{yarowsky1993one,pantel2002discovering,claire} et étudiée de manière plus
-théorique \citep{sahlgren2006word,sahlgren2008distributional}. Comme nous le
-verrons par la suite, c'est un moyen très utile de différencier le sens des
-mots qui est souvent associé à des approches peu supervisées.
+\citep{yarowsky1993one,pantel2002discovering,claire} et étudiée de manière plus
+théorique \citep{sahlgren2006word,sahlgren2008distributional}.
 
+% Quel intérêt ? Pour la traduction de VerbeNet ?
 Différents travaux ont considéré comme vraie l'hypothèse distributionnelle et
 ont établi à partir d'un corpus l'ensemble des sens présents pour chaque mot.
 Par exemple,
@@ -265,7 +267,11 @@ ont établi pour chaque mot des clusters correspondant chacun à un sens du mot
 (voir \cite{liu2012semantic} pour un exemple récent dans un domaine
 spécifique).
 
+% LSA
+
 % Modèles de langues neuronaux
+
+
 
 \section{Traductions de ressources linguistiques}
 \label{sec:translation}
@@ -302,6 +308,9 @@ une licence libre compatible avec la LGPL et c'est aujourd'hui le WordNet
 français standard. Enfin, JAWS \citep{mouton2010jaws} est une traduction des
 noms de WordNet développée à l'aide de dictionnaires bilingues et d'un modèle
 de langue syntaxique.
+
+\subsection{JAWS, un WordNet du français}
+\label{subsec:translation_process}
 
 \cite{mouton2010jaws} ont conçu JAWS comme un algorithme faiblement supervisé
 qui ne demande aucune donnée annotée manuellement. Pour traduire un wordnet
@@ -404,7 +413,7 @@ important to correct them if possible.
 
 
 \section{Annotation en rôles sémantiques}
-\label{senssituation}
+\label{sec:srl}
 
 Après avoir établi ce que pouvait être le sens d'un mot, nous nous intéressons
 ici au même problème du point de vue de l'annotation en rôles sémantiques. Nous
@@ -925,13 +934,13 @@ a présenté trois tâches de désambiguïsation lexicale. Dans La tâche 3, ada
 d'un mot donné dans le corpus parallèle Europarl. Les systèmes présentés n'ont
 pas battu la baseline des traductions les plus fréquentes. La tâche 14 a évalué
 des systèmes non supervisés ; l'évaluation ayant posé problème
-(\ref{evalunsupervised}) il serait futile de citer des résultats ici. Enfin, la
-tâche 17 s'est concentré sur un domaine particulier (l'environnement). Moins de
-20\% des systèmes présentés ont battu la baseline qui était à 50.5\%. De
-manière intéressante, les meilleurs systèmes sont ceux qui n'étaient pas
-complètement supervisés et ont appris aussi sur des larges corpus généraux, ce
-qui a permis d'augmenter la performance de désambiguïsation pour les mots non
-spécifiques au domaine.
+(\ref{sec:evalunsupervised}) il serait futile de citer des résultats ici.
+Enfin, la tâche 17 s'est concentré sur un domaine particulier
+(l'environnement). Moins de 20\% des systèmes présentés ont battu la baseline
+qui était à 50.5\%. De manière intéressante, les meilleurs systèmes sont ceux
+qui n'étaient pas complètement supervisés et ont appris aussi sur des larges
+corpus généraux, ce qui a permis d'augmenter la performance de désambiguïsation
+pour les mots non spécifiques au domaine.
 
 \subsubsection{Évaluation des approches non supervisées}
 \label{sec:evalunsupervised}
