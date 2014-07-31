@@ -116,19 +116,20 @@ sont l'entrée de notre système, la sortie étant l'annotation en rôles
 sémantiques montrée dans la figure~\ref{fig:srlrussia}.
 
 Ensuite, nous utilisons les informations de VerbNet (présenté à la
-section~\ref{presentation_verbnet}) sur l'interface entre la syntaxe et la
-sémantique. Dans VerbNet, chaque classe regroupe un certain nombre de verbes
-acceptant tous les mêmes constructions syntaxiques. Les syntagmes participant à
-ces constructions sont associés à des rôles sémantiques à interpréter dans le
-contexte de la classe. Ces \emph{frames} sont notées de cette façon : NP.Agent
-V NP.Theme. Ici, dans cette construction transitive (NP V NP, e.g. \emph{Sally
-pushed the chair}), le premier syntagme nominal (\emph{Sally}) est Agent alors
-que le second (\emph{the chair}) est Theme. Bien que des règles précises
-régissent leur attributions, l'interprétation complète des rôles (ici Theme et
-Agent) dépend de la classe VerbNet considérée. Par exemple, la classe
-\texttt{resign-10.11} contient notamment NP.Agent V PP.Source (\emph{I resigned
-from the military}). Dans cette classe, l'Agent est la personne qui démissionne
-et la Source est le poste qui a été quitté.
+section~\ref{subsec:presentation_verbnet}) sur l'interface entre la syntaxe
+et la sémantique. Dans VerbNet, chaque classe regroupe un certain nombre de
+verbes acceptant tous les mêmes constructions syntaxiques. Les syntagmes
+participant à ces constructions sont associés à des rôles sémantiques à
+interpréter dans le contexte de la classe. Ces \emph{frames} sont notées de
+cette façon : NP.Agent V NP.Theme. Ici, dans cette construction transitive
+(NP V NP, e.g. \emph{Sally pushed the chair}), le premier syntagme nominal
+(\emph{Sally}) est Agent alors que le second (\emph{the chair}) est Theme.
+Bien que des règles précises régissent leur attributions, l'interprétation
+complète des rôles (ici Theme et Agent) dépend de la classe VerbNet
+considérée. Par exemple, la classe \texttt{resign-10.11} contient notamment
+NP.Agent V PP.Source (\emph{I resigned from the military}). Dans cette
+classe, l'Agent est la personne qui démissionne et la Source est le poste qui
+a été quitté.
 
 Pour une phrase donnée, le système commence par identifier les verbes de cette
 phrase. Pour chacun de ces verbes, un ensemble de classes VerbNet est

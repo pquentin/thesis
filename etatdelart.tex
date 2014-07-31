@@ -123,23 +123,25 @@ définition, et potentiellement des exemples.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.6\textwidth]{fig/wordnet_hypernymy.png}
+    \includegraphics[width=0.7\textwidth]{fig/wordnet_hypernymy.png}
     \caption{\label{fig:wordnet_hypernymy}Hypéronymie dans WordNet autour du
-synset \emph{day\#1}. Les synsets au-dessus de day (fond gris) sont ses
-hypéronymes (day est-un time unit), alors que les synets dessous font partie de
-ses hyponymes (tomorrow est-un day).}
+        synset \emph{day}. Les synsets au-dessus de \emph{day} sont ses hypéronymes
+        (\emph{day} est-un \emph{time unit}), et les synets au-dessus font partie de
+        ses hyponymes (\emph{tomorrow} est-un \emph{day}).}
 \end{figure}
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.6\textwidth]{fig/wordnet_relations.png}
-    \caption{\label{fig:wordnet_relations}}
+    \includegraphics[width=0.9\textwidth]{fig/wordnet_relations.png}
+    \caption{\label{fig:wordnet_relations} Le synset \emph{day} est aussi lié à
+        d'autres synsets si on considère d'autres relations que l'hypéronymie et
+        l'hyponymie.}
 \end{figure}
 
 Chaque synset est lié à d'autres synsets à travers un certain nombre de
-relations telles que l'hypéronymie, la méronymie de partie (guidon est un
-méronyme de vélo), l'antonymie, etc. Si on ne considère que l'hypéronymie,
-WordNet peut être visualisé comme un arbre
+relations telles que l'hypéronymie, la méronymie de partie (\emph{guidon} est
+un méronyme de partie de \emph{vélo}), l'antonymie, etc. Si on ne considère que
+l'hypéronymie, WordNet peut être visualisé comme un arbre
 (Figure~\ref{fig:wordnet_hypernymy}). En considérant les autres relations,
 WordNet est un graphe (Figure~\ref{fig:wordnet_relations}).
 
@@ -148,8 +150,8 @@ corpus SemCor, ce qui a permis d'entraîner des systèmes supervisés. WordNet e
 rapidement devenu le standard de la désambiguïsation lexicale et a été utilisé
 dans de nombreuses campagnes d'évaluation \citep{navigli2009word}. C'est aussi
 une ressource très utilisée de manière générale dans le domaine du Traitement
-Automatique des Langues\footnote{Ses 10~000 citations sur Google Scholar sont
-le meilleur moyen de l'attester au moment de l'écriture}.
+Automatique des Langues\footnote{Ses 10~000 citations sur Google Scholar au
+moment de l'écriture de ce manuscrit sont le meilleur moyen de l'attester}.
 
 Depuis 2006, différents travaux \citep{navigli2007semeval,hovy2006ontonotes}
 ont remarqué que les défauts attribués à WordNet
@@ -199,13 +201,14 @@ exemple, un couteau contient une lame et sert à couper. Cette approche est
 semblable à celle qui définit le sens d'un mot comme une simple suite de sèmes.
 
 Enfin, différents travaux mentionnent la possibilité d'utiliser plus d'un sens
-pour un mot donné.
-% TODO citer DianaMcCarthy
-En particulier, nous avons calculé que 0.3\% des occurrences de SemCor sont
-étiquetées avec plus d'un sens. \cite{smith2011rumble} note quant à lui la
-possibilité d'utiliser des distributions de probabilité pour définir un sens
-précis qui pourrait appartenir à plusieurs sens définir dans un inventaire.
-
+pour un mot donné. \cite{smith2011rumble} propose d'utiliser des distributions
+de probabilité sur les différents sens possibles pour définir un sens précis
+dans un corpus. \cite{erk2013measuring} montrent qu'un accord inter-annotateur
+haut peut être obtenu en demandant aux annotateurs d'indiquer pour chaque sens
+sa correspondance avec l'usage sur une échelle de 1 à 5. Dans SemCor, les
+annotateurs pouvaient choisir plusieurs sens si besoin, mais seulement 0.3\%
+des occurrences de SemCor sont étiquetées avec plus d'un sens. Une campagne
+d'évaluation a eu lieu en 2013 à ce sujet \citep{jurgens2013semeval}.
 
 \subsection{Modèles de langue pour la similarité sémantique}
 \label{subsec:modeles_de_langue}
@@ -320,8 +323,8 @@ seulement la probabilité d'un mot étant donné les mots précédents : c'est l
 tâche sur laquelle il est entraîné. Mais il obtient aussi une représentation de
 chaque mot où les mots sémantiquement proches ont des représentations proches.
 
-% LSA fait une partie du chemin
-% collobert & weston ? liens entre rns ?
+% TODO LSA fait une partie du chemin
+% TODO collobert & weston ? liens entre rns ?
 
 \cite{mikolov2013efficient} et l'outil word2vec
 associé\footnote{\url{https://code.google.com/p/word2vec/}} ont rendu possible
@@ -384,24 +387,29 @@ français standard. Enfin, JAWS \citep{mouton2010jaws} est une traduction des
 noms de WordNet développée à l'aide de dictionnaires bilingues et d'un modèle
 de langue syntaxique.
 
-\subsection{JAWS, un WordNet du français}
 \label{subsec:translation_process}
 
-\cite{mouton2010jaws} ont conçu JAWS comme un algorithme faiblement supervisé
-qui ne demande aucune donnée annotée manuellement. Pour traduire un wordnet
-source, JAWS s'appuie sur un dictionnaire bilingue et un modèle de langue
-syntaxique pour le langage cible.
+Pour notre traduction de WordNet nommée WoNeF (Chapitre~\ref{ch:wonef}), nous
+reprenons les travaux de \cite{mouton2010jaws} qui ont abouti à JAWS, que nous
+présentons ici. C'est un algorithme faiblement supervisé qui ne demande aucune
+donnée annotée manuellement. Pour traduire un wordnet source, JAWS s'appuie sur
+un dictionnaire bilingue et un modèle de langue syntaxique pour le langage
+cible.
 
 Le dictionnaire bilingue est une concaténation du dictionnaire bilingue
 SCI-FRAN-EurADic\footnote{\url{http://catalog.elra.info/product_info.php?products_id=666}}
 et des liens entre les Wiktionnaires français et
-anglais\footnote{\url{http://www.wiktionary.org/}}. % TODO rappel modèle de langue
-Grâce aux dictionnaires, JAWS n'a pas besoin de sélectionner les littéraux de chaque synset parmi l'ensemble du vocabulaire mais seulement parmi un petit nombre de candidats (9 en moyenne). Le processus de traduction se fait en trois étapes :
-\begin{enumerate}
-    \item Créer un wordnet vide : la structure de WordNet est préservée, mais les synsets eux-mêmes n'ont pas de littéraux associés.
-    \item Choisir les traductions les plus faciles parmi les candidats des dictionnaires pour commencer à remplir JAWS.
-    \item Étendre JAWS de manière incrémentale en utilisant le modèle de langue, les relations entre synsets et le JAWS déjà existant.
-\end{enumerate}
+anglais\footnote{\url{http://www.wiktionary.org/}}. Le modèle de langue
+syntaxique a été présenté à la section~\ref{subsec:modeles_de_langue}. Grâce
+aux dictionnaires, JAWS n'a pas besoin de sélectionner les littéraux de chaque
+synset parmi l'ensemble du vocabulaire mais seulement parmi un petit nombre de
+candidats (9 en moyenne).  Le processus de traduction se fait en trois étapes :
+\begin{enumerate} \item Créer un wordnet vide : la structure de WordNet est
+préservée, mais les synsets eux-mêmes n'ont pas de littéraux associés.  \item
+Choisir les traductions les plus faciles parmi les candidats des dictionnaires
+pour commencer à remplir JAWS.  \item Étendre JAWS de manière incrémentale en
+utilisant le modèle de langue, les relations entre synsets et le JAWS déjà
+existant.  \end{enumerate}
 
 \paragraph{Sélecteurs initiaux} Quatre algorithmes que nous nommons sélecteurs
 initiaux choisissent des traductions correctes parmi celles qui sont proposées
@@ -457,12 +465,50 @@ Prenons l'exemple de \textit{quill} qui peut se traduire par \textit{piquant} ou
 
 Un problème potentiel avec cette approche est que la relation de complément du nom n'est pas limitée à la méronymie. Par exemple, le mot \textit{mémoire} qui apparaît dans le modèle de langue vient d'un livre intitulé \textit{Mémoires d'un porc-épic}. Heureusement, \textit{mémoire} n'est pas dans les candidats de \textit{quill} et ne peut pas être choisi comme une traduction. Paradoxalement, le modèle de langue ne peut pas choisir entre deux mots très différents, mais est capable de choisir la traduction correcte d'un mot polysémique. Alors que traduire WordNet automatiquement avec un dictionnaire ou un modèle de langue syntaxique est impossible, combiner les deux ressources permet de résoudre le problème.
 
-Chaque sélecteur suit le même principe que le sélecteur par méronymie de partie et traduit de nouveaux synsets en identifiant les relations entre lexèmes via le modèle de langue syntaxique. La correspondance entre la relation de complément du nom et la relation de méronymie est directe, mais ce n'est pas le cas pour les autres relations : il n'y a par exemple pas de relation syntaxique qui exprime directement la synonymie entre deux lexèmes. Pour ces relations, il est nécessaire d'employer soit des motifs lexicaux \citep{hearst1992automatic} soit des relations syntaxiques de deuxième ordre \citep{lenci2012identifying}. Ce sont ces dernières, aussi nommées relations paradigmatiques, que JAWS utilise. Pour la synonymie, si deux mots partagent les mêmes co-occurents dans une relation syntaxique donnée, alors ils peuvent être synonymes dans ce contexte. Pour les noms, les relations syntaxiques qui donnent les meilleurs résultats sont les relations de complément du nom, d'objet du verbe et d'apposition. Concrètement, si deux noms qui modifient les mêmes noms sont les objets des mêmes verbes ou sont apposés aux mêmes noms, alors il est probable qu'ils soient synonymes et si l'un des deux est déjà dans un synset, alors on peut y ajouter le second. Par exemple, \textit{avant-propos} et \textit{préface} partagent les mêmes compléments du noms : \textit{livre, édition, ouvrage}. Le sélecteur par synonymie peut ajouter \textit{avant-propos} une fois que le littéral \textit{préface} est dans JAWS. \citep{mouton2010jaws,mouton2010phd} décrivent d'autres sélecteurs exploitant notamment les relations d'hyperonymie et d'hyponymie.
+Chaque sélecteur suit le même principe que le sélecteur par méronymie de partie
+et traduit de nouveaux synsets en identifiant les relations entre lexèmes via
+le modèle de langue syntaxique. La correspondance entre la relation de
+complément du nom et la relation de méronymie est directe, mais ce n'est pas le
+cas pour les autres relations : il n'y a par exemple pas de relation syntaxique
+qui exprime directement la synonymie entre deux lexèmes. Pour ces relations, il
+est nécessaire d'employer soit des motifs lexicaux \citep{hearst1992automatic}
+soit des relations syntaxiques de deuxième ordre \citep{lenci2012identifying}.
+Ce sont ces dernières, aussi nommées relations paradigmatiques
+(section~\ref{subsec:modeles_de_langue}, que JAWS utilise. Pour la synonymie,
+si deux mots partagent les mêmes co-occurents dans une relation syntaxique
+donnée, alors ils peuvent être synonymes dans ce contexte. Pour les noms, les
+relations syntaxiques qui donnent les meilleurs résultats sont les relations de
+complément du nom, d'objet du verbe et d'apposition. Concrètement, si deux noms
+qui modifient les mêmes noms sont les objets des mêmes verbes ou sont apposés
+aux mêmes noms, alors il est probable qu'ils soient synonymes et si l'un des
+deux est déjà dans un synset, alors on peut y ajouter le second. Par exemple,
+\textit{avant-propos} et \textit{préface} partagent les mêmes compléments du
+noms : \textit{livre, édition, ouvrage}. Le sélecteur par synonymie peut
+ajouter \textit{avant-propos} une fois que le littéral \textit{préface} est
+dans JAWS. \citep{mouton2010jaws,mouton2010phd} décrivent d'autres sélecteurs
+exploitant notamment les relations d'hyperonymie et d'hyponymie.
 
-\subsection{FrameNet}
+\subsection{VerbNet}
+\label{subsec:presentation_verbnet}
 
-\label{presentation_framenet}
-% TODO définir FrameNet (peut être une sous-section)
+\cite{levin1993english} est une classification des verbes anglais suivant un
+principe simple : le comportement syntaxique des verbes détermine en partie
+leur sens. Après avoir défini un certain nombre de constructions syntaxiques
+possibles, les verbes sont classés en groupes partageant les mêmes
+constructions. Le projet VerbNet a exporté les classes de Levin dans un format
+électronique (XML) et a étendu la ressource avec de nouvelles classes,
+constructions syntaxiques et verbes. VerbNet est une ressource lexicale pour
+les verbes anglais organisée autour de classes sémantiques et de sous-classes
+syntaxiques : une classe sémantique est divisée en sous-classes de verbes qui
+partagent tous le même ensemble de cadres de sous-catégorisation
+(Figure~\ref{fig:example_srl}, en suivant \cite{levin1993english}.  Dans sa
+version actuelle\url{http://verbs.colorado.edu/~mpalmer/projects/verbnet.html},
+VerbNet comprend 3769 lemmes, donnant lieu à 5257 entrées réparties en 274
+sous-classes. VerbNet a montré la cohérence de sa classification et est très
+utilisé, notamment pour l'annotation en rôles sémantiques
+\citep{swier2005exploiting,palmer2013semantic} où il présente l'intérêt de ne
+pas être restreint à un domaine spécifique tout en couvrant une large partie
+des occurrences des verbes anglais dans un texte donné.
 
 \begin{figure}[ht]
     \centering
@@ -478,41 +524,41 @@ Chaque sélecteur suit le même principe que le sélecteur par méronymie de par
     \caption{\label{fig:example_srl}Ces deux phrases annotées avec la classe VerbNet carve-21.2 mettent en évidence que la position des arguments ne détermine pas directement les rôles: le sens et la voix de \textit{crush} ne change pas mais l'annotation sémantique est différente.}
 \end{figure}
 
+La traduction des classes de Levin et plus récemment de VerbNet dans d'autres
+langue est une tâche reconnue comme utile dans la littérature. Initialement,
+des méthodes automatiques ont mené à des améliorations dans le VerbNet anglais
+lui-mmême après validation manuelle : de nouvelles classes ont été incorporées
+\citep{korhonen2004extended} et de nouveaux verbes ont été ajouté à partir de
+la base de données LCS \citep{dorr2001lcs} ou avec l'outil Sketch Engine
+\citep{bonial2013expanding}. La base de données continue aujourd'hui d'évoluer,
+la prochaine version prévue étant la 3.2.4.
 
+Dans d'autres langues, \cite{merlo2002multilingual} ont utilisé des similarités
+entres langues pour convertir 20 classes de Levin vers l'Italien. Des
+acquisitions automatiques ont aussi été menées en japonais
+\citep{suzuki2009classifying}, allemand \citep{im2006experiments} et espagnol
+\citep{ferrer2004towards}. Les seules traductions directes dont nous avons la
+connaissance sont le VerbNet estonien \citep{jentson2014verbnet} et le VerbNet
+portuguais brésilien \citep{scarton2012towards} qui utilise des mappings entre
+VerbNet et WordNet, et entre WordNet.Br et WordNet.
 
-\subsection{VerbNet}
-
-Translating Levin classes and more recently VerbNet is recognized as a useful
-task in the literature. First, automatic methods have led to improvements in
-VerbNet itself: new classes have been incorporated
-\citep{korhonen2004extended} and new verbs have been added from the LCS
-database \citep{dorr2001lcs} or using the Sketch Engine tool
-\citep{bonial2013expanding}.
-
-In other languages, \cite{merlo2002multilingual} have used crosslinguistic
-similarities to convert 20 Levin classes to Italian. Automatic acquisitions
-have also been led in Japanese \citep{suzuki2009classifying}, German
-\citep{im2006experiments}, and Spanish \citep{ferrer2004towards}. The
-only direct translations we are aware of are the Estonian VerbNet
-\citep{jentson2014verbnet} and the Brazilian Portuguese VerbNet
-\citep{scarton2012towards}, which uses the mappings between VerbNet and
-WordNet, and between WordNet.Br and WordNet.
-
-In French, \cite{saintdizier1996constructing} first produced a VerbNet-like
-resource. To the best of our knowledge, effort on this resource has stopped and
-the result is not available. Later work has focused on automatic acquisition of
-subcategorization frames which were clustered according to their syntactic and
-semantic similarity. \cite{sun2010investigating} used a large
-subcategorization frame lexicon \citep{messiant2010acquisition} to cluster
-verbs according to two types of features: syntactic (subcategorization frames)
-and semantic (collocations and lexical preferences of verbs). Evaluation
-against a manually created gold standard led to an F-measure of 55.1\%.
-\cite{falk2012classifying} apply a different clustering algorithm, and use
-different features, improving the F-measure to 70\% on a similar but easier
-dataset. While those resources highlight new ways to separate French verbs, the
-errors they contain are only one source of errors in applications: it is
-important to correct them if possible.
-
+Pour le français, \cite{saintdizier1996constructing} a d'abord produit une
+ressource proche des classes de Levin. À notre connaissance, l'effort sur cette
+ressource a arrêté et le résultat n'est pas disponible. Des travaux se sont
+ensuite concentrés sur l'acquisition automatique de cadres de
+sous-catégorisation et sur le regroupement de verbes en se basant sur ces
+cadres et sur des similarités sémantiques. \cite{sun2010investigating} ont
+utilisé un large lexique de cadres de sous-catégorisation
+\citep{messiant2010acquisition} pour regrouper les verbes en clusters à l'aide
+de traits sémantiques (colocations et préférences lexicales des verbes) et
+syntaxiques (cadres de sous-catégorisation). L'évaluation sur une
+vérité-terrain créé manuellement a mené à une F-mesure de 55.1\%.
+\cite{falk2012classifying} appliquent un algorithme de clustering différent et
+utilisent des features différentes, ce qui améliore la F-mesure sur la même
+vérité-terrain mais simplifiée. Ces ressources mettent en valeur de nouvelles
+façons de séparer les verbes du Français, mais les erreurs qu'elles contiennent
+seront une nouvelle source d'erreur dans les applications : il est important de
+les corriger si possible.
 
 
 \section{Annotation en rôles sémantiques}
@@ -527,17 +573,18 @@ techniques pour réaliser l'annotation elle-même.
 
 Comment aller au-delà d'une analyse syntaxique pour représenter le sens d'une
 phrase ? La notion de rôle sémantique semble particulièrement adaptée aux
-approches statistiques que nous présentons ici. Ces rôles permettent
-d'abstraire un nombre important d'alternances de diathèse présentes dans le
-langage naturel. TODO ... . Différentes théories linguistiques proposent
-différentes représentations pour ces rôles ; nous nous intéresserons ici à la
-théorie élaborée par \cite{fillmore1968case} qui établit que le cas grammatical
-exhibe des relations profondes et sémantiques. De nombreuses langues marquent
-ces relations au niveau morphologique ; l'élatif est un exemple de cas
-grammatical qui exprime le lieu de l'intérieur duquel provient un mouvement et
-qui est marqué morphologiquement en finnois, hongrois et estonien. Il est alors
-sensé de prévoir un rôle sémantique pour ce cas grammatical, même s'il n'est
-pas marqué au niveau morphologique dans la langue étudiée.
+approches statistiques que nous présentons ici. Ces rôles ont pour objectif de
+s'abstraire des alternances de diathèse présentes dans le langage naturel
+(Figure~\ref{fig:example_srl}). Différentes théories linguistiques proposent
+différentes représentations pour ces rôles ; nous nous intéresserons ici aux
+rôles VerbNet et à la théorie élaborée par \cite{fillmore1968case} qui établit
+que le cas grammatical exhibe des relations profondes et sémantiques. De
+nombreuses langues marquent ces relations au niveau morphologique ; l'élatif
+est un exemple de cas grammatical qui exprime le lieu de l'intérieur duquel
+provient un mouvement et qui est marqué morphologiquement en finnois, hongrois
+et estonien. Il est alors sensé de prévoir un rôle sémantique pour ce cas
+grammatical, même s'il n'est pas marqué au niveau morphologique dans la langue
+étudiée.
 
 Il n'y a pas de réel consensus sur un inventaire de cas donnés. Parmi les rôles
 sémantiques généralement acceptés, on peut citer :
@@ -552,7 +599,9 @@ sémantiques généralement acceptés, on peut citer :
 \subsection{Lexiques et corpus}
 
 Il existe en anglais différentes ressources pour l'annotation en rôles
-sémantique : nous aborderons ici FrameNet, PropBank et NomBank.
+sémantique : nous aborderons ici FrameNet, PropBank et NomBank, VerbNet ayant
+déjà été présenté plus longuement à la
+section~\ref{subsec:presentation_verbnet}. 
 
 \paragraph{FrameNet}
 
@@ -611,12 +660,14 @@ deux ressources. Cette similarité volontaire a permis de lier ces ressources
 \citep{pustejovsky2005merging,verhagen2007combining}, mais des applications
 utilisant de telles ressources unifiées doivent encore voir le jour.
 
-Plus récemment, \cite{gerber2010beyond} ont étendu NomBank aux arguments
+\cite{gerber2010beyond} ont étendu NomBank aux arguments
 implicites, améliorant ainsi la couverture de NomBank de 65\%, c'est-à-dire en
 augmentant le nombre moyen de rôles remplis dans chaque exemple annoté. Il
 n'est pas rare que les arguments soient implicites mais présent dans d'autres
 phrases. Les annotations étant limitées à la phrase actuelle, il n'est pas
 possible de référer à un argument présent dans une prase précédente.
+
+% TODO new PropBank LREC 2014
 
 \subsection{Approches d'annotation}
 
@@ -642,84 +693,57 @@ each new considered language and to use those resources to annotate text. The
 quality of annotation suffers, but bringing semantic role labeling to new
 domains and languages becomes easier: no corpus has to be hand-annotated.
 
-Les systèmes de désambiguïsation lexicale et d'annotation en rôles sémantiques
-utilisent pour la plupart des techniques d'apprentissage automatique. Après
-avoir présenté de manière générale les différentes ressources et approches, des
-techniques plus spécifiques sont abordées. Enfin, les traits utilisés pour
-l'apprentissage sont précisés.
-
-Deux types de ressources sont généralement utilisées :
+Les systèmes d'annotation en rôles sémantiques utilisent deux types de
+ressources :
 
 \begin{enumerate}
-
-    \item Les \textbf{inventaires} examinés dans les deux sections précédentes
-        permettent de fournir un socle commun à différents systèmes. Dans le
-        cas de la désambiguïsation lexicale, c'est souvent WordNet. Pour
-        l'annotation en rôles sémantiques, ce sera par exemple la définition
-        des \textit{frames}, des \textit{frame elements}, et des prédicats
-        possibles.
-
+    \item Les \textbf{inventaires} examinés à la section précédente permettent
+        de fournir un socle commun à différents systèmes. Ce sera par exemple
+        la définition des frames, des rôles, des cadre de sous-catégorisation
+        et des prédicats possibles.
     \item Les \textbf{corpus annotés} par des humains qui utilisent un
         inventaire donné pour réaliser la tâche qu'on essaie de faire apprendre
-        aux systèmes. Cela permet à la fois d'entraîner les systèmes et de les
-        évaluer. Par exemple, SemCor est annoté avec des sens WordNet, et
-        FrameNet contient de nombreux exemples annotés en plus des rôles
-        sémantiques définis pour chacune des situations.
-
+        aux systèmes. FrameNet contient de nombreux exemples annotés en plus
+        des rôles sémantiques définis pour chacune des situations.
 \end{enumerate}
 
 Ces ressources sont utilisées différemment suivant les méthodes, souvent
 divisées en trois approches générales : supervisées, fondées sur la
-connaissance et non supervisées. \citep{navigli2009word}.
+connaissance et non supervisées.
 
 \paragraph{Supervisées}
 
-Les méthodes supervisées utilisent un corpus annoté, et adoptent donc
-l'inventaire associé. Des techniques classiques d'apprentissage automatique
-sont utilisées pour déterminer le sens correct de chaque occurrence d'un mot
-étant donné les informations obtenues à partir du contexte de cette occurrence.
-La désambiguïsation lexicale utilise des algorithmes de classification
-classiques, et même si de nombreux algorithmes ont fait leur preuves, SVM est
-considéré comme l'algorithme le plus performant \cite{navigli2012quick}.
-L'annotation en rôles sémantiques supervisée, quant à elle, est souvent
-divisées en deux sous-tâches : l'\textbf{identification des arguments} qui
-établit les syntagmes jouant un rôle dans la phrase et la
-\textbf{classification des rôles} qui détermine le rôle effectif de chaque
-syntagme parmi ceux retenus à la phase précédente.
+Les méthodes supervisées
+\citep{gildea2002automatic,surdeanu2008conll,das2014frame} utilisent un
+corpus annoté, et adoptent donc l'inventaire associé. Des techniques classiques
+d'apprentissage automatique sont utilisées pour déterminer le sens correct de
+chaque occurrence d'un mot étant donné les informations obtenues à partir du
+contexte de cette occurrence.  L'annotation en rôles sémantiques supervisée est
+souvent divisée en plusieurs sous-tâches : l'identification des prédicats, puis
+des frames, l'\textbf{identification des arguments} qui établit les syntagmes
+jouant un rôle dans la phrase et la \textbf{classification des rôles} qui
+détermine le rôle effectif de chaque syntagme parmi ceux retenus à la phase
+précédente.
 
 Ces méthodes supervisées ont des difficultés pour couvrir un large éventail de
-phrases. Pour la désambiguïsation lexicale, ces méthodes ont souvent été
-confrontées à un manque de données d'entraînement du au fait qu'il faut un
-nombre conséquent d'exemples annotés pour chaque mot ambigu. Étant donné d'une
-part la fréquence d'utilisation de mots ambigus dans une
-langue\footnote{d'après nos calculs, seulement 17\% des mots sont polysémiques
-    dans WordNet 3.0, mais 73\% des occurrences de SemCor apparaissent avec
-    plus d'un sens et 87\% des occurrences concernent des mots polysémiques
-dans Wordnet 3.0.}, et d'autre part la distribution asymétrique de ces mêmes
-mots\footnote{d'après nos calculs, 95\% des annotations d'occurences de mots
-    dans SemCor concernent moins de 5\% des lemmes les plus fréquents, ce qui
-limite le nombre d'occurrences pour les mots moins fréquents}, il faut disposer
-d'une référence énorme, ce qui rend l'annotation difficile. On appelle ce
-phénomène le \textit{language acquisition bottleneck} \citep{gale1992using}. Le
-problème du manque de données se retrouve aussi en annotation en rôles
-sémantiques : il s'agit alors d'obtenir une couverture suffisamment importante
-des situations possibles dans un texte en cadre ouvert
-\cite[p.~155]{marquez2008semantic}.
+phrases. FrameNet est un travail colossal qui est encore loin de couvrir un
+éventail complet du vocabulaire anglais \citep[p.~155]{marquez2008semantic}.
+% TODO check citation marquez
 
 \paragraph{Fondées sur la connaissance}
 
 Contrairement aux approches supervisées, ces approches n'utilisent pas de
-corpus annoté. Les systèmes s'affranchissent alors de la petite taille
-inhérente à tout corpus annoté et peuvent utiliser un large corpus non annoté
-tel que le web. Un inventaire de sens est tout de même utilisé, et il faut
-toujours faire de la classification ; la difficulté principale étant ici
-d'obtenir des informations utiles à partir des exemples non annotés. Étant
-donné que ces méthodes continuent à utiliser un inventaire, il reste possible
-de comparer les résultats entre différents systèmes et de réaliser une
-évaluation sur une vérité-terrain. Il est toujours possible d'utiliser un
-corpus pour régler les paramètres à l'aide d'un échantillon de validation ou
-comme base pour annoter de nouveaux exemples ; mais des corpus plus conséquents
-sont toujours utiilisés.
+corpus annoté \citep{swier2005exploiting,pradet2013revisiting}. Les systèmes
+s'affranchissent alors de la petite taille inhérente à tout corpus annoté et
+peuvent utiliser un large corpus non annoté tel que le web. Un inventaire de
+sens est tout de même utilisé, et il faut toujours faire de la classification ;
+la difficulté principale étant ici d'obtenir des informations utiles à partir
+des exemples non annotés. Étant donné que ces méthodes continuent à utiliser un
+inventaire, il reste possible de comparer les résultats entre différents
+systèmes et de réaliser une évaluation sur une vérité-terrain. Il est toujours
+possible d'utiliser un corpus pour régler les paramètres à l'aide d'un
+échantillon de validation ou comme base pour annoter de nouveaux exemples ;
+mais des corpus plus conséquents sont toujours utilisés.
 
 \paragraph{Non supervisées}
 
@@ -728,8 +752,8 @@ inventaire ou un corpus annoté. Une approche non supervisée doit nécessaireme
 construire son propre inventaire. Cette construction peut se faire via du
 \textit{clustering} de sens à partir des occurrences de contextes trouvées dans
 le corpus, en considérant l'hypothèse distributionnelle (section
-\ref{distrib}). Une fois que l'inventaire de sens est défini, il faut
-l'utiliser pour étiqueter le texte.
+\ref{subsec:modeles_de_langue}). Une fois que l'inventaire de sens est défini, il
+faut l'utiliser pour étiqueter le texte.
 
 Les avantages potentiels sont nombreux. Ces algorithmes ne nécessitent aucune
 ressource, et offrent de fait deux propriétés intéressantes :
@@ -750,16 +774,6 @@ Malheureusement, les systèmes utilisant une approche non supervisée sont
 difficiles à évaluer et à utiliser directement dans des systèmes plus
 importants. Par exemple, dans le cadre de la traduction automatique, distinguer
 les sens ne suffit pas ; il faut aussi savoir quelle traduction appliquer.
-
-% TODO
-En ce qui concerne l'annotation en rôles sémantiques, le lecteur est invité à
-se référer à \citep{surdeanu2008conll} et \citep{hajic2009conll} qui expliquent
-en détail l'évaluation des différents systèmes ayant participé aux tâches
-d'annotation en rôles sémantique de CoNLL en 2009 et 2009. Il est intéressant
-de noter que l'annotation en rôles sémantiques multilingue a extrêmement bien
-fonctionné, avec les meilleurs systèmes obtenant des scores proches de 80\%
-pour tous les langages.
-
 
 %\subsection{Techniques d'apprentissage supervisé}
 %
@@ -1053,7 +1067,33 @@ pour tous les langages.
 
 \subsection{Adaptation au domaine}
 
-syntaxe, sémantique
+\cite{chen2008learning} entraîne un système de commentaires en utilisant des
+commentaires existants et des simulations de jeux de football, mais sans
+connaissance explicite sur la langue anglaise. Leur approche a entraîne du
+travail sur le \emph{situated language understanding} (compréhension ancrée du
+langage): \cite{bordes2010towards,richardson2012towards} ont proposé par la
+suite d'autres corpus pour cette tâche. Notre système
+(Chapitre~\ref{ch:domainsrl} est similaire dans le sens où nous minimisons
+l'effort humain pour annoter de nouveaux domaines, mais nous nous concentrons
+sur l'annotation en rôles sémantiques \emph{à la FrameNet}.
+
+Le système d'annotation en rôles sémantiques de \cite{gormley2014low} n'a pas
+besoin de syntaxe supervisée, mais nécessite un corpus annoté en rôles
+sémantiques. \cite{hadouche2011annotation} effectue une annotation en rôles
+sémantiques sur le corpus DicoInfo \citep{corpusolst} à l'aide de deux
+approches :
+
+\begin{itemize}
+    \item en appliquant des règles définies manuellement s'appliquant à la
+        sortie d'un analyseur syntaxique,
+    \item en apprenant un système supervisé en utilisant divers traits issus de
+        la littérature.
+\end{itemize}
+
+Ce travail conclut en indiquant que pour de meilleurs résultats sur plus de
+rôles et de prédicats, il faut plus d'exemples d'entraînement. Notre travail
+prend une autre direction : nous étudions l'utilisation de moins de données
+crées manuellement pour couvrir plus de phrases dans divers domaines.
 
 %\subsection{FrameNet}
 
