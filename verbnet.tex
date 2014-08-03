@@ -2,76 +2,6 @@
 \chapter{Traduction de VerbNet pour le français}
 \label{ch:verbnet}
 
-VerbNet is an English lexical resource for verbs that has proven useful for
-English NLP due to its high coverage and coherent classification.  Such a
-resource doesn't exist for other languages, despite some (mostly automatic and
-unsupervised) attempts. We show how to semi-automatically adapt VerbNet using
-existing resources designed for different purposes. This study focuses on
-French and uses two French resources: a semantic lexicon (Les Verbes Français)
-and a syntactic lexicon (Lexique-Grammaire).
-
-
-VerbNet est une ressource lexicale pour les verbes anglais organisée autour de
-classes sémantiques et de sous-classes syntaxiques : une classe sémantique est
-divisée en sous-classes de verbes qui partagent tous le même ensemble de cadres
-de sous-catégorisation et d'alternances, en suivant \cite{levin1993english}.
-Dans sa version
-actuelle\url{http://verbs.colorado.edu/~mpalmer/projects/verbnet.html}, VerbNet
-comprend 3769 lemmes, donnant lieu à 5257 entrées réparties en 274
-sous-classes. VerbNet a montré la cohérence de sa classification et est très
-utilisé, notamment pour l'annotation en rôles sémantiques
-\citep{swier2005exploiting, palmer2013semantic} où il présente l'intérêt de ne
-pas être restreint à un domaine spécifique tout en couvrant 99~\% des
-occurrences des verbes anglais dans un texte donné.
-
-Il paraît donc nécessaire d'avoir une ressource équivalente pour le français.
-Les seuls efforts qui ont été faits dans cette direction pour l'instant se
-limitent à des constructions automatiques bruitées dont l'évaluation se limite
-à quelques verbes \citep{messiant2010acquisition,falk2012classifying}. De plus
-ces efforts font abstraction des ressources lexicales qui existent pour le
-français, or celles–ci existent et sont de qualité. Pour les verbes, nous
-pensons en particulier à au Lexique des Verbes du français (LVF+1
-\url{http://pageperso.lif.univ-mrs.fr/~paul.sabatier/Contribution_FondamenTAL.html}),
-au Lexique-Grammaire (LG
-\url{http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires}) et
-à Dicovalence (\url{http://bach.arts.kuleuven.be/dicovalence/}). Nous avons
-donc l'objectif de réaliser un VerbeNet du français semi-automatiquement en
-nous appuyant sur ces ressources, en particulier sur LVF+1 et LG, la première
-plus centrée sur les informations sémantiques, la seconde sur les informations
-syntaxiques. Ce VerbeNet garde la hiérarchie des classes sémantiques du VerbNet
-anglais, ce qui permet de garder à l'identique les informations sémantiques,
-entre autres les rôles thématiques. Sa création demande d'accomplir deux
-tâches: pour chaque classe sémantique, déterminer ses membres puis les répartir
-en sous-classes syntaxiquement homogènes.
-
-Pour la première tâche, la méthode est la suivante pour chaque classe de
-VerbNet notée $Ce$~:
-
-\begin{enumerate}
-
-    \item nous associons manuellement la classe du LVF $C_{lvf}$ et la table du
-        LG $C_{lg}$ correspondant à la définition sémantique de la classe $Ce$,
-        (e.g. put-9.1 L3b 38LD).
-
-    \item deux dictionnaires fournissent la liste $L_{trad}$ des traductions
-        françaises des verbes peuplant la classe anglaise $Ce$, 
-
-    \item les verbes de la classe française Cf sont a priori les verbes simples
-        de $L_{trad}$ qui appartiennent à l'intersection de $C_{lvf}$ et
-        $C_{lg}$ (e.g. mettre, poser ou installer pour put-9.1).
-
-\end{enumerate}
-
-Une interface permet de valider les résultats et d'ajouter à Cf des éléments de
-$L_{trad}$ qui n'appartiennent qu'à $C_{lg}$ et pas à $C_{lvf}$ par exemple.
-Pour la seconde tâche, nous devons procéder manuellement en nous servant
-principalement des informations syntaxiques codées dans le LG.
-
-Cette création semi-automatique de VerbeNet est en cours. La première étape est
-terminée mais pas encore évaluée, elle a produit une ressource où les 247
-classes sémantiques de VerbNet ont étés traduites, avec en moyenne 9 verbes
-français proposés par classe.
-
 \section{Introduction}
 
 % TAL a besoin d'infos sur les verbes, c'est difficile et fragile, et on a
@@ -79,9 +9,9 @@ français proposés par classe.
 Natural Language Processing needs lexicons and a large amount of data to
 efficiently analyze open-domain text. Getting this amount of data is a problem
 in itself, and is known as the knowledge acquisition bottleneck in the word
-sense disambiguation literature \citep{gale1992using}. While annotating
-more and more data will reduce the bottlenecks for some domains, encoding
-lexicons in a cost-effective way can lead to better improvements by explicitly
+sense disambiguation literature \citep{gale1992using}. While annotating more
+and more data will reduce the bottlenecks for some domains, encoding lexicons
+in a cost-effective way can lead to better overall improvements by explicitly
 stating similarities and differences between words.
 
 % VerbNet a montré son efficacité dans le domaine de par son approche
@@ -96,18 +26,11 @@ by Levin classes. It encodes thematic roles and semantic decomposition
 (Section~\ref{french}).  New constructions, new classes and new corrections
 have been added to VerbNet over the years.
 
-% Une des tâches qui nous plait est le semantic role labeling
+% On ne veut plus dire que le SRL est bien mais en quoi VN est bon pour SRL
 With VerbNet, one can use a syntactic alternation to map syntactic chunks of a
-sentence to thematic roles
-\citep{swier2005exploiting,pradet2013revisiting}. This task, semantic role
-labeling, has grown steadily in importance: it helps information extraction
-\citep{surdeanu2003using}, question-answering \citep{shen2007using},
-event extraction \citep{exner2011using}, plagiarism detection
-\citep{osman2012improved}, machine translation
-\citep{bazrafshan2013semantic}, or even stock prediction
-\citep{xie2013semantic}. Thanks to its high coverage (more than four
-thousand distinct verbs) and useful verb separation, VerbNet is well-suited for
-semantic role labeling.
+sentence to thematic roles \citep{swier2005exploiting,pradet2013revisiting}.
+Thanks to its high coverage (more than four thousand distinct verbs) and useful
+verb separation, VerbNet is well-suited for semantic role labeling.
 
 % Dans les langues autres que l'anglais, cette ressource utile n'existe pas
 % mais ne demande qu'à exister étant donné le potentiel \textit{cross-lingual}
@@ -133,9 +56,10 @@ verbs (Section~\ref{french}) to keep only the right translations
 %All 270 classes of VerbNet were annotated, effectively translating VerbNet
 %members.
 The second step in building \verbenet{}, which is still underway, is to adapt
-VerbNet syntactic alternations for French, which gives rise to various problems
+VerbNet syntactic alternations for French, which gives rise to various
+problems.
 
-% Vient de l'état de l'art, /!\ transition
+% Vient de l'état de l'art, /!\ transition, ref état de l'art
 While the results can still be improved, we believe that there is also a need
 for a manually validated French VerbNet.  Our translation will be linked to the
 English VerbNet and the two linguistic resources we use, Les Verbes Français
@@ -147,6 +71,8 @@ Section~\ref{second}.
 \section{Presentation of VerbNet and French Lexical resources}\label{french}
 
 \subsection{Les classes de Levin}
+
+% Bien distinguer alternances vs. cadres de sous-cat
 
 \cite{levin1993english} est une classification des verbes anglais suivant un
 principe simple : le comportement syntaxique des verbes détermine en partie
@@ -231,6 +157,7 @@ Restreindre les frames possibles ?
 
 \subsection{VerbNet}
 
+% combien de verbes
 The top hierarchy in VerbNet is made up of 270 classes. Any class can be
 further divided into sub-classes organized in a tree structure. For each
 (sub-)class, this electronic lexicon gives:  the list of verbs belonging to it,
