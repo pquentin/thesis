@@ -79,7 +79,8 @@ aussi ouverte : nous voulons encourager les cosntributions externes avec notre
 outil basé sur le web. Nous souhaitons aussi faciliter l'utilisation de la
 ressource en utilisant le même format XML que le VerbNet anglais.
 
-\section{Presentation of VerbNet and French Lexical resources}\label{french}
+\section{Présentation de VerbNet et des ressources lexicales françaises}
+\label{french}
 
 \subsection{Les classes de Levin}
 
@@ -87,11 +88,11 @@ ressource en utilisant le même format XML que le VerbNet anglais.
 
 \cite{levin1993english} est une classification des verbes anglais suivant un
 principe simple : le comportement syntaxique des verbes détermine en partie
-leur sens. Après avoir défini un certain nombre de constructions syntaxiques
+leur sens. Après avoir défini un certain nombre d'alternances de diathèses
 possibles, les verbes sont classés en groupes partageant les mêmes
 constructions.
 
-TODO exemple venant vraiment de Levin.
+TODO exemple d'alternance venant vraiment de Levin.
 
 Cette classification a trois intérêts pour l'annotation en rôles sémantiques :
 
@@ -102,7 +103,8 @@ Cette classification a trois intérêts pour l'annotation en rôles sémantiques
 
     \item La classification est hiérarchique et regroupe de nombreux verbes :
         avec une cinquantaine de classes principales, des généralisations et
-        partages d'informations entre les classes proches sont possibles.
+        partages d'informations entre les verbes de classes identiques ou
+        proches sont possibles.
 
     \item Les comportements syntaxiques déterminent les comportements
         sémantiques, ce qui correspond au schéma classique de l'annotation en
@@ -112,78 +114,52 @@ Cette classification a trois intérêts pour l'annotation en rôles sémantiques
 
 %\subsection{Intersection des classes de Levin}
 
-% TODO estimer la pertinence
+% TODO raccourcir sans dire de bêtises
 
-Le comportement syntaxique des verbes anglais détermine leur sens, mais pas
-entièrement. En effet, les classes de Levin ne s'intéressent pas directement au
-sens, et regroupent ainsi des verbes qui dont le sens est a priori très
-différent. Ainsi, dans les \textit{put verbs} se trouve la classe
-\textit{Pocket} qui regroupe les verbes "mettre dans sa poche" et "mettre en
-prison". Cependant, le comportement syntaxique est le même : le regroupement
-est logique et les différences de sens ne sont a priori pas gênantes pour nos
-applications qui ne se basent pas sur le sens des verbes dans VerbNet.
+Les classes de Levin ne s'intéressent pas directement au sens, et regroupent
+parfois des verbes dont le sens peut être très différent.  Ainsi, dans les
+\textit{put verbs} se trouve la classe \textit{Pocket} qui regroupe les verbes
+"mettre dans sa poche" et "mettre en prison". Cependant, le comportement
+syntaxique est le même : le regroupement est logique et les différences de sens
+ne sont a priori pas gênantes pour nos applications qui ne se basent pas sur le
+sens des verbes dans VerbNet.
 
-Un besoin de cohérence sémantique peut cependant se fait sentir :
-
-\begin{itemize}
-
-    \item les ressources sémantiques telles que WordNet ne pourront s'appliquer
-        qu'à des ensembles cohérents sémantiquement
-
-    \item les techniques classiques de détection automatique de synonymie ne
-        regrouperont pas \textit{pocket} et \textit{jail}
-
-    \item les raisonnements sémantiques linguistiques ne tiennent pas si on
-        prend des verbes trop éloignés.
-
-\end{itemize}
-
-\cite{dang1998investigating} propose les classes de Levin intersectives en
-donnant l'exemple d'intersections de classes qui donnent des ensembles
-sémantiquement cohérents. Ainsi, les \textit{split verbs} sont définis comme
-des verbes séparant par une action en \textit{-ing}. Ces verbes incluent
-\textit{cut}, \textit{rip}, \textit{split} mais aussi \textit{push},
-\textit{kick} ou encore \textit{slip}, étant donné que \textit{push} par
-exemple sépare de par l'action de pousser. Un autre exemple : les \textit{carry
-verbs} sont définis comme les verbes causant un mouvemant, avec une séparation
-entre les mouvements accompagnés (\textit{carry}, \textit{drag}, ...) et le
-mouvement non accompagné (\textit{shove}, \textit{drag}, ...). Au-delà de cette
-distinction, c'est une classe qui contient deux types de verbes : ceux qui
-acceptent une \textit{conative alternation} indiquant que le mouvement est
-essayé sans être réussi et ceux qui impliquent seulement que le mouvement est
-causé par l'agent.
+Pour affiner le sens des classes obtenues, \cite{dang1998investigating} propose
+les classes de Levin intersectives en donnant l'exemple d'intersections de
+classes qui donnent des ensembles sémantiquement cohérents. Ainsi, les
+\textit{split verbs} sont définis comme des verbes séparant par une action en
+\textit{-ing}. Ces verbes incluent \textit{cut}, \textit{rip}, \textit{split}
+mais aussi \textit{push}, \textit{kick} ou encore \textit{slip}, étant donné
+que \textit{push} par exemple sépare de par l'action de pousser. Un autre
+exemple : les \textit{carry verbs} sont définis comme les verbes causant un
+mouvemant, avec une séparation entre les mouvements accompagnés
+(\textit{carry}, \textit{drag}, ...) et le mouvement non accompagné
+(\textit{shove}, \textit{drag}, ...). Au-delà de cette distinction, c'est une
+classe qui contient deux types de verbes : ceux qui acceptent une
+\textit{conative alternation} indiquant que le mouvement est essayé sans être
+réussi et ceux qui impliquent seulement que le mouvement est causé par l'agent.
 
 En combinant les verbes apparaissant à la fois dans les \textit{split verbs} et
 les \textit{carry verbs}, on obtient un ensemble sémantiquement cohérent :
 uniquement les verbes indiquant l'application de la force du côté de
 \textit{pull}, et uniquement les verbes partageant la \textit{conative
 alternation} pour \textit{carry}. Cette opération peut être automatisée : dès
-que deux classes partagent au moins trois verbes, il est intéressant de créer
-une nouvelle classe contenant l'intersection qui sera cohérente sémantiquement
-et collera mieux avec la ressource sémantique WordNet.
+que deux classes partagent au moins trois verbes, \cite{dang1998investigating}
+a jugé intéressant de créer une nouvelle classe contenant l'intersection qui
+sera cohérente sémantiquement et collera mieux avec la ressource sémantique
+WordNet.
 
-
-TODO exemple et intérêt pour nous : tirer des exemples de plusieurs classes ?
-Restreindre les frames possibles ?
+% TODO exemple et intérêt pour nous : tirer des exemples de plusieurs classes ?
+% Restreindre les frames possibles ?
 
 \subsection{VerbNet}
-
-% combien de verbes
-The top hierarchy in VerbNet is made up of 270 classes. Any class can be
-further divided into sub-classes organized in a tree structure. For each
-(sub-)class, this electronic lexicon gives:  the list of verbs belonging to it,
-the relevant thematic roles which are possibly associated with selection
-restrictions, and the list of frames. A frame includes an illustrating example,
-a syntactic formula explicating the relation between syntactic arguments and
-thematic roles, and a semantic formula  based on predicates that denote
-relations between participants and events.
-
 
 VerbNet est une extension modernes des classes de Levin, qui se retrouvent
 améliorées sur plusieurs fronts :
 
 \begin{itemize}
 
+    % TODO vraiment ?
     \item la couverture des verbes existants a été testée sur PropBank, ce qui
         a mené à l'ajout de nouvelles constructions syntaxiques
 
@@ -196,62 +172,82 @@ améliorées sur plusieurs fronts :
     \item les verbes ont étés liés à WordNet, OntoNotes, PropBank et FrameNet
         \citep{palmer2009semlink}
 
+    \item de nombreuses corrections ont étés apportées au fil des versions.
+
 \end{itemize}
 
 Ces améliorations ont à la fois contribué à VerbNet en largeur (nouvelles
 classes) et en profondeur (nouveaux verbes, nouvelles constructions
-syntaxiques), ce qui fait de VerbNet la ressource standard pour une
-classification de verbes \textit{à la Levin}.
+syntaxiques).
 
-TODO
+% TODO nombre de sous-classes
+% TODO nombre de verbes
+La hiérarchie supérieure de VerbNet contient 270 classes. Certaines de ces
+classes sont sous-divisées pour former une hiérarchie relativement plate :
+VerbNet contient en tout XXX classes. Pour chaque (sous-)classe, ce lexique
+indique :
+
+\begin{itemize}
+        \item la liste des verbes de la classe,
+        \item les rôles thématiques en jeu ainsi que leur restrictions de sélection,
+        \item la liste des \emph{frames} VerbNet.
+\end{itemize}
+
+Une frame inclut une phrase d'exemple, une formule syntaxique donnant la
+liaison entre les syntagmes et les rôles thématiques, une formule sémantique
+basée sur la logique des prédicats explicitant la relation entre les
+participants et les évènements.
+
+% TODO ?
+
+\subsection{Les Verbes Français et Lexique-Grammaire}
 
 Un des intérêts des classes de Levin et de VerbNet par rapport aux ressources
 françaises est leur approche pragmatique qui se traduit notamment par l'absence
 de prise en compte des emplois métaphorique d'un verbe donné. Ainsi, les tables
 du LADL incluent des usages tels que \textit{L'idée gallopait dans son esprit}
-qui peuvent induire en erreur une application. Cependant,
-\cite{brown2012semantic} proposent une analyse systématique des emplois
-métaphorique de deux verbes représentatifs et montrent qu'utiliser Verbnet pour
-raisonner sur les emplois métaphorique d'un texte est en partie possible au
-prix d'une complexité plus importante et de prédicats sémantiques moins précis.
+qui peuvent induire en erreur une application. \cite{brown2012semantic}
+proposent une analyse systématique des emplois métaphorique de deux verbes
+représentatifs et montrent qu'utiliser VerbNet pour raisonner sur les emplois
+métaphorique d'un texte est en partie possible au prix d'une complexité plus
+importante et de prédicats sémantiques moins précis.
 
-%\subsection{VerbNet et universaux linguistiques}
-%Portuguais, français, ...
-
-\subsection{Les Verbes Français et Lexique-Grammaire}
-
-Starting in the 70's two main lexical resources for French verbs, LVF and LG,
-were manually developed:
-% \footnote{Later in the 90's yet another resource was developed, DICOVALENCE.
-% As it has no structure, we use it only marginally.}:
-
+À partir des années 70 deux ressources lexicales pour les verbes français ont
+été dévelopées : LVF et LG. \footnote{Plus tard, dans les années 1990, une
+autre ressource a été dévelopée : Dicovalence. Nous ne l'utilisons presque pas
+dans nos travaux.}
 
 \begin{itemize}
 
-    \item LVF (Les Verbes Français, \cite{dubois1997verbes}) includes around
-    25000 entries classified into 14 semantic classes with 54 syntactico-semantic
-    subclasses and 248 subsubclasses.
+    % TODO mieux que sous-sous-sous et nombre de E2f.1
+    \item LVF (Les Verbes Français, \cite{dubois1997verbes}) contient environ
+        25000 entrées classées en 14 classes sémantiques, 54 sous-classes
+        syntactico-sémantiques, 248 sous-sous-classes et XXX
+        sous-sous-sous-classes.
 
     \item LG (Lexique-Grammaire, \cite{gross1975methodes,boons1976structure})
-    includes around 14000 entries classified into 67 ``tables'', each table
-    grouping verbs with the same frames and possibly with similar semantics. Each
-    column of the table encodes additional restrictions that will apply to some of
-    the verbs of that table.
+        comporte lui 14 000 entrées classifiées en 67 «~tables~», chaque table
+        groupant des verbes partageant la même propriété définitoire syntaxique
+        et potentiellement une sémantique similaire. Chaque colonne de la table
+        encode des restrictions supplémentaires s'appliquant à certains des
+        verbes de la table.
 
-    %\item DICOVALENCE \citep{} is based on the ``pronominal approach''
-    %\citep{}; this lexicon includes 5000 entries among the most frequent ones;
-    %it  has a flat structure, which makes that we use it only marginally.
+    %\item DICOVALENCE \citep{} est basé sur l'approche pronominale \citep{} :
+    %    ce lexique liste 5 000 entrées parmi les plus fréquentes en français.
 
 \end{itemize}
 
-Both LVF's classes and LG's tables can be compared to VerbNet's classes.
-However, these (old) French resources record neither thematic roles nor
-semantic formulae\footnote{The uses of thematic role and event were not
-much widespread in the 70's.}. This is why we want to build a new French
-resource, \verbenet{}. It will take advantage, on the one hand, of the existing
-French resources with a rich encoding of syntactic information, and on the
-other hand, of the semantic information in VerbNet built for English, a
-language relatively close to French.
+Les classes LVF et les tables LG peuvent toutes les deux être comparées aux
+classes VerbNet. Cependant, ces (vieilles) ressources n'encodent ni les rôles
+thématiques ni les formules sémantiques \footnote{Les notions de rôles
+thématiques et d'évènement n'étaient pas répandues dans les années 1970.}.
+C'est la raison pour laquelle nous voulons construire une nouvelle ressource
+française, \verbenet{}\footnote{Le nom vient de la prononciation à la française
+qui "rajoute" un e. Le $\ni$ est simplement là pour bien marquer ce e et ainsi
+essayer d'éviter la confusion avec VerbNet}. Cette ressource tire profit d'une
+part des ressources existantes pour le français avec un encodage sémantique et
+syntaxique riche, et d'autre part de l'information sémantique présente dans
+VerbNet pour l'anglais, une langue proche du français.
 
 \section{Building \verbenet{}}
 
