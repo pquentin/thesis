@@ -63,15 +63,16 @@ manuel.
 % sémantiquement. Un certain nombre de difficultés empêche d'utiliser ces
 % ressources en TAL
 
-% TODO citer sections
 En ayant pour but de développer une version français de VerbNet (nommée
-\verbenet{}), nous avons d'abord traduit vers le français les membres des
-classes de premier niveau dans VerbNet en utilisant des ressources
-linguistiques qui encodent des informations syntaxiques et sémantiques sur les
-verbes du français. La deuxième étape, toujours en cours, est d'adapter les
-cadres de sous-catégorisation vers le français et de réorganiser les classes de
-VerbNet en fonction, ce qui pose divers problèmes que nous décrirons en partie
-ici.
+\verbenet{}), nous avons d'abord (section~\ref{first}) traduit vers le français
+les membres des classes de premier niveau dans VerbNet en utilisant des
+ressources linguistiques qui encodent des informations syntaxiques et
+sémantiques sur les verbes du français. La deuxième étape
+(section~\ref{second}), toujours en cours, est d'adapter les cadres de
+sous-catégorisation vers le français et de réorganiser les classes de VerbNet
+en fonction, ce qui pose divers problèmes que nous décrirons en partie ici. La
+troisième étape (section~\ref{third}) sera l'occasion de valider les membres
+français de chaque classe.
 
 Notre traduction de VerbNet sera liée aux deux ressources linguistiques que
 nous utilisons, Les Verbes Français et le Lexique-Grammaire. La ressources sera
@@ -249,21 +250,24 @@ part des ressources existantes pour le français avec un encodage sémantique et
 syntaxique riche, et d'autre part de l'information sémantique présente dans
 VerbNet pour l'anglais, une langue proche du français.
 
-\section{Building \verbenet{}}
+\section{Construction de \verbenet{}}
 
-Our basic principle is that the top hierarchy in \verbenet{} should be as close
-as possible to that in VerbNet with 270 classes. Nevertheless, some classes may
-disappear. This can be simply due to morphological reasons. Any VerbNet class
-made up only of verbs that are zero-related to nominals doesn't have a French
-equivalent, eg. class pit-10.7 with verbs such as \emph{bark} and \emph{bone}
-or week-end-56 with verbs such as \emph{week-end} and \emph{december}. On the
-other hand, class 10.8 with verbs formed by the prefix \emph{dé-} plus a
-nominal (\emph{debark, debone}) does have a French equivalent with verbs formed
-by the prefix \emph{dé-} or \emph{é-} (\emph{déveiner, équeuter}).
+% TODO zero-related to a noun = dénominal ?
+Notre principe de base est que la hiérarchie supérieure de VerbNet doit être
+aussi proche que possible de celle de VerbNet et ses 270 classes. Néanmoins,
+certaines classes peuvent disparaître. Ceci peut être dû à des raisons purement
+morphologiques. Une classe VerbNet ne contenant que des verbes dénominaux n'a
+pas d'équivalent en français. C'est le cas de \texttt{pit-10.7} avec des verbes
+tels que \emph{bark} et \emph{bone} ou \texttt{week-end-56} et ses verbes
+\emph{week-end} ou \emph{december}. Par contre, \texttt{debone-10.8} et ses
+verbes formés par le préfixe \emph{dé-} plus un nominal (\emph{debark, debone})
+a un équivalent français avec les préfixes \emph{dé-} ou \emph{é}
+(\emph{déveiner}, \emph{équeuter}).
 
-Given this basic principle, building \verbenet{} goes in two steps.
+Étant donné ce principe de bases, la construction de \verbenet{} se fait en
+trois étapes.
 
-\subsection{First step}\label{first}
+\subsection{Première étape}\label{first}
 
 The first step in building \verbenet{} was to determine which French verbs
 belong to one of  VerbNet's 270 classes. This was done in three stages:
@@ -302,7 +306,7 @@ verbs (2128 distinct verbs).
 % TODO An evaluation on 10 randomly chosen classes shows that XX.X\% of verbs are indeed valid.
 
 
-\subsection{Second step}\label{second}
+\subsection{Deuxième étape}\label{second}
 
 The second step in building \verbenet{} has proven much more difficult than the
 first. For each of the 270 \Cf{} sub-classes, we determine whenever possible:
@@ -457,6 +461,13 @@ revise the hierarchy of \verbenet{} though we are trying to minimize the amount
 of revision in order to keep as much semantic information from VerbNet as
 possible.
 
+\subsection{Troisième étape}
+\label{third}
+
+La troisième étape, qui n'a pas encore commencé, est de valider manuellement
+pour chaque classes les verbes proposés par correspondance de ressources en
+supprimant les verbes erronés et en rajoutant les verbes manquant à fin que la
+ressource ait été entièrement validée manuellement.
 
 \section{Conclusion} We have presented a method for adapting the English
 syntactic and semantic resource VerbNet to a new language. This method combines
