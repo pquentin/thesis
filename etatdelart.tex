@@ -6,7 +6,7 @@ As for me, I had been amazed at how many pieces there were to something that had
 
 \chapter{État de l'art} 
 \label{ch:etatdelart} 
-% Questions :
+% TODO Questions :
 %   - inventaires vs. inventaires de sens
 %   - qui citer pour sème ?
 %   - qui citer pour plus d'un sens ?
@@ -32,6 +32,7 @@ langue qui sont une manière plus directe de représenter les mots à partir d'u
 corpus.
 
 \subsection{Représentation du sens des mots}
+\label{subsec:sens_mots}
 
 La lexicographie est la science qui consiste à recenser les mots, les classer,
 les définir et les illustrer, par des exemples ou des expressions, pour rendre
@@ -66,11 +67,11 @@ occurrences dans un contexte donné. C'est une façon de comprendre la citation
 de \citep{firth1957synopsys} : \emph{You shall know a word by the company it
 keeps}\footnote{Vous devriez connaître un mot par ce qui l'accompagne.}. En
 effet, selon \citep{kilgarriff1997don}, un ensemble de sens n'est défini que
-par rapport à un corpus donné, et il est illusoire de vouloir définir un
-dictionnaire parfait pour tous les sens possibles d'un mot.  Néanmoins, il
-n'est pas concevable de réaliser manuellement un dictionnaire par corpus ; et
-il faut simplement être conscient des difficultés théoriques posées par le sens
-des mots.
+par rapport à un corpus, et il est illusoire de vouloir définir un dictionnaire
+parfait pour tous les sens possibles d'un mot.  Néanmoins, il n'est pas
+concevable de réaliser manuellement un dictionnaire par corpus ; et il faut
+simplement être conscient des difficultés théoriques posées par le sens des
+mots.
 
 Sans s'attarder sur des difficultés théoriques, on considèrera dans ce travail
 que les sens définis dans un dictionnaire classique relèvent du «~domaine
@@ -83,45 +84,48 @@ programmation évolué en un langage compréhensible par l'ordinateur}. Ce sens
 est par exemple absent du TLFi \citep{TLFi} parce qu'il ne faisait pas partie
 des sens du mot dans le corpus utilisé pour établir les définitions.
 
-Les premiers inventaires de sens disponibles étant les dictionnaires, ils ont
-étés naturellement utilisés par les premiers systèmes cherchant une couverture
-exhaustive de tous les mots d'un texte, tel que le système de désambiguïsation
-de \cite{lesk1986automatic}. La première campagne d'évaluation Senseval
-organisée en 1998 \citep{kilgarriff2000introduction} a d'ailleurs fourni un
-dictionnaire par langue pour les systèmes de désambiguïsation lexicale.
+L'avènement de l'informatique a rendu possible d'autres moyen de représenter le
+sens des mots. La qualité du travail lexicographique exposé dans les
+dictionnaires n'a pas été remise en cause, mais :
 
-Les dictionnaires ont cependant été rapidement abandonnés dans les campagnes
-suivantes. La qualité du travail lexicographique exposé dans les dictionnaires
-n'a pas été remise en cause, mais :
 \begin{itemize}
 
-    \item il n'est pas nécessaire de trier les entrées par ordre alphabétique
-        pour pouvoir identifier un mot rapidement
-        \citep{miller1990introduction},
+    \item les dictionnaires traditionnels, même dans leur version en ligne, ne
+        tirent pas profit des nouveaux moyen d'organisation rendus possibles
+        avec un ordinateur : il n'est plus nécessaire de trier les mots, on
+        peut les représenter par un graphe
+        \citep{miller1990introduction,polguere2013tissage},
 
-    \item et le lexique est mieux représenté par un graphe que par un texte
-        \citep{polguere2013tissage}.
+    \item les dictionnaires traditionnels sont basés sur l'histoire des mots au
+        lieu de considérer les progrès en linguistique et psycholinguistique
+        proposant des organisations plus utiles et plus proches du lexique
+        mental \citep{miller1990introduction}.
 
 \end{itemize}
 
 De plus, l'utilisation de dictionnaires récents implique un coût d'achat et le
 respect de la licence restrictive, ce qui explique que ces dictionnaires ont
-rapidement étés abandonnés au profit d'autres ressources disponibles sous une
-licence libre comme WordNet \citep{edmonds2002introduction} ou le Wiktionnaire
-\citep{mouton2010jaws,nguyen2012using}. En effet, ces deux ressources
-autorisent une utilisation à la fois à des fins de recherche mais aussi pour un
-usage commercial, ce qui leur a assuré une large diffusion.
+rapidement étés abandonnés en TAL au profit d'autres ressources disponibles
+sous une licence libre comme WordNet \citep{fellbaum1998wordnet} ou le
+Wiktionnaire \citep{mouton2010jaws,nguyen2012using}. En effet, ces deux
+ressources autorisent une utilisation à la fois à des fins de recherche mais
+aussi pour un usage commercial, ce qui leur a assuré une large diffusion.
 
-% Histoire, intéret de WordNet La première ressource lexicale à tirer partie de
-la possibilité de représenter le lexique sous la forme d'un graphe est WordNet,
-dont l'élaboration a commencé en 1985 \citep{miller1990introduction}. Établi
-sur des principes psycholinguistiques, WordNet propose quatre graphes pour les
-quatre parties du discours formant une classe ouverte : noms, verbes,
-adjectifs, adverbes. Les nœuds du graphe sont des ensembles de synonymes
-(\emph{synonym sets} ou \emph{synsets}). Un synset regroupe plusieurs mots, une
-définition, et potentiellement des exemples.
+\subsection{WordNet}
 
-\begin{figure}[ht]
+% TODO étendre avec ce qui est dans jaws_translation_process et l'intro de
+% ch:wonef
+
+La première ressource lexicale à tirer partie de la possibilité de représenter
+le lexique sous la forme d'un graphe est WordNet, dont l'élaboration a commencé
+en 1985 \citep{miller1990introduction}. Établi sur des principes
+psycholinguistiques, WordNet propose quatre graphes pour les quatre parties du
+discours formant une classe ouverte : noms, verbes, adjectifs, adverbes. Les
+nœuds du graphe sont des ensembles de synonymes (\emph{synonym sets} ou
+\emph{synsets}). Un synset regroupe plusieurs mots, une définition, et
+potentiellement des exemples.
+
+\begin{figure}[h!]
     \centering
     \includegraphics[width=0.7\textwidth]{fig/wordnet_hypernymy.png}
     \caption{\label{fig:wordnet_hypernymy}Hypéronymie dans WordNet autour du
@@ -130,7 +134,7 @@ définition, et potentiellement des exemples.
         ses hyponymes (\emph{tomorrow} est-un \emph{day}).}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}[h!]
     \centering
     \includegraphics[width=0.9\textwidth]{fig/wordnet_relations.png}
     \caption{\label{fig:wordnet_relations} Le synset \emph{day} est aussi lié à
@@ -153,16 +157,18 @@ une ressource très utilisée de manière générale dans le domaine du Traiteme
 Automatique des Langues\footnote{Ses 10~000 citations sur Google Scholar au
 moment de l'écriture de ce manuscrit sont le meilleur moyen de l'attester}.
 
-Depuis 2006, différents travaux \citep{navigli2007semeval,hovy2006ontonotes}
-ont remarqué que les défauts attribués à WordNet
-\citep{snow2007learning,ide2007making} étaient suffisamment importants pour
-nécessiter une alternative avec des sens distingués plus grossièrement. Ce
-problème est attribué selon \cite{edmonds2002introduction} au manque de rigueur
-lexicographique de WordNet, et à la mise en avant de la similarité entre les
-mots à travers les synsets au détriment de la distinction des sens. Il s'est en
-effet avéré que l'accord inter-annotateurs pour un étiquetage avec WordNet est
-remarquablement faible (de l'ordre de 70\%), et qu'utiliser un autre inventaire
-un moyen efficace de s'adapter à différentes applications
+\subsection{Autres inventaires de sens}
+
+Depuis 2006, différents travaux \citep{hovy2006ontonotes,navigli2007semeval}
+ont jugé que les défauts attribués à WordNet
+\citep{boyd2006adding,ide2006making,snow2007learning} étaient suffisamment
+importants pour nécessiter une alternative avec des sens distingués plus
+grossièrement. Ce problème est attribué selon \cite{edmonds2002introduction} au
+manque de rigueur lexicographique de WordNet, et à la mise en avant de la
+similarité entre les mots à travers les synsets au détriment de la distinction
+des sens. Il s'est en effet avéré que l'accord inter-annotateurs pour un
+étiquetage avec WordNet est faible (de l'ordre de 70\%), et qu'utiliser un
+autre inventaire un moyen efficace de s'adapter à différentes applications
 \citep{palmer2004different}. La tendance est désormais à l'utilisation
 d'inventaires plus grossiers \citep{navigli2007semeval,navigli2012quick}.
 
@@ -173,7 +179,7 @@ inventaires de sens ont étés développés :
 
     \item OntoNotes \citep{hovy2006ontonotes} a choisi de regrouper
         manuellement les sens WordNet jusqu'à obtenir un accord
-        inter-annotateur de 90\% .
+        inter-annotateur de 90\%.
 
     \item DANTE\footnote{Les entrées pour les mots entre M et R sont
         disponibles sur http://webdante.com/} \citep{mccarthy2010dante} est un
@@ -187,9 +193,8 @@ inventaires de sens ont étés développés :
 \end{itemize}
 
 Ces inventaires semblent plus adaptés que WordNet pour la désambiguïsation
-lexicale \citep{navigli2012quick}, mais ils ne sont pas encore ou ne seront
-jamais utilisables librement à des fins commerciales et et des applications les
-utilisant doivent encore voir le jour.
+lexicale \citep{navigli2012quick}, mais ils ne sont pas encore disponibles ou
+ne sont pas utilisables librement à des fins commerciales.
 
 Une approche complètement différente est celle de la structure de qualia
 \citep{johnston1996qualia} qui s'inscrit dans le contexte plus général du
@@ -387,7 +392,7 @@ français standard. Enfin, JAWS \citep{mouton2010jaws} est une traduction des
 noms de WordNet développée à l'aide de dictionnaires bilingues et d'un modèle
 de langue syntaxique.
 
-\label{subsec:translation_process}
+\label{subsec:jaws_translation_process}
 
 Pour notre traduction de WordNet nommée WoNeF (Chapitre~\ref{ch:wonef}), nous
 reprenons les travaux de \cite{mouton2010jaws} qui ont abouti à JAWS, que nous

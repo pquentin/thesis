@@ -7,77 +7,58 @@ The words were such awkward things, I could not concentrate on what they were tr
 \chapter{WoNeF : une traduction de WordNet}
 \label{ch:wonef} 
 
-Identifier les sens possibles des mots du vocabulaire est un problème difficile
-demandant un travail manuel très conséquent.
-% TODO expliciter l'intérêt de ce travail
-
-Le projet WordNet a commencé en 1985 en se basant sur la double observation
-suivante à propos des dictionnaires de l'époque (tel que l'\emph{Oxford English
-Dictionary}) \citep{miller1990introduction}:
-
-\begin{itemize}
-
-    \item ces dictionnaires, même dans leur version en ligne, ne tirent pas
-profit des nouveaux moyens d'organisation rendus possibles avec un ordinateur ;
-
-    \item ils sont basés sur l'histoire des mots au lieu de considérer les
-progrès en linguistique et psycholinguistique proposant des manières plus
-utiles d'organiser les mots.
-
-\end{itemize}
-
-Le résultat est la base de données lexicale WordNet \citep{fellbaum1998wordnet}
-qui regroupe les mots en ensemble de synonymes (\emph{synonym sets} ou
-\emph{synsets}) et qui lie les synsets entre eux par différentes relations
-sémantiques telles que l'antonymie, l'hypernymie, l'hyponymie ou encore la
-méronymie.
-
-Depuis la fin des années 90, Il n'existe encore que peu d'équivalents de même
-qualité dans d'autres langues \citep{bond2012survey}.  Néanmoins, des
-traductions automatiques de WordNet vers de nombreuses langues cibles existent,
-notamment pour le français.
-% TODO expliquer ici aussi que WoNeF is the new JAWS
-JAWS est une telle traduction automatique des noms de WordNet qui utilise des
-dictionnaires et un modèle de langue syntaxique. Nous améliorons cette
-traduction, la complétons avec les verbes, adjectifs et adverbes de WordNet, et
-démontrons la validité de notre approche via une nouvelle évaluation manuelle.
-En plus de la version principale nommée WoNeF, nous produisons deux versions
-supplémentaires : une version à haute précision (93~\% de précision, jusqu'à
-97~\% pour les noms), et une version à haute couverture contenant 109~447
-paires (littéral, synset).
-
-
 \section{Introduction}
 \label{sec:intro}
 
-WordNet est une base de données lexicale en développement depuis les années 80
-\citep{fellbaum1998wordnet}. Cette base est organisée autour du concept de
-\textbf{synset} (ensemble de synonymes), chaque synset représentant un sens
-précis à l'aide d'une définition et d'un certain nombre de mots que nous
-nommons littéraux. Ces synsets sont liés par différentes relations sémantiques
-telles que la méronymie et l'hyponymie.
-% TODO exemples fondamentaux ici
-Malgré des défauts reconnus \citep{boyd2006adding} principalement liés à la
-granularité trop fine des sens, WordNet reste une ressource extrêmement utile
-et reproduire ce travail pour d'autres langues serait coûteux et difficile à
-maintenir. Et malgré quelques problèmes théoriques, traduire WordNet en gardant
-sa structure et ses synsets mène à des ressources linguistiques utiles
+% TODO réfléchir au lien avec l'état de l'art : quoi dire où ?
+% actuellement, il y a répétition
+
+Identifier les sens possibles des mots du vocabulaire est un problème difficile
+demandant un travail manuel très conséquent (section~\ref{subsec:sens_mots}).
+Ce travail est cependant nécessaire pour pour pouvoir identifier le sens
+correct d'un mot utilisé en contexte, et est donc d'une importance majeure en
+Traitement Automatique des Langues.
+
+WordNet \citep{fellbaum1998wordnet} regroupe les mots en ensembles de synonymes
+(\emph{synonym sets} ou \emph{synsets}) et qui lie ces synsets entre eux par
+différentes relations sémantiques comme par exemple l'antonymie, l'hypernymie,
+l'hyponymie ou encore la méronymie.
+
+% TODO ref état de l'art
+
+Il n'existe encore que peu d'équivalents de même qualité dans d'autres langues
+\citep{bond2012survey}. Néanmoins, des traductions automatiques de WordNet vers
+de nombreuses langues cibles existent, notamment pour le français. JAWS,
+présenté à la section \ref{subsec:jaws_translation_process}, est une telle
+traduction automatique de WordNet (limitée au noms) qui utilise des
+dictionnaires et un modèle de langue syntaxique. Nous améliorons cette
+traduction, la complétons avec les verbes, adjectifs et adverbes de WordNet, et
+démontrons la validité de notre approche via une nouvelle évaluation manuelle.
+En plus de la version principale, nous produisons deux versions supplémentaires
+: une version à haute précision (93~\% de précision, jusqu'à 97~\% pour les
+noms), et une version à haute couverture contenant 109~447 paires (littéral,
+synset). Cette nouvelle version de JAWS se nomme WoNeF : le nouveau nom évite
+la confusion avec une API Java pour WordNet nommée JAWS (\emph{Java API for
+WordNet Searching}).
+
+WordNet reste une ressource extrêmement utile et reproduire ce travail pour
+d'autres langues serait coûteux et difficile à maintenir. Et malgré quelques
+problèmes théoriques, traduire WordNet en gardant sa structure et ses synsets
+mène à des ressources linguistiques utiles
 \citep{fellbaum2007connecting,demelo2008utility}.
 
-% état de l'art supprimé, /!\ transition
-
 Nos travaux étendent et améliorent les techniques utilisées dans JAWS et
-l'évaluent à l'aide d'une adjudication de deux annotateurs. Le résultat de ce
-travail est WoNeF. Il se décline en trois versions pour répondre à différents
-besoins. Le WoNeF principal a un F-score de 70.9~\%, une autre version a une
-précision de 93.3~\%, et une dernière contient 109~447 paires (littéral,
-synset).
+l'évaluent à l'aide d'une vérité-terrain obtenue par adjudication de deux
+annotateurs. Le résultat de ce travail est WoNeF. Il se décline en trois
+versions pour répondre à différents besoins. Le WoNeF principal a un F-score de
+70.9~\%, une autre version a une précision de 93.3~\%, et une dernière contient
+109~447 paires (littéral, synset).
 
 L'approche de JAWS consiste à combiner des sélecteurs variés permettant de
 choisir les traductions adaptées à chaque synset (section
-\ref{subsec:translation_process}). Les contributions principales de cet article
-sont l'amélioration de JAWS et sa complétion en ajoutant les verbes et les
-adjectifs (section \ref{sec:improving_jaws}) et son évaluation (sections
+\ref{subsec:jaws_translation_process}). Les contributions principales de cet
+article sont l'amélioration de JAWS et sa complétion en ajoutant les verbes et
+les adjectifs (section \ref{sec:improving_jaws}) et son évaluation (sections
 \ref{sec:evaluating_jaws} et \ref{sec:results}). Cette évaluation se fait à
 travers une adjudication elle-même validée par la mesure de l'accord
 inter-annotateur, ce qui montre la validité de l'approche par extension pour
@@ -533,11 +514,11 @@ La table~\ref{table:posfull} montre les résultats détaillés pour chaque parti
 du discours. Concernant les noms, le mode de haute précision utilise deux
 sélecteurs, tous deux fondés sur la relation syntaxique de complément du nom :
 le sélecteur par méronymie décrit à la section
-\ref{subsec:translation_process}, et le sélecteur par hyponymie. La ressource
-de haute précision pour les noms est notre meilleure ressource. La version avec
-le F-score optimisé a un F-score de 72,4~\%, ce qui garantit que peu de paires
-(littéral, synset) sont absentes tout en ayant une précision légèrement
-supérieure à celle de JAWS.
+\ref{subsec:jaws_translation_process}, et le sélecteur par hyponymie. La
+ressource de haute précision pour les noms est notre meilleure ressource. La
+version avec le F-score optimisé a un F-score de 72,4~\%, ce qui garantit que
+peu de paires (littéral, synset) sont absentes tout en ayant une précision
+légèrement supérieure à celle de JAWS.
 
 Les résultats des verbes sont moins élevés. L'explication principale est que
 les verbes sont en moyenne plus polysémiques dans WordNet et nos dictionnaires
