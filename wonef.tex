@@ -7,62 +7,28 @@ The words were such awkward things, I could not concentrate on what they were tr
 \chapter{WoNeF : une traduction de WordNet}
 \label{ch:wonef} 
 
-\section{Introduction}
-\label{sec:intro}
-
-% TODO réfléchir au lien avec l'état de l'art : quoi dire où ?
-% actuellement, il y a répétition
-
 Identifier les sens possibles des mots du vocabulaire est un problème difficile
 demandant un travail manuel très conséquent (section~\ref{subsec:sens_mots}).
 Ce travail est cependant nécessaire pour pour pouvoir identifier le sens
-correct d'un mot utilisé en contexte, et est donc d'une importance majeure en
-Traitement Automatique des Langues.
+correct d'un mot utilisé en contexte. WordNet \citep{fellbaum1998wordnet}
+regroupe les mots en ensembles de synonymes (\emph{synonym sets} ou
+\emph{synsets}) et lie ces synsets entre eux par différentes relations
+sémantiques comme par exemple l'antonymie, l'hyperonymie, l'hyponymie ou encore
+la méronymie (section~\ref{subsec:ressources_lexicales}).
 
-WordNet \citep{fellbaum1998wordnet} regroupe les mots en ensembles de synonymes
-(\emph{synonym sets} ou \emph{synsets}) et qui lie ces synsets entre eux par
-différentes relations sémantiques comme par exemple l'antonymie, l'hypernymie,
-l'hyponymie ou encore la méronymie.
+% TODO année thèse Claire Mouton
+Nos travaux sont la suite de JAWS, présenté en détail à la
+section~\ref{subsec:jaws_translation_process}. Cette nouvelle version de JAWS
+se nomme WoNeF : le nouveau nom évite la confusion avec une API Java pour
+WordNet (\emph{Java API for WordNet Searching}). Dans la suite de ce travail,
+le terme \emph{JAWS} ne fera pas référence à l'API mais à la version précédente
+de WoNeF \citep{mouton2010jaws,mouton2010phd}.
 
-% TODO ref état de l'art
-
-Il n'existe encore que peu d'équivalents de même qualité dans d'autres langues
-\citep{bond2012survey}. Néanmoins, des traductions automatiques de WordNet vers
-de nombreuses langues cibles existent, notamment pour le français. JAWS,
-présenté à la section \ref{subsec:jaws_translation_process}, est une telle
-traduction automatique de WordNet (limitée au noms) qui utilise des
-dictionnaires et un modèle de langue syntaxique. Nous améliorons cette
-traduction, la complétons avec les verbes, adjectifs et adverbes de WordNet, et
-démontrons la validité de notre approche via une nouvelle évaluation manuelle.
-En plus de la version principale, nous produisons deux versions supplémentaires
-: une version à haute précision (93~\% de précision, jusqu'à 97~\% pour les
-noms), et une version à haute couverture contenant 109~447 paires (littéral,
-synset). Cette nouvelle version de JAWS se nomme WoNeF : le nouveau nom évite
-la confusion avec une API Java pour WordNet nommée JAWS (\emph{Java API for
-WordNet Searching}).
-
-WordNet reste une ressource extrêmement utile et reproduire ce travail pour
-d'autres langues serait coûteux et difficile à maintenir. Et malgré quelques
-problèmes théoriques, traduire WordNet en gardant sa structure et ses synsets
-mène à des ressources linguistiques utiles
-\citep{fellbaum2007connecting,demelo2008utility}.
-
-Nos travaux étendent et améliorent les techniques utilisées dans JAWS et
-l'évaluent à l'aide d'une vérité-terrain obtenue par adjudication de deux
-annotateurs. Le résultat de ce travail est WoNeF. Il se décline en trois
-versions pour répondre à différents besoins. Le WoNeF principal a un F-score de
-70.9~\%, une autre version a une précision de 93.3~\%, et une dernière contient
-109~447 paires (littéral, synset).
-
-L'approche de JAWS consiste à combiner des sélecteurs variés permettant de
-choisir les traductions adaptées à chaque synset (section
-\ref{subsec:jaws_translation_process}). Les contributions principales de cet
-article sont l'amélioration de JAWS et sa complétion en ajoutant les verbes et
-les adjectifs (section \ref{sec:improving_jaws}) et son évaluation (sections
-\ref{sec:evaluating_jaws} et \ref{sec:results}). Cette évaluation se fait à
-travers une adjudication elle-même validée par la mesure de l'accord
-inter-annotateur, ce qui montre la validité de l'approche par extension pour
-traduire WordNet.
+Nous étendons et améliorons les techniques utilisées dans JAWS et l'évaluons à
+l'aide d'une vérité-terrain obtenue par adjudication de deux annotateurs. WoNeF
+se décline en trois versions pour répondre à différents besoins. Le WoNeF
+principal a un F-score de 70.9~\%, une autre version a une précision de
+93.3~\%, et une dernière contient 109~447 paires (littéral, synset).
 
 \section{WoNeF: un JAWS nominal amélioré}
 \label{sec:improving_jaws}
@@ -92,14 +58,15 @@ ne correspond pas à tous les besoins.
 % nous c'est 70.7 / 69.6 basé sur la section susbec:pos_results
 
 À notre connaissance, les traductions automatiques de WordNet actuelles
-n'existent qu'en une seule version où les auteurs décident eux-mêmes quelle
-métrique optimiser. Nous fournissons aussi une telle version, mais ajoutons
-aussi deux ressources qui peuvent servir des besoins différents. Même si notre
-WoNeF à haute précision est petit, il peut être utilisé comme une annotation de
-référence et servir pour entraîner un système d'apprentissage. Une ressource à
-haute couverture peut servir de base à une correction manuelle ou servir pour
-une intersection à d'autres ressources, ce qui est la raison pour laquelle nous
-en fournissons une aussi.
+n'existent qu'en une seule version, soit où les auteurs décident eux-mêmes
+quelle métrique optimiser, soit où il faut choisir un seuil de confiance pour
+ne garder que les traductions les plus sûres. Nous fournissons aussi une telle
+version, mais ajoutons aussi deux ressources qui peuvent servir des besoins
+différents. Même si notre WoNeF à haute précision est petit, il peut être
+utilisé comme une annotation de référence et servir pour entraîner un système
+d'apprentissage. Une ressource à haute couverture peut servir de base à une
+correction manuelle ou servir pour une intersection à d'autres ressources, ce
+qui est la raison pour laquelle nous en fournissons une aussi.
 
 
 Cette section présente les trois améliorations essentielles qui ont étés
@@ -320,10 +287,10 @@ nominaux, 8~\% des synsets verbaux et 6~\% des synsets adjectivaux.
 Actuellement, WoNeF ne détecte pas de tels synsets.
 
 L'autre difficulté principale découle de traductions manquantes, ce qui peut
-être considéré comme un défaut de nos ressources. Les sens rares d'un mot sont
-parfois absents. Par exemple, le sens \textit{to catch} du jeu du chat (ou du
-loup) et le sens \textit{coat with beaten egg} du verbe \textit{to egg} ne sont
-pas présents. Aucun de ces sens ne sont dans les synsets les polysémiques
+être considéré comme un défaut de nos dictionnaires. Les sens rares d'un mot
+sont parfois absents. Par exemple, le sens \textit{to catch} du jeu du chat (ou
+du loup) et le sens \textit{coat with beaten egg} du verbe \textit{to egg} ne
+sont pas présents. Aucun de ces sens ne sont dans les synsets les polysémiques
 (définis à la section~\ref{subsec:allvsbcs}), ce qui confirme que cela ne se
 produit que pour les sens rares. Pourtant, WoNeF pourrait être amélioré en
 utilisant des dictionnaires spécifiques pour, par exemple, les espèces (comme

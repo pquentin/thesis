@@ -17,7 +17,7 @@ La représentation du sens des mots (section~\ref{sec:mots}) occupe une place
 importante dans nos travaux, en particulier pour la traduction de la ressource
 WordNet (Chapitre~\ref{ch:wonef}). La traduction de ressources lexicales
 (section~\ref{sec:translation}) est un moyen de faire profiter une langue cible
-de l'effort fourni pour une langue source, comme nous le faisons dans la
+d'une ressource existante dans une autre langue, comme nous le faisons dans la
 partie~\ref{part:translation}. Enfin, l'annotation en rôles sémantiques
 (section~\ref{sec:srl}) sera elle surtout utile pour la partie~\ref{part:srl}.
 
@@ -84,9 +84,12 @@ programmation évolué en un langage compréhensible par l'ordinateur}. Ce sens
 est par exemple absent du TLFi \citep{TLFi} parce qu'il ne faisait pas partie
 des sens du mot dans le corpus utilisé pour établir les définitions.
 
-L'avènement de l'informatique a rendu possible d'autres moyen de représenter le
-sens des mots. La qualité du travail lexicographique exposé dans les
-dictionnaires n'a pas été remise en cause, mais :
+\subsection{Ressources lexicales : WordNet et autres inventaires de sens}
+\label{subsec:ressources_lexicales}
+
+D'autres moyen existent pour représenter le sens des mots. La qualité du
+travail lexicographique exposé dans les dictionnaires n'a pas été remise en
+cause, mais :
 
 \begin{itemize}
 
@@ -106,15 +109,10 @@ dictionnaires n'a pas été remise en cause, mais :
 De plus, l'utilisation de dictionnaires récents implique un coût d'achat et le
 respect de la licence restrictive, ce qui explique que ces dictionnaires ont
 rapidement étés abandonnés en TAL au profit d'autres ressources disponibles
-sous une licence libre comme WordNet \citep{fellbaum1998wordnet} ou le
-Wiktionnaire \citep{mouton2010jaws,nguyen2012using}. En effet, ces deux
-ressources autorisent une utilisation à la fois à des fins de recherche mais
-aussi pour un usage commercial, ce qui leur a assuré une large diffusion.
-
-\subsection{WordNet}
-
-% TODO étendre avec ce qui est dans jaws_translation_process et l'intro de
-% ch:wonef
+sous une licence libre comme WordNet, Wikipédia ou encore le Wiktionnaire. En
+effet, ces ressources autorisent une utilisation à la fois à des fins de
+recherche mais aussi pour un usage commercial, ce qui leur a assuré une large
+diffusion.
 
 La première ressource lexicale à tirer partie de la possibilité de représenter
 le lexique sous la forme d'un graphe est WordNet, dont l'élaboration a commencé
@@ -125,21 +123,15 @@ nœuds du graphe sont des ensembles de synonymes (\emph{synonym sets} ou
 \emph{synsets}). Un synset regroupe plusieurs mots, une définition, et
 potentiellement des exemples.
 
-\begin{figure}[h!]
+% TODO placement des figures une fois le texte un peu plus stable
+
+\begin{figure}[t]
     \centering
-    \includegraphics[width=0.7\textwidth]{fig/wordnet_hypernymy.png}
+    \includegraphics[width=0.6\textwidth]{fig/wordnet_hypernymy.png}
     \caption{\label{fig:wordnet_hypernymy}Hypéronymie dans WordNet autour du
         synset \emph{day}. Les synsets au-dessus de \emph{day} sont ses hypéronymes
         (\emph{day} est-un \emph{time unit}), et les synets au-dessus font partie de
         ses hyponymes (\emph{tomorrow} est-un \emph{day}).}
-\end{figure}
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.9\textwidth]{fig/wordnet_relations.png}
-    \caption{\label{fig:wordnet_relations} Le synset \emph{day} est aussi lié à
-        d'autres synsets si on considère d'autres relations que l'hypéronymie et
-        l'hyponymie.}
 \end{figure}
 
 Chaque synset est lié à d'autres synsets à travers un certain nombre de
@@ -149,6 +141,14 @@ l'hypéronymie, WordNet peut être visualisé comme un arbre
 (Figure~\ref{fig:wordnet_hypernymy}). En considérant les autres relations,
 WordNet est un graphe (Figure~\ref{fig:wordnet_relations}).
 
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.7\textwidth]{fig/wordnet_relations.png}
+    \caption{\label{fig:wordnet_relations} Le synset \emph{day} est aussi lié à
+        d'autres synsets si on considère d'autres relations que l'hypéronymie et
+        l'hyponymie.}
+\end{figure}
+
 Les sens proposés ont étés utilisés pour annoter différents corpus dont le
 corpus SemCor, ce qui a permis d'entraîner des systèmes supervisés. WordNet est
 rapidement devenu le standard de la désambiguïsation lexicale et a été utilisé
@@ -156,8 +156,6 @@ dans de nombreuses campagnes d'évaluation \citep{navigli2009word}. C'est aussi
 une ressource très utilisée de manière générale dans le domaine du Traitement
 Automatique des Langues\footnote{Ses 10~000 citations sur Google Scholar au
 moment de l'écriture de ce manuscrit sont le meilleur moyen de l'attester}.
-
-\subsection{Autres inventaires de sens}
 
 Depuis 2006, différents travaux \citep{hovy2006ontonotes,navigli2007semeval}
 ont jugé que les défauts attribués à WordNet
@@ -171,6 +169,7 @@ des sens. Il s'est en effet avéré que l'accord inter-annotateurs pour un
 autre inventaire un moyen efficace de s'adapter à différentes applications
 \citep{palmer2004different}. La tendance est désormais à l'utilisation
 d'inventaires plus grossiers \citep{navigli2007semeval,navigli2012quick}.
+% TODO pour parler de tendance, citer plusieurs auteurs et en 2013/2014
 
 Au-delà des approches statistiques \citep{snow2007learning}, de nouveaux
 inventaires de sens ont étés développés :
@@ -361,6 +360,13 @@ bien mieux que la simple utilisation du maximum de vraisemblance
 
 \subsection{WordNet}
 
+WordNet reste une ressource extrêmement utile et reproduire ce travail pour
+d'autres langues serait coûteux et difficile à maintenir. Et malgré quelques
+problèmes théoriques, traduire WordNet en gardant sa structure et ses synsets
+mène à des ressources linguistiques utiles
+\citep{fellbaum2007connecting,demelo2008utility}. Il n'existe encore que peu
+d'équivalents de même qualité dans d'autres langues \citep{bond2012survey}.
+
 Les traductions automatiques de WordNet emploient une approche dite d'extension
 (\textit{extend approach}) : la structure de WordNet est préservée et seuls les
 littéraux sont traduits. Trois techniques principales représentent cette
@@ -379,6 +385,7 @@ le Wiktionnaire ont été explorées. Grâce aux nombreux liens entre les
 différentes langues de ces ressources, il est possible de créer de nouveaux
 wordnets \citep{demelo2009towards,navigli2010babelnet} ou d'améliorer des
 wordnets existants \citep{hanoka2012wordnet}.
+% TODO mettre à jour l'état de l'art avec GWC 2014 et LREC 2014 ?
 
 Concernant le français, l'EuroWordNet \citep{vossen1998eurowordnet} est la
 première traduction française de WordNet. C'est une ressource d'une couverture
@@ -448,7 +455,7 @@ Prenons l'exemple de \textit{quill} qui peut se traduire par \textit{piquant} ou
 
 \tikzstyle{block}=[draw, fill=blue!5, rectangle, minimum height=0.5cm, minimum width=3cm, text width=5cm]
 
-\begin{figure}[!ht]
+\begin{figure}[ht]
   \centering
   \begin{tikzpicture}[auto, node distance=2cm,>=latex']
     % Inspired from http://www.texample.net/tikz/examples/control-system-principles/
