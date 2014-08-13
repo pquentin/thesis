@@ -25,11 +25,10 @@ partie~\ref{part:translation}. Enfin, l'annotation en rôles sémantiques
 \label{sec:mots}
 
 % TODO \citep{harnad1990symbol} ?
-Nous étudions ici différentes façons de représenter les mots et leur sens en
-commençant par les dictionnaires, puis en étudiant différentes ressources
-lexicales représentant le sens des mots. Enfin, nous présentons les modèles de
-langue qui sont une manière plus directe de représenter les mots à partir d'un
-corpus.
+Nous étudions le sens des mots à travers les dictionnaires et différentes
+ressources lexicales. Nous présentons ensuite les modèles de langue qui sont
+une manière directe de représenter les mots, leur utilisation, et donc leur
+sens, le tout à partir d'un corpus brut.
 
 \subsection{Représentation du sens des mots}
 \label{subsec:sens_mots}
@@ -69,22 +68,21 @@ keeps}\footnote{Vous devriez connaître un mot par ce qui l'accompagne.}. En
 effet, selon \citep{kilgarriff1997don}, un ensemble de sens n'est défini que
 par rapport à un corpus, et il est illusoire de vouloir définir un dictionnaire
 parfait pour tous les sens possibles d'un mot.  Néanmoins, il n'est pas
-concevable de réaliser manuellement un dictionnaire par corpus ; et il faut
-simplement être conscient des difficultés théoriques posées par le sens des
-mots.
+concevable de réaliser manuellement un dictionnaire par corpus : il faut
+surtout être conscient des difficultés théoriques posées par le sens des mots.
 
-Sans s'attarder sur des difficultés théoriques, on considèrera dans ce travail
-que les sens définis dans un dictionnaire classique relèvent du «~domaine
-général~», et que les sens qui apparaissent dans d'autres domaines sont des
-sens «~spécialisés~». Par exemple, le dictionnaire DicoInfo \citep{corpusolst}
-spécialisé dans les domaines de l'Informatique et d'Internet mentionne un sens
-spécifique pour le nom \emph{compilation} : \emph{action effectuée par un
-compilateur qui consiste à transformer du code créé au moyen d'un langage de
-programmation évolué en un langage compréhensible par l'ordinateur}. Ce sens
-est par exemple absent du TLFi \citep{TLFi} parce qu'il ne faisait pas partie
-des sens du mot dans le corpus utilisé pour établir les définitions.
+On considèrera dans ce travail que les sens définis dans un dictionnaire
+classique relèvent du «~domaine général~», et que les sens qui apparaissent
+dans d'autres domaines sont des sens «~spécialisés~». Par exemple, le
+dictionnaire DicoInfo \citep{corpusolst} spécialisé dans les domaines de
+l'Informatique et d'Internet mentionne un sens spécifique pour le nom
+\emph{compilation} : \emph{action effectuée par un compilateur qui consiste à
+    transformer du code créé au moyen d'un langage de programmation évolué en
+un langage compréhensible par l'ordinateur}. Ce sens est par exemple absent du
+TLFi \citep{TLFi} parce qu'il ne faisait pas partie des sens du mot dans le
+corpus utilisé pour établir les définitions.
 
-\subsection{Ressources lexicales : WordNet et autres inventaires de sens}
+\subsection{Ressources lexicales actuelles}
 \label{subsec:ressources_lexicales}
 
 D'autres moyen existent pour représenter le sens des mots. La qualité du
@@ -115,61 +113,23 @@ recherche mais aussi pour un usage commercial, ce qui leur a assuré une large
 diffusion.
 
 La première ressource lexicale à tirer partie de la possibilité de représenter
-le lexique sous la forme d'un graphe est WordNet, dont l'élaboration a commencé
-en 1985 \citep{miller1990introduction}. Établi sur des principes
-psycholinguistiques, WordNet propose quatre graphes pour les quatre parties du
-discours formant une classe ouverte : noms, verbes, adjectifs, adverbes. Les
-nœuds du graphe sont des ensembles de synonymes (\emph{synonym sets} ou
-\emph{synsets}). Un synset regroupe plusieurs mots, une définition, et
-potentiellement des exemples.
+le lexique sous la forme d'un graphe est WordNet, décrit à la
+section~\ref{presentation_wordnet}.
 
-% TODO placement des figures une fois le texte un peu plus stable
-
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=0.6\textwidth]{fig/wordnet_hypernymy.png}
-    \caption{\label{fig:wordnet_hypernymy}Hypéronymie dans WordNet autour du
-        synset \emph{day}. Les synsets au-dessus de \emph{day} sont ses hypéronymes
-        (\emph{day} est-un \emph{time unit}), et les synets au-dessus font partie de
-        ses hyponymes (\emph{tomorrow} est-un \emph{day}).}
-\end{figure}
-
-Chaque synset est lié à d'autres synsets à travers un certain nombre de
-relations telles que l'hypéronymie, la méronymie de partie (\emph{guidon} est
-un méronyme de partie de \emph{vélo}), l'antonymie, etc. Si on ne considère que
-l'hypéronymie, WordNet peut être visualisé comme un arbre
-(Figure~\ref{fig:wordnet_hypernymy}). En considérant les autres relations,
-WordNet est un graphe (Figure~\ref{fig:wordnet_relations}).
-
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=0.7\textwidth]{fig/wordnet_relations.png}
-    \caption{\label{fig:wordnet_relations} Le synset \emph{day} est aussi lié à
-        d'autres synsets si on considère d'autres relations que l'hypéronymie et
-        l'hyponymie.}
-\end{figure}
-
-Les sens proposés ont étés utilisés pour annoter différents corpus dont le
-corpus SemCor, ce qui a permis d'entraîner des systèmes supervisés. WordNet est
-rapidement devenu le standard de la désambiguïsation lexicale et a été utilisé
-dans de nombreuses campagnes d'évaluation \citep{navigli2009word}. C'est aussi
-une ressource très utilisée de manière générale dans le domaine du Traitement
-Automatique des Langues\footnote{Ses 10~000 citations sur Google Scholar au
-moment de l'écriture de ce manuscrit sont le meilleur moyen de l'attester}.
-
-Depuis 2006, différents travaux \citep{hovy2006ontonotes,navigli2007semeval}
-ont jugé que les défauts attribués à WordNet
-\citep{boyd2006adding,ide2006making,snow2007learning} étaient suffisamment
-importants pour nécessiter une alternative avec des sens distingués plus
-grossièrement. Ce problème est attribué selon \cite{edmonds2002introduction} au
-manque de rigueur lexicographique de WordNet, et à la mise en avant de la
-similarité entre les mots à travers les synsets au détriment de la distinction
-des sens. Il s'est en effet avéré que l'accord inter-annotateurs pour un
-étiquetage avec WordNet est faible (de l'ordre de 70\%), et qu'utiliser un
-autre inventaire un moyen efficace de s'adapter à différentes applications
-\citep{palmer2004different}. La tendance est désormais à l'utilisation
-d'inventaires plus grossiers \citep{navigli2007semeval,navigli2012quick}.
-% TODO pour parler de tendance, citer plusieurs auteurs et en 2013/2014
+Depuis 2006, différents travaux ont jugé que les défauts attribués à WordNet
+\citep{hovy2006ontonotes,boyd2006adding,ide2006making,navigli2007semeval,snow2007learning}
+étaient suffisamment importants pour nécessiter une alternative avec des sens
+distingués plus grossièrement. Ce problème est attribué selon
+\cite{edmonds2002introduction} au manque de rigueur lexicographique de WordNet,
+et à la mise en avant de la similarité entre les mots à travers les synsets au
+détriment de la distinction des sens de chaque mot. Il s'est en effet avéré que
+l'accord inter-annotateurs pour un étiquetage avec WordNet est faible (de
+l'ordre de 70\%), et qu'utiliser un autre inventaire un moyen efficace de
+s'adapter à différentes applications \citep{palmer2004different}. La tendance
+est désormais à l'utilisation d'inventaires plus grossiers
+\citep{navigli2007semeval,navigli2012quick}.
+% TODO pour parler de tendance, citer plusieurs auteurs et en 2013/2014 TODO
+% noter le graded ici aussi ?
 
 Au-delà des approches statistiques \citep{snow2007learning}, de nouveaux
 inventaires de sens ont étés développés :
@@ -183,9 +143,9 @@ inventaires de sens ont étés développés :
     \item DANTE\footnote{Les entrées pour les mots entre M et R sont
         disponibles sur http://webdante.com/} \citep{mccarthy2010dante} est un
         inventaire entièrement nouveau, conçu dans l'objectif de corriger les
-        erreurs faites avec WordNet\citep{kilgarriff2010detailed}.
+        erreurs faites avec WordNet \citep{kilgarriff2010detailed}.
 
-    \item Le Réseau Lexical du Français\citep{gader2014lexicon} lie des sens de
+    \item Le Réseau Lexical du Français \citep{gader2014lexicon} lie des sens de
         mots avec de nombreuses fonctions lexicales associés à un degré de
         confiance, le tout permettant de produire des articles de dictionnaires.
 
@@ -197,11 +157,11 @@ ne sont pas utilisables librement à des fins commerciales.
 
 Une approche complètement différente est celle de la structure de qualia
 \citep{johnston1996qualia} qui s'inscrit dans le contexte plus général du
-lexique génératif introduit par \cite{pustejovsky1991generative} qui considère
-qu'une approche énumérative n'est pas viable. Le sens d'un mot est alors défini
-selon plusieurs aspects prédéfinis (constitution, rôles, facteurs impliqués
-dans la création, etc.) qui peuvent se retrouver dans plusieurs mots. Par
-exemple, un couteau contient une lame et sert à couper. Cette approche est
+lexique génératif introduit par \cite{pustejovsky1991generative} et qui
+considère qu'une approche énumérative n'est pas viable. Le sens d'un mot est
+alors défini selon plusieurs aspects prédéfinis (constitution, rôles, facteurs
+impliqués dans la création, etc.) qui peuvent se retrouver dans plusieurs mots.
+Par exemple, un couteau contient une lame et sert à couper. Cette approche est
 semblable à celle qui définit le sens d'un mot comme une simple suite de sèmes.
 
 Enfin, différents travaux mentionnent la possibilité d'utiliser plus d'un sens
@@ -213,6 +173,7 @@ sa correspondance avec l'usage sur une échelle de 1 à 5. Dans SemCor, les
 annotateurs pouvaient choisir plusieurs sens si besoin, mais seulement 0.3\%
 des occurrences de SemCor sont étiquetées avec plus d'un sens. Une campagne
 d'évaluation a eu lieu en 2013 à ce sujet \citep{jurgens2013semeval}.
+% TODO et alors, quel est le résultat ?
 
 \subsection{Modèles de langue pour la similarité sémantique}
 \label{subsec:modeles_de_langue}
@@ -229,6 +190,7 @@ notre traduction de WordNet (Chapitre~\ref{ch:wonef}) et pour notre module de
 similarité entre syntagmes pour l'annotation en rôles sémantiques
 (Chapitre~\ref{ch:semantic}).
 
+% TODO pourquoi parler d'hypothèse distributionnelle ?
 Quelle est l'intuition derrière l'utilisation des modèles de langue ?
 L'hypothèse distributionnelle s'explique ainsi
 \cite[p.~786]{harris1954distributional} :
@@ -257,20 +219,24 @@ phrase. Au contraire, \emph{thé} et \emph{café} ne sont pas ici présents dans
 la même phrase, mais apparaissent dans un même contexte (\emph{Je bois du}) :
 ils sont liés par une relation paradigmatique.
 
+% TODO phrase coupée
 Observer les distributions de contexte entre les mots permet à la fois
 d'évaluer la similarité entre deux mots mais est aussi l'occasion de séparer
-les mots suivant leurs sens \citep{yarowsky1993one,pantel2002discovering}. Un modèle de langue brut ne décrit que des lexèmes Nous
-serons par la suite essentiellement concernés par les lexèmes : c'est-à-dire la
-similarité entre les paires (lemme, sens) mais un modèle de langue ne peut
-directement manipuler que des mots : la séparation se fait par la suite.
+les mots suivant leurs sens \citep{yarowsky1993one,pantel2002discovering}. Un
+modèle de langue brut ne décrit que des lexèmes Nous serons par la suite
+essentiellement concernés par les lexèmes : c'est-à-dire la similarité entre
+les paires (lemme, sens) mais un modèle de langue ne peut directement manipuler
+que des mots : la séparation se fait par la suite.
 
 % \cite{schutze1998automatic,pantel2002discovering,niu2007three,pedersen2010duluth,liu2012semantic} ?
 
-La question qui se pose maintenant que nous voulons observer les distributions
-est : comment représenter et calculer ces distributions ? Une façon d'opérer
-est de calculer la probabilité d'un mot dans une phrase étant donné les mots
-précédents. Par exemple, étant donné le début de phrase "Au-delà des approches
-...", on veut connaître la probabilité du mot suivant, en espérant que celle de
+% TODO qu'a dit le monsieur dans l'invited talk à GWC 2014 ?
+La question qui se pose maintenant que nous savons que nous voulons observer
+les distributions mentionnées par l'hypothèse distributionnelle est : comment
+représenter et calculer ces distributions ? Une façon d'opérer est de calculer
+la probabilité d'un mot dans une phrase étant donné les mots précédents. Par
+exemple, étant donné le début de phrase "Au-delà des approches ...", on veut
+connaître la probabilité du mot suivant, en espérant que celle de
 \emph{statistiques} ou \emph{supervisées} soit plus importante que celle de
 \emph{chat}. En prenant par exemple le contexte des deux mots qui précèdent le
 mot étudié, on calcule sa probabilité simplement avec le maximum de
@@ -284,13 +250,13 @@ La séquence $w_{i-2}, w_{i-1}, w_{i}$ est un 3-gramme, et $compte$ compte le
 nombre d'occurrences de cette séquence dans le corpus considéré. La taille du
 contexte peut varier, ce qui est la raison pour laquelle on parle de manière
 générale de n-grammes. Le nombre de paramètres à estimer pour obtenir une
-distribution de probabilité conditionnelle fiable dépend de la taille du
-vocabulaire ($|V|$) et de la taille du contexte étudié ($n$) et vaut $|V|^n$.
-En considérant un petit vocabulaire (10~000 mots) et un contexte de trois mots,
-il faut déjà estimer $10^{12}$ probabilités, ce qui requiert un corpus très
-large : Google a utilisé un corpus de livres d'un trillion de mots pour estimer
-ses n-grammes allant jusqu'à $n=5$ \citep{brants2006web}. Diverses techniques
-de lissage existent pour mieux répartir les probabilités
+distribution de probabilité conditionnelle fiable est $|V|^n$, $|V|$ étant la
+taille du vocabulaire et $N$ la taille du contexte étudié ($n$). En considérant
+un petit vocabulaire (10~000 mots) et un contexte de trois mots, il faut déjà
+estimer $10^{12}$ probabilités, ce qui requiert un corpus très large : Google a
+utilisé un corpus de livres d'un trillion de mots pour estimer ses n-grammes
+allant jusqu'à $n=5$ \citep{brants2006web}. Diverses techniques de lissage
+existent pour mieux répartir les probabilités
 \citep[Chapitre~4]{jurafsky2008speech}. En effet, la plupart des probabilités
 sont initialement nulles, que ce soit parce que le n-gramme est
 grammaticalement invalide ou simplement parce qu'il n'a pas été observé dans le
@@ -316,16 +282,21 @@ la relation de complément du nom, le mot \textit{billet} modifie le plus
 de langue peut-être visualisé sur
 \url{http://www.kalisteo.fr/demo/semanticmap/}.
 
+% TODO petite figure ici ?
+
 D'autres types de modèles de langue représentent les mots de manières
 distribuée en utilisant un vecteur de nombres réels. La manière la plus
 répandue pour faire cela est d'utiliser un réseau de neurones dont une des
 couches sera le vecteur représentant chaque mot. \cite{hinton1986learning} a
 d'abord proposé l'idée d'un réseau de neurones pour représenter des concepts,
 puis \cite{bengio2001neural,bengio2003neural} ont proposé le modèle de langue
-neuronal tel qu'on le connaît aujourd'hui. Ce modèle de langue calcule non
-seulement la probabilité d'un mot étant donné les mots précédents : c'est la
-tâche sur laquelle il est entraîné. Mais il obtient aussi une représentation de
-chaque mot où les mots sémantiquement proches ont des représentations proches.
+neuronal tel qu'on le connaît aujourd'hui. Ce modèle de langue calcule la
+probabilité d'un mot étant donné les mots précédents. C'est la tâche sur
+laquelle il est entraîné, mais ce n'est pas l'attrait le plus important du
+modèle. En effet, après entraînement, on obtient aussi une représentation de
+chaque mot dans laquelle les mots sémantiquement proches ont des
+représentations proches, ce qui permet une meilleure généralisation sur ces
+mots qui s'est avérée être très utile pour diverses applications \citep{senna}.
 
 % TODO LSA fait une partie du chemin
 % TODO collobert & weston ? liens entre rns ?
@@ -333,7 +304,7 @@ chaque mot où les mots sémantiquement proches ont des représentations proches
 \cite{mikolov2013efficient} et l'outil word2vec
 associé\footnote{\url{https://code.google.com/p/word2vec/}} ont rendu possible
 l'application de tels réseaux de neurones accessible et efficace. Une propriété
-particulièrement intéressante des réseaux de neurones obtenus est que la
+particulièrement intéressante des représentations de mots obtenues est que la
 distance entre certains mots est fixe. En particulier, dans cet espace de
 vecteurs :
 
@@ -345,14 +316,10 @@ vecteurs :
 
 Ces résultats non prévus (la tâche était uniquement de prédire le mot en
 fonction de son contexte) illustrent le type de généralisation obtenues à
-l'aide d'un réseau de neurones et qui seraient autrement inaccessibles.
-
-Ces réseaux de neurones sont encore difficiles à entraîner et à paramétrer
-\citep{do2014modeles}, mais représentent une alternative bien plus efficace que
-les modèles de langue simples à base de n-grammes parce qu'ils généralisent
-bien mieux que la simple utilisation du maximum de vraisemblance
-\citep{olah2014deep}.
-
+l'aide d'un réseau de neurones et permettent de comprendre en partie leur
+intérêt. Ces réseaux de neurones sont encore difficiles à entraîner et à
+paramétrer \citep{do2014modeles}, mais représentent une alternative bien plus
+efficace que les modèles de langue simples à base de n-grammes.
 % TODO donner des raisons de l'efficacité, "exponentiel" tout ça
 
 \section{Traductions de ressources linguistiques}
@@ -364,8 +331,10 @@ WordNet reste une ressource extrêmement utile et reproduire ce travail pour
 d'autres langues serait coûteux et difficile à maintenir. Et malgré quelques
 problèmes théoriques, traduire WordNet en gardant sa structure et ses synsets
 mène à des ressources linguistiques utiles
-\citep{fellbaum2007connecting,demelo2008utility}. Il n'existe encore que peu
-d'équivalents de même qualité dans d'autres langues \citep{bond2012survey}.
+\citep{fellbaum2007connecting,demelo2008utility}. Cependant, il n'existe encore
+que peu d'équivalents de même qualité dans d'autres langues
+\citep{bond2012survey}, et il est donc utile de s'atteler à la traduction de
+cette ressource.
 
 Les traductions automatiques de WordNet emploient une approche dite d'extension
 (\textit{extend approach}) : la structure de WordNet est préservée et seuls les
@@ -401,13 +370,14 @@ de langue syntaxique.
 
 \label{subsec:jaws_translation_process}
 
-Pour notre traduction de WordNet nommée WoNeF (Chapitre~\ref{ch:wonef}), nous
-reprenons les travaux de \cite{mouton2010jaws} qui ont abouti à JAWS, que nous
-présentons ici. C'est un algorithme faiblement supervisé qui ne demande aucune
-donnée annotée manuellement. Pour traduire un wordnet source, JAWS s'appuie sur
-un dictionnaire bilingue et un modèle de langue syntaxique pour le langage
-cible.
+Notre traduction de WordNet nommée WoNeF (Chapitre~\ref{ch:wonef}) est le
+successeur de JAWS \citep{mouton2010jaws,mouton2010phd} que nous présentons
+ici. Le Chapitre~\ref{ch:wonef} liste les différences avec JAWS : il est donc
+nécessaire d'avoir compris le fonctionnement de JAWS avant de le lire.
 
+JAWS est un algorithme faiblement supervisé qui ne demande aucune donnée
+annotée manuellement. Pour traduire un wordnet source, JAWS s'appuie sur un
+dictionnaire bilingue et un modèle de langue syntaxique pour le langage cible.
 Le dictionnaire bilingue est une concaténation du dictionnaire bilingue
 SCI-FRAN-EurADic\footnote{\url{http://catalog.elra.info/product_info.php?products_id=666}}
 et des liens entre les Wiktionnaires français et
@@ -416,42 +386,77 @@ syntaxique a été présenté à la section~\ref{subsec:modeles_de_langue}. Grâ
 aux dictionnaires, JAWS n'a pas besoin de sélectionner les littéraux de chaque
 synset parmi l'ensemble du vocabulaire mais seulement parmi un petit nombre de
 candidats (9 en moyenne).  Le processus de traduction se fait en trois étapes :
-\begin{enumerate} \item Créer un wordnet vide : la structure de WordNet est
-préservée, mais les synsets eux-mêmes n'ont pas de littéraux associés.  \item
-Choisir les traductions les plus faciles parmi les candidats des dictionnaires
-pour commencer à remplir JAWS.  \item Étendre JAWS de manière incrémentale en
-utilisant le modèle de langue, les relations entre synsets et le JAWS déjà
-existant.  \end{enumerate}
+
+\begin{enumerate}
+    
+    \item Créer un wordnet vide : la structure de WordNet est préservée, mais
+        les synsets eux-mêmes n'ont pas de littéraux associés.
+
+    \item Choisir les traductions les plus faciles parmi les candidats des
+    dictionnaires pour commencer à remplir JAWS.
+
+    \item Étendre JAWS de manière incrémentale en utilisant le modèle de
+        langue, les relations entre synsets et le JAWS déjà existant.
+
+\end{enumerate}
 
 \paragraph{Sélecteurs initiaux} Quatre algorithmes que nous nommons sélecteurs
 initiaux choisissent des traductions correctes parmi celles qui sont proposées
-par les dictionnaires. Premièrement, les mots qui apparaissent dans un seul
-synset ne sont pas ambigus et il suffit d'ajouter toutes leurs traductions au
-WordNet français : c'est le sélecteur par monosémie. C'est le cas de
-\textit{grumpy} : toutes ses traductions sont validées dans le synset où il
-apparaît. Deuxièmement, le sélecteur par unicité identifie les mots n'ayant
-qu'une seule traduction et la valident dans tous les synsets où elle est
-présente. Les cinq synsets contenant \textit{pill} en anglais sont ainsi
-complétés avec \textit{pilule}. Un troisième sélecteur vise à traduire les mots
-qui ne sont pas dans le dictionnaire en utilisant directement la traduction
-anglaise : c'est le sélecteur des transfuges. Un quatrième sélecteur utilise la
-distance d'édition de Levenshtein : si la distance entre un mot anglais et sa
-traduction est petite, on peut considérer que c'est le même sens (c'est le cas
-par exemple pour \textit{portion} ou encore \textit{university}), malgré
-l'existence de certains faux amis. Ces quatre sélecteurs produisent une
-première version du WordNet français qui contient assez de traductions pour
-pouvoir ensuite utiliser le modèle de langue et continuer de compléter les
-synsets.
+par les dictionnaires.
+
+\begin{itemize}
+
+    \item Premièrement, les mots qui apparaissent dans un seul synset ne sont
+        pas ambigus et il suffit d'ajouter toutes leurs traductions au WordNet
+        français : c'est le sélecteur par monosémie. C'est le cas de
+        \textit{grumpy} : toutes ses traductions sont validées dans le synset
+        où il apparaît.
+
+    \item Deuxièmement, le sélecteur par unicité identifie les mots n'ayant
+        qu'une seule traduction et la valident dans tous les synsets où cette
+        traduction est présente. Les cinq synsets contenant \textit{pill} en
+        anglais sont ainsi complétés avec \textit{pilule}.
+
+    \item Un troisième sélecteur vise à traduire les mots qui ne sont pas dans
+        le dictionnaire en utilisant directement la traduction anglaise : c'est
+        le sélecteur des transfuges.
+
+    \item Un quatrième sélecteur utilise la distance d'édition de Levenshtein :
+        si la distance entre un mot anglais et sa traduction est petite, on
+        peut considérer que c'est le même sens (c'est le cas par exemple pour
+        \textit{portion} ou encore \textit{university}), malgré l'existence de
+        certains faux amis. Ces quatre sélecteurs produisent une première
+        version du WordNet français qui contient assez de traductions pour
+        pouvoir ensuite utiliser le modèle de langue et continuer de compléter
+        les synsets.
+
+\end{itemize}
 
 \paragraph{Expansion de JAWS} JAWS étant partiellement rempli, une nouvelle étape d'expansion tire parti des relations entre les synsets de WordNet pour valider de nouvelles traductions. Par exemple, si :
 
 \begin{itemize}
-    \item un synset S1 est méronyme d'un synset S2 dans WordNet,
-    \item il existe un contexte où un littéral dans S1 est méronyme d'un littéral candidat C dans S2,
-\end{itemize}
-alors ce littéral est considéré comme correct. La tâche de traduction est ainsi réduite à une tâche de comparaison entre d'une part les relations lexicales entre les synsets de WordNet et d'autre part les relations lexicales entre les lexèmes du français.
 
-Prenons l'exemple de \textit{quill} qui peut se traduire par \textit{piquant} ou \textit{plume} (Figure \ref{meronymyexample}). Dans WordNet, \textit{quill} est méronyme de \textit{porcupine} qui a déjà été traduit par \textit{porc-épic} par un sélecteur initial. Dans le modèle de langue, \textit{piquant} fait partie des compléments du noms de \textit{porc-épic} mais ce n'est pas le cas de \textit{plume}. Ici, la relation de complément du nom implique la méronymie et c'est donc \textit{piquant} qu'il faut choisir comme la traduction correcte de \textit{quill}. Le modèle de langue a permis la désambiguïsation parmi les deux traductions possibles.
+    \item un synset S1 est méronyme d'un synset S2 dans WordNet,
+
+    \item dans notre modèle de langue, un littéral de S1 est méronyme d'un
+        littéral candidat C dans S2,
+
+\end{itemize}
+
+alors ce littéral est considéré comme correct. La tâche de traduction est ainsi
+réduite à une tâche de comparaison entre d'une part les relations lexicales
+entre les synsets de WordNet et d'autre part les relations lexicales entre les
+lexèmes du français.
+
+Prenons l'exemple de \textit{quill} qui peut se traduire par \textit{piquant}
+ou \textit{plume} (Figure \ref{meronymyexample}). Dans WordNet, \textit{quill}
+est méronyme de \textit{porcupine} qui a déjà été traduit par
+\textit{porc-épic} par un sélecteur initial. Dans le modèle de langue,
+\textit{piquant} fait partie des compléments du noms de \textit{porc-épic} mais
+ce n'est pas le cas de \textit{plume}. Ici, la relation de complément du nom
+implique la méronymie et c'est donc \textit{piquant} qu'il faut choisir comme
+la traduction correcte de \textit{quill}. Le modèle de langue a permis la
+désambiguïsation parmi les deux traductions possibles.
 
 \tikzstyle{block}=[draw, fill=blue!5, rectangle, minimum height=0.5cm, minimum width=3cm, text width=5cm]
 
@@ -475,7 +480,16 @@ Prenons l'exemple de \textit{quill} qui peut se traduire par \textit{piquant} ou
   \caption{\protect\centering\label{meronymyexample}Traduction via la relation de méronymie de partie.}
 \end{figure}
 
-Un problème potentiel avec cette approche est que la relation de complément du nom n'est pas limitée à la méronymie. Par exemple, le mot \textit{mémoire} qui apparaît dans le modèle de langue vient d'un livre intitulé \textit{Mémoires d'un porc-épic}. Heureusement, \textit{mémoire} n'est pas dans les candidats de \textit{quill} et ne peut pas être choisi comme une traduction. Paradoxalement, le modèle de langue ne peut pas choisir entre deux mots très différents, mais est capable de choisir la traduction correcte d'un mot polysémique. Alors que traduire WordNet automatiquement avec un dictionnaire ou un modèle de langue syntaxique est impossible, combiner les deux ressources permet de résoudre le problème.
+Un problème potentiel avec cette approche est que la relation de complément du
+nom n'est pas limitée à la méronymie. Par exemple, le mot \textit{mémoire} qui
+apparaît dans le modèle de langue vient d'un livre intitulé \textit{Mémoires
+d'un porc-épic}. Heureusement, \textit{mémoire} n'est pas dans les candidats de
+\textit{quill} et ne peut pas être choisi comme une traduction. Paradoxalement,
+le modèle de langue ne peut pas choisir entre deux mots très différents, mais
+est capable de faire le bon choix parmi les différentes traductions d'un mot
+polysémique. Alors que traduire WordNet automatiquement avec un dictionnaire ou
+un modèle de langue syntaxique est impossible, combiner les deux sources
+d'information permet de résoudre le problème.
 
 Chaque sélecteur suit le même principe que le sélecteur par méronymie de partie
 et traduit de nouveaux synsets en identifiant les relations entre lexèmes via
@@ -484,79 +498,36 @@ complément du nom et la relation de méronymie est directe, mais ce n'est pas l
 cas pour les autres relations : il n'y a par exemple pas de relation syntaxique
 qui exprime directement la synonymie entre deux lexèmes. Pour ces relations, il
 est nécessaire d'employer soit des motifs lexicaux \citep{hearst1992automatic}
-soit des relations syntaxiques de deuxième ordre \citep{lenci2012identifying}.
-Ce sont ces dernières, aussi nommées relations paradigmatiques
-(section~\ref{subsec:modeles_de_langue}, que JAWS utilise. Pour la synonymie,
-si deux mots partagent les mêmes co-occurents dans une relation syntaxique
-donnée, alors ils peuvent être synonymes dans ce contexte. Pour les noms, les
-relations syntaxiques qui donnent les meilleurs résultats sont les relations de
-complément du nom, d'objet du verbe et d'apposition. Concrètement, si deux noms
-qui modifient les mêmes noms sont les objets des mêmes verbes ou sont apposés
-aux mêmes noms, alors il est probable qu'ils soient synonymes et si l'un des
-deux est déjà dans un synset, alors on peut y ajouter le second. Par exemple,
-\textit{avant-propos} et \textit{préface} partagent les mêmes compléments du
-noms : \textit{livre, édition, ouvrage}. Le sélecteur par synonymie peut
-ajouter \textit{avant-propos} une fois que le littéral \textit{préface} est
-dans JAWS. \citep{mouton2010jaws,mouton2010phd} décrivent d'autres sélecteurs
-exploitant notamment les relations d'hyperonymie et d'hyponymie.
+soit des relations paradigmatiques \citep{lenci2012identifying}. Ce sont ces
+dernières (section~\ref{subsec:modeles_de_langue}) que JAWS utilise. Pour la
+synonymie, si deux mots partagent les mêmes co-occurrents dans une relation
+syntaxique donnée, alors ils peuvent être synonymes dans ce contexte. Pour les
+noms, les relations syntaxiques qui donnent les meilleurs résultats sont les
+relations de complément du nom, d'objet du verbe et d'apposition. Concrètement,
+si deux noms qui modifient les mêmes noms sont les objets des mêmes verbes ou
+sont apposés aux mêmes noms, alors il est probable qu'ils soient synonymes et
+si l'un des deux est déjà dans un synset, alors on peut y ajouter le second.
+Par exemple, \textit{avant-propos} et \textit{préface} partagent les mêmes
+compléments du noms : \textit{livre, édition, ouvrage}. Le sélecteur par
+synonymie peut ajouter \textit{avant-propos} une fois que le littéral
+\textit{préface} est dans JAWS. \citep{mouton2010jaws,mouton2010phd} décrivent
+d'autres sélecteurs exploitant notamment les relations d'hyperonymie et
+d'hyponymie.
 
 \subsection{VerbNet}
-\label{subsec:presentation_verbnet}
 
-\cite{levin1993english} est une classification des verbes anglais suivant un
-principe simple : le comportement syntaxique des verbes détermine en partie
-leur sens. Après avoir défini un certain nombre de constructions syntaxiques
-possibles, les verbes sont classés en groupes partageant les mêmes
-constructions. Le projet VerbNet a exporté les classes de Levin dans un format
-électronique (XML) et a étendu la ressource avec de nouvelles classes,
-constructions syntaxiques et verbes. VerbNet est une ressource lexicale pour
-les verbes anglais organisée autour de classes sémantiques et de sous-classes
-syntaxiques : une classe sémantique est divisée en sous-classes de verbes qui
-partagent tous le même ensemble de cadres de sous-catégorisation
-(Figure~\ref{fig:example_srl}, en suivant \cite{levin1993english}.  Dans sa
-version actuelle\url{http://verbs.colorado.edu/~mpalmer/projects/verbnet.html},
-VerbNet comprend 3769 lemmes, donnant lieu à 5257 entrées réparties en 274
-sous-classes. VerbNet a montré la cohérence de sa classification et est très
-utilisé, notamment pour l'annotation en rôles sémantiques
-\citep{swier2005exploiting,palmer2013semantic} où il présente l'intérêt de ne
-pas être restreint à un domaine spécifique tout en couvrant une large partie
-des occurrences des verbes anglais dans un texte donné.
-
-\begin{figure}[ht]
-    \centering
-    \begin{tabular}{ccc}
-        \toprule
-        Carol & crushed   & the ice \\
-        Agent & V         & Patient \\
-        \midrule
-        The ice & crushes & easily  \\
-        Patient & V       &         \\
-        \bottomrule
-    \end{tabular}
-    \caption{\label{fig:example_srl}Ces deux phrases annotées avec la classe VerbNet carve-21.2 mettent en évidence que la position des arguments ne détermine pas directement les rôles: le sens et la voix de \textit{crush} ne change pas mais l'annotation sémantique est différente.}
-\end{figure}
-
-La traduction des classes de Levin et plus récemment de VerbNet dans d'autres
-langue est une tâche reconnue comme utile dans la littérature. Initialement,
-des méthodes automatiques ont mené à des améliorations dans le VerbNet anglais
-lui-mmême après validation manuelle : de nouvelles classes ont été incorporées
-\citep{korhonen2004extended} et de nouveaux verbes ont été ajouté à partir de
-la base de données LCS \citep{dorr2001lcs} ou avec l'outil Sketch Engine
-\citep{bonial2013expanding}. La base de données continue aujourd'hui d'évoluer,
-la prochaine version prévue étant la 3.2.4.
-
-Dans d'autres langues, \cite{merlo2002multilingual} ont utilisé des similarités
-entres langues pour convertir 20 classes de Levin vers l'Italien. Des
-acquisitions automatiques ont aussi été menées en japonais
-\citep{suzuki2009classifying}, allemand \citep{im2006experiments} et espagnol
-\citep{ferrer2004towards}. Les seules traductions directes dont nous avons la
-connaissance sont le VerbNet estonien \citep{jentson2014verbnet} et le VerbNet
-portuguais brésilien \citep{scarton2012towards} qui utilise des mappings entre
-VerbNet et WordNet, et entre WordNet.Br et WordNet.
+\cite{merlo2002multilingual} ont utilisé des similarités entres langues pour
+convertir 20 classes de Levin vers l'Italien. Des acquisitions automatiques ont
+aussi été menées en japonais \citep{suzuki2009classifying}, allemand
+\citep{im2006experiments} et espagnol \citep{ferrer2004towards}. Les seules
+traductions directes dont nous avons la connaissance sont le VerbNet estonien
+\citep{jentson2014verbnet} et le VerbNet portuguais brésilien
+\citep{scarton2012towards} qui utilise des mappings entre VerbNet et WordNet,
+et entre WordNet.Br et WordNet.
 
 Pour le français, \cite{saintdizier1996constructing} a d'abord produit une
 ressource proche des classes de Levin. À notre connaissance, l'effort sur cette
-ressource a arrêté et le résultat n'est pas disponible. Des travaux se sont
+ressource s'est arrêté et le résultat n'est pas disponible. Des travaux se sont
 ensuite concentrés sur l'acquisition automatique de cadres de
 sous-catégorisation et sur le regroupement de verbes en se basant sur ces
 cadres et sur des similarités sémantiques. \cite{sun2010investigating} ont
@@ -682,6 +653,8 @@ possible de référer à un argument présent dans une prase précédente.
 % TODO new PropBank LREC 2014
 
 \subsection{Approches d'annotation}
+
+% TODO à traduire !
 
 Existing approaches to semantic role labeling are divided into two main
 branches. The first one, supervised semantic role labeling, uses a
