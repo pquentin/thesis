@@ -241,16 +241,17 @@ modèle de langue syntaxique. Tous les sélecteurs initiaux sont ici choisis, et
 le sélecteur syntaxique choisi est le sélecteur par synonymie. Ils ont donné de
 bons résultats qui sont présentés dans la section \ref{subsec:pos_results}.
 
-\paragraph{Adverbes}
-
-% TODO adverbes évalués à LREC
-Nous n'avons pas d'annotation de référence pour les adverbes, ce qui explique
-qu'ils ne sont pas inclus dans WoNeF : nous ne pouvons évaluer leur précision.
-Cependant, la comparaison avec WOLF (section~\ref{subsec:vswolf}) montre que
-les adverbes ont de meilleurs résultats que les autres parties du discours, ce
-qui laisse penser que c'est une ressource de qualité. C'est une ressource aussi
-très complémentaire : 87~\% des adverbes proposés ne sont pas dans WOLF. Une
-fusion entre WoNeF et WOLF aurait trois fois plus d'adverbes que WOLF seul.
+\paragraph{Adverbes} Les adverbes sont traduits avec les quatre sélecteurs :
+par monosémie, par unicité, par sources multiples et enfin par la distance de
+Levenshtein. Dans le cas des adverbes, nous n'avons pas trouvé de cas où la
+granularité des synsets de WordNet n'était pas applicable en français, comme
+c'était le cas pour les autres parties du discours. L'accord inter-annotateur
+était de 0.57, ce qui peut s'expliquer par le fait qu'un des deux annotateurs
+n'avait jamais effectué cette tâche, alors que l'autre avait déjà annoté les
+autres parties du discours. Les adverbes obtenus avec notre approche sont de
+bonne qualité tout en étant complémentaires avec WOLF : 87~\% des adverbes
+proposés ne sont pas dans WOLF. Une fusion entre WoNeF et WOLF aurait trois
+fois plus d'adverbes que WOLF seul.
 
 \section{WoNeF: un JAWS évalué}
 \label{sec:evaluating_jaws}
@@ -320,17 +321,16 @@ cas de désaccord, l'annotation de référence a été formée.
 
 \begin{table}[ht]
 \centering
-\begin{tabular}{rccc}
+\begin{tabular}{rcccc}
   \toprule
-                        & Noms    & Verbes   & Adjectifs \\
+                        & Noms    & Verbes  & Adjectifs & Adverbes\\
   \midrule
-  Kappa de Fleiss        & 0.715   & 0.711   & 0.663    \\
- %Agreement ~\%          & 87.82~\% & 91.75~\% & 85.10~\%    \\
-  Synsets non-vides     & 270     & 222     & 267       \\
-  Candidats par synset  & 6.22    & 14.50   & 7.27 \\
+  Kappa de Fleiss       & 0.72    & 0.71    & 0.66      & 0.57 \\
+  Synsets non-vides     & 270     & 222     & 267       & TODO \\
+  Candidats par synset  & 6.22    & 14.50   & 7.27      & TODO \\
   \bottomrule
 \end{tabular}
-\caption{\protect\centering\label{table:kappa}Accord inter-annotateurs sur l'annotation de référence}
+\caption{\label{table:kappa}Accord inter-annotateurs sur l'annotation de référence}
 \end{table}
 
 La table~\ref{table:kappa} montre l'accord inter-annotateur évalué par le kappa
@@ -384,7 +384,7 @@ grand et plus représentatif.
   haute couverture  & 69.0     & 69.8     & 69.4     & \b{90~248} \\
   \bottomrule
 \end{tabular}
-\caption{\protect\centering\label{table:heuristics}Sélecteurs initiaux sur l'ensemble des traductions (noms, verbes et adjectifs). La couverture C est le nombre total de paires (littéral, synset).}
+\caption{\label{table:heuristics}Sélecteurs initiaux sur l'ensemble des traductions (noms, verbes et adjectifs). La couverture C est le nombre total de paires (littéral, synset).}
 \end{table}
 
 La table~\ref{table:heuristics} montre les résultats de cette opération. La
@@ -431,7 +431,7 @@ précédente, la couverture C indique le nombre de paires (littéral, synset).
   haute couverture & 60.5     & \b{74.3} & 66.7     & \b{109~447} & 44.5     & \b{66.9} & 53.5     & \b{23~166} \\
   \bottomrule
 \end{tabular}
-\caption{\protect\centering\label{table:allvsbcs}Résultats globaux : tous les synsets et synsets BCS.}
+\caption{\label{table:allvsbcs}Résultats globaux : tous les synsets et synsets BCS.}
 \end{table}
 
 
@@ -455,25 +455,30 @@ et ce même pour les synsets BCS.
 
 \begin{table}[ht]
 \centering
-\begin{tabular}{rccccc}
+\begin{tabular}{rccccr}
   \toprule
                                     &           &     P    &     R    & F1       &    C       \\ \hline
   \multirow{3}{*}{haute précision}  & noms      & \b{96.8} & 56.6     & 71.4     & 11~294     \\ 
-                                    & verbes    & \b{68.4} & 41.9     & 52.0     & ~1~110     \\ 
-                                    & adjectifs & \b{90.0} & 36.7     & 52.2     & ~3~221     \\ \hline
+                                    & verbes    & \b{68.4} & 41.9     & 52.0     &  1~110     \\ 
+                                    & adjectifs & \b{90.0} & 36.7     & 52.2     &  3~221     \\
+                                    & adverbes  & \b{92.2} & 32.4     & 48.8     &    968     \\ \hline
   \multirow{4}{*}{haut F-score}     & noms      & 71.7     & 73.2     & \b{72.4} & 59~213     \\ 
-                                    & \b{JAWS}  & 70.7     & 68.5     & 69.6     & ~55~416    \\
-                                    & verbes    & 48.9     & \b{76.6} & \b{59.6} & ~9~138     \\ 
-                                    & adjectifs & 69.8     & 71.0     & 70.4     & 20~385     \\ \hline
+                                    & \b{JAWS}  & 70.7     & 68.5     & 69.6     &  55~416    \\
+                                    & verbes    & 48.9     & \b{76.6} & \b{59.6} &  9~138     \\ 
+                                    & adjectifs & 69.8     & 71.9     & \b{70.8} & 20~385     \\
+                                    & adverbes  & 82.1     & 74.6     & \b{78.2} &  5~950     \\ \hline
   \multirow{3}{*}{haute couverture} & noms      & 61.8     & \b{78.4} & 69.1     & \b{70~218} \\ 
                                     & verbes    & 45.4     & 61.5     & 52.2     & \b{18~844} \\ 
-                                    & adjectifs & 69.8     & \b{71.9} & \b{70.8} & \b{20~385} \\ 
+                                    & adjectifs & 69.8     & \b{71.9} & 70.8     & \b{20~385} \\ 
+                                    & adverbes  & 82.1     & \b{74.6} & 78.2     & \b{5~950}  \\
   \bottomrule
 \end{tabular}
 
-\caption{\protect\centering\label{table:posfull}Résultats par partie du
-discours. JAWS ne contient que des noms : il est comparé à la ressource
-nominale à haut F-score.}
+\caption{\label{table:posfull}Résultats par partie du discours. JAWS ne
+    contient que des noms : il est comparé à la ressource nominale à haut
+    F-score. Les scores sont les mêmes pour les adjectifs et les adverbes pour
+    les ressources à haut F-score et à haute couverture : les mêmes sélecteurs
+ont étés appliqués.}
 
 \end{table}
 
@@ -531,7 +536,7 @@ adjectifs. Cela met en avant l'importance des dictionnaires.
   Adverbes   & 56.2     & 44.4     & 3~061     & 76.5     & 41.9    & 2~835  \\ 
   \bottomrule
 \end{tabular}
-\caption{\protect\centering\label{table:wolfcomparison}Évaluation de la ressource à haute précision en considérant WOLF 0.1.4 et 1.0b comme des références.}
+\caption{\label{table:wolfcomparison}Évaluation de la ressource à haute précision en considérant WOLF 0.1.4 et 1.0b comme des références.}
 \end{table}
 
 
