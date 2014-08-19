@@ -14,6 +14,25 @@
 % with existing domain-specific semantic role labeling work
 % \citep{wyner2010lexical,hadouche2011annotation,goldwasser2013leveraging}.
 
+We present a free software baseline for Semantic Role Labeling that only uses
+VerbNet to assign roles to arguments in a sentence. The approach is
+domain-independent and easily reproducible as it simply matches verb arguments
+to VerbNet frames which is designed to cover general text.  Our system is
+therefore suitable either as a strong baseline, a first step towards annotating
+a new domain or a full Semantic Role Labeling system once VerbNet has been
+slightly updated towards the new domain. Additionally, it can be used to
+highlight gaps in VerbNet that have remained unnoticed until now.
+
+\section{Introduction}
+
+Semantic Role Labeling on new domains is still an open problem.  Existing
+approaches either require some annotated data or transfer a model from a
+related domain. We propose an approach where no domain-specific data is needed
+as we only use the VerbNet lexical resource. As a result, this approach is
+simple, does not require an annotated corpus and is easily adaptable to
+languages with a VerbNet-like resource such as Estonian
+\citep{jentson2014verbnet}, French \citep{pradet2014adapting} or Portuguese
+\citep{scarton2012towards}.
 
 Là où le précédent chapitre présentait sur l'annotation en rôles sémantiques
 fondée sur la connaissance, celui-là se concentre sur l'annotation en domaines
@@ -47,199 +66,14 @@ domaines différents plus que dans deux genres différents, les changements vont
 résider dans les verbes utilisés, leur sens et la façon de les utiliser. C'est
 ce que nous souhaitons prendre en compte ici.
 
-\section{Corpus considérés}
-
-Afin de s'assurer que notre travail reste valide en changeant de domaine, nous
-considérons ici trois corpus présents dans des domaines différents :
-
-\begin{itemize}
-    \item le Kicktionary rassemblant des dépêches de l'UEFA dans le domaine du football,
-    \item DicoInfo~: corpus Informatique/Internet de l'OLST,
-    \item et DicoEnviro~: le corpus Réchauffement climatique de l'OLST
-\end{itemize}
-
-Les points communs majeurs de ces trois corpus sont :
-\begin{enumerate}
-    \item de s'inspirer librement de la théorie des Frame Semantics telle qu'elle est considérée dans FrameNet,
-    \item d'être disponible à la fois en anglais et en français,
-    \item d'être basés sur l'annotation dans un corpus d'un certain nombre de prédicats (ce n'est pas une annotation dite "full-text")
-\end{enumerate}
-
-Ce dernier point est plutôt un inconvénient : la manière la plus réaliste de
-considérer un corpus d'entraînement est de réaliser une annotation dite
-\textit{full-text} en annotant tous les prédicats rencontrés dans un texte
-donné. Cependant, les contextes choisis dans DicoInfo et DicoEnviro l'ont été
-sur des critères de diversité syntaxique. \citep{lhomme2012adding} Le postulat
-que nous faisons dans ce travail est que notre méthode n'est pas affectée par
-ce problème comme le serait un modèle statistique appris sur ces mêmes
-contextes étant donné que la probabilité des différentes possibilités n'est pas
-prise en compte.
-
-\section{Enrichissement de VerbNet}
-
-Malgré leur similarité, ces corpus posent des problèmes différents vis-à-vis de
-leur annotation avec VerbNet, tous liés au fait de ne pas être dans le "domaine
-général". Nous avons considéré comme problème les manquements dans VerbNet qui
-empêchent de prendre en compte les phrases considérées, indépendamment de
-l'algorithme. Ainsi, pour que VerbNet puisse prendre en compte une instance, il
-faut :
-
-\begin{itemize}
-    \item que le sens du verbe considéré soit présent dans VerbNet,
-    \item que la construction en question soit présente dans VerbNet,
-    \item et que les rôles sémantiques associés à chaque syntagme soient correct.
-\end{itemize}
-
-Il y a différentes façons de ne pas respecter ces contraintes :
-
-\begin{itemize}
-    \item Le verbe n'existe pas du tout dans VerbNet
-    \item Le sens du verbe utilisé n'est pas représenté dans VerbNet alors que c'est un sens du domaine général
-    \item Le sens du verbe utilisé n'est pas représenté dans VerbNet alors que c'est un sens spécifique à ce domaine
-    \item La construction utilisée n'est pas présente dans VerbNet
-    \item La construction utilisée est incorrecte dans VerbNet
-\end{itemize}
-
-Suivant les corpus considérés, les proportions d'erreurs seront différentes.
-Nous avons demandé à deux annotateurs d'évaluer, pour vingt phrases par
-domaine, quelle était l'erreur. L'accord inter-annotateur permet de valider la
-distinction domaine spécifique/domaine général malgré l'impossibilité de la
-définir précisément. % TODO lefaire
-
-C'est pour cette raison que l'enrichissement de VerbNet se fait de deux
-manières : certains verbes et constructions sont ajoutés comme faisant partie
-du domaine général, alors que d'autres sont étiquetés avec le domaine
-spécifique correspondant. L'idée est d'éviter que des connaissances de domaines
-spécifiques viennent réduire la qualité de la ressource tout en s'assurant que
-la couverture de VerbNet pour le domaine général continue de s'améliorer.
-
-\subsection{Détection semi-automatique d'erreurs}
-
-D'une part, pour minimiser le travail manuel, il est important d'automatiser au
-maximum l'enrichissement de la ressource. D'autre part, l'intérêt de VerbNet
-réside notamment dans sa capacité à factoriser efficacement ces informations
-sur l'interface syntaxico-sémantique d'un verbe donné, et il est donc possible
-et utile de valider manuellement chacun des changements apportés.
-
-Le principe suivi est donc d'essayer de détecter les manquements de VerbNet de
-manière automatique avant de proposer à un utilisateur expert de réaliser des
-changements en ayant un maximum d'informations pertinentes à portée de main.
-
-Les différentes erreurs détectées sont :
-\begin{itemize}
-    \item l'absence de lemmes dans la ressource
-    \item l'absence d'un sens correct dans la ressource
-    \item l'absence de constructions correctes dans la ressource
-    \item l'absence de mapping de role correct dans la ressource
-\end{itemize}
-
-Nous avons d'abord commencé par détecter l'absence de constructions correctes,
-ce qui a permis ensuite de détecter une absence de sens en comparant les
-constructions observées avec les constructions présentes. Enfin, cela a permis
-de faire des propositions quant à la position d'un nouveau lexème dans la
-ressource.
-
-\section{Méthode d'évaluation}
-
-Les trois corpus considérés ont été annotés en rôles sémantiques dans les deux
-langues qui nous intéressent ici~: l'anglais et le français. Il nous suffit
-donc d'utiliser un mapping entre les rôles considérés par ces ressources et les
-rôles VerbNet avant d'évaluer la performance de l'algorithme basé sur la
-connaissance d'annotation en rôles sémantiques présenté au
-chapitre~\ref{ch:srl}.
-
-Dans le cas de DicoInfo et DicoEnviro, les noms des rôles sont proches des noms
-de rôles employée dans VerbNet et LIRICS \citep{bonial2011hierarchical} (Agent,
-Patient, Destination, Instrument...). Cependant, même si les noms sont les
-mêmes, la définition de ces rôles est spécifique à DicoInfo et DicoEnviro.
-En pratique :
-
-\begin{itemize}
-    \item DicoInfo et DicoEnviro ne distinguent pas Theme de Patient mais
-    n'utilise que Patient ce qui rend l'annotation plus facile.\footnote{La
-    distinction entre Theme et Patient est difficile à établir. Dans \textit{Le
-    chaton a léché mes doigts}, est-ce que mes doigts ont changé d'état ? Si oui,
-    ils devraient être Patient, et sinon, Theme.\citep[p.~5]{palmer2010semantic}}
-    \item Pour un certain nombre de lexies, la perspective du domaine implique
-    souvent des rôles différents (TODO exemple Patient vs. Result) % TODO clair
-\end{itemize}
-
-C'est pour ces raisons que nous avons créé manuellement un mapping entre
-VerbNet et les corpus considérés (DicoInfo et DicoEnviro). Ce mapping est
-utilisé uniquement à des fins d'évaluation, et l'effort nécessaire pour le
-créer n'est donc pas à prendre en compte pour calculer l'effort global
-nécessaire pour notre approche. Prenons deux phrases d'exemple pour illustrer
-le mapping. Voici deux phrases présentes dans DicoInfo et DicoEnviro :
-
-\begin{itemize}
-    \item In the interest of fair competition you should ALLOCATE the same amount of memory to both engines.
-    \item Techniques and tools exist to MEASURE carbon stocks in project areas relatively precisely depending on the carbon pool.
-\end{itemize}
-
-Dans la première phrase, le sens du verbe \textit{allocate} est très précis et
-très spécifique au domaine de l'informatique. Pourtant, il se comporte
-syntaxiquement de la même manière que le sens plus général considéré par
-WordNet et OntoNotes: \textit{distribute or se aside according to plan}. Par
-conséquent, un mapping manuel a été réalisé de la lexie allocate.1 (qui
-correspond à la phrase ci-dessus) vers la classe Verbnet
-\textit{future\_having-13.3}. Enfin, les actants définis par DicoInfo (qui
-correspondent aux roles \textit{Core} de FrameNet et aux rôles de VerbNet) ont
-étés mis en correspondance avec les rôles de VerbNet :
-
-\begin{itemize}
-    \item Patient devient Theme
-    \item Recipient devient Goal
-    \item Agent reste Agent
-\end{itemize}
-
-Une fois que ce mapping est réalisé, la tâche de notre algorithme d'annotation
-en rôles sémantiques devient de détecter que la classe future\_having-13.3 est
-utilisée ici, que 'You' est Agent, que 'the same amount of memory' est Theme,
-et que 'to both engines' est Goal. La démarche est la même pour la seconde
-phrase, où il s'agit d'identifier que \textit{Techniques and tools} est Agent,
-et que \textit{carbon stocks} est Theme.
-
-\section{Résultats}
-
-
-\section{SP 14}
-
-We present a free software baseline for Semantic Role Labeling that only uses
-VerbNet to assign roles to arguments in a sentence. The approach is
-domain-independent and easily reproducible as it simply matches verb arguments
-to VerbNet frames which is designed to cover general text.  Our system is
-therefore suitable either as a strong baseline, a first step towards annotating
-a new domain or a full Semantic Role Labeling system once VerbNet has been
-slightly updated towards the new domain. Additionally, it can be used to
-highlight gaps in VerbNet that have remained unnoticed until now.
-
-\section{Introduction}
-
-Semantic roles are a useful abstraction that allow to integrate semantic
-knowledge in applications. Indeed, tasks such as information extraction
-\cite{surdeanu2003using}, question-answering \cite{shen2007using}, event
-extraction \cite{exner2011using}, plagiarism detection
-\cite{osman2012improved}, machine translation \cite{bazrafshan2013semantic} or
-stock prediction \cite{xie2013semantic} all benefit from Frame-Semantic Parsing
-and Semantic Role Labeling.
-
-However, Semantic Role Labeling on new domains is still an open problem.
-Existing approaches either require some annotated data or transfer a model from
-a related domain. We propose an approach where no domain-specific data is
-needed as we only use the VerbNet lexical resource.
-
-As a result, this approach is simple, does not require an annotated corpus and
-is easily adaptable to languages with a VerbNet-like resource such as Estonian
-\cite{jentson2014verbnet}, French \cite{pradet2014adapting} or
-Portuguese \cite{scarton2012towards}.
 
 \section{Prior work}
 
-SEMAFOR \cite{das2014frame} is the supervised system closest to our
-approach. Using the FrameNet corpus, it first identifies predicates, then
-identify the correct frame evoked by those predicates, and finally performs
-argument identification by detecting which word spans in a sentence carry a
-role for the identified predicate.
+SEMAFOR \citep{das2014frame} is the supervised system closest to our approach.
+Using the FrameNet corpus, it first identifies predicates, then identify the
+correct frame evoked by those predicates, and finally performs argument
+identification by detecting which word spans in a sentence carry a role for the
+identified predicate.
 
 We leave the span identification part of argument identification to future
 work, considering the gold argument spans: the goal is to determine the role of
@@ -256,13 +90,13 @@ that we minimize human effort to automatically annotate new domains, but we
 focus on FrameNet-style Semantic Role Labeling rather than situated language
 understanding.
 
-The Semantic Role Labeling system of ~\cite{gormley2014low}
-does not need supervised syntax, but still requires a role-labelled corpus.
-\cite{hadouche2011annotation} performs Semantic Role Labeling on
-one of our three corpora (DiCoInfo) with two approaches: (i) applying manually
-crafted rules to the output of a syntactic parser (ii) learning a supervised
-system with various features from the literature. They highlight the need
-of annotating more examples to get better results on a wider range of roles and
+The Semantic Role Labeling system of \cite{gormley2014low} does not need
+supervised syntax, but still requires a role-labelled corpus.
+\cite{hadouche2011annotation} performs Semantic Role Labeling on one of our
+three corpora (DiCoInfo) with two approaches: (i) applying manually crafted
+rules to the output of a syntactic parser (ii) learning a supervised system
+with various features from the literature. They highlight the need of
+annotating more examples to get better results on a wider range of roles and
 predicates. Our work goes the opposite direction: we show that by using less
 supervised data, it is possible to annotate a large number of sentences from
 various domains.
@@ -342,8 +176,100 @@ that every predicate is possible associated with a VerbNet class, and every
 gold role filler is possibly assigned to a semantic role.\footnote{The source
 code of this experiment is available at \url{http://anonymized}}.
 
+\section{Enrichissement de VerbNet}
+
+Malgré leur similarité, ces corpus posent des problèmes différents vis-à-vis de
+leur annotation avec VerbNet, tous liés au fait de ne pas être dans le "domaine
+général". Nous avons considéré comme problème les manquements dans VerbNet qui
+empêchent de prendre en compte les phrases considérées, indépendamment de
+l'algorithme. Ainsi, pour que VerbNet puisse prendre en compte une instance, il
+faut :
+
+\begin{itemize}
+    \item que le sens du verbe considéré soit présent dans VerbNet,
+    \item que la construction en question soit présente dans VerbNet,
+    \item et que les rôles sémantiques associés à chaque syntagme soient correct.
+\end{itemize}
+
+Il y a différentes façons de ne pas respecter ces contraintes :
+
+\begin{itemize}
+    \item Le verbe n'existe pas du tout dans VerbNet
+    \item Le sens du verbe utilisé n'est pas représenté dans VerbNet alors que c'est un sens du domaine général
+    \item Le sens du verbe utilisé n'est pas représenté dans VerbNet alors que c'est un sens spécifique à ce domaine
+    \item La construction utilisée n'est pas présente dans VerbNet
+    \item La construction utilisée est incorrecte dans VerbNet
+\end{itemize}
+
+Suivant les corpus considérés, les proportions d'erreurs seront différentes.
+Nous avons demandé à deux annotateurs d'évaluer, pour vingt phrases par
+domaine, quelle était l'erreur. L'accord inter-annotateur permet de valider la
+distinction domaine spécifique/domaine général malgré l'impossibilité de la
+définir précisément. % TODO lefaire
+
+C'est pour cette raison que l'enrichissement de VerbNet se fait de deux
+manières : certains verbes et constructions sont ajoutés comme faisant partie
+du domaine général, alors que d'autres sont étiquetés avec le domaine
+spécifique correspondant. L'idée est d'éviter que des connaissances de domaines
+spécifiques viennent réduire la qualité de la ressource tout en s'assurant que
+la couverture de VerbNet pour le domaine général continue de s'améliorer.
+
+\subsection{Détection semi-automatique d'erreurs}
+
+D'une part, pour minimiser le travail manuel, il est important d'automatiser au
+maximum l'enrichissement de la ressource. D'autre part, l'intérêt de VerbNet
+réside notamment dans sa capacité à factoriser efficacement ces informations
+sur l'interface syntaxico-sémantique d'un verbe donné, et il est donc possible
+et utile de valider manuellement chacun des changements apportés.
+
+Le principe suivi est donc d'essayer de détecter les manquements de VerbNet de
+manière automatique avant de proposer à un utilisateur expert de réaliser des
+changements en ayant un maximum d'informations pertinentes à portée de main.
+
+Les différentes erreurs détectées sont :
+\begin{itemize}
+    \item l'absence de lemmes dans la ressource
+    \item l'absence d'un sens correct dans la ressource
+    \item l'absence de constructions correctes dans la ressource
+    \item l'absence de mapping de role correct dans la ressource
+\end{itemize}
+
+Nous avons d'abord commencé par détecter l'absence de constructions correctes,
+ce qui a permis ensuite de détecter une absence de sens en comparant les
+constructions observées avec les constructions présentes. Enfin, cela a permis
+de faire des propositions quant à la position d'un nouveau lexème dans la
+ressource.
+
 \section{Experiments}
 
+
+\subsection{Corpus considérés}
+
+Afin de s'assurer que notre travail reste valide en changeant de domaine, nous
+considérons ici trois corpus présents dans des domaines différents :
+
+\begin{itemize}
+    \item le Kicktionary rassemblant des dépêches de l'UEFA dans le domaine du football,
+    \item DicoInfo~: corpus Informatique/Internet de l'OLST,
+    \item et DicoEnviro~: le corpus Réchauffement climatique de l'OLST
+\end{itemize}
+
+Les points communs majeurs de ces trois corpus sont :
+\begin{enumerate}
+    \item de s'inspirer librement de la théorie des Frame Semantics telle qu'elle est considérée dans FrameNet,
+    \item d'être disponible à la fois en anglais et en français,
+    \item d'être basés sur l'annotation dans un corpus d'un certain nombre de prédicats (ce n'est pas une annotation dite "full-text")
+\end{enumerate}
+
+Ce dernier point est plutôt un inconvénient : la manière la plus réaliste de
+considérer un corpus d'entraînement est de réaliser une annotation dite
+\textit{full-text} en annotant tous les prédicats rencontrés dans un texte
+donné. Cependant, les contextes choisis dans DicoInfo et DicoEnviro l'ont été
+sur des critères de diversité syntaxique. \citep{lhomme2012adding} Le postulat
+que nous faisons dans ce travail est que notre méthode n'est pas affectée par
+ce problème comme le serait un modèle statistique appris sur ces mêmes
+contextes étant donné que la probabilité des différentes possibilités n'est pas
+prise en compte.
 To compare the results across domains, we consider three domain-specific
 frame-annotated corpora.
 
@@ -407,6 +333,67 @@ equalise, strike, score, etc. will use different syntactic alternations, evoke
 different roles and map to different VerbNet classes. The mapping of those
 frames is still ongoing, which explains that Kicktionary results for class
 accuracy are currently lower than those of DiCoInfo and DiCoEnviro.
+
+\section{Méthode d'évaluation}
+
+Les trois corpus considérés ont été annotés en rôles sémantiques dans les deux
+langues qui nous intéressent ici~: l'anglais et le français. Il nous suffit
+donc d'utiliser un mapping entre les rôles considérés par ces ressources et les
+rôles VerbNet avant d'évaluer la performance de l'algorithme basé sur la
+connaissance d'annotation en rôles sémantiques présenté au
+chapitre~\ref{ch:srl}.
+
+Dans le cas de DicoInfo et DicoEnviro, les noms des rôles sont proches des noms
+de rôles employée dans VerbNet et LIRICS \citep{bonial2011hierarchical} (Agent,
+Patient, Destination, Instrument...). Cependant, même si les noms sont les
+mêmes, la définition de ces rôles est spécifique à DicoInfo et DicoEnviro.
+En pratique :
+
+\begin{itemize}
+    \item DicoInfo et DicoEnviro ne distinguent pas Theme de Patient mais
+    n'utilise que Patient ce qui rend l'annotation plus facile.\footnote{La
+    distinction entre Theme et Patient est difficile à établir. Dans \textit{Le
+    chaton a léché mes doigts}, est-ce que mes doigts ont changé d'état ? Si oui,
+    ils devraient être Patient, et sinon, Theme.\citep[p.~5]{palmer2010semantic}}
+    \item Pour un certain nombre de lexies, la perspective du domaine implique
+    souvent des rôles différents (TODO exemple Patient vs. Result) % TODO clair
+\end{itemize}
+
+C'est pour ces raisons que nous avons créé manuellement un mapping entre
+VerbNet et les corpus considérés (DicoInfo et DicoEnviro). Ce mapping est
+utilisé uniquement à des fins d'évaluation, et l'effort nécessaire pour le
+créer n'est donc pas à prendre en compte pour calculer l'effort global
+nécessaire pour notre approche. Prenons deux phrases d'exemple pour illustrer
+le mapping. Voici deux phrases présentes dans DicoInfo et DicoEnviro :
+
+\begin{itemize}
+    \item In the interest of fair competition you should ALLOCATE the same amount of memory to both engines.
+    \item Techniques and tools exist to MEASURE carbon stocks in project areas relatively precisely depending on the carbon pool.
+\end{itemize}
+
+Dans la première phrase, le sens du verbe \textit{allocate} est très précis et
+très spécifique au domaine de l'informatique. Pourtant, il se comporte
+syntaxiquement de la même manière que le sens plus général considéré par
+WordNet et OntoNotes: \textit{distribute or se aside according to plan}. Par
+conséquent, un mapping manuel a été réalisé de la lexie allocate.1 (qui
+correspond à la phrase ci-dessus) vers la classe Verbnet
+\textit{future\_having-13.3}. Enfin, les actants définis par DicoInfo (qui
+correspondent aux roles \textit{Core} de FrameNet et aux rôles de VerbNet) ont
+étés mis en correspondance avec les rôles de VerbNet :
+
+\begin{itemize}
+    \item Patient devient Theme
+    \item Recipient devient Goal
+    \item Agent reste Agent
+\end{itemize}
+
+Une fois que ce mapping est réalisé, la tâche de notre algorithme d'annotation
+en rôles sémantiques devient de détecter que la classe future\_having-13.3 est
+utilisée ici, que 'You' est Agent, que 'the same amount of memory' est Theme,
+et que 'to both engines' est Goal. La démarche est la même pour la seconde
+phrase, où il s'agit d'identifier que \textit{Techniques and tools} est Agent,
+et que \textit{carbon stocks} est Theme.
+
 
 \section{Results}
 \label{sec:domainsrlresults}
@@ -472,7 +459,5 @@ as it shows missing lemmas, classes and frames.
 
 \section*{Acknowledgments}
 
-%We would like to thank Thomas Schmidt and Marie-Claude L'Homme for providing
-%us the Kicktionary, DiCoInfo and DiCoEnviro corpora.
-%This work has been funded by the French national research agency (Agence
-%Nationale de la Recherche, ANR) ASFALDA project under reference ANR-12-CORD-0023.
+We would like to thank Thomas Schmidt and Marie-Claude L'Homme for providing
+us the Kicktionary, DiCoInfo and DiCoEnviro corpora.
