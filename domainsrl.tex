@@ -7,52 +7,46 @@
 \chapter{Annotation en rôle sémantique en domaine spécifique}
 \label{ch:domainsrl}
 
-% TODO  ?
-% Evaluating our approach on domain-specific corpora such as the Kicktionary
-% \citep{schmidt2009kicktionary}, the Robocup dataset \citep{chen2008learning} or
-% the Situated Language dataset \citep{bordes2010towards} and compare our method
-% with existing domain-specific semantic role labeling work
-% \citep{wyner2010lexical,hadouche2011annotation,goldwasser2013leveraging}.
-
-We present a free software baseline for Semantic Role Labeling that only uses
-VerbNet to assign roles to arguments in a sentence. The approach is
-domain-independent and easily reproducible as it simply matches verb arguments
-to VerbNet frames which is designed to cover general text.  Our system is
-therefore suitable either as a strong baseline, a first step towards annotating
-a new domain or a full Semantic Role Labeling system once VerbNet has been
-slightly updated towards the new domain. Additionally, it can be used to
-highlight gaps in VerbNet that have remained unnoticed until now.
-
 \section{Introduction}
-
-Semantic Role Labeling on new domains is still an open problem.  Existing
-approaches either require some annotated data or transfer a model from a
-related domain. We propose an approach where no domain-specific data is needed
-as we only use the VerbNet lexical resource. As a result, this approach is
-simple, does not require an annotated corpus and is easily adaptable to
-languages with a VerbNet-like resource such as Estonian
-\citep{jentson2014verbnet}, French \citep{pradet2014adapting} or Portuguese
-\citep{scarton2012towards}.
 
 Là où le précédent chapitre présentait sur l'annotation en rôles sémantiques
 fondée sur la connaissance, celui-là se concentre sur l'annotation en domaines
-spécifiques.
+spécifiques. À l'heure où les algorithmes supervisés obtiennent d'excellentes
+performances sur un certain nombre de tâche, l'adaptation au domaine est un
+défi majeur du Traitement Automatique des Langues, et l''annotation en rôles
+sémantiques sur de nouveaux domaines reste un problème ouvert. 
+% TODO existing approaches ici ?
+
+Nous présentons dans ce chapitre un système d'annotation en rôles sémantiques
+qui n'utilise que la ressource VerbNet (présentée à la
+section~\ref{subsec:presentation_verbnet}), ce qui rend la méthode applicable
+dans toute langue disposant d'un VerbNet, ce qui est le cas par exemple de
+l'Estonien \citep{jentson2014verbnet}, du français (Chapitre~\ref{ch:verbnet})
+ou du Portuguais \citep{scarton2012towards}, entre autres. L'approche ne dépend
+pas du domaine étant donné que VerbNet couvre l'ensemble des verbes du
+vocabulaires\footnote{La plupart des erreurs liées à VerbNet sont un manque
+général, et non pas spécifique au domaine étudié
+(section~\ref{erreurs_verbnet_domaine}).}. L'approche est aussi facile à
+reproduire en raison de sa simplicité : les arguments du verbe sont simplement
+mis en correspondance avec VerbNet. Notre système est donc suivant le point de
+vue une \emph{baseline} forte, une première étape pour annoter un nouveau
+domaine avec peu d'efforts, ou la base d'un système complet d'annotation en
+rôles sémantiques une fois que VerbNet a été mis à jour par rapport au domaine.
+De plus, cette méthode peut identifier des manquements dans VerbNet.
 
 La définition du terme 'domaine' reste assez vague dans le sens où il est
 difficile de proposer une catégorisation de la connaissance en un ensemble de
-domaines qui soit à la fois cohérente et efficace pour le Traitement Automatique
-des Langues. Il est aussi difficile de séparer clairement le «~domaine
-général~» des domaines spécifiques.
+domaines qui soit à la fois cohérente et efficace pour le Traitement
+Automatique des Langues. Il est aussi difficile de séparer clairement le
+«~domaine général~» des domaines spécifiques. Néanmoins, c'est un phénomène qui
+existe et qui est à considérer : les modèles entraînés sur un corpus d'un
+domaine spécifique (la finance par exemple) généraliseront mal à d'autres
+domaines (le football).
+
 
 % TODO wordnet domains issues ma2012rethinking
 
-Néanmoins, c'est un phénomène qui existe et qui est à considérer : les modèles
-entraînés sur un corpus d'un domaine spécifique (la finance par exemple)
-généraliseront mal à d'autres domaines (le football) par exemple. % proof
-
-À l'heure où les algorithmes supervisés obtiennent d'excellentes performances
-sur un certain nombre de tâche, l'adaptation au domaine est un défi majeur du
-Traitement Automatique des Langues.
+% TODO proof with existing system? cite paper?
 
 Il est important aussi de différencier le genre et le domaine d'un texte. Le
 corpus du Wall Street Journal traite du domaine de la finance dans un genre
@@ -66,73 +60,54 @@ domaines différents plus que dans deux genres différents, les changements vont
 résider dans les verbes utilisés, leur sens et la façon de les utiliser. C'est
 ce que nous souhaitons prendre en compte ici.
 
+\section{Travaux existants}
 
-\section{Prior work}
+SEMAFOR \citep{das2014frame} est le système supervisé le plus proche de notre
+système. En utilisant le corpus FrameNet, il commence par identifier les
+prédicats, puis identifie la frame correcte évoquée par ces prédicats, puis
+identifie les groupes de mots qui jouent un rôle pour ce prédicat donné.
 
-SEMAFOR \citep{das2014frame} is the supervised system closest to our approach.
-Using the FrameNet corpus, it first identifies predicates, then identify the
-correct frame evoked by those predicates, and finally performs argument
-identification by detecting which word spans in a sentence carry a role for the
-identified predicate.
+% TODO compréhension située ?
+% TODO mieux identifier ce que cette tâche fati
+\cite{chen2008learning} entraînent un système de commentaires à partir de
+commentaires existants et d'états de simulations de parties de football, mais
+sans connaissance explicite de l'anglais. Leur approche a inspiré d'autres
+travaux sur la compréhension située de la langue : \citep{bordes2010towards} et
+\cite{richardson2012towards} ont proposé par la suite d'autres corpus pour
+entraîner de tels systèmes. Notre système est similaire dans le sens où nous
+minimisons l'effort humain pour annoter automatiquement de nouveaux domaines,
+mais nous nous concentrons sur la tâche de l'annotation en rôles sémantiques de
+type FrameNet.
 
-We leave the span identification part of argument identification to future
-work, considering the gold argument spans: the goal is to determine the role of
-each span. The reason is that we currently want to focus on the ability of
-VerbNet to annotate FrameNet-style domain-specific corpora.
+Le système d'annotation en rôles sémantiques de \cite{gormley2014low} ne
+demande certes pas de syntaxe supervisée, mais nécessite tout de même un corpus
+annoté en rôles sémantiques. \cite{hadouche2011annotation} réalise de
+l'annotation en rôles sémantiques sur un de nos trois corpus (DicoInfo) avec
+deux approches différentes :
 
-\cite{chen2008learning} train a commentator system using
-existing commentaries and simulation states of soccer games, but without
-explicit knowledge about the English language. Their approach spurred work on
-situated language understanding: \cite{bordes2010towards}
-and \cite{richardson2012towards} later proposed other
-corpora for situated language understanding systems. Our system is similar in
-that we minimize human effort to automatically annotate new domains, but we
-focus on FrameNet-style Semantic Role Labeling rather than situated language
-understanding.
+\begin{itemize}
 
-The Semantic Role Labeling system of \cite{gormley2014low} does not need
-supervised syntax, but still requires a role-labelled corpus.
-\cite{hadouche2011annotation} performs Semantic Role Labeling on one of our
-three corpora (DiCoInfo) with two approaches: (i) applying manually crafted
-rules to the output of a syntactic parser (ii) learning a supervised system
-with various features from the literature. They highlight the need of
-annotating more examples to get better results on a wider range of roles and
-predicates. Our work goes the opposite direction: we show that by using less
-supervised data, it is possible to annotate a large number of sentences from
-various domains.
+    \item en appliquant des règles définies manuellement à la sortie d'un
+        analyseur syntaxique
 
-\section{Approach}
+    \item en apprenant un système supervisé avec différents traits issus de la
+        littérature
 
-\subsection{VerbNet}
-\label{subsec:verbnet}
+\end{itemize}
 
-\cite{levin1993english} argues that syntactic alternations reflect the
-underlying semantics of verb senses. Observing those alternations allows to
-create semantic classes, grouping together verb senses sharing roughly the same
-semantics and the same thematic roles. The resulting resource has since been
-digitized and expanded with new verb classes, new complements, new lemmas and
-new syntactic frames, producing VerbNet \cite{kipperschuler2005verbnet}.
+Nos travaux vont dans la direction opposée : nous annoter un grand nombre de
+phrases provenant de divers domaines sans utiliser de corpus annoté.
 
-Due to the way it was built, VerbNet is a natural fit for Semantic Role
-Labeling as it provides an explicit syntax-semantics interface that allows to
-tag verb subjects and objects with semantic roles. It also has the additional
-benefit to cover 6000 verb senses. It is far from WordNet's 13000 verb synsets,
-and still needs to be improved, but it already contains enough lemmas for many
-use cases, as we show in section~\ref{sec:domainsrlresults}.
+\section{Approche}
 
-For a given class such as \texttt{put-9.1}, VerbNet lists verbs, semantic roles
-and VerbNet frames\footnote{A FrameNet frame corresponds to a VerbNet class,
-while a VerbNet frame describes a subcategorization frame.}, that we will note
-as follows: \texttt{NP.Agent} \texttt{V} \texttt{\{\{+loc\}\}}
-\texttt{NP.Theme} \texttt{PP.Destination}. In this case, the subject of the
-verb is \texttt{Agent}, the first object is \texttt{Goal} and the second one is
-\texttt{Theme}. Here, roles are filled by two noun phrases and a prepositional phrase
-introduced with a preposition of location, but other complements are present in
-VerbNet. In addition to this information, frames come with an example (eg.
-\textit{I put the book on the table}) and semantics expressed using first-order
-logic that we ignore in this work.
-
-\subsection{Algorithm}
+Nous laissons ici l'identification des arguments à un travail futur, et
+utilisons ici les arguments dits gold : on sait que ces arguments jouent un
+rôle, mais on ne sait pas lequel. La raison est que nous voulons nous
+concentrer pour le moment sur la capacité qu'à VerbNet à annoter des corpus à
+la façon FrameNet sans avoir à analyser syntaxiquement notre corpus, ce qui
+représente une difficulté supplémentaire. Cela signifie aussi que nous
+n'évaluons pas l'identification des arguments jouant un rôle, ce qui est une
+part importante de tout système d'annotation en rôles sémantiques.
 
 To annotate a given sentence with already identified role fillers, we first
 list all the classes that can be triggered by a given verb. For example, given
@@ -240,7 +215,7 @@ constructions observées avec les constructions présentes. Enfin, cela a permis
 de faire des propositions quant à la position d'un nouveau lexème dans la
 ressource.
 
-\section{Experiments}
+\section{Expériences}
 
 
 \subsection{Corpus considérés}
@@ -395,7 +370,8 @@ phrase, où il s'agit d'identifier que \textit{Techniques and tools} est Agent,
 et que \textit{carbon stocks} est Theme.
 
 
-\section{Results}
+% TODO se comparer avec hadouche2011annotation
+\section{Résultats}
 \label{sec:domainsrlresults}
 
 We first consider VerbNet's coverage of those three resources, measuring lemma
