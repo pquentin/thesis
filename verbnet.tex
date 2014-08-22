@@ -2,78 +2,21 @@
 \chapter{Traduction de VerbNet pour le français}
 \label{ch:verbnet}
 
-\section{Introduction}
+% L'introduction doit tenir dans un petit paragraphe qui fait référence à
+% d'autres sections
+La ressource VerbNet (section~\ref{subsec:presentation_verbnet}) correspond à
+nos objectifs (section~\ref{objectifs_these}) mais n'existe qu'en anglais :
+c'est pourquoi nous présentons dans ce chapitre sa traduction vers le français,
+\verbenet{}.
 
-% TAL a besoin d'infos sur les verbes, c'est difficile et fragile, et on a
-% besoin d'énormes corpus
-Le Traitement Automatique des Langues requiert des lexiques et de larges
-quantités de données annotées pour analyser efficacement des textes dans le
-domaine général. Obtenir cette quantité de données est un problème en soi connu
-sous le nom de "knowledge acquisition bottleneck" en désambiguïsation lexicale
-\citep{gale1992using}. Annoter de plus en plus de données de manière efficace
-réduira ce problème pour certains domaines, mais d'autres stratégies sont
-nécessaires pour atteindre nos objectifs dans plus de domaines. Une possibilité
-est d'utiliser au mieux les données annotées en perfectionnant les algorithmes
-existants, une autre est d'utiliser intelligemment les données non annotées qui
-existent en quantité bien plus importante. Une troisième possibilité selon nous
-est d'encoder les lexiques de manière efficiente pour couvrir une large partie
-du vocabulaire. C'est ce qui est fait dans VerbNet où les traits partagés par
-les mêmes verbes sont explicitement notés, ce qui permet à chaque modification
-dans VerbNet de mieux traiter un certain nombre de verbes au lieu d'un seul.
-
-% VerbNet a montré son efficacité dans le domaine de par son approche
-% pragmatique. Vient des classes de Levin, donne des correspondances entre
-% syntaxe et sémantique
-Deux difficultés majeures qu'affrontent les créateurs de lexique sont la
-granularité de sens et la distinction des sens. Ces deux difficultés sont
-gérées par les classes de Levin \citep{levin1993english}. Dans ces classes, les
-verbes sont classifiés principalement à travers leur alternances syntaxiques,
-ce qui fournit un critère qui est à la fois facilement observable et qui
-produit des distinctions sémantiques intéressantes. VerbNet
-\citep{kipperschuler2005verbnet} est un lexique électronique basé sur les
-classes de Levin. Il encode non plus les alternances mais les cadres de
-sous-catégorisation valables pour chaque classe, et rajoute des informations de
-rôle et de sémantique à travers une logique des prédicats simplifiée. De
-nouvelles classes, constructions et verbes ont étés ajoutés à VerbNet au fil
-des ans.
-
-% VN est bon pour SRL
-Au-delà de son encodage efficace, VerbNet est un lexique adapté au Traitement
-Automatique des Langues : on peut utiliser un cadre de sous-catégorisation pour
-mapper des syntagmes à des rôles thématiques
-\citep{swier2005exploiting,pradet2013revisiting}. Grâce à sa couverture élevées
-(plus de quatre mille verbes distincts) et son groupement de verbes utile,
-VerbNet est bien adapté à l'annotation en rôles sémantiques.
-
-% Dans les langues autres que l'anglais, cette ressource utile n'existe pas
-% mais ne demande qu'à exister étant donné le potentiel \textit{cross-lingual}
-% de VerbNet. Il y a souvent des ressources proches, moins utiles, plus
-% linguistiques, existent.
-Cependant, un VerbNet de qualité n'existe pour le moment que pour l'anglais.
-Une telle ressource serait pourtant encore plus utile pour les langues moins
-ressourcées où les corpus annotés en rôles sémantiques n'existent pas. VerbNet
-a un potentiel inter-linguistique, visible notamment avec le portuguais
-\citep[section 2.2.2]{kipperschuler2005verbnet}. Adapter VerbNet vers une
-nouvelle langue suffisamment proche de l'anglais permet de conserver sa
-structure, ainsi que l'information sémantique et les rôles thématiques, ce qui
-donne la possibilité de produire un lexique utile sans des années de travail
-manuel.
-
-% En particulier, en français, les tables du LADL décrivent le comportement
-% syntaxique des verbes et le LVF découpe les verbes du français
-% sémantiquement. Un certain nombre de difficultés empêche d'utiliser ces
-% ressources en TAL
-
-En ayant pour but de développer une version français de VerbNet (nommée
-\verbenet{}), nous avons d'abord (section~\ref{first}) traduit vers le français
-les membres des classes de premier niveau dans VerbNet en utilisant des
-ressources linguistiques qui encodent des informations syntaxiques et
-sémantiques sur les verbes du français. La deuxième étape
-(section~\ref{second}), toujours en cours, est d'adapter les cadres de
-sous-catégorisation vers le français et de réorganiser les classes de VerbNet
-en fonction, ce qui pose divers problèmes que nous décrirons en partie ici. La
-troisième étape (section~\ref{third}) sera l'occasion de valider les membres
-français de chaque classe.
+Nous avons d'abord (section~\ref{first}) traduit vers le français les membres
+des classes de premier niveau dans VerbNet en utilisant des ressources
+linguistiques qui encodent des informations syntaxiques et sémantiques sur les
+verbes du français. La deuxième étape (section~\ref{second}), toujours en
+cours, est d'adapter les cadres de sous-catégorisation vers le français et de
+réorganiser les classes de VerbNet en fonction, ce qui pose divers problèmes
+que nous décrirons en partie ici. La troisième étape (section~\ref{third}) sera
+l'occasion de valider les membres français de chaque classe.
 
 Notre traduction de VerbNet sera liée aux deux ressources linguistiques que
 nous utilisons, Les Verbes Français et le Lexique-Grammaire. La ressources sera
