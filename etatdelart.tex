@@ -19,24 +19,24 @@ WordNet (Chapitre~\ref{ch:wonef}). La traduction de ressources lexicales
 (section~\ref{sec:translation}) est un moyen de faire profiter une langue cible
 d'une ressource existante dans une autre langue, comme nous le faisons dans la
 partie~\ref{part:translation}. Enfin, l'annotation en rôles sémantiques
-(section~\ref{sec:srl}) sera elle surtout utile pour la partie~\ref{part:srl}.
+(section~\ref{sec:srl}) sera, elle, surtout utile pour la
+partie~\ref{part:srl}.
 
 \section{Représentation des mots}
 \label{sec:mots}
 
-% TODO \citep{harnad1990symbol} ?
-Nous étudions le sens des mots à travers les dictionnaires et différentes
-ressources lexicales. Nous présentons ensuite les modèles de langue qui sont
-une manière directe de représenter les mots, leur utilisation, et donc leur
-sens, le tout à partir d'un corpus brut.
+Nous abordons certains aspects du sens des mots à travers les dictionnaires et
+différentes ressources lexicales. Nous présentons ensuite les modèles de langue
+qui sont une manière directe de représenter les mots, leur utilisation, et donc
+leur sens, le tout à partir d'un corpus brut.
 
 \subsection{Représentation du sens des mots}
 \label{subsec:sens_mots}
 
-La lexicographie est la science qui consiste à recenser les mots, les classer,
-les définir et les illustrer, par des exemples ou des expressions, pour rendre
-compte de l'ensemble de leurs significations et de leurs acceptions au sein
-d'une langue, afin de constituer un dictionnaire
+«~La lexicographie est la science qui consiste à recenser les mots, les
+classer, les définir et les illustrer, par des exemples ou des expressions,
+pour rendre compte de l'ensemble de leurs significations et de leurs acceptions
+au sein d'une langue, afin de constituer un dictionnaire~»
 \citep{wikipedia2014lexicographie}. La lexicographie est donc un socle sur
 lequel le Traitement Automatique des Langues peut s'appuyer pour représenter le
 sens des mots.
@@ -49,17 +49,16 @@ textes de journaux, de fiction, ou encore de blogs, le tout étant supposé êtr
 représentatif de ce qu'une personne lambda lit durant sa vie. Pour un mot
 donné, le lexicographe examine ses différents usages dans ce corpus dans le but
 de séparer ces différents usages en sens. Certains sens, jugés trop peu
-fréquents, sont laissés de côté. Une fois la séparation effectuée, le
-lexicographe l'étudie pour établir des critères objectifs distinguer les
-différents sens du mot étudié. Une phase d'ajustement de la séparation suit
-pour vérifier que les critères ont été correctement appliqués, ce qui peut
-amener à raffiner ces critères. Une fois le processus fini, ces critères
-serviront pour écrire la définition, et les occurrences de mots dans le corpus
-pourront servir d'exemples. L'avantage principal est que le processus
-lexicographique est désormais basé sur des données réelles et non pas sur des
-intuitions linguistiques.
+fréquents, sont laissés de côté. Le lexicographe étudie ensuite la séparation
+obtenue pour établir des critères objectifs distinguant les différents sens du
+mot étudié. Une phase d'ajustement de la séparation suit pour vérifier que les
+critères ont été correctement appliqués, ce qui peut amener à raffiner ces
+critères. Une fois les critères définitifs établis, la définition peut être
+rédigée, les occurrences étudiées pouvant servir d'exemples.  L'avantage
+principal est que le processus lexicographique est basé sur des données réelles
+et non pas sur des intuitions linguistiques.
 
-% exemple
+% TODO exemple
 
 Ainsi, les sens ne sont pas définis en tant que tels, mais sont avant tout des
 occurrences dans un contexte donné. C'est une façon de comprendre la citation
@@ -85,7 +84,7 @@ corpus utilisé pour établir les définitions.
 \subsection{Ressources lexicales actuelles}
 \label{subsec:ressources_lexicales}
 
-D'autres moyen existent pour représenter le sens des mots. La qualité du
+D'autres moyens existent pour représenter le sens des mots. La qualité du
 travail lexicographique exposé dans les dictionnaires n'a pas été remise en
 cause, mais :
 
@@ -116,15 +115,17 @@ La première ressource lexicale à tirer partie de la possibilité de représent
 le lexique sous la forme d'un graphe est WordNet, décrit à la
 section~\ref{presentation_wordnet}.
 
+% TODO réécrire
 Depuis 2006, différents travaux ont jugé que les défauts attribués à WordNet
-\citep{hovy2006ontonotes,boyd2006adding,ide2006making,navigli2007semeval,snow2007learning}
-étaient suffisamment importants pour nécessiter une alternative avec des sens
+\citep{hovy2006ontonotes,boyd2006adding,ide2006making,navigli2007semeval,snow2007learning},
+en particulier la trop grande finesse de distinction des sens, étaient
+suffisamment importants pour nécessiter une alternative avec des sens
 distingués plus grossièrement. Ce problème est attribué selon
 \cite{edmonds2002introduction} au manque de rigueur lexicographique de WordNet,
 et à la mise en avant de la similarité entre les mots à travers les synsets au
 détriment de la distinction des sens de chaque mot. Il s'est en effet avéré que
 l'accord inter-annotateurs pour un étiquetage avec WordNet est faible (de
-l'ordre de 70\%), et qu'utiliser un autre inventaire un moyen efficace de
+l'ordre de 70\%), et qu'utiliser un autre inventaire est un moyen efficace de
 s'adapter à différentes applications \citep{palmer2004different}. La tendance
 est désormais à l'utilisation d'inventaires plus grossiers
 \citep{navigli2007semeval,navigli2012quick}.
@@ -162,13 +163,13 @@ considère qu'une approche énumérative n'est pas viable. Le sens d'un mot est
 alors défini selon plusieurs aspects prédéfinis (constitution, rôles, facteurs
 impliqués dans la création, etc.) qui peuvent se retrouver dans plusieurs mots.
 Par exemple, un couteau contient une lame et sert à couper. Cette approche est
-semblable à celle qui définit le sens d'un mot comme une simple suite de sèmes.
+semblable à celle qui définit le sens d'un mot comme une liste de sèmes.
 
 Enfin, différents travaux mentionnent la possibilité d'utiliser plus d'un sens
 pour un mot donné. \cite{smith2011rumble} propose d'utiliser des distributions
 de probabilité sur les différents sens possibles pour définir un sens précis
 dans un corpus. \cite{erk2013measuring} montrent qu'un accord inter-annotateur
-haut peut être obtenu en demandant aux annotateurs d'indiquer pour chaque sens
+élevé peut être obtenu en demandant aux annotateurs d'indiquer pour chaque sens
 sa correspondance avec l'usage sur une échelle de 1 à 5. Dans SemCor, les
 annotateurs pouvaient choisir plusieurs sens si besoin, mais seulement 0.3\%
 des occurrences de SemCor sont étiquetées avec plus d'un sens. Une campagne
@@ -179,20 +180,14 @@ d'évaluation a eu lieu en 2013 à ce sujet \citep{jurgens2013semeval}.
 \label{subsec:modeles_de_langue}
 
 Un modèle de langue prédit la probabilité d'un mot étant donné son contexte
-dans la phrase. C'est directement utile pour des tâches telles que la
-traduction automatique ou la reconnaissance de la parole dans lesquelles un
-modèle de langue favorisera des phrases plausibles globalement au lieu
+dans la phrase. Cette probabilité est directement utile pour des tâches telles
+que la traduction automatique ou la reconnaissance de la parole dans lesquelles
+un modèle de langue favorisera des phrases globalement plausibles au lieu
 d'étudier chaque mot individuellement.
 
-Ce n'est pas l'utilisation que nous faisons des modèles de langues : ici,
-l'objectif est d'obtenir des mesures de similarité sémantiques utiles pour
-notre traduction de WordNet (Chapitre~\ref{ch:wonef}) et pour notre module de
-similarité entre syntagmes pour l'annotation en rôles sémantiques
-(Chapitre~\ref{ch:semantic}).
-
-% TODO pourquoi parler d'hypothèse distributionnelle ?
-Quelle est l'intuition derrière l'utilisation des modèles de langue ?
-L'hypothèse distributionnelle s'explique ainsi
+Ces modèles de langues permettent aussi d'obtenir des mesures de similarité
+sémantiques utiles. L'utilisation des modèles de langue pour l'étude de la
+similarité entre deux mots provient de l'hypothèse distributionnelle
 \cite[p.~786]{harris1954distributional} :
 
 \begin{quote} ... si l'on considère que le sens de deux mots ou morphèmes A et B
@@ -235,8 +230,8 @@ La question qui se pose maintenant que nous savons que nous voulons observer
 les distributions mentionnées par l'hypothèse distributionnelle est : comment
 représenter et calculer ces distributions ? Une façon d'opérer est de calculer
 la probabilité d'un mot dans une phrase étant donné les mots précédents. Par
-exemple, étant donné le début de phrase "Au-delà des approches ...", on veut
-connaître la probabilité du mot suivant, en espérant que celle de
+exemple, étant donné le début de phrase \emph{Au-delà des approches ...}, on
+veut connaître la probabilité du mot suivant, en espérant que celle de
 \emph{statistiques} ou \emph{supervisées} soit plus importante que celle de
 \emph{chat}. En prenant par exemple le contexte des deux mots qui précèdent le
 mot étudié, on calcule sa probabilité simplement avec le maximum de
@@ -250,11 +245,11 @@ La séquence $w_{i-2}, w_{i-1}, w_{i}$ est un 3-gramme, et $compte$ compte le
 nombre d'occurrences de cette séquence dans le corpus considéré. La taille du
 contexte peut varier, ce qui est la raison pour laquelle on parle de manière
 générale de n-grammes. Le nombre de paramètres à estimer pour obtenir une
-distribution de probabilité conditionnelle fiable est $|V|^n$, $|V|$ étant la
-taille du vocabulaire et $N$ la taille du contexte étudié ($n$). En considérant
+distribution de probabilité conditionnelle fiable est $|V|^N$, $|V|$ étant la
+taille du vocabulaire et $N$ la taille du contexte étudié. En considérant
 un petit vocabulaire (10~000 mots) et un contexte de trois mots, il faut déjà
-estimer $10^{12}$ probabilités, ce qui requiert un corpus très large : Google a
-utilisé un corpus de livres d'un trillion de mots pour estimer ses n-grammes
+estimer $10^{9}$ probabilités, ce qui requiert un corpus très large : Google a
+utilisé un corpus de livres de $10^{12}$ mots pour estimer ses n-grammes
 allant jusqu'à $n=5$ \citep{brants2006web}. Diverses techniques de lissage
 existent pour mieux répartir les probabilités
 \citep[Chapitre~4]{jurafsky2008speech}. En effet, la plupart des probabilités
@@ -328,7 +323,7 @@ efficace que les modèles de langue simples à base de n-grammes.
 \subsection{WordNet}
 
 WordNet reste une ressource extrêmement utile et reproduire ce travail pour
-d'autres langues serait coûteux et difficile à maintenir. Et malgré quelques
+d'autres langues serait coûteux et difficile à maintenir. Malgré quelques
 problèmes théoriques, traduire WordNet en gardant sa structure et ses synsets
 mène à des ressources linguistiques utiles
 \citep{fellbaum2007connecting,demelo2008utility}. Cependant, il n'existe encore
@@ -375,9 +370,9 @@ successeur de JAWS \citep{mouton2010jaws,mouton2010phd} que nous présentons
 ici. Le Chapitre~\ref{ch:wonef} liste les différences avec JAWS : il est donc
 nécessaire d'avoir compris le fonctionnement de JAWS avant de le lire.
 
-JAWS est un algorithme faiblement supervisé qui ne demande aucune donnée
+JAWS repose sur un algorithme faiblement supervisé qui ne demande aucune donnée
 annotée manuellement. Pour traduire un wordnet source, JAWS s'appuie sur un
-dictionnaire bilingue et un modèle de langue syntaxique pour le langage cible.
+dictionnaire bilingue et un modèle de langue syntaxique pour la langue cible.
 Le dictionnaire bilingue est une concaténation du dictionnaire bilingue
 SCI-FRAN-EurADic\footnote{\url{http://catalog.elra.info/product_info.php?products_id=666}}
 et des liens entre les Wiktionnaires français et
@@ -525,29 +520,28 @@ traductions directes dont nous avons la connaissance sont le VerbNet estonien
 \citep{scarton2012towards} qui utilise des mappings entre VerbNet et WordNet,
 et entre WordNet.Br et WordNet.
 
-Pour le français, \cite{saintdizier1996constructing} a d'abord produit une
-ressource proche des classes de Levin. À notre connaissance, l'effort sur cette
-ressource s'est arrêté et le résultat n'est pas disponible. Des travaux se sont
-ensuite concentrés sur l'acquisition automatique de cadres de
-sous-catégorisation et sur le regroupement de verbes en se basant sur ces
-cadres et sur des similarités sémantiques. \cite{sun2010investigating} ont
-utilisé un large lexique de cadres de sous-catégorisation
-\citep{messiant2010acquisition} pour regrouper les verbes en clusters à l'aide
-de traits sémantiques (colocations et préférences lexicales des verbes) et
-syntaxiques (cadres de sous-catégorisation). L'évaluation sur une
-vérité-terrain créé manuellement a mené à une F-mesure de 55.1\%.
-\cite{falk2012classifying} appliquent un algorithme de clustering différent et
-utilisent des features différentes, ce qui améliore la F-mesure sur la même
-vérité-terrain mais simplifiée. Ces ressources mettent en valeur de nouvelles
-façons de séparer les verbes du Français, mais les erreurs qu'elles contiennent
-seront une nouvelle source d'erreur dans les applications : il est important de
-les corriger si possible.
+Pour le français, \cite{saintdizier1996constructing} a produit une ressource
+proche des classes de Levin. À notre connaissance, l'effort sur cette ressource
+s'est arrêté et le résultat n'est pas disponible. Des travaux se sont ensuite
+concentrés sur l'acquisition automatique de cadres de sous-catégorisation et
+sur le regroupement de verbes en se basant sur ces cadres et sur des
+similarités sémantiques. \cite{sun2010investigating} ont utilisé un large
+lexique de cadres de sous-catégorisation \citep{messiant2010acquisition} pour
+regrouper les verbes en clusters à l'aide de traits sémantiques (colocations et
+préférences lexicales des verbes) et syntaxiques (cadres de
+sous-catégorisation). L'évaluation sur une vérité-terrain créée manuellement a
+mené à une F-mesure de 55.1\%.  \cite{falk2012classifying} appliquent un
+algorithme de clustering différent et utilisent des features différentes, ce
+qui améliore la F-mesure sur la même vérité-terrain mais simplifiée. Ces
+ressources mettent en valeur de nouvelles façons de séparer les verbes du
+Français, mais les erreurs qu'elles contiennent seront une nouvelle source
+d'erreur dans les applications : il est important de les corriger si possible.
 
 
 \section{Annotation en rôles sémantiques}
 \label{sec:srl}
 
-Nous étudions les différentes façon de définir les rôles sémantiques, examinons
+Nous étudions les différentes façons de définir les rôles sémantiques, examinons
 diverses ressources utiles pour la tâche d'annotation, et présentons diverses
 techniques pour réaliser l'annotation elle-même.
 
@@ -681,10 +675,10 @@ techniques classiques d'apprentissage automatique sont utilisées pour
 déterminer le sens correct de chaque occurrence d'un mot étant donné les
 informations obtenues à partir du contexte de cette occurrence.  L'annotation
 en rôles sémantiques supervisée est souvent divisée en plusieurs sous-tâches :
-l'identification des prédicats, puis des frames, l'\textbf{identification des
-arguments} qui établit les syntagmes jouant un rôle dans la phrase et la
-\textbf{classification des rôles} qui détermine le rôle effectif de chaque
-syntagme parmi ceux retenus à la phase précédente.
+l'identification des prédicats, puis des frames, l'identification des arguments
+qui établit les syntagmes jouant un rôle dans la phrase et la classification
+des rôles qui détermine le rôle effectif de chaque syntagme parmi ceux retenus
+à la phase précédente.
 
 Ces méthodes supervisées ont des difficultés pour couvrir un large éventail de
 phrases. FrameNet est un travail colossal qui est encore loin de couvrir un
@@ -712,6 +706,8 @@ possible d'utiliser un corpus pour régler les paramètres à l'aide d'un
 mais des corpus plus conséquents sont toujours utilisés.
 
 \paragraph{Non supervisées}
+
+% TODO Need ref
 
 Ces approches n'utilisent aucune connaissance \textit{a priori}, que ce soit un
 inventaire ou un corpus annoté. Une approche non supervisée doit nécessairement
@@ -743,13 +739,13 @@ les sens ne suffit pas ; il faut aussi savoir quelle traduction appliquer.
 
 \subsection{Adaptation au domaine}
 
-\cite{chen2008learning} entraîne un système de commentaires en utilisant des
+\cite{chen2008learning} entraînent un système de commentaires en utilisant des
 commentaires existants et des simulations de jeux de football, mais sans
-connaissance explicite sur la langue anglaise. Leur approche a entraîne du
-travail sur le \emph{situated language understanding} (compréhension ancrée du
+connaissance explicite sur la langue anglaise. Leur approche a entraîné des
+travaux sur le \emph{situated language understanding} (compréhension ancrée du
 langage): \cite{bordes2010towards,richardson2012towards} ont proposé par la
 suite d'autres corpus pour cette tâche. Notre système
-(Chapitre~\ref{ch:domainsrl} est similaire dans le sens où nous minimisons
+(Chapitre~\ref{ch:domainsrl}) est similaire dans le sens où nous minimisons
 l'effort humain pour annoter de nouveaux domaines, mais nous nous concentrons
 sur l'annotation en rôles sémantiques \emph{à la FrameNet}.
 
@@ -766,10 +762,10 @@ approches :
         la littérature.
 \end{itemize}
 
-Ce travail conclut en indiquant que pour de meilleurs résultats sur plus de
-rôles et de prédicats, il faut plus d'exemples d'entraînement. Notre travail
-prend une autre direction : nous étudions l'utilisation de moins de données
-crées manuellement pour couvrir plus de phrases dans divers domaines.
+Ce travail conclut en indiquant que pour obtenir de meilleurs résultats sur
+plus de rôles et de prédicats, il faut plus d'exemples d'entraînement. Notre
+travail prend une autre direction : nous étudions l'utilisation de moins de
+données créées manuellement pour couvrir plus de phrases dans divers domaines.
 
 %\subsection{FrameNet}
 

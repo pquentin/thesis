@@ -16,8 +16,7 @@ regroupe les mots en ensembles de synonymes (\emph{synonym sets} ou
 sémantiques comme par exemple l'antonymie, l'hyperonymie, l'hyponymie ou encore
 la méronymie (section~\ref{subsec:ressources_lexicales}).
 
-% TODO année thèse Claire Mouton
-Nos travaux sont la suite de JAWS, présenté en détail à la
+Nos travaux \citep{pradet2013wonef} sont la suite de JAWS, présenté en détail à la
 section~\ref{subsec:jaws_translation_process}. Cette nouvelle version de JAWS
 se nomme WoNeF : le nouveau nom évite la confusion avec une API Java pour
 WordNet (\emph{Java API for WordNet Searching}). Dans la suite de ce travail,
@@ -30,7 +29,7 @@ se décline en trois versions pour répondre à différents besoins. Le WoNeF
 principal a un F-score de 70.9~\%, une autre version a une précision de
 93.3~\%, et une dernière contient 109~447 paires (littéral, synset).
 
-\section{WoNeF: un JAWS nominal amélioré}
+\section{WoNeF: un JAWS étendu aux verbes, adjectifs et adverbes}
 \label{sec:improving_jaws}
 
 \subsection{Limites de JAWS}
@@ -65,8 +64,8 @@ version, mais ajoutons aussi deux ressources qui peuvent servir des besoins
 différents. Même si notre WoNeF à haute précision est petit, il peut être
 utilisé comme une annotation de référence et servir pour entraîner un système
 d'apprentissage. Une ressource à haute couverture peut servir de base à une
-correction manuelle ou servir pour une intersection à d'autres ressources, ce
-qui est la raison pour laquelle nous en fournissons une aussi.
+correction manuelle ou servir pour une intersection avec d'autres ressources,
+ce qui est la raison pour laquelle nous en fournissons une aussi.
 
 
 Cette section présente les trois améliorations essentielles qui ont étés
@@ -310,14 +309,14 @@ que le sens d'un synset doit être conservé par la traduction.
 Malgré les difficultés mentionnées ci-dessus, l'annotation résultante a été
 validée par la mesure de l'accord inter-annotateurs, qui montre que l'approche
 par extension pour la création de nouveaux wordnets est valide et peut produire
-des ressources utiles. Deux annotateurs humains, auteurs de cet article,
-respectivement linguiste informaticien et informaticien linguiste, ont annoté
-de façon indépendante les mêmes synsets choisis au hasard pour chaque partie du
-discours. Ils ont utilisé WordNet pour examiner les synsets voisins, le
-dictionnaire Merriam-Webster, le TLFi \citep{TLFi} et des moteurs de recherche
-pour attester l'utilisation des divers sens des mots considérés. Après
-adjudication faite par ces deux annotateurs en confrontant leurs opinions en
-cas de désaccord, l'annotation de référence a été formée.
+des ressources utiles. Trois annotateurs humains, soit linguiste informaticien
+soit informaticien linguiste, ont annoté de façon indépendante les mêmes
+synsets choisis au hasard pour chaque partie du discours. Ils ont utilisé
+WordNet pour examiner les synsets voisins, le dictionnaire Merriam-Webster, le
+TLFi \citep{TLFi} et des moteurs de recherche pour attester l'utilisation des
+divers sens des mots considérés. Après adjudication faite par ces deux
+annotateurs en confrontant leurs opinions en cas de désaccord, l'annotation de
+référence a été formée.
 
 \begin{table}[ht]
 \centering
@@ -546,18 +545,18 @@ pénalisera WOLF injustement. Nous avons décidé d'évaluer WoNeF en considéra
 WOLF 0.1.4 et WOLF 1.0b comme des références
 (Table~\ref{table:wolfcomparison}). Les mesures ne sont pas de véritables
 précision et rappel puisque WOLF lui-même n'est pas entièrement validé. Le
-dernier article pF donnant des chiffres globaux \citep{sagot2012automatic} :
-iindique un nombre de paires autour de 77~000 pour une précision de 86~\%
-\footnote{Les résultats détaillés pour WOLF 1.0b ne sont pas actuellement
-disponibles.}. Nous appelons donc pseudo-précision (pP) le pourcentage des
-éléments présents dans WoNeF qui sont également présents dans WOLF, et
-pseudo-rappel le pourcentage d'éléments de WOLF qui sont présents dans WoNeF.
-Ces chiffres montrent que même si WoNeF est encore plus petit que WOLF, il
-s'agit d'une ressource complémentaire, surtout quand on se souvient que le
-WoNeF utilisé pour cette comparaison est celui présentant une précision élevée,
-avec une précision globale de 93,3~\%. Il convient également de noter que la
-comparaison de la différence entre WOLF 0.1.4 et \ WOLF 1.0b est instructive
-puisque elle montre l'étendue des améliorations apportées à WOLF.
+dernier article donnant des chiffres globaux \citep{sagot2012automatic} indique
+un nombre de paires autour de 77~000 pour une précision de 86~\% \footnote{Les
+résultats détaillés pour WOLF 1.0b ne sont pas actuellement disponibles.}. Nous
+appelons donc pseudo-précision (pP) le pourcentage des éléments présents dans
+WoNeF qui sont également présents dans WOLF, et pseudo-rappel le pourcentage
+d'éléments de WOLF qui sont présents dans WoNeF.  Ces chiffres montrent que
+même si WoNeF est encore plus petit que WOLF, il s'agit d'une ressource
+complémentaire, surtout quand on se souvient que le WoNeF utilisé pour cette
+comparaison est celui présentant une précision élevée, avec une précision
+globale de 93,3~\%. Il convient également de noter que la comparaison de la
+différence entre WOLF 0.1.4 et \ WOLF 1.0b est instructive puisque elle montre
+l'étendue des améliorations apportées à WOLF.
 
 La colonne «~Ajouts~» donne le nombre de traductions qui sont présentes dans
 WoNeF mais pas dans WOLF. Pour les noms, les verbes et les adjectifs, cela
@@ -577,7 +576,7 @@ de WoNeF de 83~\%.
 
 \section*{Conclusion}
 
-Dans ce travail, nous avons montré que l'utilisation d'un modèle de langue
+Dans ce chapitre, nous avons montré que l'utilisation d'un modèle de langue
 syntaxique pour identifier des relations lexicales entre des lexèmes est
 possible dans un environnement contraint et conduit à des résultats ayant une
 précision au niveau de l'état de l'art pour la tâche de traduction de WordNet.
@@ -611,8 +610,4 @@ analysé avec une version récente de notre analyseur linguistique LIMA. Cela
 nous permettra de mesurer l'impact de la qualité du modèle de langue sur la
 traduction de WordNet.
 
-Le wordnet français WOLF a été construit en utilisant plusieurs techniques. La
-fusion de WOLF et de WoNeF permettra de bientôt améliorer à nouveau le statut
-de la traduction française de WordNet: nous travaillons avec les auteurs de
-WOLF afin de fusionner WOLF et WoNeF.
-
+% TODO explications donnée à Francis Bond sur la non-fusion
