@@ -72,24 +72,26 @@ ou l'interprétation de recettes de cuisine \citep{malmaud2014cooking}.
 % TODO intégrer à LIMA et le dire :)
 Nous souhaitons que notre système d'annotation en rôles sémantiques puisse être
 utilisé dans un environnement industriel dans lequel d'une part l'annotation en
-rôles sémantiques n'est pas l'objectif principal et d'autre part les domaines à
-couvrir ne sont pas connus à l'avance. Ces contraintes majeures en découlent.
+rôles sémantiques fournit des informations utiles au développement des tâches
+applicatives et d'autre part les domaines à couvrir ne sont pas connus à
+l'avance. Les contraintes suivantes découlent de ces pré-requis.
 
 \paragraph{Cadre ouvert} Se contenter de désambiguïser certains mots ou se
-limiter à un domaine fermé n'est pas satisfaisant ici. Les inventaires de sens
-utilisés doivent couvrir l'ensemble des sens présents dans une langue. La
-contrainte de traiter l'ensemble des verbes du vocabulaire est ici plus
-importante que de pouvoir traiter les noms, adjectifs et adverbes.
+limiter à un domaine fermé n'est pas satisfaisant. Les inventaires de sens
+utilisés doivent couvrir au maximum les différents sens des mots d'une langue.
 
 \paragraph{Langue française} Le français dispose d'un nombre limité de
-ressources sémantiques en cadre ouvert. Il n'existe pas aujourd'hui de VerbNet,
-WordNet ou de FrameNet du français avec une couverture et une qualité proche de
-leurs équivalents respectifs en langue anglaise. Ne disposant pas des moyens
-pour créer de telles ressources manuellement, le système présenté doit pouvoir
-se contenter de transpositions automatiques de ces ressources vers le français.
-Cette approche de mutualisation des ressources au niveau de la langue doit
-permettre une adaptation de ces travaux à d'autres langues que l'anglais et le
-français, même si ce n'est pas l'objet de cette thèse.
+ressources sémantiques en cadre ouvert. Il n'existe pas aujourd'hui de VerbNet
+(section~\ref{presentation_verbnet}), WordNet
+(section~\ref{presentation_wordnet}) ou de FrameNet
+(section~\ref{presentation_framenet}) du français avec une couverture et une
+qualité proches de leurs équivalents respectifs en langue anglaise. Ne
+disposant pas des moyens pour créer de telles ressources manuellement, le
+système présenté doit pouvoir se contenter de transpositions automatiques de
+ces ressources vers le français.  Cette approche de mutualisation des
+ressources au niveau de la langue doit permettre une adaptation de ces travaux
+à d'autres langues que l'anglais et le français, même si ce n'est pas l'objet
+de cette thèse.
 
 \paragraph{Simplicité} Nous voulons que notre système soit très simple à mettre
 en place et qu'il soit tout aussi facile de corriger quelques erreurs
@@ -102,6 +104,10 @@ reste nécessaire pour que les solutions présentées puissent être utilisées 
 large échelle. L'annotation en rôles sémantiques est un problème difficile de
 classification automatique et certains systèmes ont des temps d'entraînement et
 d'exécution trop longs pour l'utilisation que nous voulons en faire ici.
+
+% MEGATODO faire que ce soit le cas
+Ces contraintes seront utilisées pour évaluer à la fois l'état de l'art et les
+approches présentées.
 
 \section{Objectifs}
 \label{objectifs_these}
@@ -140,7 +146,7 @@ rôle et de sémantique à travers une logique des prédicats simplifiée. De
 nouvelles classes, constructions et verbes ont étés ajoutés à VerbNet au fil
 des ans. Au-delà de son encodage efficace, VerbNet est un lexique adapté au
 Traitement Automatique des Langues : on peut utiliser un cadre de
-sous-catégorisation pour mapper des syntagmes à des rôles thématiques
+sous-catégorisation pour associer des syntagmes à des rôles thématiques
 \citep{swier2005exploiting,pradet2013revisiting}. Grâce à sa couverture élevées
 (plus de quatre mille verbes distincts) et son groupement de verbes utile,
 VerbNet est bien adapté à l'annotation en rôles sémantiques.
@@ -152,8 +158,8 @@ VerbNet est bien adapté à l'annotation en rôles sémantiques.
 % de VerbNet. Il y a souvent des ressources proches, moins utiles, plus
 % linguistiques, existent.
 Cependant, un VerbNet et un WordNet de qualité n'existent pour le moment que
-pour l'anglais. De telles ressources serait pourtant encore plus utile pour les
-langues moins ressourcées où les corpus annotés en rôles sémantiques n'existent
+pour l'anglais. De telles ressources seraient pourtant encore plus utiles pour
+les langues moins dotées où les corpus annotés en rôles sémantiques n'existent
 pas. VerbNet a un potentiel inter-linguistique, visible notamment avec le
 portuguais \citep[section 2.2.2]{kipperschuler2005verbnet}. Adapter VerbNet
 vers une nouvelle langue suffisamment proche de l'anglais permet de conserver
@@ -176,7 +182,7 @@ en traduisant WordNet et VerbNet (Partie~\ref{part:translation}) et
 \subsection{WordNet}
 \label{presentation_wordnet}
 
-La première ressource lexicale à tirer partie de la possibilité de représenter
+La première ressource lexicale à tirer parti de la possibilité de représenter
 le lexique sous la forme d'un graphe est WordNet, dont l'élaboration a commencé
 en 1985 \citep{miller1990introduction}. Établi sur des principes
 psycholinguistiques, WordNet propose quatre graphes pour les quatre parties du
@@ -266,31 +272,30 @@ même : le regroupement est logique et les différences de sens ne sont a priori
 pas gênantes pour des tâches telles que l'annotation en rôles sémantiques qui
 ne se basent pas sur le sens précis des verbes. Il est possible d'affiner
 automatiquement les classes de Levin en réalisant des intersections de classes
-: les verbes obtenues seront alors définis plus strictement
+: les verbes obtenus seront alors définis plus strictement
 \citep{dang1998investigating}. Cette possibilité n'est cependant pas utilisée
 dans nos travaux.
 
 \subsection{VerbNet}
 \label{subsec:presentation_verbnet}
 
-VerbNet \citep{kipperschuler2005verbnet} est à la fois une version électronique
-et une version améliorée des classes de Levin, qui se retrouvent améliorées sur
-plusieurs fronts :
+VerbNet \citep{kipperschuler2005verbnet} est une version électronique des
+classes de Levin qui ont été améliorées sur plusieurs fronts avec :
 
 \begin{itemize}
 
     \item de nouvelles classes provenant de \cite{korhonen2004extended}
         intégrant les verbes acceptant des complétives, mais aussi des
-        syntagmes adjectivaux et adverbiaux ou encore des particules.
+        syntagmes adjectivaux et adverbiaux ou encore des particules,
 
-    \item de nouveaux verbes provenant de \cite{dorr2001lcs} ont étés intégrés
+    \item de nouveaux verbes provenant de \cite{dorr2001lcs},
 
-    \item les verbes ont étés liés à WordNet, OntoNotes, PropBank et FrameNet
-        \citep{palmer2009semlink}
+    \item la liaisons des verbes à WordNet, OntoNotes, PropBank et FrameNet
+        dans le cadre du projet SemLink \citep{palmer2009semlink}
 
-    \item de nombreuses corrections ont étés apportées au fil des versions. Une
-        des améliorations prévues dans le futur est de tirer du Sketch Engine
-        pour ajouter d'autres verbes. \citep{bonial2013expanding}.
+    \item de nombreuses corrections au fil des versions, une des améliorations
+        prévues dans le futur étant d'ajouter d'autres verbes via l'étude de
+        large corpus \citep{bonial2013expanding}.
 
 \end{itemize}
 
@@ -336,7 +341,12 @@ des occurrences des verbes anglais dans un texte donné.
         Patient & V       &         \\
         \bottomrule
     \end{tabular}
-    \caption{\label{fig:example_srl}Ces deux phrases annotées avec la classe VerbNet carve-21.2 mettent en évidence que la position des arguments ne détermine pas directement les rôles: le sens et la voix de \textit{crush} ne change pas mais l'annotation sémantique est différente.}
+
+    \caption{\label{fig:example_srl}Ces deux phrases annotées avec la classe
+    VerbNet carve-21.2 mettent en évidence que la position des arguments ne
+détermine pas directement les rôles: le sens et la voix de \textit{crush} ne
+change pas mais l'annotation sémantique est différente.}
+
 \end{figure}
 
 \subsection{Les Verbes Français et Lexique-Grammaire}
@@ -374,13 +384,13 @@ supplémentaires s'appliquant à certains des verbes de la table.
 
 
 Les classes LVF et les tables LG peuvent toutes les deux être comparées aux
-classes VerbNet. Cependant, ces (vieilles) ressources n'encodent ni les rôles
-thématiques ni les formules sémantiques \footnote{Les notions de rôles
-thématiques et d'évènement n'étaient pas répandues dans les années 1970.}.
-C'est la raison principale pour laquelle nous voulons construire une nouvelle
-ressource française, \verbenet{}\footnote{Le nom vient de la prononciation à la
-    française qui "rajoute" un e. Le $\ni$ est simplement là pour bien marquer
-ce e et ainsi essayer d'éviter la confusion avec VerbNet}. Cette ressource tire
-profit d'une part des ressources existantes pour le français avec un encodage
+classes VerbNet. Cependant, ces ressources n'encodent ni les rôles thématiques
+ni les formules sémantiques \footnote{Les notions de rôles thématiques et
+d'évènement n'étaient pas répandues dans les années 1970.}.  C'est la raison
+principale pour laquelle nous voulons construire une nouvelle ressource
+française, \verbenet{}\footnote{Le nom vient de la prononciation à la française
+    qui "rajoute" un e. Le $\ni$ est simplement là pour bien marquer ce e et
+ainsi essayer d'éviter la confusion avec VerbNet}. Cette ressource tire profit
+d'une part des ressources existantes pour le français avec un encodage
 sémantique et syntaxique riche, et d'autre part de l'information sémantique
 présente dans VerbNet pour l'anglais, une langue proche du français.
