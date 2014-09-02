@@ -16,8 +16,7 @@ Fogg} (extrait du \emph{Tour du monde en quatre-vingts jours} de Jules Verne).
 L'annotation en rôles sémantique déterminera que la phrase correspond à une
 situation de tentative (grâce à la présence du verbe « essayer »), puis
 déterminera parmi les syntagmes liés aux verbes quel est l'Agent, l'Activité
-tentée, et le Résultat (\emph{vainement}). Ainsi, le résultat de l'annotation
-serait :
+tentée, et le Résultat. Ainsi, le résultat de l'annotation serait :
 
 \begin{figure}[ht]
     \centering
@@ -67,12 +66,12 @@ ou l'interprétation de recettes de cuisine \citep{malmaud2014cooking}.
 
 \subsection{Contraintes}
 
-% TODO intégrer à LIMA et le dire :)
+% TODO 2014-10 intégrer à LIMA et le dire :)
 Nous souhaitons que notre système d'annotation en rôles sémantiques puisse être
 utilisé dans un environnement industriel dans lequel d'une part l'annotation en
 rôles sémantiques fournit des informations utiles au développement des tâches
 applicatives et d'autre part les domaines à couvrir ne sont pas connus à
-l'avance. Les contraintes suivantes découlent de ces pré-requis.
+l'avance. Les contraintes suivantes découlent de ces prérequis.
 
 \paragraph{Cadre ouvert} Se contenter de désambiguïser certains mots ou se
 limiter à un domaine fermé n'est pas satisfaisant. Les inventaires de sens
@@ -229,24 +228,39 @@ WordNet est un graphe (Figure~\ref{fig:wordnet_relations}).
         l'hyponymie.}
 \end{figure}
 
-% TODO cite bond survey
-Les sens proposés ont étés utilisés pour annoter différents corpus dont le
-corpus SemCor, ce qui a permis d'entraîner des systèmes supervisés. WordNet est
-rapidement devenu le standard de la désambiguïsation lexicale et a été utilisé
-dans de nombreuses campagnes d'évaluation \citep{navigli2009word}. C'est aussi
-une ressource très utilisée de manière générale dans le domaine du Traitement
-Automatique des Langues\footnote{Au moment de l'écriture de ce manuscrit, ses
-10~000 citations sur Google Scholar sont le meilleur moyen de l'attester.}.
+Les sens proposés ont étés utilisés pour annoter différents corpus
+\citep{petrolito2014survey}, ce qui a permis d'entraîner des systèmes
+supervisés. WordNet est rapidement devenu le standard de la désambiguïsation
+lexicale et a été utilisé dans de nombreuses campagnes d'évaluation
+\citep{navigli2009word}. C'est aussi une ressource très utilisée de manière
+générale \footnote{Au moment de l'écriture de ce manuscrit, ses 10~000
+    citations sur Google Scholar sont le meilleur moyen de l'attester.}.
 
 \subsection{Les classes de Levin}
 
-\cite{levin1993english} est une classification des verbes anglais établie
-suivant un principe simple : le comportement syntaxique des verbes détermine en
-partie leur sens. Après avoir défini un certain nombre d'alternances de
-diathèses possibles, les verbes sont classés en groupes partageant les mêmes
-alternances.
+Les classes de Levin \citep{levin1993english} sont une classification des
+verbes anglais établie suivant un principe simple : le comportement syntaxique
+des verbes détermine en partie leur sens. Après avoir défini un certain nombre
+d'alternances de diathèses possibles, les verbes sont classés en groupes
+partageant les mêmes alternances.
 
-% TODO exemple d'alternance venant vraiment de Levin.
+Par exemple, les \emph{fill verbs} tels que \emph{staff}, \emph{coat} ou encore
+\emph{pollute} acceptent notamment la \emph{locatum subject alternation} :
+
+\begin{itemize}
+    \item Leslie staffed the store with employees
+    \item The employees staffed the store
+\end{itemize}
+
+mais n'acceptent pas par exemple, la \emph{conative alternation} :
+
+\begin{itemize}
+    \item ~ \emph{Leslie staffed the store with employees}
+    \item * \emph{The store staffed with employees}
+\end{itemize}
+
+Ainsi, pour chaque groupe de verbes, différents critères précis permettent de
+distinguer ces verbes d'autres qui n'ont pas les mêmes propriétés.
 
 Cette classification a trois intérêts pour l'annotation en rôles sémantiques :
 
