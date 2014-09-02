@@ -215,6 +215,7 @@ la même phrase, mais apparaissent dans un même contexte (\emph{Je bois du}) :
 ils sont liés par une relation paradigmatique.
 
 % TODO phrase coupée
+% TODO être clair sur lexèmes/mots
 Observer les distributions de contexte entre les mots permet à la fois
 d'évaluer la similarité entre deux mots mais est aussi l'occasion de séparer
 les mots suivant leurs sens \citep{yarowsky1993one,pantel2002discovering}. Un
@@ -241,6 +242,7 @@ vraisemblance :
 p(w_i|w_{i-2}, w_{i-1}) = \frac{compte(w_{i-2}, w_{i-1}, w_i)}{compte(w_{i-1}, w_i)}
 \]
 
+% TODO Google n'a pas estimé de n-grammes : compte, pas fréquence ni masse de probabilité, n'est-ce pas ?
 La séquence $w_{i-2}, w_{i-1}, w_{i}$ est un 3-gramme, et $compte$ compte le
 nombre d'occurrences de cette séquence dans le corpus considéré. La taille du
 contexte peut varier, ce qui est la raison pour laquelle on parle de manière
@@ -264,17 +266,19 @@ l'une d'entre elles étant le modèle de langue syntaxique
 mots présents ensemble dans une relation syntaxique donnée. Pour la relation
 complément du nom par exemple, on s'attend à ce que \emph{vélo} soit le
 complément du nom des mots \emph{pédale}, \emph{guidon}, \emph{pneu} et ainsi
-de suite. Le modèle de langue syntaxique que nous utilisons pour traduire
-WordNet a été entraîné sur un corpus extrait du web francophone
-\citep{grefenstette2007conquering}. Le corpus a ensuite été analysé par LIMA
-\citep{besancon2010lima}, une chaîne d'analyse linguistique désormais libre ici
-utilisée comme un analyseur syntaxique à base de règles produisant des
-dépendances syntaxiques fines. Pour une relation donnée $r$ et un lemme $x$, le
-modèle de langue indique quels sont les 100 premiers lemmes co-occurrant le
-plus fréquemment avec $x$ dans la relation $r$.  Avec le mot \textit{avion} et
-la relation de complément du nom, le mot \textit{billet} modifie le plus
-\textit{avion} : \textit{billet d'avion} est fréquent dans le corpus. Ce modèle
-de langue peut-être visualisé sur
+de suite.
+
+Nous utiliserons pour la traduction de WordNet (Chapitre~\ref{ch:wonef}) un
+modèle de langue syntaxique. Il a été entraîné sur un corpus extrait du web
+francophone \citep{grefenstette2007conquering}. Le corpus a ensuite été analysé
+par LIMA \citep{besancon2010lima}, une chaîne d'analyse linguistique désormais
+libre ici utilisée comme un analyseur syntaxique à base de règles produisant
+des dépendances syntaxiques fines. Pour une relation donnée $r$ et un lemme
+$x$, le modèle de langue indique quels sont les 100 premiers lemmes
+co-occurrant le plus fréquemment avec $x$ dans la relation $r$.  Avec le mot
+\textit{avion} et la relation de complément du nom, le mot \textit{billet}
+modifie le plus \textit{avion} : \textit{billet d'avion} est fréquent dans le
+corpus. Ce modèle de langue peut-être visualisé sur
 \url{http://www.kalisteo.fr/demo/semanticmap/}.
 
 % TODO petite figure ici ?
@@ -296,6 +300,7 @@ mots qui s'est avérée être très utile pour diverses applications \citep{senn
 % TODO LSA fait une partie du chemin
 % TODO collobert & weston ? liens entre rns ?
 
+% TODO breakthrough mauvais style
 \cite{mikolov2013efficient} et l'outil word2vec
 associé\footnote{\url{https://code.google.com/p/word2vec/}} ont rendu possible
 l'application de tels réseaux de neurones accessible et efficace. Une propriété
@@ -308,6 +313,7 @@ vecteurs :
     \item Paris - France + Spain = Madrid
     \item Australian - Australia + France = French
 \end{itemize}
+% TODO notation objectif et conclusions pas claires
 
 Ces résultats non prévus (la tâche était uniquement de prédire le mot en
 fonction de son contexte) illustrent le type de généralisation obtenues à
@@ -536,6 +542,7 @@ qui améliore la F-mesure sur la même vérité-terrain mais simplifiée. Ces
 ressources mettent en valeur de nouvelles façons de séparer les verbes du
 Français, mais les erreurs qu'elles contiennent seront une nouvelle source
 d'erreur dans les applications : il est important de les corriger si possible.
+% TODO où est l'autre F-mesure ?
 
 
 \section{Annotation en rôles sémantiques}
@@ -562,6 +569,7 @@ provient un mouvement et qui est marqué morphologiquement en finnois, hongrois
 et estonien. Il est alors sensé de prévoir un rôle sémantique pour ce cas
 grammatical, même s'il n'est pas marqué au niveau morphologique dans la langue
 étudiée.
+% TODO clarifier
 
 Il n'y a pas de réel consensus sur un inventaire de cas donnés. Parmi les rôles
 sémantiques généralement acceptés, on peut citer :

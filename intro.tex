@@ -182,12 +182,6 @@ sa structure, ainsi que l'information sémantique et les rôles thématiques, ce
 qui donne la possibilité de produire un lexique utile sans des années de
 travail manuel.
 
-% En particulier, en français, les tables du LADL décrivent le comportement
-% syntaxique des verbes et le LVF découpe les verbes du français
-% sémantiquement. Un certain nombre de difficultés empêche d'utiliser ces
-% ressources en TAL
-% TODO le dire, mais où ?
-
 % TODO étendre, mais comment ? Inclure méthodes et ressources plus haut ?
 Une fois que ces ressources ont été traduites vers le français, il faut les
 utiliser pour réaliser la tâche d'annotation en rôles sémantiques.
@@ -198,17 +192,18 @@ en traduisant WordNet et VerbNet (Partie~\ref{part:translation}) et
 
 \section{Ressources lexicales utilisées}
 
+La première ressource lexicale à tirer parti de la possibilité de représenter
+le lexique sous la forme d'un graphe est WordNet \citep{fellbaum1998wordnet}.
+
 \subsection{WordNet}
 \label{presentation_wordnet}
 
-La première ressource lexicale à tirer parti de la possibilité de représenter
-le lexique sous la forme d'un graphe est WordNet, dont l'élaboration a commencé
-en 1985 \citep{miller1990introduction}. Établi sur des principes
-psycholinguistiques, WordNet propose quatre graphes pour les quatre parties du
-discours formant une classe ouverte : noms, verbes, adjectifs, adverbes. Les
-nœuds du graphe sont des ensembles de synonymes (\emph{synonym sets} ou
-\emph{synsets}). Un synset regroupe plusieurs mots, une définition, et
-potentiellement des exemples.
+L'élaboration de WordNet a commencé en 1985 \citep{miller1990introduction}.
+Établi sur des principes psycholinguistiques, WordNet propose quatre graphes
+pour les quatre parties du discours formant une classe ouverte : noms, verbes,
+adjectifs, adverbes. Les nœuds du graphe sont des ensembles de synonymes
+(\emph{synonym sets} ou \emph{synsets}). Un synset regroupe plusieurs mots, une
+définition, et potentiellement des exemples.
 
 % TODO placement des figures une fois le texte un peu plus stable
 
@@ -320,12 +315,18 @@ classes de Levin qui ont été améliorées sur plusieurs fronts avec :
 
 Ces améliorations ont à la fois contribué à VerbNet en largeur (nouvelles
 classes) et en profondeur (nouveaux verbes, nouvelles constructions
-syntaxiques). La base de données continue d'évoluer, la dernière version prévue
-au moment de l'écriture de ce manuscrit étant la 3.2.4.
+syntaxiques). La base de données continue d'évoluer, la dernière version au
+moment de l'écriture de ce manuscrit étant la 3.2. Malheureusement, la version
+3.2 évolue sans que soient marqués clairement les sous-versions : suivant le
+jour de téléchargement de VerbNet, nous pouvons avoir à disposition la version
+3.2.1, 3.2.2 ou 3.2.3, sans pouvoir clairement distinguer ces trois versions.
+Pour cette raison, nous rendons disponibles la version 3.2 de VerbNet que nous
+utilisons dans l'ensemble de ce travail à l'adresse suivante : \url{TODO}.
 
+% TODO mieux décrire la hiérarchie et ses niveaux
 VerbNet contient 3769 lemmes, 5257 entrées réparties en 500 sous-classes dont
-270 classes de niveau 2 et 109 classes de niveau 1. La hiérarchie relativement
-plate. Pour chaque (sous-)classe, ce lexique indique :
+270 classes de niveau 2 et 109 classes de niveau 1. La hiérarchie est
+relativement plate. Pour chaque (sous-)classe, ce lexique indique :
 
 \begin{itemize}
         \item la liste des verbes de la classe,
@@ -368,8 +369,10 @@ change pas mais l'annotation sémantique est différente.}
 
 \end{figure}
 
+
 \subsection{Les Verbes Français et Lexique-Grammaire}
 
+% TODO mieux structurer : avantage *puis* inconvénient (ou l'inverse)
 À partir des années 70 deux ressources lexicales pour les verbes français ont
 été dévelopées : LVF et LG\footnote{Plus tard, dans les années 1990, une autre
 ressource a été dévelopée : Dicovalence. Nous ne l'utilisons presque pas dans
@@ -407,9 +410,13 @@ classes VerbNet. Cependant, ces ressources n'encodent ni les rôles thématiques
 ni les formules sémantiques \footnote{Les notions de rôles thématiques et
 d'évènement n'étaient pas répandues dans les années 1970.}.  C'est la raison
 principale pour laquelle nous voulons construire une nouvelle ressource
-française, \verbenet{}\footnote{Le nom vient de la prononciation à la française
-    qui "rajoute" un e. Le $\ni$ est simplement là pour bien marquer ce e et
-ainsi essayer d'éviter la confusion avec VerbNet}. Cette ressource tire profit
+française, \verbenet{} (Chapitre~\ref{ch:verbnet}). Cette ressource tire profit
 d'une part des ressources existantes pour le français avec un encodage
 sémantique et syntaxique riche, et d'autre part de l'information sémantique
 présente dans VerbNet pour l'anglais, une langue proche du français.
+
+\section*{Conclusion}
+
+Après avoir introduit le cadre de nos travaux et présenté les différentes
+ressources que nous utilisons, le chapitre suivant présente l'état de l'art qui
+est le socle sur lequel nos travaux s'appuient.
