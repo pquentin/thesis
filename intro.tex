@@ -113,22 +113,24 @@ approches présentées.
 \label{objectifs_these}
 
 % TAL a besoin d'infos sur les verbes, c'est difficile et fragile, et on a
-% besoin d'énormes corpus
+% besoin d'énormes corpus, donc on essaie les lexiques
 Le Traitement Automatique des Langues requiert des lexiques et de larges
 quantités de données annotées pour analyser efficacement des textes dans le
 domaine général. Obtenir cette quantité de données est un problème en soi connu
 sous le nom de "knowledge acquisition bottleneck" en désambiguïsation lexicale
-\citep{gale1992method,navigli2009word}. Annoter de plus en plus de données de
-manière efficace réduira ce problème pour certains domaines, mais d'autres
-stratégies sont nécessaires pour atteindre nos objectifs dans plus de domaines.
-Une possibilité est d'utiliser au mieux les données annotées en perfectionnant
-les algorithmes existants, une autre est d'utiliser intelligemment les données
-non annotées qui existent en quantité bien plus importante. Une troisième
-possibilité, celle que nous choisissons, est d'encoder les lexiques de manière
-efficiente pour couvrir une large partie du vocabulaire. C'est ce qui est fait
+\citep{gale1992method,navigli2009word}. Le problème se pose aussi pour
+l'annotation en rôles sémantiques \citep{TODO}. Il est possible de résoudre ce
+problème domaine par domaine en annotant de grandes quantités de données pour
+chaque domaine, mais d'autres stratégies sont nécessaires pour atteindre nos
+objectifs dans un grand nombre de domaines. Une possibilité est d'utiliser au
+mieux les données annotées en perfectionnant les algorithmes existants, une
+autre est d'utiliser intelligemment les données non annotées qui existent en
+quantité bien plus importante. Une troisième possibilité, celle que nous
+choisissons d'explorer ici, est d'exploiter des lexiques couvrant l'interface
+syntaxe-sémantique sur une large partie du vocabulaire. C'est ce qui est fait
 par exemple dans VerbNet où les traits partagés par les mêmes verbes sont
-explicitement notés, ce qui permet à chaque modification dans VerbNet de mieux
-traiter un certain nombre de verbes au lieu d'un seul.
+explicitement notés, ce qui permet à chaque modification dans VerbNet
+d'améliorer le traitement de plusieurs verbes au lieu d'un seul.
 
 % VerbNet a montré son efficacité dans le domaine de par son approche
 % pragmatique. Vient des classes de Levin, donne des correspondances entre
@@ -144,14 +146,27 @@ classes de Levin. Il encode non plus les alternances mais les cadres de
 sous-catégorisation valables pour chaque classe, et rajoute des informations de
 rôle et de sémantique à travers une logique des prédicats simplifiée. De
 nouvelles classes, constructions et verbes ont étés ajoutés à VerbNet au fil
-des ans. Au-delà de son encodage efficace, VerbNet est un lexique adapté au
-Traitement Automatique des Langues : on peut utiliser un cadre de
+des ans. Au-delà de son encodage efficace, VerbNet est un lexique adapté à la
+tâche d'annotation en rôles sémantiques : on peut utiliser un cadre de
 sous-catégorisation pour associer des syntagmes à des rôles thématiques
 \citep{swier2005exploiting,pradet2013revisiting}. Grâce à sa couverture élevées
 (plus de quatre mille verbes distincts) et son groupement de verbes utile,
 VerbNet est bien adapté à l'annotation en rôles sémantiques.
 
-% TODO De la même manière, WordNet ...
+% De la même manière, WordNet est complémentaire à VerbNet
+WordNet est une autre ressource qui complète VerbNet en nous fournissant des
+informations sur le sens des verbes inclus dans VerbNet grâce au projet
+SemLink, mais aussi sur le sens des mots liés au verbe, ce qui permet de :
+
+\begin{itemize}
+
+    \item désambiguïser la classe VerbNet utilisée
+
+    \item respecter les restrictions de sélections indiquées par VerbNet pour
+        le sujet et les objets du verbe
+
+\end{itemize}
+
 
 % Dans les langues autres que l'anglais, cette ressource utile n'existe pas
 % mais ne demande qu'à exister étant donné le potentiel \textit{cross-lingual}
@@ -172,6 +187,10 @@ travail manuel.
 % sémantiquement. Un certain nombre de difficultés empêche d'utiliser ces
 % ressources en TAL
 % TODO le dire, mais où ?
+
+% TODO étendre, mais comment ? Inclure méthodes et ressources plus haut ?
+Une fois que ces ressources ont été traduites vers le français, il faut les
+utiliser pour réaliser la tâche d'annotation en rôles sémantiques.
 
 L'objectif de cette thèse est donc de fournir les \emph{ressources} nécessaires
 en traduisant WordNet et VerbNet (Partie~\ref{part:translation}) et
