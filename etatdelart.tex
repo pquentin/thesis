@@ -6,11 +6,6 @@ As for me, I had been amazed at how many pieces there were to something that had
 
 \chapter{État de l'art} 
 \label{ch:etatdelart} 
-% TODO Questions :
-%   - inventaires vs. inventaires de sens
-%   - qui citer pour plus d'un sens ?
-%   - réutiliser la figure d'un papier ?
-
 
 La représentation du sens des mots (section~\ref{sec:mots}) occupe une place
 importante dans nos travaux, en particulier pour la traduction de la ressource
@@ -114,25 +109,20 @@ La première ressource lexicale à tirer partie de la possibilité de représent
 le lexique sous la forme d'un graphe est WordNet, décrit à la
 section~\ref{presentation_wordnet}.
 
-% TODO réécrire
-Depuis 2006, différents travaux ont jugé que les défauts attribués à WordNet
-\citep{hovy2006ontonotes,boyd2006adding,ide2006making,navigli2007semeval,snow2007learning},
-en particulier la trop grande finesse de distinction des sens, étaient
-suffisamment importants pour nécessiter une alternative avec des sens
-distingués plus grossièrement. Ce problème est attribué selon
-\cite{edmonds2002introduction} au manque de rigueur lexicographique de WordNet,
-et à la mise en avant de la similarité entre les mots à travers les synsets au
-détriment de la distinction des sens de chaque mot. Il s'est en effet avéré que
-l'accord inter-annotateurs pour un étiquetage avec WordNet est faible (de
-l'ordre de 70\%), et qu'utiliser un autre inventaire est un moyen efficace de
-s'adapter à différentes applications \citep{palmer2004different}. La tendance
-est désormais à l'utilisation d'inventaires plus grossiers
-\citep{navigli2007semeval,navigli2012quick}.
-% TODO pour parler de tendance, citer plusieurs auteurs et en 2013/2014 TODO
-% noter le graded ici aussi ?
+\citep{hovy2006ontonotes,ide2006making,navigli2007semeval,snow2007learning} ont
+jugé que la trop grande finesse de distinction des sens de WordNet justifiait
+une alternative avec des sens distingués plus grossièrement. Ce problème est
+attribué selon \cite{edmonds2002introduction} au manque de rigueur
+lexicographique de WordNet, et à la mise en avant de la similarité entre les
+mots à travers les synsets au détriment de la distinction des sens de chaque
+mot. Il s'est en effet avéré que l'accord inter-annotateurs pour un étiquetage
+avec WordNet est faible : de l'ordre de 70\% \citep{snyder2004english}.
+Utiliser un autre inventaire est un moyen efficace de s'adapter à différentes
+applications \citep{palmer2004different}, ce qui a entraîné des travaux
+utilisant des inventaires plus grossiers \citep{navigli2007semeval}.
 
-Au-delà des approches statistiques \citep{snow2007learning}, de nouveaux
-inventaires de sens ont étés développés :
+Au-delà des fusions de synsets automatiques \citep{snow2007learning}, de
+nouveaux inventaires de sens moins fins ont étés développés :
 
 \begin{itemize}
 
@@ -163,18 +153,23 @@ alors défini selon plusieurs aspects prédéfinis (constitution, rôles, facteu
 impliqués dans la création, etc.) qui peuvent se retrouver dans plusieurs mots.
 Par exemple, un couteau contient une lame et sert à couper. Cette approche est
 semblable à celle qui définit le sens d'un mot comme une liste de sèmes
-\citep{rastier1987semantique}.
+\citep{rastier1987semantique}. À notre connaissance, CoreLex
+\citep{buitelaar1998corelex} est le seul inventaire et système de
+désambiguïsation lexicale suivant cette approche.
 
 Enfin, différents travaux mentionnent la possibilité d'utiliser plus d'un sens
 pour un mot donné. \cite{smith2011rumble} propose d'utiliser des distributions
 de probabilité sur les différents sens possibles pour définir un sens précis
-dans un corpus. \cite{erk2013measuring} montrent qu'un accord inter-annotateur
+dans un corpus. Dans SemCor, les annotateurs pouvaient choisir plusieurs sens
+si besoin, mais seulement 0.3\% des occurrences de SemCor sont étiquetées avec
+plus d'un sens. \cite{erk2013measuring} montrent qu'un accord inter-annotateur
 élevé peut être obtenu en demandant aux annotateurs d'indiquer pour chaque sens
-sa correspondance avec l'usage sur une échelle de 1 à 5. Dans SemCor, les
-annotateurs pouvaient choisir plusieurs sens si besoin, mais seulement 0.3\%
-des occurrences de SemCor sont étiquetées avec plus d'un sens. Une campagne
-d'évaluation a eu lieu en 2013 à ce sujet \citep{jurgens2013semeval}.
-% TODO et alors, quel est le résultat ?
+sa correspondance avec l'usage sur une échelle de 1 à 5. Une campagne
+d'évaluation a eu lieu en 2013 à ce sujet \citep{jurgens2013semeval}. Les
+annotations obtenues avec Amazon Mechanical Turk ont été abandonnées au profit
+de l'annotation par les deux organisateurs de la tâche. Dans les deux cas,
+l'accord inter-annotateur était modéré, ce qui remet en question la pertinence
+de l'annotation de différents sens fins.
 
 \subsection{Modèles de langue pour la similarité sémantique}
 \label{subsec:modeles_de_langue}
@@ -185,9 +180,8 @@ que la traduction automatique ou la reconnaissance de la parole dans lesquelles
 un modèle de langue favorisera des phrases globalement plausibles au lieu
 d'étudier chaque mot individuellement.
 
-Ces modèles de langues permettent aussi d'obtenir des mesures de similarité
-sémantiques utiles. L'utilisation des modèles de langue pour l'étude de la
-similarité entre deux mots provient de l'hypothèse distributionnelle
+Ces modèles de langue permettent aussi d'obtenir des mesures de similarité
+sémantiques utiles, ce qui est justifié par l'hypothèse distributionnelle
 \cite[p.~786]{harris1954distributional} :
 
 \begin{quote} ... si l'on considère que le sens de deux mots ou morphèmes A et B
@@ -214,17 +208,14 @@ phrase. Au contraire, \emph{thé} et \emph{café} ne sont pas ici présents dans
 la même phrase, mais apparaissent dans un même contexte (\emph{Je bois du}) :
 ils sont liés par une relation paradigmatique.
 
-% TODO phrase coupée
-% TODO être clair sur lexèmes/mots
-Observer les distributions de contexte entre les mots permet à la fois
-d'évaluer la similarité entre deux mots mais est aussi l'occasion de séparer
-les mots suivant leurs sens \citep{yarowsky1993one,pantel2002discovering}. Un
-modèle de langue brut ne décrit que des lexèmes Nous serons par la suite
-essentiellement concernés par les lexèmes : c'est-à-dire la similarité entre
-les paires (lemme, sens) mais un modèle de langue ne peut directement manipuler
-que des mots : la séparation se fait par la suite.
-
-% \cite{schutze1998automatic,pantel2002discovering,niu2007three,pedersen2010duluth,liu2012semantic} ?
+Observer les distributions de contexte des mots peut séparer les mots en
+différents sens selon l'usage de chaque sens
+\citep{yarowsky1993one,pantel2002discovering,pedersen2010duluth}. Cependant,
+dans la littérature que nous exposons et dans nos travaux, les modèles de
+langue ne décrivent que des mots en confondant leurs différents sens. Nous ne
+mentionnerons plus par la suite cette difficulté, en considérant par
+simplification que le fait que le modèle de langue décrive le sens que nous
+souhaitons parmi d'autres sens suffit à nos applications.
 
 % TODO qu'a dit le monsieur dans l'invited talk à GWC 2014 ?
 La question qui se pose maintenant que nous savons que nous voulons observer
@@ -242,23 +233,22 @@ vraisemblance :
 p(w_i|w_{i-2}, w_{i-1}) = \frac{compte(w_{i-2}, w_{i-1}, w_i)}{compte(w_{i-1}, w_i)}
 \]
 
-% TODO Google n'a pas estimé de n-grammes : compte, pas fréquence ni masse de probabilité, n'est-ce pas ?
-La séquence $w_{i-2}, w_{i-1}, w_{i}$ est un 3-gramme, et $compte$ compte le
-nombre d'occurrences de cette séquence dans le corpus considéré. La taille du
-contexte peut varier, ce qui est la raison pour laquelle on parle de manière
-générale de n-grammes. Le nombre de paramètres à estimer pour obtenir une
-distribution de probabilité conditionnelle fiable est $|V|^N$, $|V|$ étant la
-taille du vocabulaire et $N$ la taille du contexte étudié. En considérant
-un petit vocabulaire (10~000 mots) et un contexte de trois mots, il faut déjà
-estimer $10^{9}$ probabilités, ce qui requiert un corpus très large : Google a
-utilisé un corpus de livres de $10^{12}$ mots pour estimer ses n-grammes
-allant jusqu'à $n=5$ \citep{brants2006web}. Diverses techniques de lissage
-existent pour mieux répartir les probabilités
-\citep[Chapitre~4]{jurafsky2008speech}. En effet, la plupart des probabilités
-sont initialement nulles, que ce soit parce que le n-gramme est
-grammaticalement invalide ou simplement parce qu'il n'a pas été observé dans le
-corpus étudié. Il faut leur assigner une probabilité très faible afin d'éviter
-de multiplier des probabilités nulles et de perdre ainsi de l'information.
+probabilité, n'est-ce pas ?  La séquence $w_{i-2}, w_{i-1}, w_{i}$ est un
+3-gramme, et $compte$ indique le nombre d'occurrences de cette séquence dans le
+corpus considéré. La taille du contexte peut varier, ce qui est la raison pour
+laquelle on parle de manière générale de n-grammes. Le nombre de paramètres à
+estimer pour obtenir une distribution de probabilité conditionnelle fiable est
+$|V|^N$, $|V|$ étant la taille du vocabulaire et $N$ la taille du contexte
+étudié. En considérant un petit vocabulaire (10~000 mots) et un contexte de
+trois mots, il faut déjà estimer $10^{9}$ probabilités, ce qui requiert un
+corpus très large : Google a utilisé un corpus de livres de $10^{12}$ mots pour
+produire des n-grammes allant jusqu'à $n=5$ \citep{brants2006web}. Diverses
+techniques de lissage existent pour mieux répartir les probabilités obtenues
+par maximum de vraisemblance \citep[Chapitre~4]{jurafsky2008speech}. En effet,
+la plupart des probabilités sont initialement nulles, que ce soit parce que le
+n-gramme est grammaticalement invalide ou simplement parce qu'il n'a pas été
+observé dans le corpus étudié. Il faut soit estimer leur probabilité à partir
+d'un n-gramme plus petit ou leur assigner une probabilité très faible.
 
 Diverses extensions de ces modèles de langues à base de n-grammes existent,
 l'une d'entre elles étant le modèle de langue syntaxique
@@ -776,91 +766,3 @@ Ce travail conclut en indiquant que pour obtenir de meilleurs résultats sur
 plus de rôles et de prédicats, il faut plus d'exemples d'entraînement. Notre
 travail prend une autre direction : nous étudions l'utilisation de moins de
 données créées manuellement pour couvrir plus de phrases dans divers domaines.
-
-%\subsection{FrameNet}
-
-%%
-%% Pistes : pas dans un état de l'art !
-%%
-%\section{Voies de recherche (ALL)}
-%
-%La désambiguïsation lexicale et l'annotation en rôles sémantiques sont des
-%domaines très actifs, et un certain nombre de voies restent à explorer. Nous
-%citerons ici simplement la mise en commun des deux tâches d'analyse sémantique
-%que nous avons présentées, l'analyse sémantique d'une langue autre que
-%l'anglais (ici le français) et l'évaluation des approches non supervisées.
-%
-%\subsection{Désambiguïsation lexicale et annotation en rôles sémantiques}
-%
-%La littérature mentionne différents essais visant à combiner les tâches de
-%désambiguïsation lexicale et d'annotation en rôles sémantiques, dans le but
-%d'améliorer les performances de chacune des tâches
-%\citep{dang2005role,moreda2006role,che2010jointly}. En effet, le sens d'un
-%verbe permet de déterminer avec une meilleure précision la \textit{frame} qu'il
-%doit déclencher. De la même manière, connaître les rôles sémantiques des
-%arguments d'un verbe donne des indices supplémentaires pour définir son sens.
-%Il est peut-être bénéfique dans ce contexte d'opérer une modélisation jointe
-%pour parvenir à un optimum plus global.
-%
-%Cependant, ces méthodes, même si elles proposent des améliorations
-%statistiquement significatives, n'ont pas encore révolutionné ces deux tâches
-%d'analyse sémantiques. Il y a notamment un manque de ressources communes qui
-%commence à être comblé par différentes ressources. Ontonotes, par exemple, ne
-%se contente pas de regrouper des sens WordNet mais inclut aussi un corpus
-%annoté syntaxiquement et en rôles sémantiques. De manière plus originale,
-%eXtended WordFrameNet \citep{laparra2010extended} est constitué du corpus
-%FrameNet désambiguïsé lexicalement et ajoutent des informations de rôles
-%sémantiques à WordNet. Les résulats sont prometteurs : les performances d'un
-%système de désambiguïsation lexicale ont été améliorées.
-%
-%\subsection{Analyse sémantique du français}
-%
-%\subsubsection{Parallélisme sémantique}
-%
-%L'anglais est la langue la plus utilisée pour le Traitement Automatique des
-%Langues, et il est toujours intéressant de se demander si les outils et
-%ressources développés sont applicables pour d'autres langues. Par exemple,
-%l'anglais n'est pas une langue morphologiquement riche et cela empêche
-%l'utilisation d'outils développés pour l'anglais sur des langues plus riches
-%\citep{tsarfaty2010statistical}. Au niveau sémantique, les études sont plus
-%rares. \cite{pado2007annotation} se demande si les \textit{frames} FrameNet,
-%\textit{a priori} indépendantes de la structure syntaxique, sont utilisables
-%directement en français en évaluant l'accord inter-annotateurs sur un corpus
-%donné. Ce corpus ayant la propriété d'être un corpus parallèle ; cela a permis
-%de comparer l'accord avec celui obtenu par \cite{pado2006optimal} pour
-%l'allemand, langue réputée plus proche de l'anglais. Il s'avère que les scores
-%sont proches, et il est donc raisonnable d'utiliser FrameNet comme base pour le
-%français. En ce qui concerne PropBank, les sens sont déterminés à partir
-%d'informations syntaxiques spécifiques à l'anglais : une traduction n'est donc
-%pas envisageable.
-%
-%\subsubsection{WordNet en français}
-%
-%WordNet, malgré sa granularité trop fine, est une ressource libre extrêmement
-%intéressante qui permet de nombreuses applications. Les projets souhaitant
-%établir directement un WordNet français original n'ayant pas abouti
-%complètement, il est devenu naturel de se pencher à une traduction de WordNet ;
-%en gardant les différents synsets, mais en traduisant les mots représentés dans
-%ces synsets. Différentes approches ont étés utilisées, et nous retiendrons ici
-%deux WordNets français : WOLF \cite{sagot2008construction} et JAWS
-%\cite{mouton2010jaws}. WOLF était à l'origine très précis pour une couverture
-%faible des mots les plus ambigus, mais des efforts sont faits pour étendre la
-%ressource aux mots les plus difficiles \citep{sagot2012automatic}. De son côté,
-%JAWS a été construit à partir des espaces distributionnels cités plus hauts, et
-%a obtenu une précision légèrement inférieure à WOLF pour une couverture plus
-%importante.
-%
-%« Les Verbes Français » est une ressource initialement publiée en 1997 et
-%toujours maintenue (dernière modification date de 2011) sous un format XML
-%facile d'accès dans le but d'encourager diverses applications du TAL. C'est un
-%thésaurus de classes sémantico-syntaxiques qui repose sur l'hypothèse d'une
-%adéquation entre « les schèmes syntaxiques de la langue français et
-%l'interprétation sémantique qu'en font les locuteurs de cette langue ». À la
-%manière de la classification faite par \cite{levin1993english} pour les verbes
-%anglais, c'est une ressource extrêmement riche et facile d'accès qui gagnerait
-%à être utilisée pour l'annotation en rôles sémantiques. Un PropBank du français
-%pourrait être établi à partir de ces classes ; ce qui faciliterait une
-%annotation supervisée du français.
-%
-
-% TODO Conclusion ?
