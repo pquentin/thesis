@@ -532,9 +532,9 @@ les corriger si possible.
 \section{Annotation en rôles sémantiques}
 \label{sec:srl}
 
-Nous étudions les différentes façons de définir les rôles sémantiques, examinons
-diverses ressources utiles pour la tâche d'annotation, et présentons diverses
-techniques pour réaliser l'annotation elle-même.
+Nous étudions les différentes façons de définir les rôles sémantiques,
+examinons diverses ressources utiles pour la tâche d'annotation, et présentons
+les techniques principales pour réaliser l'annotation elle-même.
 
 % TODO définir frame ?
 
@@ -617,16 +617,16 @@ secondaires (\textit{Location}, \textit{Extent}, \textit{Manner}, etc.)
 
 \paragraph{NomBank}
 
-NomBank \citep{meyers2004nombank} a été conçu à l'image de PropBank mais se
-concentre, comme son nom l'indique, sur les noms communs, plus particulièrement
-sur les 5 000 noms communs les plus fréquents dans le Penn TreeBank. Sur le
-million de mots présent dans le corpus, 250 000 sont des noms communs. 100 000
-d'entre eux sont des noms issus d'un verbe ou qui se comportent à la façon d'un
-verbe. Par exemple, le nom commun français « achat » est lié au verbe « acheter
-», et les arguments sémantiques seront probablement les mêmes : dans « Il a
-acheté un arbre » et « l'achat d'un arbre », \textit{ARG1} sera dans les deux
-cas l'arbre. D'autres catégories incluent les noms partitifs, relationnels et
-environnementaux.
+NomBank \citep{meyers2004nombank} a été conçu à l'image de PropBank. La
+spécificité de cette ressource est de se concentrer sur les noms communs, plus
+particulièrement sur les 5 000 noms communs les plus fréquents dans le Penn
+TreeBank. Sur le million de mots présent dans le corpus, 250 000 sont des noms
+communs. 100 000 d'entre eux sont des noms issus d'un verbe ou qui se
+comportent à la façon d'un verbe. Par exemple, le nom commun français « achat »
+est lié au verbe « acheter », et les arguments sémantiques seront probablement
+les mêmes : dans « Il a acheté un arbre » et « l'achat d'un arbre »,
+\textit{ARG1} sera dans les deux cas l'arbre. D'autres catégories incluent les
+noms partitifs, relationnels et environnementaux.
 
 Pour une phrase telle que « They gave the chefs a standing ovation », les
 annotations PropBank et NomBank peuvent montrer les liens possibles entre ces
