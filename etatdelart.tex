@@ -213,9 +213,9 @@ différents sens selon l'usage de chaque sens
 \citep{yarowsky1993one,pantel2002discovering,pedersen2010duluth}. Cependant,
 dans la littérature que nous exposons et dans nos travaux, les modèles de
 langue ne décrivent que des mots en confondant leurs différents sens. Nous ne
-mentionnerons plus par la suite cette difficulté, en considérant par
-simplification que le fait que le modèle de langue décrive le sens que nous
-souhaitons parmi d'autres sens suffit à nos applications.
+mentionnerons plus par la suite cette difficulté, en considérant (par
+simplification) qu'il suffit que le modèle de langue décrive parmi tous les
+sens le sens que nous souhaitons observer.
 
 % TODO qu'a dit le monsieur dans l'invited talk à GWC 2014 ?
 La question qui se pose maintenant que nous savons que nous voulons observer
@@ -233,85 +233,79 @@ vraisemblance :
 p(w_i|w_{i-2}, w_{i-1}) = \frac{compte(w_{i-2}, w_{i-1}, w_i)}{compte(w_{i-1}, w_i)}
 \]
 
-probabilité, n'est-ce pas ?  La séquence $w_{i-2}, w_{i-1}, w_{i}$ est un
-3-gramme, et $compte$ indique le nombre d'occurrences de cette séquence dans le
-corpus considéré. La taille du contexte peut varier, ce qui est la raison pour
-laquelle on parle de manière générale de n-grammes. Le nombre de paramètres à
-estimer pour obtenir une distribution de probabilité conditionnelle fiable est
-$|V|^N$, $|V|$ étant la taille du vocabulaire et $N$ la taille du contexte
-étudié. En considérant un petit vocabulaire (10~000 mots) et un contexte de
-trois mots, il faut déjà estimer $10^{9}$ probabilités, ce qui requiert un
-corpus très large : Google a utilisé un corpus de livres de $10^{12}$ mots pour
-produire des n-grammes allant jusqu'à $n=5$ \citep{brants2006web}. Diverses
-techniques de lissage existent pour mieux répartir les probabilités obtenues
-par maximum de vraisemblance \citep[Chapitre~4]{jurafsky2008speech}. En effet,
-la plupart des probabilités sont initialement nulles, que ce soit parce que le
-n-gramme est grammaticalement invalide ou simplement parce qu'il n'a pas été
-observé dans le corpus étudié. Il faut soit estimer leur probabilité à partir
-d'un n-gramme plus petit ou leur assigner une probabilité très faible.
+La séquence $w_{i-2}, w_{i-1}, w_{i}$ est un 3-gramme, et $compte$ indique le
+nombre d'occurrences de cette séquence dans le corpus considéré. La taille du
+contexte peut varier, ce qui est la raison pour laquelle on parle de manière
+générale de n-grammes. Le nombre de paramètres à estimer pour obtenir une
+distribution de probabilité conditionnelle fiable est $|V|^N$, $|V|$ étant la
+taille du vocabulaire et $N$ la taille du contexte étudié. En considérant un
+petit vocabulaire (10~000 mots) et un contexte de trois mots, il faut déjà
+estimer $10^{9}$ probabilités, ce qui requiert un corpus très large : Google a
+utilisé un corpus de livres de $10^{12}$ mots pour produire des n-grammes
+allant jusqu'à $n=5$ \citep{brants2006web}. Diverses techniques de lissage
+existent pour mieux répartir les probabilités obtenues par maximum de
+vraisemblance \citep[Chapitre~4]{jurafsky2008speech}. En effet, la plupart des
+probabilités sont initialement nulles, que ce soit parce que le n-gramme est
+grammaticalement invalide ou simplement parce qu'il n'a pas été observé dans le
+corpus étudié. Il faut alors estimer la probabilité de tels n-grammes à partir
+d'un n-gramme plus court ou leur assigner une probabilité très faible.
 
 Diverses extensions de ces modèles de langues à base de n-grammes existent,
 l'une d'entre elles étant le modèle de langue syntaxique
 \citep{lin1998automatic,goldberg2013dataset}. Dans ce modèle, on considère les
 mots présents ensemble dans une relation syntaxique donnée. Pour la relation
 complément du nom par exemple, on s'attend à ce que \emph{vélo} soit le
-complément du nom des mots \emph{pédale}, \emph{guidon}, \emph{pneu} et ainsi
-de suite.
-
-Nous utiliserons pour la traduction de WordNet (Chapitre~\ref{ch:wonef}) un
-modèle de langue syntaxique. Il a été entraîné sur un corpus extrait du web
-francophone \citep{grefenstette2007conquering}. Le corpus a ensuite été analysé
-par LIMA \citep{besancon2010lima}, une chaîne d'analyse linguistique désormais
-libre ici utilisée comme un analyseur syntaxique à base de règles produisant
-des dépendances syntaxiques fines. Pour une relation donnée $r$ et un lemme
-$x$, le modèle de langue indique quels sont les 100 premiers lemmes
-co-occurrant le plus fréquemment avec $x$ dans la relation $r$.  Avec le mot
-\textit{avion} et la relation de complément du nom, le mot \textit{billet}
-modifie le plus \textit{avion} : \textit{billet d'avion} est fréquent dans le
-corpus. Ce modèle de langue peut-être visualisé sur
-\url{http://www.kalisteo.fr/demo/semanticmap/}.
+complément du nom des mots \emph{pédale}, \emph{guidon}, \emph{pneu}... Nous
+utilisons pour la traduction de WordNet (Chapitre~\ref{ch:wonef}) un tel modèle
+de langue syntaxique (\url{http://www.kalisteo.fr/demo/semanticmap/}).  Il a
+été entraîné sur un corpus extrait du web francophone
+\citep{grefenstette2007conquering}. Le corpus a ensuite été analysé par LIMA
+\citep{besancon2010lima}, une chaîne d'analyse linguistique désormais libre ici
+utilisée comme un analyseur syntaxique à base de règles produisant des
+dépendances syntaxiques fines. Pour une relation donnée $r$ et un lemme $x$, le
+modèle de langue indique quels sont les 100 premiers lemmes co-occurrant le
+plus fréquemment avec $x$ dans la relation $r$.  Avec le mot \textit{avion} et
+la relation de complément du nom, le mot \textit{billet} modifie le plus
+\textit{avion} : \textit{billet d'avion} est fréquent dans le corpus.
 
 % TODO petite figure ici ?
+
+% TODO donner des raisons de l'efficacité, "exponentiel" tout ça
 
 D'autres types de modèles de langue représentent les mots de manières
 distribuée en utilisant un vecteur de nombres réels. La manière la plus
 répandue pour faire cela est d'utiliser un réseau de neurones dont une des
 couches sera le vecteur représentant chaque mot. \cite{hinton1986learning} a
-d'abord proposé l'idée d'un réseau de neurones pour représenter des concepts,
-puis \cite{bengio2001neural,bengio2003neural} ont proposé le modèle de langue
-neuronal tel qu'on le connaît aujourd'hui. Ce modèle de langue calcule la
-probabilité d'un mot étant donné les mots précédents. C'est la tâche sur
-laquelle il est entraîné, mais ce n'est pas l'attrait le plus important du
-modèle. En effet, après entraînement, on obtient aussi une représentation de
-chaque mot dans laquelle les mots sémantiquement proches ont des
-représentations proches, ce qui permet une meilleure généralisation sur ces
-mots qui s'est avérée être très utile pour diverses applications \citep{senna}.
+d'abord proposé l'idée d'un réseau de neurones pour représenter des concepts à
+l'aide de vecteurs faisant partie du réseau,
+\cite{bengio2001neural,bengio2003neural} ont présenté le modèle de langue
+neuronal tel qu'on le connaît aujourd'hui, et \cite{mikolov2013efficient} a
+optimisé un modèle de langue en supprimant notamment une couche cachée pour
+l'utiliser sur de plus gros corpus. Dans tous ces modèles, lors de la
+rétropropagation du gradient, la représentation des mots évolue, ce qui a pour
+effet de rapprocher la représentation des mots sémantiquement proches. Par
+exemple, \cite{mikolov2013distributed} montre que la distance entre le mot
+représentant un pays (par exemple \emph{Turkey}) et le mot représentant la
+capitale de ce pays (ici \emph{Ankara}) correspond au vecteur du mot
+\emph{capital}.  Ces représentations de mots peuvent être ensuite utilisées ou
+apprises pour diverses tâches. Nous citerons ici l'extraction d'évènements
+\citep{boros2014etiquetage}, l'annotation en rôles sémantiques
+\citep{lechelle2014utilisation} et la traduction automatique
+\citep{devlin2014fast}, mais toute tâche peut bénéficier d'améliorations (plus
+ou moins importantes) de telle représentations de mots où les mots
+sémantiquement proches sont proches dans la représentation choisie.  Ces
+réseaux de neurones sont encore difficiles à entraîner et à paramétrer
+\citep{do2014modeles}, mais représentent une alternative plus efficace que les
+modèles de langue simples à base de n-grammes \citep{baroni2014dont}.
 
 % TODO LSA fait une partie du chemin
-% TODO collobert & weston ? liens entre rns ?
 
-% TODO breakthrough mauvais style
-\cite{mikolov2013efficient} et l'outil word2vec
-associé\footnote{\url{https://code.google.com/p/word2vec/}} ont rendu possible
-l'application de tels réseaux de neurones accessible et efficace. Une propriété
-particulièrement intéressante des représentations de mots obtenues est que la
-distance entre certains mots est fixe. En particulier, dans cet espace de
-vecteurs :
-
-\begin{itemize}
-    \item reine + homme - femme = roi
-    \item Paris - France + Spain = Madrid
-    \item Australian - Australia + France = French
-\end{itemize}
-% TODO notation objectif et conclusions pas claires
-
-Ces résultats non prévus (la tâche était uniquement de prédire le mot en
-fonction de son contexte) illustrent le type de généralisation obtenues à
-l'aide d'un réseau de neurones et permettent de comprendre en partie leur
-intérêt. Ces réseaux de neurones sont encore difficiles à entraîner et à
-paramétrer \citep{do2014modeles}, mais représentent une alternative bien plus
-efficace que les modèles de langue simples à base de n-grammes.
-% TODO donner des raisons de l'efficacité, "exponentiel" tout ça
+Les réseaux de neurones ne sont qu'une façon d'obtenir de tels résultats. En
+particulier, \cite{levy2014linguistic} montrent qu'une nouvelle mesure de
+similarité permet d'obtenir des résultats similaires à
+\cite{mikolov2013efficient}, ce qui montre le besoin de continuer à étudier les
+réseaux de neurone pour mieux comprendre leur fonctionnement et savoir quand
+leur utilisation est pertinente.
 
 \section{Traductions de ressources linguistiques}
 \label{sec:translation}
