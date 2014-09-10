@@ -9,29 +9,23 @@
 
 \section{Introduction}
 
-Là où le précédent chapitre présentait sur l'annotation en rôles sémantiques
-fondée sur la connaissance, celui-là se concentre sur l'annotation en domaines
-spécifiques. À l'heure où les algorithmes supervisés obtiennent d'excellentes
-performances sur un certain nombre de tâche, l'adaptation au domaine est un
+Là où le précédent chapitre présentait notre approche d'annotation en rôles
+sémantiques fondée sur la connaissance, celui-là cherche à l'appliquer en
+domaines spécifiques. À l'heure où les algorithmes supervisés obtiennent
+d'excellentes performances sur un certain nombre de tâches quand des données
+annotées pour le domaine considéré existent, l'adaptation au domaine est un
 défi majeur du Traitement Automatique des Langues, et l'annotation en rôles
 sémantiques sur de nouveaux domaines reste un problème ouvert. 
-% TODO existing approaches ici ?
 
-Nous présentons dans ce chapitre un système d'annotation en rôles sémantiques
-qui n'utilise que la ressource VerbNet (présentée à la
-section~\ref{presentation_verbnet}), ce qui rend la méthode applicable
-dans toute langue disposant d'un VerbNet, ce qui est le cas par exemple de
-l'Estonien \citep{jentson2014verbnet}, du français (Chapitre~\ref{ch:verbnet})
-ou du Portuguais \citep{scarton2012towards}, entre autres. L'approche ne dépend
-pas du domaine étant donné que VerbNet couvre l'ensemble des verbes du
-vocabulaires\footnote{La plupart des erreurs liées à VerbNet sont un manque
-général, et non pas spécifique au domaine étudié
-(section~\ref{sec:enrichissement_verbnet}).}. L'approche est aussi facile à
-reproduire en raison de sa simplicité : les arguments du verbe sont simplement
-mis en correspondance avec VerbNet. Notre système est donc suivant le point de
-vue une \emph{baseline} forte, une première étape pour annoter un nouveau
-domaine avec peu d'efforts, ou la base d'un système complet d'annotation en
-rôles sémantiques une fois que VerbNet a été mis à jour par rapport au domaine.
+Étant donné qu'il se base sur l'approche présentée au Chapitre~\ref{ch:srl},
+notre système est, suivant le point de vue :
+\begin{itemize}
+    \item une \emph{baseline} forte,
+    \item une première étape pour annoter un nouveau domaine avec peu d'efforts,
+    \item ou la base d'un système complet d'annotation en rôles sémantiques une fois que VerbNet a
+été mis à jour par rapport au domaine.
+\end{itemize}
+
 De plus, cette méthode peut identifier des manquements dans VerbNet.
 
 La définition du terme 'domaine' reste assez vague dans le sens où il est
