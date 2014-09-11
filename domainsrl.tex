@@ -30,15 +30,11 @@ De plus, cette méthode peut identifier des manquements dans VerbNet.
 
 La définition du terme 'domaine' reste assez vague dans le sens où il est
 difficile de proposer une catégorisation de la connaissance en un ensemble de
-domaines qui soit à la fois cohérente et efficace pour le Traitement
-Automatique des Langues. Il est aussi difficile de séparer clairement le
-«~domaine général~» des domaines spécifiques. Néanmoins, c'est un phénomène qui
-existe et qui est à considérer : les modèles entraînés sur un corpus d'un
-domaine spécifique (la finance par exemple) généraliseront mal à d'autres
-domaines (le football).
-
-
-% TODO wordnet domains issues ma2012rethinking
+domaines qui soit à la fois cohérente et efficace \citep{ma2012rethinking}. Il
+est aussi difficile de séparer clairement le «~domaine général~» des domaines
+spécifiques. Néanmoins, c'est un phénomène qui existe et qui est à considérer :
+les modèles entraînés sur un corpus d'un domaine spécifique (la finance par
+exemple) généraliseront mal à d'autres domaines (le football).
 
 % TODO proof with existing system? cite paper?
 
@@ -49,35 +45,36 @@ sont la fiction, la poésie, le théâtre, etc. Néanmoins, ces distinctions ne
 nous concernent pas ici, et l'objectif affiché est de traiter aussi bien un
 roman qu'une encyclopédie qu'un email bien écrit qu'un article de journal.
 C'est une simplification mais les difficultés que nous rencontrons avec les
-corpus utilisés dépendent plutôt du domaine que du genre. En effet, dans deux
-domaines différents plus que dans deux genres différents, les changements vont
-résider dans les verbes utilisés, leur sens et la façon de les utiliser. C'est
-ce que nous souhaitons prendre en compte ici.
+corpus utilisés dépendent plutôt du domaine que du genre. En effet, nous
+supposons que dans deux domaines différents plus que dans deux genres
+différents, les changements vont résider dans les verbes utilisés, leur sens et
+la façon de les utiliser. C'est ce que nous souhaitons prendre en compte ici.
 
 \section{Travaux existants}
 
 SEMAFOR \citep{das2014frame} est le système supervisé le plus proche de notre
 système. En utilisant le corpus FrameNet, il commence par identifier les
-prédicats, puis identifie la frame correcte évoquée par ces prédicats, puis
+prédicats, identifie la frame correcte évoquée par ces prédicats, puis
 identifie les groupes de mots qui jouent un rôle pour ce prédicat donné.
 
 % TODO compréhension située ?
-% TODO mieux identifier ce que cette tâche fati
-\cite{chen2008learning} entraînent un système de commentaires à partir de
-commentaires existants et d'états de simulations de parties de football, mais
-sans connaissance explicite de l'anglais. Leur approche a inspiré d'autres
-travaux sur la compréhension située de la langue : \citep{bordes2010towards} et
-\cite{richardson2012towards} ont proposé par la suite d'autres corpus pour
-entraîner de tels systèmes. Notre système est similaire dans le sens où nous
-minimisons l'effort humain pour annoter automatiquement de nouveaux domaines,
-mais nous nous concentrons sur la tâche de l'annotation en rôles sémantiques de
-type FrameNet.
+% TODO mieux identifier ce que cette tâche fait vraiment
+
+Dans le domaine du football, \cite{chen2008learning} entraînent un système de
+commentaires à partir de commentaires existants et d'états de simulations de
+parties de football, mais sans connaissance explicite de l'anglais. Leur
+approche a inspiré d'autres travaux sur la compréhension située de la langue :
+\citep{bordes2010towards} et \cite{richardson2012towards} ont proposé par la
+suite d'autres corpus pour entraîner de tels systèmes. Notre système est
+similaire dans le sens où nous minimisons l'effort humain pour annoter
+automatiquement de nouveaux domaines, mais nous nous concentrons sur la tâche
+de l'annotation en rôles sémantiques sur des corpus de type FrameNet.
 
 Le système d'annotation en rôles sémantiques de \cite{gormley2014low} ne
 demande certes pas de syntaxe supervisée, mais nécessite tout de même un corpus
 annoté en rôles sémantiques. \cite{hadouche2011annotation} réalise de
-l'annotation en rôles sémantiques sur un de nos trois corpus (DicoInfo) avec
-deux approches différentes :
+l'annotation en rôles sémantiques sur un de nos corpus en domaine spécifique
+avec deux approches différentes :
 
 \begin{itemize}
 
@@ -89,45 +86,51 @@ deux approches différentes :
 
 \end{itemize}
 
-Nos travaux vont dans la direction opposée : nous annoter un grand nombre de
-phrases provenant de divers domaines sans utiliser de corpus annoté.
+Nos travaux vont dans la direction opposée : nous souhaitons annoter un grand
+nombre de phrases provenant de divers domaines sans utiliser de corpus annoté.
 
 \section{Approche}
+\label{sec:domainsrl_approche}
+
+% TODO n'indiquer que les différences par rapport à ch:srl
 
 Nous laissons ici l'identification des arguments à un travail futur, et
-utilisons ici les arguments dits gold : on sait que ces arguments jouent un
-rôle, mais on ne sait pas lequel. La raison est que nous voulons nous
-concentrer pour le moment sur la capacité qu'à VerbNet à annoter des corpus à
-la façon FrameNet sans avoir à analyser syntaxiquement notre corpus, ce qui
-représente une difficulté supplémentaire. Cela signifie aussi que nous
-n'évaluons pas l'identification des arguments jouant un rôle, ce qui est une
-part importante de tout système d'annotation en rôles sémantiques.
+utilisons ici les arguments issus de la vérité-terrain : on sait que ces
+arguments jouent un rôle, mais on ne sait pas lequel. La raison est que nous
+voulons nous concentrer pour le moment sur la couverture syntaxique de VerbNet
+sans avoir à analyser syntaxiquement nos corpus : les erreurs d'annotation
+représenteraient une difficulté supplémentaire. Cela signifie aussi que notre
+système n'a pas besoin de distinguer les arguments jouant un rôle (\emph{core}
+dans FrameNet) des autres (\emph{non-core}), ce qui est une part importante de
+tout système complet d'annotation en rôles sémantiques.
 
 Pour annoter une phrase donnée avec des remplisseurs de rôle déjà identifiés
-(mais pas la classe ni les rôles), nous listons d'abord toutes les classes qui
-peuvent être déclenchées par un verbe donné. Par exemple, étant donné la phrase
-\emph{The online judge allocates the same amount of memory to both chess
-engines}, la seule classe possible pour le verbe \emph{allocate} est
-\texttt{future\_having-13.3}. Dans d'autres cas, le choix pourrait être ambigu.
-C'est le cas notamment de \emph{The ocean circulation transports warm water to
-the North Atlantic} : les deux classes \texttt{amuse-31.1} et
-\texttt{send-11.1} sont possibles pour le verbe \emph{transport}.
+(mais sans connaître pas la classe VerbNet ni les rôles corrects), nous listons
+d'abord toutes les classes qui peuvent être déclenchées par un verbe donné. Par
+exemple, étant donné la phrase \emph{The online judge allocates the same amount
+of memory to both chess engines}, la seule classe possible pour le verbe
+\emph{allocate} est \texttt{future\_having-13.3}. Dans d'autres cas, le choix
+pourrait être ambigu. C'est le cas notamment de \emph{The ocean circulation
+transports warm water to the North Atlantic} : les deux classes
+\texttt{amuse-31.1} et \texttt{send-11.1} sont possibles pour le verbe
+\emph{transport}.
 
 Maintenant qu'une liste de classes a été établie, la phrase est représentée
-avec la notation Verbnet, qui est par exemple \texttt{NP} \texttt{V}
+avec la notation VerbNet, qui est par exemple \texttt{NP} \texttt{V}
 \texttt{NP} \texttt{\{to\}} \texttt{PP} pour nos deux phrases d'exemples.
 
-Ensuite, de simple transformations permettent de gérer l'encodage spécifique de
-frames dans DicoInfo et DicoEnviro pour l'adapter à VerbNet. Premièrement, des
-rôles répétés sont supprimés : \texttt{NP.Agent} \texttt{V} \texttt{NP.Theme}
-\texttt{NP.Theme} devient \texttt{NP.Agent} \texttt{V} \texttt{NP.Theme}. En
-effet, DicoInfo et DicoEnviro répètent le même rôle deux fois quand deux
-syntagmes nominaux liés par exemple avec la conjonction \emph{et} partagent le
-même rôle dans la même frame. Deuxièmement, au moment de rencontrer une forme
-\texttt{V} \texttt{NP.Theme}, le syntagme devant le verbe est aussi supprimé
-dans VerbNet avant comparaison. Ces formes sont en général des verbes à
-l'impératif où le sujet n'est pas exprimé, et doivent dont êtres transformées
-avant traitement par VerbNet, VerbNet ne décrivant les frames qu'à l'indicatif.
+Ensuite, de simples transformations permettent de gérer l'encodage spécifique
+de frames dans DiCoInfo et DiCoEnviro pour l'adapter à VerbNet. Premièrement,
+des rôles répétés sont supprimés : \texttt{NP.Agent} \texttt{V}
+\texttt{NP.Theme} \texttt{NP.Theme} devient \texttt{NP.Agent} \texttt{V}
+\texttt{NP.Theme}. En effet, DiCoInfo et DiCoEnviro répètent le même rôle deux
+fois quand deux syntagmes nominaux liés par exemple avec la conjonction «~et~»
+partagent le même rôle dans la même frame. Deuxièmement, au moment de
+rencontrer une forme \texttt{V} \texttt{NP.Theme}, le syntagme devant le verbe
+est aussi supprimé dans VerbNet avant comparaison. Ces formes sont en général
+des verbes à l'impératif où le sujet n'est pas exprimé, et doivent dont êtres
+transformées avant traitement par VerbNet, VerbNet ne décrivant les frames qu'à
+l'indicatif.
 % TODO linguistique de collège ?
 
 La phrase transformée est ensuite comparée aux frames VerbNet possibles dans
@@ -141,7 +144,11 @@ des cadres de sous-catégorisation des frames VerbNet permet non seulement
 d'identifier la classe correcte mais aussi d'assigner des rôles sémantiques aux
 remplisseurs de rôle.
 
-Deux difficultés peuvent se poser au momant de réaliser cette correspondance :
+Le résultat de notre algorithme est que chaque prédicat est potentiellement
+associé à une classe VerbNet, et chaque argument issu de la vérité-terrain est
+potentiellement associé à un rôle sémantique.
+
+Deux difficultés peuvent se poser au moment de réaliser cette correspondance :
 \begin{itemize}
 
     \item la frame n'est présente dans aucune classe VerbNet : c'est un
@@ -154,11 +161,8 @@ Deux difficultés peuvent se poser au momant de réaliser cette correspondance :
 \end{itemize}
         
 Notre approche est trop simple pour gérer la deuxième difficulté, mais elle
-permet de soulever des erreurs dans VerbNet lors de la première erreur
-(section~\ref{sec:enrichissement_verbnet}). Le résultat de notre algorithme
-est que chaque prédicat est potentiellement associé à une classe Verbnet, et
-chaque argument issu de la vérité-terrain est potentiellement associé à un rôle
-sémantique.
+permet de soulever des erreurs dans VerbNet lors de la première erreur, ce que
+nous souhaitons quantifier dans la section suivante.
 
 \section{Enrichissement de VerbNet}
 \label{sec:enrichissement_verbnet}
@@ -176,21 +180,32 @@ faut :
     \item et que les rôles sémantiques associés à chaque syntagme soient correct.
 \end{itemize}
 
-Il y a différentes façons de ne pas respecter ces contraintes :
+Il y a différentes façons de ne pas respecter ces contraintes dans VerbNet :
 
 \begin{itemize}
-    \item Le verbe n'existe pas du tout dans VerbNet
-    \item Le sens du verbe utilisé n'est pas représenté dans VerbNet alors que c'est un sens du domaine général
-    \item Le sens du verbe utilisé n'est pas représenté dans VerbNet alors que c'est un sens spécifique à ce domaine
-    \item La construction utilisée n'est pas présente dans VerbNet
-    \item La construction utilisée est incorrecte dans VerbNet
+
+    \item Le verbe n'existe pas du tout
+
+    \item Le sens du verbe utilisé n'est pas représenté alors que c'est un sens
+        du domaine général
+
+    \item Le sens du verbe utilisé n'est pas représenté alors que c'est un sens
+        spécifique à ce domaine
+
+    \item La construction utilisée n'est pas présente
+
+    \item La construction utilisée n'associe pas les arguments aux rôles
+        corrects
+
 \end{itemize}
 
 Suivant les corpus considérés, les proportions d'erreurs seront différentes.
 Nous avons demandé à deux annotateurs d'évaluer, pour vingt phrases par
 domaine, quelle était l'erreur. L'accord inter-annotateur permet de valider la
 distinction domaine spécifique/domaine général malgré l'impossibilité de la
-définir précisément. % TODO lefaire
+définir précisément.
+
+TODO: le faire....
 
 C'est pour cette raison que l'enrichissement de VerbNet se fait de deux
 manières : certains verbes et constructions sont ajoutés comme faisant partie
@@ -225,6 +240,8 @@ constructions observées avec les constructions présentes. Enfin, cela a permis
 de faire des propositions quant à la position d'un nouveau lexème dans la
 ressource.
 
+TODO: le faire....
+
 \section{Expériences}
 
 
@@ -235,42 +252,43 @@ considérons ici trois corpus présents dans des domaines différents.
 
 \begin{itemize}
 
-    \item le Kicktionary \citep{schmidt2009kicktionary} rassemblant des
-        dépêches de l'UEFA dans le domaine du football à propos de la Ligue
-        Europa, de la Champions League et de la Coupe du Monde. Ce corpus est
-        disponible en français, anglais et allemand.
+    \item le Kicktionary \citep{schmidt2006interfacing,schmidt2009kicktionary}
+        rassemblant des dépêches de l'UEFA dans le domaine du football à propos
+        de la Ligue Europa, de la Champions League et de la Coupe du Monde. Ce
+        corpus est disponible en français, anglais et allemand.
 
-    \item Le DicoInfo est le corpus Informatique/Internet de l'OLST
+    \item Le DiCoInfo est le corpus Informatique/Internet de l'OLST
         \citep{corpusolst} en anglais, français et espagnol.
 
-    \item Le DicoEnviro est le corpus Réchauffement climatique de l'OLST
+    \item Le DiCoEnviro est le corpus Réchauffement climatique de l'OLST
         \citep{corpusolst} en anglais, français et espagnol.
 
 \end{itemize}
 
-Les points communs majeurs de ces trois corpus sont :
+Les deux intérêts majeurs communs à ces trois corpus sont :
+
 \begin{enumerate}
 
-    \item de s'inspirer librement de la théorie des Frame Semantics telle
-        qu'elle est considérée dans FrameNet ce qui correspond aussi à une
-        annotation VerbNet,
+    \item de s'inspirer plus ou moins librement de la méthodologie FrameNet, ce
+        qui permet d'appliquer nos méthodes,
 
-    \item d'être disponible à la fois en anglais et en français,
+    \item d'être disponible à la fois en anglais et en français, ce qui permet
+        de comparer VerbNet à \verbenet{},
 
-    \item d'être basés sur l'annotation dans un corpus d'un certain nombre de
-        prédicats (ce n'est pas une annotation dite "full-text")
+    \item et d'être basés sur l'annotation dans un corpus d'un certain nombre
+        de prédicats (ce n'est pas une annotation dite "full-text")
 
 \end{enumerate}
 
 Ce dernier point est plutôt un inconvénient : la manière la plus réaliste de
 considérer un corpus d'entraînement est de réaliser une annotation dite
 \textit{full-text} en annotant tous les prédicats rencontrés dans un texte
-donné. Cependant, les contextes choisis dans DicoInfo et DicoEnviro l'ont été
-sur des critères de diversité syntaxique. \citep{lhomme2012adding} Le postulat
-que nous faisons dans ce travail est que notre méthode n'est pas affectée par
-ce problème comme le serait un modèle statistique appris sur ces mêmes
-contextes étant donné que la probabilité des différentes possibilités n'est pas
-prise en compte.
+donné. Cependant, les contextes choisis l'ont été à chaque fois sur des
+critères de diversité syntaxique
+\citep{schmidt2006interfacing,lhomme2012adding}. Le postulat que nous faisons
+dans ce travail est que notre méthode est moins affectée par ce problème qu'un
+modèle statistique se basant exclusivement sur la distribution des différentes
+constructions.
 
 Les trois corpus ont étés découpés en deux parties de taille égales : un corpus
 d'entraînement et un corpus de test. Étant donné qu'il n'y a pas de modèle à
@@ -278,89 +296,62 @@ entraîner, ce corpus d'entraînement est simplement utilisé pour comprendre le
 erreurs en l'analysant manuellement. Même si les trois corpus contiennent des
 textes proches entre eux, ils sont issus de sources différentes et ont étés
 écrits par des auteurs différents. Nous avons normalisé ces sources (par
-exemple, DEBIAN2 et DEBIAN3 dans le corpus de l'OLST devient DEBIAN) et
-utilisons cette information pour faire le découpage : une source spécifique ne
-peut être présente que dans un ensemble. Le découpage résultant est disponible
-avec le code source associé à ce chapitre.
+exemple, DEBIAN2 et DEBIAN3 dans le corpus Informatique \& Internet de l'OLST
+deviennent DEBIAN) et utilisons cette information pour faire le découpage : une
+source spécifique ne peut être présente que dans un ensemble. Le découpage
+résultant est disponible avec le code source associé à ce chapitre.
 
 \subsection{Mappings de rôles}
 
 Ces trois corpus utilisent des rôles spécifiques. Les corpus DiCoInfo et
-DicoEnviro utilisent les convetions VerbNet alors que le Kicktionary, qui suit
-surtout FrameNet, définit un nouvel ensemble de rôle pour chaque frame, comme
+DiCoEnviro utilisent les conventions VerbNet alors que le Kicktionary  définit
+un nouvel ensemble de rôle pour chaque frame à la façon FrameNet, par exemple
 \texttt{Passer}, \texttt{Moving\_Ball} ou \texttt{Shot}. Dans les trois cas,
 les rôles ne correspondent pas directement aux rôles VerbNet, et il faut donc
-établir une correspondance entre les rôles Verbnet les rôles des autres corpus.
-Nous avons assigné manuellement une classe VerbNet à chaque classe des autres
-corpus, tout en faisant correspondre les rôles. Le résultat de ce mapping est
-disponible avec le code source associé à ce chapitre.
+établir une correspondance entre les rôles VerbNet et les rôles des trois
+corpus.  Nous avons assigné manuellement une classe VerbNet à chaque classe des
+trois corpus, tout en faisant correspondre les rôles. Le résultat de ce mapping
+est disponible à TODO.
 
-De plus, DicoInfo et DicoEnviro font une distinction entre les rôles core et
-non core : nous n'avons annoté que les rôles core étant donné que VerbNet ne
-considère que ces rôles, même si la distinction peut différer entre VerbNet et
-DiCoInfo et DiCoEnviro. Étant donné qu'une frame DiCoInfo/DiCoEnviro est un
-sens spécifique d'un verbe n'acceptant que des constructions spécifiques, nous
-avons toujours mappé de tels sens vers une seule classe VerbNet.
-
-Le Kicktionary a été plus difficile à mapper à VerbNet : ses frames considèrent
-un grand nombre de verbes au comportement parfois assez différent. Les règles
-de FrameNet indiquent que de telles frames auraient du êtres découpées
-\citep{ruppenhofer2006extended}, mais le Kicktionary ne suit pas toujours ces
-règles, ayant été développé à part de FrameNet. Certaines frames sont définies
-correctement : c'est le cas de \texttt{Receive\_Card} et \texttt{Give\_Card}
-qui correspondent respectivement à \texttt{obtain-13.5.2} et
-\texttt{give-13.1-1}. Par contre, la frame \texttt{Goal} a par exemple été
-définie pour un but marqué, mais les différentes façons de l'exprimer n'ont pas
-étés séparées : ouvrir la marque, égaliser, frapper, et d'autres utiliseront
-différentes constructions syntaxiques, évoquerons des rôles différents et
-correspondront donc à des classes VerbNet différentes.
-
-\section{Méthode d'évaluation}
-
-Les trois corpus considérés ont été annotés en rôles sémantiques dans les deux
-langues qui nous intéressent ici~: l'anglais et le français. Il nous suffit
-donc d'utiliser un mapping entre les rôles considérés par ces ressources et les
-rôles VerbNet avant d'évaluer la performance de l'algorithme basé sur la
-connaissance d'annotation en rôles sémantiques présenté au
-chapitre~\ref{ch:srl}.
-
-Dans le cas de DicoInfo et DicoEnviro, les noms des rôles sont proches des noms
-de rôles employée dans VerbNet et LIRICS \citep{bonial2011hierarchical} (Agent,
-Patient, Destination, Instrument...). Cependant, même si les noms sont les
-mêmes, la définition de ces rôles est spécifique à DicoInfo et DicoEnviro.
+Dans le cas de DiCoInfo et DiCoEnviro, les noms des rôles sont proches des noms
+des rôles employés dans VerbNet et LIRICS \citep{bonial2011hierarchical} :
+Agent, Patient, Destination, Instrument, etc. Cependant, même si les noms sont
+les mêmes, la définition de ces rôles est spécifique à DiCoInfo et DiCoEnviro.
 En pratique :
 
 \begin{itemize}
-    \item DicoInfo et DicoEnviro ne distinguent pas Theme de Patient mais
-    n'utilise que Patient ce qui rend l'annotation plus facile.\footnote{La
-    distinction entre Theme et Patient est difficile à établir. Dans \textit{Le
-    chaton a léché mes doigts}, est-ce que mes doigts ont changé d'état ? Si oui,
-    ils devraient être Patient, et sinon, Theme.\citep[p.~5]{palmer2010semantic}}
+
+    \item DiCoInfo et DiCoEnviro ne distinguent pas Theme de Patient mais
+        n'utilisent que Patient, ce qui rend l'annotation plus
+        facile.\footnote{La distinction entre Theme et Patient est difficile à
+            établir. Dans \textit{Le chaton a léché mes doigts}, est-ce que mes
+            doigts ont changé d'état ? Si oui, ils devraient être Patient, et
+        sinon, Theme \citep[p.~5]{palmer2010semantic}.}
+
     \item Pour un certain nombre de lexies, la perspective du domaine implique
-    souvent des rôles différents (TODO exemple Patient vs. Result) % TODO clair
+        souvent des rôles différents (TODO exemple Patient vs. Result)
+        
+        % TODO clair
+
 \end{itemize}
 
-C'est pour ces raisons que nous avons créé manuellement un mapping entre
-VerbNet et les corpus considérés (DicoInfo et DicoEnviro). Ce mapping est
-utilisé uniquement à des fins d'évaluation, et l'effort nécessaire pour le
-créer n'est donc pas à prendre en compte pour calculer l'effort global
-nécessaire pour notre approche. Prenons deux phrases d'exemple pour illustrer
-le mapping. Voici deux phrases présentes dans DicoInfo et DicoEnviro :
+Prenons deux phrases d'exemple pour illustrer le mapping. Voici deux phrases
+présentes dans DiCoInfo et DiCoEnviro :
 
 \begin{itemize}
     \item In the interest of fair competition you should ALLOCATE the same amount of memory to both engines.
     \item Techniques and tools exist to MEASURE carbon stocks in project areas relatively precisely depending on the carbon pool.
 \end{itemize}
 
-Dans la première phrase, le sens du verbe \textit{allocate} est très précis et
-très spécifique au domaine de l'informatique. Pourtant, il se comporte
-syntaxiquement de la même manière que le sens plus général considéré par
-WordNet et OntoNotes: \textit{distribute or se aside according to plan}. Par
-conséquent, un mapping manuel a été réalisé de la lexie allocate.1 (qui
-correspond à la phrase ci-dessus) vers la classe Verbnet
-\textit{future\_having-13.3}. Enfin, les actants définis par DicoInfo (qui
-correspondent aux roles \textit{Core} de FrameNet et aux rôles de VerbNet) ont
-étés mis en correspondance avec les rôles de VerbNet :
+Dans la première phrase, le sens du verbe \textit{allocate} au sens
+\emph{allouer de la mémoire vive} est très précis et très spécifique au domaine
+de l'informatique. Pourtant, il se comporte syntaxiquement de la même manière
+que le sens plus général considéré par WordNet et OntoNotes: \textit{distribute
+or set aside according to plan}. Par conséquent, un mapping manuel a été
+réalisé de la lexie allocate.1 (qui correspond à la phrase ci-dessus) vers la
+classe VerbNet \textit{future\_having-13.3}. Enfin, les actants définis par
+DiCoInfo (qui correspondent aux roles \textit{Core} de FrameNet et aux rôles de
+VerbNet) ont étés mis en correspondance avec les rôles de VerbNet :
 
 \begin{itemize}
     \item Patient devient Theme
@@ -371,10 +362,47 @@ correspondent aux roles \textit{Core} de FrameNet et aux rôles de VerbNet) ont
 Une fois que ce mapping est réalisé, la tâche de notre algorithme d'annotation
 en rôles sémantiques devient de détecter que la classe future\_having-13.3 est
 utilisée ici, que 'You' est Agent, que 'the same amount of memory' est Theme,
-et que 'to both engines' est Goal. La démarche est la même pour la seconde
-phrase, où il s'agit d'identifier que \textit{Techniques and tools} est Agent,
-et que \textit{carbon stocks} est Theme.
+et que 'to both engines' est Goal.
 
+Pour la seconde phrase, la démarche est la même : il s'agit d'identifier que la
+classe Verbnet est \texttt{register-54.1}, que \textit{Techniques and tools}
+est Agent, et que \textit{carbon stocks} est Theme.
+
+DiCoInfo et DiCoEnviro font une distinction entre les rôles core et non core :
+nous n'avons annoté que les rôles core étant donné que VerbNet ne considère que
+ces rôles, même si la distinction peut différer entre VerbNet et
+DiCoInfo/DiCoEnviro. Étant donné qu'une frame DiCoInfo/DiCoEnviro est un sens
+spécifique d'un verbe n'acceptant que des constructions spécifiques, nous avons
+toujours associé de tels sens à une seule classe VerbNet.
+
+Le Kicktionary a été plus difficile à associer : ses frames considèrent un
+grand nombre de verbes au comportement parfois assez différent. Les règles de
+FrameNet indiquent que de telles frames auraient du êtres découpées
+\citep{ruppenhofer2006extended}, mais le Kicktionary ne suit pas toujours ces
+règles, ayant été développé à part de FrameNet, couvrant un domaine spécifique
+au lieu du domaine général, et étant multilingue
+\citep{schmidt2006interfacing}. Certaines frames sont définies correctement :
+c'est le cas de \texttt{Receive\_Card} et \texttt{Give\_Card} qui correspondent
+respectivement à \texttt{obtain-13.5.2} et \texttt{give-13.1-1}. Par contre, la
+frame \texttt{Goal} a par exemple été définie pour un but marqué, mais les
+différentes façons de l'exprimer n'ont pas étés séparées : ouvrir la marque,
+égaliser, frapper, et d'autres utiliseront différentes constructions
+syntaxiques, évoqueront des rôles différents et correspondront donc à des
+classes VerbNet différentes.
+
+\section{Méthode d'évaluation}
+
+Il nous suffit donc d'utiliser l'association que nous avons produit entre les
+rôles considérés par ces ressources et les rôles VerbNet avant d'évaluer la
+performance de l'algorithme basé sur la connaissance d'annotation en rôles
+sémantiques présenté à la section~\ref{sec:domainsrl_approche}.
+
+% TODO mapping vs. association
+L'association est utilisée uniquement à des fins d'évaluation, et l'effort
+nécessaire pour la créer n'est donc pas à prendre en compte pour calculer
+l'effort global nécessaire pour notre approche.
+
+TODO ?
 
 % TODO se comparer avec hadouche2011annotation
 \section{Résultats}
@@ -417,10 +445,11 @@ La table~\ref{table:coverage} présente les résultats pour les trois domaines
 considérés. Les résultats du Kicktionary sont à analyser avec prudence : d'une
 part, le mapping n'est pas fini, d'où le score de classe extrêmement bas, et
 d'autre pas aucune analyse d'erreur n'a pour le moment été effectuée. Nous
-pouvons tout de même tirer des conclusions de ces résultats. Premièrement,
-VerbNet couvre entre 75\% et 84\% des occurrences de lemmes, ce qui est très
-encourageant et correspond à notre objectif de couvrir l'ensemble du
-vocabulaire.
+pouvons tout de même tirer des conclusions de ces résultats.
+
+Premièrement, VerbNet couvre entre 75\% et 84\% des occurrences de lemmes, ce
+qui est très encourageant et correspond à notre objectif de couvrir l'ensemble
+du vocabulaire.
 % TODO couverture FrameNet
 Deuxièmement, les résultats varient par domaines : en particulier, le
 Kicktionary est le corpus le plus loin de VerbNet. Cependant, les erreurs sont
@@ -429,20 +458,19 @@ au football. Par exemple, le verbe \emph{celebrate} est absent du Kicktionary
 mais il serait tout de même utile dans le domaine général.
 % TODO montrer au-delà d'un exemple (comment ?) que les erreurs dans
 % Kicktionary ne sont pas spécifiques et bénéficiraient à VN
-
-%Second, while the results vary between domains, those results are
-%still preliminary and the results can change depending on the way frames are
-%encoded (the training set of the Kicktionary corpus has not been analyzed
-%yet).
+%Second, while the results vary between domains, those results are still
+%preliminary and the results can change depending on the way frames are encoded
+%(the training set of the Kicktionary corpus has not been analyzed yet).
 Troisièmement, une fois que la classe a été identifiée correctement, les
-résultats sont bons pour les corpus DiCoInfo et DiCoEnviro.
+résultats sont bons pour les corpus DiCoInfo et DiCoEnviro (respectivement
+91~\% et 97~\%).
 
 \section{Conclusion}
 
 Nous avons montré qu'il est possible de réaliser de l'annotation en rôles
 sémantique en domaine spécifique en utilisant VerbNet. Le système complet
 d'annotation en rôles sémantiques utilisera les techniques décrites au
-Chapitre~\ref{ch:srl}.
+Chapitre~\ref{ch:srl}. TODO : sauf si fusion à temps
 
 Notre approche rend possible l'annotation d'un nouveau domaine avant de passer
 à une annotation manuelle. Il est aussi possible de l'utiliser comme une simple
