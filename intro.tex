@@ -28,7 +28,8 @@ tentée, et le Résultat. Ainsi, le résultat de l'annotation serait :
     Les différents syntagmes liés au verbe jouent chacun un rôle sémantique.}
 \end{figure}
 
-Différents informations sont disponibles après l'annotation en rôles sémantiques.
+Différentes informations sont disponibles après l'annotation en rôles
+sémantiques :
 
 \begin{itemize}
     \item Le prédicat ayant déclenché la frame est identifié. Dans la
@@ -57,12 +58,12 @@ notamment les systèmes de questions-réponses \citep{shen2007using},
 l'extraction d'évènements \citep{exner2011using},  l'analyse d'opinions
 \citep{das2012structure} ou la traduction automatique
 \citep{bazrafshan2013semantic}. Un des intérêts de la généralité de
-l'annotation en rôles sémantiques est de ne pas être limitée aux tâches les
-plus classiques en Traitement Automatique des Langues. Ainsi, l'annotation en
-rôles sémantiques à été utilisée pour la détection de plagiat
-\citep{osman2012improved}, la prédiction des cours de bourses
-\citep{xie2013semantic}, la génération de scènes 3D \citep{chang2014semantic},
-ou l'interprétation de recettes de cuisine \citep{malmaud2014cooking}.
+l'annotation en rôles sémantiques est de s'adapter facilement à de nouvelles
+tâches. Ainsi, l'annotation en rôles sémantiques à été utilisée pour la
+détection de plagiat \citep{osman2012improved}, la prédiction des cours de
+bourse \citep{xie2013semantic}, la génération de scènes 3D
+\citep{chang2014semantic}, ou l'interprétation de recettes de cuisine
+\citep{malmaud2014cooking}.
 
 \subsection{Contraintes}
 
@@ -73,9 +74,9 @@ rôles sémantiques fournit des informations utiles au développement des tâche
 applicatives et d'autre part les domaines à couvrir ne sont pas connus à
 l'avance. Les contraintes suivantes découlent de ces prérequis.
 
-\paragraph{Cadre ouvert} Se contenter de désambiguïser certains mots ou se
-limiter à un domaine fermé n'est pas satisfaisant. Les inventaires de sens
-utilisés doivent couvrir au maximum les différents sens des mots d'une langue.
+\paragraph{Cadre ouvert} Se contenter de certaines situations dans un domaine
+fermé n'est pas satisfaisant. Les inventaires de sens utilisés doivent couvrir
+au maximum les différents sens des mots d'une langue.
 
 \paragraph{Langue française} Le français dispose d'un nombre limité de
 ressources sémantiques en cadre ouvert. Il n'existe pas aujourd'hui de VerbNet
@@ -86,9 +87,8 @@ qualité proches de leurs équivalents respectifs en langue anglaise. Ne
 disposant pas des moyens pour créer de telles ressources manuellement, le
 système présenté doit pouvoir se contenter de transpositions automatiques de
 ces ressources vers le français.  Cette approche de mutualisation des
-ressources au niveau de la langue doit permettre une adaptation de ces travaux
-à d'autres langues que l'anglais et le français, même si ce n'est pas l'objet
-de cette thèse.
+ressources au niveau de la langue doit permettre chaque nouvelle utilisation
+d'une ressource de l'améliorer pour les futures utilisations.
 
 \paragraph{Simplicité} Nous voulons que notre système soit très simple à mettre
 en place et qu'il soit tout aussi facile de corriger quelques erreurs
@@ -102,11 +102,16 @@ large échelle. L'annotation en rôles sémantiques est un problème difficile d
 classification automatique et certains systèmes ont des temps d'entraînement et
 d'exécution trop longs pour l'utilisation que nous voulons en faire ici.
 
+\paragraph{Libre diffusion} Enfin, il est important que les outils et
+ressources soient au maximum libre d'accès afin que d'autres puissent les
+utiliser et les étudier. Pour cette raison, une grande partie du code source
+écrit pendant cette thèse est disponible sur GitHub.
+
 % MEGATODO faire que ce soit le cas
 Ces contraintes seront utilisées pour évaluer à la fois l'état de l'art et les
 approches présentées.
 
-\section{Objectifs}
+\subsection{Moyens}
 \label{objectifs_these}
 
 % TAL a besoin d'infos sur les verbes, c'est difficile et fragile, et on a
@@ -184,9 +189,9 @@ travail manuel.
 Une fois que ces ressources ont été traduites vers le français, il faut les
 utiliser pour réaliser la tâche d'annotation en rôles sémantiques.
 
-L'objectif de cette thèse est donc de fournir les \emph{ressources} nécessaires
-en traduisant WordNet et VerbNet (Partie~\ref{part:translation}) et
-\emph{méthodes} (Partie~\ref{part:srl}) répondant à ces objectifs.
+Cette thèse fournit donc les \emph{ressources} nécessaires en traduisant
+WordNet et VerbNet (Partie~\ref{part:translation}) et les \emph{méthodes}
+(Partie~\ref{part:srl}) répondant à ces objectifs.
 
 \section{Ressources lexicales utilisées}
 
