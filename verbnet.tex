@@ -16,9 +16,9 @@ La construction de cette ressource s'est faite en trois étapes. Nous avons
 d'abord traduit vers le français les membres des classes de premier niveau dans
 VerbNet en utilisant des ressources linguistiques qui encodent des informations
 syntaxiques et sémantiques sur les verbes du français (section~\ref{first}). La
-deuxième étape, toujours en cours, est d'adapter les cadres de
-sous-catégorisation vers le français et de réorganiser les classes de VerbNet
-en fonction, ce qui pose divers problèmes que nous décrirons en partie ici
+deuxième étape, toujours en cours, est l'adaptation des frames VerbNet vers le
+français et la réorganisation les classes de VerbNet en fonction de ces frames,
+ce qui pose divers problèmes que nous décrirons en partie ici
 (section~\ref{second}). La troisième étape sera l'occasion de valider les
 membres français de chaque classe (section~\ref{third}).
 
@@ -42,7 +42,7 @@ verbes formés par le préfixe \emph{dé-} plus un nominal (\emph{debark, debone
 a un équivalent français avec les préfixes \emph{dé-} ou \emph{é}
 (\emph{déveiner}, \emph{équeuter}).
 
-Étant donné ce principe de bases, la construction de \verbenet{} se fait en
+Étant donné ce principe de base, la construction de \verbenet{} se fait en
 trois étapes.
 
 \subsection{Première étape}\label{first}
@@ -57,7 +57,7 @@ trois étapes.
         classes LVF \Clvf{} et les classes LG \Clg{} qui correspondent à sa
         définition sémantique : nous assignons par exemple {\color{red}L3b} et
         {\color{green}38LD} à {\color{blue}put-9.1} et assignons
-        {\color{red}M1a} et {\color{green}32CL ou 32R3 ou 32C}) à
+        {\color{red}M1a} et {\color{green}32CL ou 32R3 ou 32C} à
         {\color{blue}body\_internal\_motion-49}.
 
     \item Nous utilisons deux dictionnaires bilingues (SCI-FRAND-EURADIC et le
@@ -75,7 +75,7 @@ trois étapes.
 
 Cette étape a été exécutée rapidement et a donné des résultats encourageants :
 en ne gardant que les verbes à l'intersection de \Ltrad{}, \Clvf{} et \Clg{},
-les résulstats sont précis, et cohérents d'un point de vue sémantique et
+les résulstats sont précis et cohérents d'un point de vue sémantique et
 syntaxique. Par exemple, la classe {\color{blue}scribble-25.2} contient 18
 verbes en anglais : elle est associée à la classe LVF {\color{red}R3a.1} et à
 la table LG {\color{green}32A}, ce qui conduit à une liste de 16 verbes
@@ -117,24 +117,25 @@ et le français (section~\ref{subsubsec:casebycase}).
 \subsubsection{Outil d'édition de \verbenet{}}\label{toolquentin}
 
 Nous avons du développer un outil permettant d'éditer collaborativement
-VerbNet. Cet outil est en fait un site web présentant VerbNet : ses classes,
-ses frames, ses verbes, etc. Tous les éléments sont modifiables, ce qui permet
-aux lexicographes de se concentrer sur les problèmes lexicographiques sans
-avoir à se préoccuper de la représentation des données. Le site web est réalisé
-avec le framework web Python Django. VerbNet est stocké dans une base de donnée
-PostgreSQL. Avant de commencer l'édition, nous avons commencé par charger
-VerbNet et les mappings réalisés lors de la première étape. L'édition elle-même
-se fait par classe de Levin. Par exemple, nous avons traité les classes
+VerbNet\footnote{Cet outil est disponible sur GitHub :
+\url{https://github.com/aymara/verbenet-editor}.}. Cet outil est en fait un
+site web présentant VerbNet : ses classes, ses frames, ses verbes, etc.  Tous
+les éléments sont modifiables, ce qui permet aux lexicographes de se concentrer
+sur les problèmes lexicographiques sans avoir à se préoccuper de la
+représentation des données. Le site web est réalisé avec Django, un framework
+web Python. VerbNet est stocké dans une base de donnée PostgreSQL. Avant de
+commencer l'édition, nous avons commencé par charger VerbNet et les mappings
+réalisés lors de la première étape. L'édition elle-même se fait classe de Levin
+par classe de Levin. Par exemple, nous avons traité ensemble les classes
 {\color{blue}throw-17.1} et {\color{blue}pelt-17.2} parce qu'elles font toutes
 les deux partie de la «~super-classe~» 17 : Throwing. Plusieurs classes faisant
 partie d'une même super-classe sont souvent liées et il faut les comprendre
-dans leur ensemble avant de commencer l'édition. Pour chaque classes, nous
+dans leur ensemble avant de commencer l'édition. Pour chaque classe, nous
 pouvons éditer ses frames, ajouter ou supprimer des sous-classes ou des frames.
-Par exemple, toutes les frames impliquant un conatif, un datif ou une
-alternance bénéfactive (?) peuvent être systématiquement supprimées : ces
-alternances n'existent pas en français.
+Par exemple, pour la suppression, toutes les frames impliquant un conatif, un
+datif ou une alternance bénéfactive (?) peuvent être systématiquement
+supprimées : ces alternances n'existent pas en français.
 
-% TODO faire une nouvelle capture
 \begin{figure}
 
     \includegraphics[width=\textwidth]{fig/tool_screenshot_2014-09-12.png}
@@ -153,7 +154,7 @@ alternances n'existent pas en français.
 
 Avec l'aide de cet outil (illustré à la Figure~\ref{tool}), la deuxième étape
 peut s'avérer très simple. Par exemple, les quatre sous-classes de
-{\color{blue}imaeg-creation-25} ont des classes directement équivalentes en
+{\color{blue}image-creation-25} ont des classes directement équivalentes en
 français, donc les seules choses à faire sont de traduire les exemples en
 français avec les bonnes prépositions. Par exemple, dans la classe
 {\color{blue}illustrate-25.3}, il a fallu remplacer \emph{with} par la
@@ -184,8 +185,8 @@ complément PP.Source PP.Destination)~» sans accepter un seul complément sourc
 (PP.Source), tout en acceptant un seul complément destination
 (PP.Destination) : \emph{Fred a transferré le vin de la cruche en pierre vers
 la cruche en terre cuite, *Fred a transferré le vin de la cruche en pierre,
-Fred a transferré le vin vers la cruche en terre cuite}. Dans ces cas, les
-sous-structures sont codées}.
+Fred a transferré le vin vers la cruche en terre cuite}. Dans ce cas
+exceptionnel, les sous-structures sont codées explicitement.}.
 
 La deuxième différence concerne l'ordre des compléments. VerbNet encode parfois
 deux frames qui ne diffèrent que par l'ordre des compléments, par exemple dans
@@ -199,7 +200,7 @@ qu'un frame dans ces cas, ici seulement \emph{NP V NP PP.Destination}
 (\emph{Nora a apporté le livre au metting}) avec l'objet direct avant le
 syntagme prépositionnel. C'est à l'utilisateur de la ressource de considérer
 que l'autre option (\emph{NP V PP.Destination}, \emph{Nora a apporté au meeting
-le livre} est tout aussi valide.
+le livre}) est tout aussi valable.
 
 \subsubsection{Travail au cas par cas}\label{subsubsec:casebycase}
 
@@ -212,7 +213,7 @@ and Carrying} (la super-classe 11), les verbes dans les classes
 décrivent un mouvement accompagné (non seulement le Theme mais aussi l'Agent
 changent de location comme dans \emph{Pamela drove packages to NY}). Au
 contraire, les autres classes ({\color{blue}send-11.1} et
-{\color{blue}slide-11.2} décrivent un mouvement non accompagné (seul le Thème
+{\color{blue}slide-11.2}) décrivent un mouvement non accompagné (seul le Thème
 se déplace comme dans \emph{Pamela sent packages to NY}). Dans les ressources
 françaises, des classes existent pour des verbes avec un changement de location
 pour un Thème causé par un Agent, mais rien n'est codé pour le mouvement de
@@ -222,7 +223,7 @@ l'Agent. Face à cette difficulté, deux solutions se présentent.
     \item soit réaliser une étude complète des verbes français de \emph{Sending
         and Carrying} pour distinguer les mouvements accompagnés et
         non-accompagnés,
-    \item soit ignorer purement et simplement cette différence sémantique
+    \item soit ignorer purement et simplement cette différence sémantique.
 \end{itemize}
 
 Dans ce cas, nous avons opté pour la seconde solution étant donné que cette
@@ -233,20 +234,20 @@ classes VerbNet {\color{blue}carry-11.4} et {\color{blue}carry-11.4-1}.}.
 C'est un choix discutable : si pour notre application la position de l'Agent
 avait eu un intérêt, comme ce pourrait être le cas en implication textuelle,
 une étude plus complète aurait été souhaitable. Nous préférons nous concentrer
-sur une première version de VerbNet, quitte à revenir sur certains choix par la
-suite.
+sur la sortie d'une première version de VerbNet, quitte à revenir sur certains
+choix par la suite.
 
 Le fait d'ignorer cette différence nous mène à adopter dans \verbenet{} une
 hiérarchie différente de VerbNet pour la super-classe 11 : il n'y a pas
 d'équivalent dans \verbenet{} de la classe {\color{blue}carry-11.4}, les verbes
-de cette classe devant être placés dans les classes ({\color{blue}send-11.1} et
+de cette classe devant être placés dans les classes {\color{blue}send-11.1} et
 {\color{blue}slide-11.2}. Par ailleurs, il n'y a pas d'équivalent en français
 de la classe {\color{blue}bring-11.3} qui contient uniquement les deux verbes
 \emph{bring} et \emph{take} avec une direction spécifiée déictiquement
 \citep[page 135]{levin1993english} parce que les déictifs locatifs français
 \emph{ici} et \emph{là} n'ont pas le fonctionnement de \emph{here} et
-\emph{there} en anglais\footnote{\emph{Je suis là} peut signifier \emph{Je suis
-ici}.}.
+\emph{there} en anglais\footnote{En français, \emph{Je suis là} peut signifier
+\emph{Je suis ici}.}.
 
 La seconde source principale de difficultés provient de différences cruciales
 entre le français et l'anglais. Il existe des problèmes de traductions entre
@@ -279,8 +280,8 @@ tout détailler, insistons sur ces quelques points :
 
 \end{itemize}
 
-En conclusion, il s'avère qu'en rentrant dans le détail des frames lors de
-cette deuxième étape nous a mené a faire évoluer la hiérarchie de \verbenet{}.
+En conclusion, il s'avère que rentrer dans le détail des frames lors de cette
+deuxième étape nous a mené a faire évoluer la hiérarchie de \verbenet{}.
 Cependant, nous essayons de limiter les modifications au cas où il est
 impossible de faire autrement afin de profiter au maximum de VerbNet et pour
 pouvoir profiter du lien entre les deux ressources.
