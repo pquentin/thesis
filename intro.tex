@@ -13,10 +13,12 @@ la traduction automatique, ou encore le résumé automatique de textes.
 Elle répond à la question « Qui a fait Quoi à Qui, Comment, Où et Quand ? ».
 Prenons pour exemple la phrase \emph{Mrs. Aouda essaya vainement de retenir Mr.
 Fogg} (extrait du \emph{Tour du monde en quatre-vingts jours} de Jules Verne).
-L'annotation en rôles sémantique déterminera que la phrase correspond à une
-situation de tentative (grâce à la présence du verbe « essayer »), puis
-déterminera parmi les syntagmes liés aux verbes quel est l'Agent, l'Activité
-tentée, et le Résultat. Ainsi, le résultat de l'annotation serait :
+En considérant pour exemple le cadre de FrameNet
+(section~\ref{presentation_framenet}), une annotation en rôles sémantique du
+prédicat \emph{essayer} déterminera que cette utilisation du verbe correspond à
+une situation de tentative, puis identifiera parmi les syntagmes liés aux
+verbes quel est l'Agent, l'Activité tentée, et le Résultat.  Ainsi, le résultat
+de l'annotation serait :
 
 \begin{figure}[ht]
     \centering
@@ -86,9 +88,10 @@ ressources sémantiques en cadre ouvert. Il n'existe pas aujourd'hui de VerbNet
 qualité proches de leurs équivalents respectifs en langue anglaise. Ne
 disposant pas des moyens pour créer de telles ressources manuellement, le
 système présenté doit pouvoir se contenter de transpositions automatiques de
-ces ressources vers le français.  Cette approche de mutualisation des
-ressources au niveau de la langue doit permettre chaque nouvelle utilisation
-d'une ressource de l'améliorer pour les futures utilisations.
+ces ressources vers le français. Avec cette approche de mutualisation des
+ressources au niveau de la langue, chaque nouvelle utilisation d'une de nos
+ressources est l'occasion de l'améliorer à la fois pour utilisation immédiate
+mais aussi pour les utilisations futures.
 
 \paragraph{Simplicité} Nous voulons que notre système soit très simple à mettre
 en place et qu'il soit tout aussi facile de corriger quelques erreurs
@@ -152,21 +155,21 @@ nouvelles classes, constructions et verbes ont étés ajoutés à VerbNet au fil
 des ans. Au-delà de son encodage efficace, VerbNet est un lexique adapté à la
 tâche d'annotation en rôles sémantiques : on peut utiliser un cadre de
 sous-catégorisation pour associer des syntagmes à des rôles thématiques
-\citep{swier2005exploiting,pradet2013revisiting}. Grâce à sa couverture élevées
+\citep{swier2005exploiting,pradet2013revisiting}. Grâce à sa couverture élevée
 (plus de quatre mille verbes distincts) et son groupement de verbes utile,
 VerbNet est bien adapté à l'annotation en rôles sémantiques.
 
 % De la même manière, WordNet est complémentaire à VerbNet
 WordNet est une autre ressource qui complète VerbNet en nous fournissant des
 informations sur le sens des verbes inclus dans VerbNet grâce au projet
-SemLink, mais aussi sur le sens des mots liés au verbe, ce qui permet de :
+SemLink, mais aussi sur le sens des mots liés au verbe, ce qui permet de
 
 \begin{itemize}
 
-    \item désambiguïser la classe VerbNet utilisée
+    \item désambiguïser la classe VerbNet utilisée,
 
-    \item respecter les restrictions de sélections indiquées par VerbNet pour
-        le sujet et les objets du verbe
+    \item et de respecter les restrictions de sélections indiquées par VerbNet pour
+        le sujet et les objets du verbe.
 
 \end{itemize}
 
@@ -344,7 +347,7 @@ utilisons dans l'ensemble de ce travail à l'adresse suivante : \url{TODO}.
 % TODO mieux décrire la hiérarchie et ses niveaux
 VerbNet contient 3769 lemmes, 5257 entrées réparties en 500 sous-classes dont
 270 classes de niveau 2 et 109 classes de niveau 1. La hiérarchie est
-relativement plate. Pour chaque (sous-)classe, ce lexique indique :
+relativement plate. Pour chaque classe, ce lexique indique :
 
 \begin{itemize}
         \item la liste des verbes de la classe,
@@ -381,9 +384,9 @@ des occurrences des verbes anglais dans un texte donné.
     \end{tabular}
 
     \caption{\label{fig:example_srl}Ces deux phrases annotées avec la classe
-    VerbNet carve-21.2 mettent en évidence que la position des arguments ne
-détermine pas directement les rôles: le sens et la voix de \textit{crush} ne
-change pas mais l'annotation sémantique est différente.}
+    VerbNet \texttt{carve-21.2} montrent que la position des arguments ne
+détermine pas à elle seule les rôles sémantique. Ici, le sujet syntaxique
+correspond d'abord à l'Agent puis au Patient.}
 
 \end{figure}
 
@@ -393,13 +396,13 @@ change pas mais l'annotation sémantique est différente.}
 % TODO mieux structurer : avantage *puis* inconvénient (ou l'inverse)
 À partir des années 70 deux ressources lexicales pour les verbes français ont
 été dévelopées : LVF et LG\footnote{Plus tard, dans les années 1990, une autre
-ressource a été dévelopée : Dicovalence. Nous ne l'utilisons presque pas dans
-nos travaux.}. Pourquoi ne pas utiliser ces ressources directement ? Un des
-intérêts des classes de Levin et de VerbNet par rapport aux ressources
+    ressource a été dévelopée : Dicovalence. Nous ne l'utilisons presque pas
+dans nos travaux.}. Pourquoi ne pas utiliser ces ressources directement ?  Un
+des intérêts des classes de Levin et de VerbNet par rapport aux ressources
 françaises est leur approche pragmatique qui se traduit notamment par l'absence
-de prise en compte des emplois métaphorique d'un verbe donné. Ainsi, les tables
-du LADL incluent des usages tels que \textit{L'idée gallopait dans son esprit}
-qui peuvent induire en erreur une application. Certains usages métaphoriques
+de prise en compte des emplois métaphorique d'un verbe donné. Ainsi, LG inclut
+des usages tels que \textit{Il galopait dans son esprit que Marie allait venir}
+qui peuvent induire en erreur une application.  Certains usages métaphoriques
 peuvent certes être prise en compte dans VerbNet, mais ils n'y sont pas par
 défaut. En effet, \cite{brown2012semantic} proposent une analyse systématique
 des emplois métaphorique de deux verbes représentatifs et montrent qu'utiliser
@@ -407,10 +410,23 @@ VerbNet pour raisonner sur les emplois métaphorique d'un texte est en partie
 possible au prix d'une complexité plus importante et de prédicats sémantiques
 moins précis.
 
-% TODO mieux que sous-sous-sous et nombre de E2f.1
 LVF (Les Verbes Français, \cite{dubois1997verbes}) contient environ 25000
-entrées classées en 14 classes sémantiques, 54 sous-classes
-syntactico-sémantiques, 248 sous-sous-classes et XXX sous-sous-sous-classes.
+entrées classées en quatre niveaux :
+
+\begin{itemize}
+
+    \item 14 classes génériques (par exemple \emph{E : Verbes de mouvement}),
+
+    \item 54 sous-classes sémantico-syntaxiques (par exemple \emph{C1 :
+        s'exprimer par un son, une parole}),
+
+    \item 246 sous-classes syntaxiques (par exemple \emph{M3b : imprimer tel
+        mouvement à quelquec chose} et
+
+    \item 533 sous-types (par exemple \emph{R3b.2 : défaire l'opération
+        faite}).
+
+\end{itemize}
 
 % TODO exemple
 
