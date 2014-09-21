@@ -218,16 +218,14 @@ simplification) qu'il suffit que le modèle de langue décrive parmi tous les
 sens le sens que nous souhaitons observer.
 
 % TODO qu'a dit le monsieur dans l'invited talk à GWC 2014 ?
-La question qui se pose maintenant que nous savons que nous voulons observer
-les distributions mentionnées par l'hypothèse distributionnelle est : comment
-représenter et calculer ces distributions ? Une façon d'opérer est de calculer
-la probabilité d'un mot dans une phrase étant donné les mots précédents. Par
-exemple, étant donné le début de phrase \emph{Au-delà des approches ...}, on
-veut connaître la probabilité du mot suivant, en espérant que celle de
-\emph{statistiques} ou \emph{supervisées} soit plus importante que celle de
-\emph{chat}. En prenant par exemple le contexte des deux mots qui précèdent le
-mot étudié, on calcule sa probabilité simplement avec le maximum de
-vraisemblance :
+Comment observer ces distributions de probabilité ? Une façon d'opérer est de
+calculer la probabilité d'un mot dans une phrase étant donné les mots
+précédents. Par exemple, étant donné le début de phrase \emph{Au-delà des
+approches ...}, on veut connaître la probabilité du mot suivant, en espérant
+que celle de \emph{statistiques} ou \emph{supervisées} soit plus importante que
+celle de \emph{chat}. En prenant par exemple le contexte des deux mots qui
+précèdent le mot étudié, on calcule sa probabilité simplement avec le maximum
+de vraisemblance :
 
 \[
 p(w_i|w_{i-2}, w_{i-1}) = \frac{compte(w_{i-2}, w_{i-1}, w_i)}{compte(w_{i-1}, w_i)}
@@ -304,7 +302,7 @@ Les réseaux de neurones ne sont qu'une façon d'obtenir de tels résultats. En
 particulier, \cite{levy2014linguistic} montrent qu'une nouvelle mesure de
 similarité permet d'obtenir des résultats similaires à
 \cite{mikolov2013efficient}, ce qui montre le besoin de continuer à étudier les
-réseaux de neurone pour mieux comprendre leur fonctionnement et savoir quand
+réseaux de neurones pour mieux comprendre leur fonctionnement et savoir quand
 leur utilisation est pertinente.
 
 \section{Traductions de ressources linguistiques}
@@ -607,7 +605,7 @@ PropBank \citep{palmer2005proposition} a décidé d'utiliser les annotations
 syntaxiques du Penn TreeBank \citep{marcus1993building} pour annoter en rôles
 sémantiques les phrases incluant un des 5000 verbes les plus fréquents du
 corpus. Pour chaque phrase, les annotateurs ont identifié les syntagmes jouant
-un rôles sémantique. L'objectif principal de PropBank est de permettre
+un rôle sémantique. L'objectif principal de PropBank est de permettre
 d'utiliser l'apprentissage automatique pour l'annotation en rôles sémantiques.
 C'est pour cette raison que les étiquettes disponibles sont très générales.
 Ainsi, il est fréquent que \textit{ARG0} désigne l'agent, \textit{ARG1} le
@@ -619,7 +617,7 @@ secondaires (\textit{Location}, \textit{Extent}, \textit{Manner}, etc.)
 
 NomBank \citep{meyers2004nombank} a été conçu à l'image de PropBank. La
 spécificité de cette ressource est de se concentrer sur les noms communs, plus
-particulièrement sur les 5 000 noms communs les plus fréquents dans le Penn
+particulièrement sur les 5~000 noms communs les plus fréquents dans le Penn
 TreeBank. Sur le million de mots présent dans le corpus, 250 000 sont des noms
 communs. 100 000 d'entre eux sont des noms issus d'un verbe ou qui se
 comportent à la façon d'un verbe. Par exemple, le nom commun français « achat »
@@ -628,7 +626,7 @@ les mêmes : dans « Il a acheté un arbre » et « l'achat d'un arbre »,
 \textit{ARG1} sera dans les deux cas l'arbre. D'autres catégories incluent les
 noms partitifs, relationnels et environnementaux.
 
-Pour une phrase telle que « They gave the chefs a standing ovation », les
+Pour une phrase telle que \emph{They gave the chefs a standing ovation}, les
 annotations PropBank et NomBank peuvent montrer les liens possibles entre ces
 deux ressources. Cette similarité volontaire a permis de lier ces ressources
 \citep{pustejovsky2005merging,verhagen2007combining}, mais des applications

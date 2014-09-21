@@ -16,7 +16,8 @@ regroupe les mots en ensembles de synonymes (\emph{synonym sets} ou
 sémantiques comme par exemple l'antonymie, l'hyperonymie, l'hyponymie ou encore
 la méronymie (section~\ref{subsec:ressources_lexicales}).
 
-Nos travaux \citep{pradet2013wonef} sont la suite de JAWS, présenté en détail à la
+Nos travaux \citep{pradet2013wonef,pradet2014wonef} sont la suite de JAWS, dont
+le fonctionnement est détaillé à la
 section~\ref{subsec:jaws_translation_process}. Cette nouvelle version de JAWS
 se nomme WoNeF : le nouveau nom évite la confusion avec une API Java pour
 WordNet (\emph{Java API for WordNet Searching}). Dans la suite de ce travail,
@@ -263,10 +264,10 @@ L'évaluation de JAWS souffre d'un certain nombre de limites (section
 de WordNet, nous avons produit une annotation de référence. Pour chaque partie
 du discours, 300 synsets ont été annotés par deux annotateurs locuteurs natifs
 du français. Pour chaque traduction candidate fournie par nos dictionnaires, il
-fallait décider si oui ou non elle appartenait au synset. Puisque les
-dictionnaires ne proposent pas de candidats pour tous les synsets et que
-certains synsets n'ont pas de candidat valable, le nombre réel de synsets non
-vides est inférieur à 300 (section \ref{subsec:interannotator_agreement}).
+fallait décider si elle appartenait au synset. Puisque les dictionnaires ne
+proposent pas de candidats pour tous les synsets et que certains synsets n'ont
+pas de candidat valable, le nombre réel de synsets non vides est inférieur à
+300 (section \ref{subsec:interannotator_agreement}).
 
 Durant l'annotation manuelle, nous avons rencontré une difficulté importante
 découlant de la tentative de traduire WordNet dans une autre langue. Dans le
@@ -290,16 +291,16 @@ L'autre difficulté principale découle de traductions manquantes, ce qui peut
 être considéré comme un défaut de nos dictionnaires. Les sens rares d'un mot
 sont parfois absents. Par exemple, le sens \textit{to catch} du jeu du chat (ou
 du loup) et le sens \textit{coat with beaten egg} du verbe \textit{to egg} ne
-sont pas présents. Aucun de ces sens ne sont dans les synsets les polysémiques
-(définis à la section~\ref{subsec:allvsbcs}), ce qui confirme que cela ne se
-produit que pour les sens rares. Pourtant, WoNeF pourrait être amélioré en
-utilisant des dictionnaires spécifiques pour, par exemple, les espèces (comme
-dans \cite{sagot2008construction}), les termes médicaux, les entités nommées
-(en utilisant Wikipedia) et ainsi de suite. Un autre exemple est celui des
-adjectifs de jugement : il n'y a pas de bonne traduction de \textit{weird} en
-français. Même si la plupart des dictionnaires fournissent \textit{bizarre}
-comme traduction, on ne retrouve pas dans \textit{bizarre} l'aspect
-\textit{stupide} du mot \textit{weird}: les deux adjectifs ne sont pas
+sont pas présents. Aucun de ces sens n'est dans les synsets les plus
+polysémiques (définis à la section~\ref{subsec:allvsbcs}), ce qui confirme que
+cela ne se produit que pour les sens rares. Pourtant, WoNeF pourrait être
+amélioré en utilisant des dictionnaires spécifiques pour, par exemple, les
+espèces (comme dans \cite{sagot2008construction}), les termes médicaux, les
+entités nommées (en utilisant Wikipedia) et ainsi de suite. Un autre exemple
+est celui des adjectifs de jugement : il n'y a pas de bonne traduction de
+\textit{weird} en français. Même si la plupart des dictionnaires fournissent
+\textit{bizarre} comme traduction, on ne retrouve pas dans \textit{bizarre}
+l'aspect \textit{stupide} du mot \textit{weird}: les deux adjectifs ne sont pas
 substituables dans tous les contextes, ce qui est un problème si l'on considère
 que le sens d'un synset doit être conservé par la traduction.
 
