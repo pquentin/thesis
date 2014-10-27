@@ -27,7 +27,7 @@ de l'annotation serait :
     Mrs. Aouda & \textbf{essaya}  & vainement & de retenir Mr. Fogg. \tabularnewline
     \end{tabular}
     \caption{\label{fig:introsrl}Le verbe \emph{essayer} déclenche la situation \emph{Tentative}.
-    Les différents syntagmes liés au verbe jouent chacun un rôle sémantique.}
+    Les différents syntagmes liés au verbe jouent chacun un rôle sémantique ici.}
 \end{figure}
 
 Différentes informations sont disponibles après l'annotation en rôles
@@ -35,8 +35,9 @@ sémantiques :
 
 \begin{itemize}
     \item Le prédicat ayant déclenché la frame est identifié. Dans la
-        figure~\ref{fig:introsrl}, c'est un verbe, mais d'autres parties du
-        discours peuvent déclencher une frame.
+        figure~\ref{fig:introsrl}, c'est un verbe. D'autres parties du
+        discours peuvent déclencher une frame, mais nous nous concentrons dans
+        ce travail essentiellement sur les verbes.
     \item La frame est identifiée, ici \emph{Tentative}.
     \item Enfin, les rôles exprimés sont annotés. Par exemple, \emph{Mrs.
         Aouda} est l'Agent.
@@ -44,30 +45,44 @@ sémantiques :
 
 \subsection{Applications}
 
-% TODO est-ce que http://www.aclweb.org/anthology/D/D14/D14-1188.pdf est
-% différent ou mieux que bazrafshan2013semantic ?
-Selon \cite{gildea2002automatic}, l'annotation en rôles sémantiques est une
-évolution naturelle de certains travaux sur l'extraction d'information où les
-systèmes traitent des situations très spécifiques, par exemple la détection de
-résultats d'évènements sportifs ou la détection dans des corpus journalistiques
-de l'acquisition d'entreprises. En effet, à chaque nouveau système d'extraction
-d'information dans un domaine différent, il est nécessaire de redéfinir les
-différents patrons sémantiques et d'entraîner un nouveau système sur de
-nouvelles données. En s'appuyant sur le corpus FrameNet et pour évoluer vers
-une généralisation de ces systèmes, \cite{gildea2002automatic} présentent le
-premier système général d'annotation en rôles sémantiques. Sans pour autant
-remplacer les systèmes d'extraction d'information\footnote{TODO différences},
-l'annotation en rôles sémantiques a été utilisée dans diverses applications,
-notamment les systèmes de questions-réponses \citep{shen2007using},
-l'extraction d'évènements \citep{exner2011using},  l'analyse d'opinions
-\citep{das2012structure}, la traduction automatique
-\citep{bazrafshan2013semantic} ou la recommandation fondée sur le contenu
-\citep{de2014exploiting}. Un des intérêts de la généralité de l'annotation en
-rôles sémantiques est de s'adapter facilement à de nouvelles tâches. Ainsi,
-l'annotation en rôles sémantiques à été utilisée pour la détection de plagiat
+Selon \cite{gildea2002automatic}, l'annotation en rôles sémantiques est
+historiquement une évolution naturelle de certains travaux sur l'extraction
+d'information où les systèmes traitent des situations très spécifiques, par
+exemple la détection de résultats d'évènements sportifs ou la détection
+d'acquisitions d'entreprises dans des corpus journalistiques. À chaque nouveau
+système d'extraction d'information dans un domaine différent, il est nécessaire
+de redéfinir les différents patrons sémantiques et d'entraîner un nouveau
+système sur de nouvelles données, et l'annotation en rôles sémantiques est vue
+comme une solution à ce problème. C'est dans cette optique que
+\cite{gildea2002automatic} s'appuient sur le corpus FrameNet et présentent le
+premier système d'annotation en rôles sémantiques.
+
+Aujourd'hui, les systèmes d'annotation en rôles sémantiques n'ont pas remplacé
+les systèmes d'extraction d'information. Une des raisons est que les
+difficultés sont différentes \citep{boros2014etiquetage} :
+
+\begin{itemize}
+    \item un système d'extraction d'information pourra utiliser plusieurs
+        phrases pour remplir un évènement alors que l'annotation en rôles
+        sémantique annote encore les phrases indépendamment,
+    \item l'extraction d'informations se concentre sur un petit nombre
+        d'évènements et d'étiquettes au sein d'un même évènement alors que les
+        systèmes d'annotations en rôles sémantiques doivent traiter un grand
+        nombre de situations différentes, chacune ayant ses propres étiquettes.
+\end{itemize}
+
+L'annotation en rôles sémantiques a par contre été utilisée dans un grand
+nombre d'autres applications, notamment les systèmes de questions-réponses
+\citep{shen2007using}, l'extraction d'évènements \citep{exner2011using},
+l'analyse d'opinions \citep{das2012structure} ou la traduction automatique
+\citep{bazrafshan2013semantic,bazrafshan2014comparing}. Un des intérêts de la
+généralité de l'annotation en rôles sémantiques est de s'adapter facilement à
+de nouvelles tâches. Ainsi, l'annotation en rôles sémantiques à aussi été
+utilisée sur des tâches moins classiques en : la détection de plagiat
 \citep{osman2012improved}, la prédiction des cours de bourse
 \citep{xie2013semantic}, la génération de scènes 3D \citep{chang2014learning},
-ou l'interprétation de recettes de cuisine \citep{malmaud2014cooking}.
+la recommandation fondée sur le contenu \citep{de2014exploiting} ou
+l'interprétation de recettes de cuisine \citep{malmaud2014cooking}.
 
 \subsection{Contraintes}
 
