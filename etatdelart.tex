@@ -624,6 +624,25 @@ patient. D'autres arguments sont disponibles pour étiqueter des rôles plus
 spécifiques (\textit{ARG2}, \textit{ARG3}, etc.) ainsi que des rôles
 secondaires (\textit{Location}, \textit{Extent}, \textit{Manner}, etc.)
 
+En raison de la difficulté de conception d'un tel corpus, peu d'équivalents
+existent dans d'autres langues. C'est la raison pour laquelle
+\cite{exner2014nugues} proposent de développer automatiquement un nouveau
+PropBank du suédois en se basant sur le PropBank anglais et en utilisant
+Wikipédia comme un corpus parallèle. C'est une piste intéressante pour apporter
+l'annotation en rôles sémantiques à une nouvelle langue, et finalement assez
+proche de la notre. Les principales différences sont les suivantes :
+
+\begin{itemize}
+    \item notre approche produit une nouvelle ressource, VerbNet, qui est
+        l'occasion de décrire les verbes du français et de corriger certaines
+        erreurs des ressources existantes \citep{pradet2014adapting},
+    \item notre approche produit probablement un système avec une performance
+        moins bonne \emph{sur le corpus PropBank}, et probablement aussi bonne
+        sur d'autres corpus d'autres domaines ou d'autres genres,
+    \item et la simplicité de notre approche permet de l'intégrer facilement à un
+        système complexe ayant besoin de comprendre le langage naturel.
+\end{itemize}
+
 \paragraph{NomBank}
 
 NomBank \citep{meyers2004nombank} a été conçu à l'image de PropBank. La
