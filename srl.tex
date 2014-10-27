@@ -418,7 +418,8 @@ plus de 95~\% des occurrences sont mis en correspondance.
 
 Nous avons modifié ce mapping pour ajouter des correspondances manquantes : en
 attendant que ces modifications soient prises en compte par SemLink, le mapping
-utilisé est disponible à \url{http://TODO}. % TODO mettre en ligne. GitHub ?
+utilisé est disponible :
+\url{https://github.com/aymara/knowledgesrl/blob/master/data/vn-fn-roles.xml}.
 
 \section{Gestion de la voix passive}
 \label{sec:passif}
@@ -608,20 +609,24 @@ Enfin, différents modèles sont appliqués :
 
 \subsection{Analyse des résultats}
 
-% TODO relancer le code pour être sur de ces résultats
-% TODO pourquoi telle ou telle combinaison ?
+% TODO keep up to date when score changes
+% TODO include passive in argid once fixed
 \begin{table*}[ht]
     \centering
     \begin{tabular}{lcccc}
         \toprule
-        Task                                           & F1        & Accuracy \\
+        Task                                                  & F1        & Accuracy \\
         \midrule
-        Correspondance exacte                          & 70.48\%   & 53.09\%  \\
-        Correspondance exacte + probabiliste            & 72.02\%   & 58.28\%  \\
-        Correspondance exacte + probabiliste + Passif   & 76.40\%   & 62.72\%  \\
+        Correspondance exacte                                 & 71.13\%   & 54.73\%  \\
+        Correspondance exacte + passif                        & 73.54\%   & 57.27\%  \\
+        Correspondance exacte + probabiliste                  & 71.86\%   & 58.64\%  \\
+        Correspondance exacte + probabiliste + passif         & 74.07\%   & 60.56\%  \\
+        Correspondance exacte + bootstrap                     & 73.63\%   & 69.41\%  \\
+        Correspondance exacte + bootstrap + passif            & 76.08\%   & 72.09\%  \\
         \midrule
-        Identification + Correspondance exacte                            & 46.75\%   & 29.12\%  \\
-        Identification + Correspondance exacte + Passif & 46.78\%   & 33.49\%  \\
+        Identification + Correspondance exacte                & 48.52\%   & 33.17\%  \\
+        Identification + Correspondance exacte + probabiliste & 48.74\%   & 34.96\%  \\
+        Identification + Correspondance exacte + bootstrap    & 49.61\%   & 41.41\%  \\
         \bottomrule
     \end{tabular}
 
