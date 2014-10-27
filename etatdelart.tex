@@ -506,25 +506,34 @@ aussi été menées en japonais \citep{suzuki2009classifying}, allemand
 traductions directes dont nous avons la connaissance sont le VerbNet estonien
 \citep{jentson2014verbnet} et le VerbNet portuguais brésilien
 \citep{scarton2012towards} qui utilise des mappings entre VerbNet et WordNet,
-et entre WordNet.Br et WordNet.
+et entre WordNet.Br et WordNet. \cite{scarton2014using} propose la création
+d'un VerbNet brésilien en s'appuyant sur la traduction manuelles des frames
+VerbNet vers la langue cible et les ressources lexicales WordNet, VerbNet et
+WordNet.Br, dans l'optique de créer des VerbNets pour les langues proches de
+l'anglais disposant déjà d'un WordNet. La méthode a été testée pour le
+brésilien portuguais ; la comparaison des clusters de verbes de
+\citep{scarton2012towards} indique un F-score de 60~\%. Comme l'indiquent les
+auteurs, la ressource obtenue ne peut servir que de base à une annotation
+linguistique.
 
 Pour le français, \cite{saintdizier1996constructing} a produit une ressource
 proche des classes de Levin. À notre connaissance, l'effort sur cette ressource
-s'est arrêté et le résultat n'est pas disponible. Des travaux se sont ensuite
-concentrés sur l'acquisition automatique de cadres de sous-catégorisation et
-sur le regroupement de verbes en se basant sur ces cadres et sur des
-similarités sémantiques. \cite{sun2010investigating} ont utilisé un large
-lexique de cadres de sous-catégorisation \citep{messiant2010acquisition} pour
-regrouper les verbes en clusters à l'aide de traits sémantiques (colocations et
-préférences lexicales des verbes) et syntaxiques (cadres de
-sous-catégorisation). L'évaluation sur une vérité-terrain créée manuellement a
-mené à une F-mesure de 55.1\%. \cite{falk2012classifying} appliquent un
-algorithme de clustering différent et utilisent des features différentes, ce
-qui améliore la F-mesure sur la même vérité-terrain mais simplifiée, ce qui
-donne une F-mesure de 70\%. Ces ressources mettent en valeur de nouvelles
-façons de séparer les verbes du Français, mais les erreurs qu'elles contiennent
-seront une nouvelle source d'erreur dans les applications : il est important de
-les corriger si possible.
+s'est arrêté et le résultat n'est pas disponible\footnote{Nous n'avons
+cependant pas contacté l'auteur de cette ressource}. Des travaux se sont
+ensuite concentrés sur l'acquisition automatique de cadres de
+sous-catégorisation et sur le regroupement de verbes en se basant sur ces
+cadres et sur des similarités sémantiques. \cite{sun2010investigating} ont
+utilisé un large lexique de cadres de sous-catégorisation
+\citep{messiant2010acquisition} pour regrouper les verbes en clusters à l'aide
+de traits sémantiques (colocations et préférences lexicales des verbes) et
+syntaxiques (cadres de sous-catégorisation). L'évaluation sur une
+vérité-terrain créée manuellement a mené à une F-mesure de 55.1\%.
+\cite{falk2012classifying} appliquent un algorithme de clustering différent et
+utilisent des features différentes, ce qui améliore la F-mesure sur la même
+vérité-terrain mais simplifiée, ce qui donne une F-mesure de 70\%. Ces
+ressources mettent en valeur de nouvelles façons de séparer les verbes du
+Français, mais les erreurs qu'elles contiennent seront une nouvelle source
+d'erreur dans les applications : il est important de les corriger si possible.
 
 
 \section{Annotation en rôles sémantiques}
