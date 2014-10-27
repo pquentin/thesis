@@ -22,8 +22,8 @@ notre système est, suivant le point de vue :
 \begin{itemize}
     \item une \emph{baseline} forte,
     \item une première étape pour annoter un nouveau domaine avec peu d'efforts,
-    \item ou la base d'un système complet d'annotation en rôles sémantiques une fois que VerbNet a
-été mis à jour par rapport au domaine.
+    \item un système complet d'annotation en rôles sémantiques une fois que
+        VerbNet a été mis à jour par rapport au domaine considéré.
 \end{itemize}
 
 De plus, cette méthode peut identifier des manquements dans VerbNet.
@@ -339,8 +339,13 @@ Prenons deux phrases d'exemple pour illustrer le mapping. Voici deux phrases
 présentes dans DiCoInfo et DiCoEnviro :
 
 \begin{itemize}
-    \item In the interest of fair competition you should ALLOCATE the same amount of memory to both engines.
-    \item Techniques and tools exist to MEASURE carbon stocks in project areas relatively precisely depending on the carbon pool.
+
+    \item \emph{In the interest of fair competition you should ALLOCATE the
+        same amount of memory to both engines}.
+
+    \item \emph{Techniques and tools exist to MEASURE carbon stocks in project areas
+        relatively precisely depending on the carbon pool.}
+
 \end{itemize}
 
 Dans la première phrase, le sens du verbe \textit{allocate} au sens
@@ -360,9 +365,9 @@ VerbNet) ont étés mis en correspondance avec les rôles de VerbNet :
 \end{itemize}
 
 Une fois que ce mapping est réalisé, la tâche de notre algorithme d'annotation
-en rôles sémantiques devient de détecter que la classe future\_having-13.3 est
-utilisée ici, que 'You' est Agent, que 'the same amount of memory' est Theme,
-et que 'to both engines' est Goal.
+en rôles sémantiques devient de détecter que la classe \texttt{future\_having-13.3} est
+utilisée ici, que \emph{You} est Agent, que \emph{the same amount of memory} est Theme,
+et que \emph{to both engines} est Goal.
 
 Pour la seconde phrase, la démarche est la même : il s'agit d'identifier que la
 classe Verbnet est \texttt{register-54.1}, que \textit{Techniques and tools}

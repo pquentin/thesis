@@ -10,7 +10,8 @@ nos objectifs (section~\ref{objectifs_these}) mais n'existe qu'en anglais :
 c'est pourquoi nous présentons dans ce chapitre sa traduction vers le français,
 \verbenet{}\footnote{Le nom vient de la prononciation à la française qui
 "rajoute" un \emph{e}. Le $\ni$ est là pour bien marquer ce \emph{e} et ainsi
-essayer d'éviter la confusion avec VerbNet.}.
+essayer d'éviter la confusion avec VerbNet.}
+\citep{danlos2014vers,pradet2014adapting}.
 
 La construction de cette ressource s'est faite en trois étapes. Nous avons
 d'abord traduit vers le français les membres des classes de premier niveau dans
@@ -133,8 +134,8 @@ partie d'une même super-classe sont souvent liées et il faut les comprendre
 dans leur ensemble avant de commencer l'édition. Pour chaque classe, nous
 pouvons éditer ses frames, ajouter ou supprimer des sous-classes ou des frames.
 Par exemple, pour la suppression, toutes les frames impliquant un conatif, un
-datif ou une alternance bénéfactive (?) peuvent être systématiquement
-supprimées : ces alternances n'existent pas en français.
+datif ou une alternance bénéfactive peuvent être systématiquement supprimées :
+ces alternances n'existent pas en français.
 
 \begin{figure}
 
@@ -168,7 +169,7 @@ frames anglaises et françaises.
 La première différence concerne les sous-structures, c'est-à-dire les frames
 avec un complément manquant tel que \emph{NP V} (Luc gravait) dans
 {\color{blue}image-impression-25.1}. C'est en effet ici une sous-structure de
-\emph{NP V NP.Destination} (Luc gravait les annaux). Le codage de telles
+\emph{NP V NP.Destination} (Luc gravait les anneaux). Le codage de telles
 sous-structures est difficile à justifier quand il est basé sur l'introspection
 linguistique et nécessite une étude de corpus. Nous ne savons pas comment ce
 codage a été fait dans VerbNet et n'avons pas à notre disposition de corpus
@@ -189,17 +190,17 @@ Fred a transferré le vin vers la cruche en terre cuite}. Dans ce cas
 exceptionnel, les sous-structures sont codées explicitement.}.
 
 La deuxième différence concerne l'ordre des compléments. VerbNet encode parfois
-deux frames qui ne diffèrent que par l'ordre des compléments, par exemple dans
+des frames qui ne diffèrent que par l'ordre des compléments, par exemple dans
 {\color{blue}bring-11.3} les frames NP V NP PP.Destination NP (\emph{Nora
-brought to lunch the book}) et NP V PP.Destination NP (\emph{Nora brought to
-lunch the book}). En français, l'ordre des compléments dépend d'un certain
+brought to lunch the book}) et NP V NP PP.Destination (\emph{Nora brought the
+book to the meeting}). En français, l'ordre des compléments dépend d'un certain
 nombre de facteurs syntaxiques et sémantiques \citep{thuilier2012contraintes},
 mais ne dépend pas a priori d'un facteur lexical : il ne dépend pas du verbe
 qui gouverne les compléments. C'est pour cette raison que \verbenet{} n'encode
 qu'un frame dans ces cas, ici seulement \emph{NP V NP PP.Destination}
-(\emph{Nora a apporté le livre au metting}) avec l'objet direct avant le
+(\emph{Nora a apporté le livre au meeting}) avec l'objet direct avant le
 syntagme prépositionnel. C'est à l'utilisateur de la ressource de considérer
-que l'autre option (\emph{NP V PP.Destination}, \emph{Nora a apporté au meeting
+que l'autre option (\emph{NP V PP.Destination NP}, \emph{Nora a apporté au meeting
 le livre}) est tout aussi valable.
 
 \subsubsection{Travail au cas par cas}\label{subsubsec:casebycase}
@@ -275,23 +276,23 @@ tout détailler, insistons sur ces quelques points :
         et {\color{blue}fulfilling-13.4-2} doit être remplacée par \emph{en}
         et/ou \emph{de} suivant le verbe (e.g. \emph{Luc livre Max en/*de
         lait}, \emph{Luc équipe Max en/de téléviseurs}, \emph{Luc dote Max
-        *en/de téléviseurs}, ce qui nécessite une réorganisation en
+        *en/de téléviseurs}), ce qui nécessite une réorganisation en
         sous-classes pour distinguer ces verbes.
 
 \end{itemize}
 
 En conclusion, il s'avère que rentrer dans le détail des frames lors de cette
 deuxième étape nous a mené a faire évoluer la hiérarchie de \verbenet{}.
-Cependant, nous essayons de limiter les modifications au cas où il est
-impossible de faire autrement afin de profiter au maximum de VerbNet et pour
-pouvoir profiter du lien entre les deux ressources.
+Cependant, nous essayons de limiter les modifications quand il est impossible
+de faire autrement afin de profiter au maximum de VerbNet et pour pouvoir
+profiter du lien entre les deux ressources.
 
 \subsection{Troisième étape}
 \label{third}
 
 La troisième étape, qui n'a pas encore commencé, est de valider manuellement
 pour chaque classes les verbes proposés par correspondance de ressources en
-supprimant les verbes erronés et en rajoutant les verbes manquant à fin que la
+supprimant les verbes erronés et en rajoutant les verbes manquants afin que la
 ressource ait été entièrement validée manuellement.
 
 \section{Conclusion}
@@ -301,8 +302,7 @@ VerbNet vers une nouvelle langue. Cette méthode combine l'automatisation du
 transfert de frames, la traduction automatique du lexique et une expertise
 linguistique. Nous avons appliqué cette méthode au français et avons atteint un
 point où cette ressource est validée et le travail systématique sur chaque
-classe est en course. Nous reconnaissons les différences qui existent entre
-les langues : la structure de \verbenet{} n'est pas exactement celle de
-VerbNet.
+classe est en cours. Nous reconnaissons les différences qui existent entre les
+langues : la structure de \verbenet{} n'est pas exactement celle de VerbNet.
 
 % TODO libérer !

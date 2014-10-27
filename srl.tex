@@ -19,7 +19,7 @@ corpus annotés mais sur des ressources lexicales existantes. Ce type d'approche
 a été négligé malgré leur complémentarité par rapport aux autres approches.
 
 En nous inspirant de \citep{swier2004unsupervised,swier2005exploiting}, nous
-montrons dans ce chapitre un système d'annotation en rôles sémantiques fondé
+présentons dans ce chapitre un système d'annotation en rôles sémantiques fondé
 sur la connaissance qui se veut simple à mettre en place et facile à
 reproduire. La prise en compte de divers phénomènes linguistiques doit
 permettre d'améliorer les performances par rapport à un état donné. Par
@@ -27,7 +27,7 @@ exemple, la prise en compte de la voix passive a réduit le taux d'erreur de
 15,7~\%, ce qui montre la marge de progrès existante. Malgré des performances
 moindres par rapport aux approches supervisées quand des données d'entraînement
 existent, l'approche facilite l'analyse des erreurs, n'a pas besoin d'un corpus
-annoté manuellement et est /emph{a priori} indépendante du domaine considéré.
+annoté manuellement et est \emph{a priori} indépendante du domaine considéré.
 
 Ce chapitre se concentre sur notre système d'annotation en rôles sémantiques
 dans un cadre général en l'utilisant sur le corpus FrameNet anglais (qui a été
@@ -92,21 +92,17 @@ s'intéresser à d'autres phrases potentiellement contradictoires, etc.
 \section{Système}
 
 Le système présenté est similaire à celui de
-\cite{swier2004unsupervised,swier2005exploiting}. Dix ans après, il est
-important d'évaluer à nouveau cette approche pour savoir où elle se situe par
-rapport à l'état de l'art. Nous proposons par ailleurs certaines améliorations.
-
-% Explain what's wrong with swier & stevenson
-Existing work on the knowledge-based semantic role labeling task is now dated
-but the resources have much improved since then: \citep{swier2005exploiting}
-could only use VerbNet 1.5, but VerbNet 3.2 is now available. They also had to
-use a custom mapping to FrameNet for the evaluation of their method while the
-SemLink project has provided us an ``official'' FrameNet-VerbNet mapping.
-FrameNet has been also vastly improved and extended since 2005: new training
-data is available, many corrections have been made, and a full-text corpus can
-now be used to evaluate semantic role labeling in a more realistic way.
-
-
+\cite{swier2004unsupervised,swier2005exploiting} qui se base sur VerbNet.
+Néanmoins, les ressources utilisées ont beaucoup progressé (VerbNet 1.5 contre
+VerbNet 3.2 notamment). Les corpus sur lesquels s'évaluer ont aussi évolué. En
+particulier, les systèmes basés sur FrameNet n'utilisent plus le corpus de
+phrases d'exemples choisis pour leur diversité syntaxique mais s'évaluent sur
+des annotations de toutes les frames présentes dans des textes issus de
+différentes sources. \cite{swier2005exploiting} utilisent aussi un mapping non
+disponible alors que le projet SemLink a fourni un mapping FrameNet-VerbNet
+«~officiel~». Dix ans après, il est donc important d'évaluer à nouveau cette
+approche pour savoir où elle se situe par rapport à l'état de l'art. Nous
+proposons par ailleurs certaines améliorations.
 
 Pour commencer, chaque phrase à annoter doit d'abord être étiquetée en
 morphosyntaxe et analysée syntaxiquement. Nous laissons ici ces analyses à des
@@ -302,8 +298,8 @@ larges corpus \citep{bonial2013expanding}. Le résultat de ces travaux n'est
 cependant pas disponible dans la version 3.2 de VerbNet que nous utilisons. Ce
 problème de couverture empêche d'assigner la classe VerbNet qui convient. Par
 conséquent, même si on sait que quelle que soit la classe, le sujet serait
-Agent et le premier objet Theme, cette information n'est pas utile parce qu'on
-ne sait pas comment l'interpréter.
+Agent et le premier objet Theme, cette information est difficilement
+interprétable dans une application.
 
 % TODO différents algorithmes de match
 % TODO nouvel algorithme : oublier complètement l'ordre
@@ -330,7 +326,7 @@ correspondance pour désambiguïser les correspondances ambigües. La méthode
 reste non supervisée : bien que nous entraînions une forme simple d'algorithme
 supervisé, nous le faisons sur des données qui sont initialement non annotées.
 En effet, elles sont simplement obtenues automatiquement sur le corpus existant
-à l'aide la correspondance exacte. Nous faisons ici l'hypothèse qu'un corpus
+à l'aide de la correspondance exacte. Nous faisons ici l'hypothèse qu'un corpus
 entier est à annoter, mais dans le cas où l'annotation se ferait phrase par
 phrase, il serait possible d'abandonner cette étape ou d'alimenter les
 classifieurs que nous utilisons au fur et à mesure des annotations. Cette étape
@@ -435,8 +431,8 @@ qui n'est pas le cas du français). C'est donc au moment de l'analyse syntaxique
 que les sujets et objets syntaxiques, profonds ou non, doivent être identifiés
 correctement. Pour annoter la phrase \emph{the artifacts were classified by the
 curator} en rôles sémantiques, il est donc important de d'abord transformer la
-phrase en \emph{the curator classified the artifacts} avant la comparaison les
-frames VerbNet.
+phrase en \emph{the curator classified the artifacts} avant d'effectuer la
+correspondance avec les frames VerbNet.
 
 Les sujets et objets profonds ne sont pas encodés dans les corpus annotés en
 syntaxe que nous utilisons (le Wall Street Journal pour l'anglais, cf.
@@ -453,13 +449,13 @@ corpus.  Pour annoter les verbes utilisés avec la voix passive (et uniquement
 pour ceux là), nous avons remplacés les frames VerbNet par leur deux
 équivalents à la voix passive. Les verbes utilisés au passif en anglais sont au
 participe passé et gouvernés par une forme du verbe \emph{to be}. Étant donné
-une frame VerbNet telle que \emph{NP.Agent V NP.Recipient NP.Theme (eg. the
+une frame VerbNet telle que \emph{NP.Agent V NP.Theme (eg. the
 curator classified the artifacts)}, nous la remplaçons par deux nouvelles
 frames :
 
 \begin{itemize}
-    \item NP.Recipient V NP.Theme (the artifacts were classified)
-    \item NP.Recipient V NP.Theme by NP.Agent (the artifacts were classified by the curator)
+    \item NP.Recipient V (the artifacts were classified)
+    \item NP.Recipient V by NP.Agent (the artifacts were classified by the curator)
 \end{itemize}
 
 Ce sont ces frames VerbNet transformées qui sont utilisées lorsque qu'une voix
@@ -590,7 +586,7 @@ ou plusieurs rôles VerbNet :
 Dans tous les autres cas, un rôle FrameNet correspond à un rôle VerbNet unique,
 et c'est ce rôle VerbNet que notre système doit déterminer. Nous mesurons la
 précision, le rappel et l'exactitude (\emph{accuracy}) des associations
-role/syntagmes candidats. 10~\% du corpus a été utilisé pour obtenir les
+rôle/syntagmes candidats. 10~\% du corpus a été utilisé pour obtenir les
 résultats, le reste correspond au corpus "d'entraînement" traditionnellement
 utilisé en apprentissage automatique. En effet, aucun modèle n'a été appris sur
 ce corpus, mais c'est celui sur lequel nous examiné manuellement les erreurs de
@@ -731,10 +727,13 @@ chaque fois quel est le sujet profond. Voici deux exemples tirés du corpus
 FrameNet :
 
 \begin{itemize}
-    \item You are not fair when you belittle Sheik Bin Baz 's blunder and
-          exaggerate the one by Sheik Maqdasi ...
-    \item Hostile and even friendly nations routinely steal information from
-          U.S. companies and share it with their own companies
+
+    \item \emph{You are not fair when you belittle Sheik Bin Baz 's blunder and
+        exaggerate the one by Sheik Maqdasi ...}
+
+    \item \emph{Hostile and even friendly nations routinely steal information
+        from U.S. companies and share it with their own companies}
+
 \end{itemize}
 
 L'objectif est de traiter ces phénomènes de manière plus générale en intégrant
