@@ -31,7 +31,6 @@ en utilisant le même format XML que le VerbNet anglais.
 
 \section{Construction de \verbenet{}}
 
-% TODO zero-related to a noun = dénominal ?
 Notre principe de base est que la hiérarchie supérieure de VerbNet doit être
 aussi proche que possible de celle de VerbNet et ses 270 classes. Néanmoins,
 certaines classes peuvent disparaître. Ceci peut être dû à des raisons purement
@@ -87,8 +86,7 @@ français : \emph{composer}, \emph{couper}, \emph{donner}, \emph{exécuter},
 pour cette classe.  Cette méthode produit un lexique de 4058 verbes (2128
 verbes distincts).
 
-% TODO An evaluation on 10 randomly chosen classes shows that XX.X\% of verbs are indeed valid.
-
+% TODO Évaluer automatiquement à l'aide de la validation des verbes
 
 \subsection{Deuxième étape}\label{second}
 
@@ -118,7 +116,7 @@ et le français (section~\ref{subsubsec:casebycase}).
 \subsubsection{Outil d'édition de \verbenet{}}\label{toolquentin}
 
 Nous avons du développer un outil permettant d'éditer collaborativement
-VerbNet\footnote{Cet outil est disponible sur GitHub :
+VerbNet\footnote{Cet outil est libre et disponible sur GitHub :
 \url{https://github.com/aymara/verbenet-editor}.}. Cet outil est en fait un
 site web présentant VerbNet : ses classes, ses frames, ses verbes, etc.  Tous
 les éléments sont modifiables, ce qui permet aux lexicographes de se concentrer
@@ -290,10 +288,16 @@ profiter du lien entre les deux ressources.
 \subsection{Troisième étape}
 \label{third}
 
-La troisième étape, qui n'a pas encore commencé, est de valider manuellement
-pour chaque classes les verbes proposés par correspondance de ressources en
-supprimant les verbes erronés et en rajoutant les verbes manquants afin que la
-ressource ait été entièrement validée manuellement.
+La troisième étape  est de valider manuellement pour chaque classes les verbes
+proposés par correspondance de ressources en supprimant les verbes erronés et
+en rajoutant les verbes manquants afin que la ressource ait été entièrement
+validée manuellement. Aucun verbe n'est ajouté manuellement : les annotateurs
+cliquent directement sur les verbes inférés pour les valider ou les invalider.
+Les traductions des dictionnaires étant très productives, les verbes souhaités
+sont systématiquement dans les traductions proposées, même s'ils peuvent être
+absent des correspondances LADL, LVF ou les deux. Dans les rares cas où un
+verbe souhaité n'est pas trouvé, c'est une occasion de contribuer au
+Wiktionnaire pour le rajouter.
 
 \section{Conclusion}
 
@@ -305,4 +309,4 @@ point où cette ressource est validée et le travail systématique sur chaque
 classe est en cours. Nous reconnaissons les différences qui existent entre les
 langues : la structure de \verbenet{} n'est pas exactement celle de VerbNet.
 
-% TODO libérer !
+% TODO exporter dans un format libre et mettre quelque part !

@@ -57,18 +57,22 @@ système. En utilisant le corpus FrameNet, il commence par identifier les
 prédicats, identifie la frame correcte évoquée par ces prédicats, puis
 identifie les groupes de mots qui jouent un rôle pour ce prédicat donné.
 
-% TODO compréhension située ?
-% TODO mieux identifier ce que cette tâche fait vraiment
-
-Dans le domaine du football, \cite{chen2008learning} entraînent un système de
-commentaires à partir de commentaires existants et d'états de simulations de
-parties de football, mais sans connaissance explicite de l'anglais. Leur
-approche a inspiré d'autres travaux sur la compréhension située de la langue :
-\citep{bordes2010towards} et \cite{richardson2012towards} ont proposé par la
-suite d'autres corpus pour entraîner de tels systèmes. Notre système est
-similaire dans le sens où nous minimisons l'effort humain pour annoter
-automatiquement de nouveaux domaines, mais nous nous concentrons sur la tâche
-de l'annotation en rôles sémantiques sur des corpus de type FrameNet.
+Une autre tâche proche de l'annotation en rôles sémantiques est celle de la
+compréhension située (\emph{situated understanding} en anglais). L'objectif est
+de comprendre un texte écrit en langage naturel dans un certain contexte
+spatial bien délimité, par exemple un terrain de football pendant un match, ou
+la pièce d'une maison. Dans le domaine du football, \cite{chen2008learning}
+entraînent un système de commentaires à partir de commentaires existants et
+d'états de simulations de parties de football, mais sans connaissance explicite
+de l'anglais. Leur approche a inspiré d'autres travaux sur la compréhension
+située : \citep{bordes2010towards} et \cite{richardson2012towards} ont proposé
+par la suite d'autres corpus pour entraîner de tels systèmes.
+\cite{chang2014learning} génèrent eux des scènes 3D à partir de textes tels que
+"Il y a une pièce avec une chaise et un ordinateur" en essayant d'inférer les
+contraintes implicites telles que la présence d'un bureau. Notre système est
+similaire à ces systèmes dans le sens où nous minimisons l'effort humain pour
+annoter automatiquement de nouveaux domaines, mais nous nous concentrons sur la
+tâche de l'annotation en rôles sémantiques sur des corpus de type FrameNet.
 
 Le système d'annotation en rôles sémantiques de \cite{gormley2014low} ne
 demande certes pas de syntaxe supervisée, mais nécessite tout de même un corpus
@@ -86,8 +90,9 @@ avec deux approches différentes :
 
 \end{itemize}
 
-Nos travaux vont dans la direction opposée : nous souhaitons annoter un grand
-nombre de phrases provenant de divers domaines sans utiliser de corpus annoté.
+Même si nous utilisons le même corpus, nos travaux vont dans la direction
+opposée : nous souhaitons annoter un grand nombre de phrases provenant de
+divers domaines sans utiliser de corpus annoté.
 
 \section{Approche}
 \label{sec:domainsrl_approche}
@@ -205,7 +210,7 @@ domaine, quelle était l'erreur. L'accord inter-annotateur permet de valider la
 distinction domaine spécifique/domaine général malgré l'impossibilité de la
 définir précisément.
 
-TODO: le faire....
+% TODO: le faire....
 
 C'est pour cette raison que l'enrichissement de VerbNet se fait de deux
 manières : certains verbes et constructions sont ajoutés comme faisant partie
@@ -240,7 +245,7 @@ constructions observées avec les constructions présentes. Enfin, cela a permis
 de faire des propositions quant à la position d'un nouveau lexème dans la
 ressource.
 
-TODO: le faire....
+% TODO: le faire....
 
 \section{Expériences}
 
@@ -311,7 +316,13 @@ les rôles ne correspondent pas directement aux rôles VerbNet, et il faut donc
 établir une correspondance entre les rôles VerbNet et les rôles des trois
 corpus.  Nous avons assigné manuellement une classe VerbNet à chaque classe des
 trois corpus, tout en faisant correspondre les rôles. Le résultat de ce mapping
-est disponible à TODO.
+est disponible aux URls suivantes :
+
+\begin{itemize}
+    \item DiCoInfo anglais : \url{https://github.com/aymara/knowledgesrl/blob/master/data/domain/info/vnroles_info_en.xml}
+    \item DiCoEnviro anglais : \url{https://github.com/aymara/knowledgesrl/blob/master/data/domain/enviro/vnroles_enviro_en.xml}
+    \item Kicktionary : \url{https://github.com/aymara/knowledgesrl/blob/master/data/domain/kicktionary/kicktionary-vn-roles.xml}
+\end{itemize}
 
 Dans le cas de DiCoInfo et DiCoEnviro, les noms des rôles sont proches des noms
 des rôles employés dans VerbNet et LIRICS \citep{bonial2011hierarchical} :
@@ -322,16 +333,14 @@ En pratique :
 \begin{itemize}
 
     \item DiCoInfo et DiCoEnviro ne distinguent pas Theme de Patient mais
-        n'utilisent que Patient, ce qui rend l'annotation plus
-        facile.\footnote{La distinction entre Theme et Patient est difficile à
-            établir. Dans \textit{Le chaton a léché mes doigts}, est-ce que mes
-            doigts ont changé d'état ? Si oui, ils devraient être Patient, et
-        sinon, Theme \citep[p.~5]{palmer2010semantic}.}
+n'utilisent que Patient, ce qui facilite l'annotation.\footnote{Ce choix est le
+bienvenue, étant donné que la distinction entre Theme et Patient est souvent
+difficile à établir. Dans \textit{Le chaton a léché mes doigts}, est-ce que mes
+doigts ont changé d'état ? Si oui, ils devraient être Patient, et sinon, Theme
+\citep[p.~5]{palmer2010semantic}.}
 
     \item Pour un certain nombre de lexies, la perspective du domaine implique
-        souvent des rôles différents (TODO exemple Patient vs. Result)
-        
-        % TODO clair
+souvent des rôles différents (TODO exemple Patient vs. Result)
 
 \end{itemize}
 
