@@ -2,7 +2,15 @@
 
 \setchapterpreamble[ur][.7\textwidth]{%
   \dictum[Robin Hobb, \textit{La Voie royale}]{%
-  Un jour, alors que je venais de connaître Burrich, il m'avait ordonné de défaire le harnais d'un équipage de chevaux. [...] Quand Burrich revint voir ce qui me prenait tant de temps, il demeura muet de stupéfaction mais ne put me reprocher de n'avoir pas obéi à son ordre. Quant à moi, j'étais effaré du nombre de pièces qui entraient dans la composition d'un objet apparemment d'une seule pièce quand je m'y étais attaqué. [...] Tous ces sont pour faire un mot, tous ces mots pour former une pensée ! Le langage tombait en morceaux entre mes mains. Jamais je n'y avais réfléchi.}}
+  Un jour, alors que je venais de connaître Burrich, il m'avait ordonné de
+  défaire le harnais d'un équipage de chevaux. [...] Quand Burrich revint voir
+  ce qui me prenait tant de temps, il demeura muet de stupéfaction mais ne put
+  me reprocher de n'avoir pas obéi à son ordre. Quant à moi, j'étais effaré du
+  nombre de pièces qui entraient dans la composition d'un objet apparemment
+  d'une seule pièce quand je m'y étais attaqué. J'avais la même impression sur
+  la route : tous ces sons pour faire un mot, tous ces mots pour former une
+  pensée ! Le langage tombait en morceaux entre mes mains. Jamais je n'y avais
+  réfléchi.}}
 
 \chapter{État de l'art} 
 \label{ch:etatdelart} 
@@ -19,10 +27,10 @@ partie~\ref{part:srl}.
 \section{Représentation des mots}
 \label{sec:mots}
 
-Nous abordons certains aspects du sens des mots à travers les dictionnaires et
-différentes ressources lexicales. Nous présentons ensuite les modèles de langue
-qui sont une manière directe de représenter les mots, leur utilisation, et donc
-leur sens, le tout à partir d'un corpus brut.
+Nous abordons certains aspects du sens des mots à travers l'étude de
+différentes ressources lexicales, en commençant par les dictionnaires. Nous
+présentons ensuite les modèles de langue qui sont une manière directe de
+représenter les mots et leurs sens à partir d'un corpus brut.
 
 \subsection{Représentation du sens des mots}
 \label{subsec:sens_mots}
@@ -36,23 +44,21 @@ lequel le Traitement Automatique des Langues peut s'appuyer pour représenter le
 sens des mots.
 
 Pour pouvoir identifier les différents sens d'un mot, les lexicographes
-n'opèrent pas par intuition linguistique \citep{kilgarriff1997don}. Ils
+n'opèrent plus par intuition linguistique \citep{kilgarriff1997don}. Ils
 commencent par établir un corpus équilibré et de taille assez importante pour
 représenter la langue étudiée. Ce corpus peut par exemple être constitué de
 textes de journaux, de fiction, ou encore de blogs, le tout étant supposé être
 représentatif de ce qu'une personne lambda lit durant sa vie. Pour un mot
-donné, le lexicographe examine ses différents usages dans ce corpus dans le but
-de séparer ces différents usages en sens. Certains sens, jugés trop peu
-fréquents, sont laissés de côté. Le lexicographe étudie ensuite la séparation
-obtenue pour établir des critères objectifs distinguant les différents sens du
-mot étudié. Une phase d'ajustement de la séparation suit pour vérifier que les
-critères ont été correctement appliqués, ce qui peut amener à raffiner ces
-critères. Une fois les critères définitifs établis, la définition peut être
-rédigée, les occurrences étudiées pouvant servir d'exemples.  L'avantage
-principal est que le processus lexicographique est basé sur des données réelles
-et non pas sur des intuitions linguistiques.
-
-% TODO exemple
+donné, le lexicographe examine ses différents usages dans ce corpus à l'aide
+d'un concordancier dans le but de séparer ces différents usages en sens.
+Certains sens, jugés trop peu fréquents, sont laissés de côté. Le lexicographe
+étudie ensuite la séparation obtenue pour établir des critères objectifs
+distinguant les différents sens du mot étudié. Une phase d'ajustement de la
+séparation suit pour vérifier que les critères ont été correctement appliqués,
+ce qui peut amener à raffiner ces critères. Une fois les critères définitifs
+établis, la définition peut être rédigée, les occurrences étudiées pouvant
+servir d'exemples. L'avantage principal est que le processus lexicographique
+est basé sur des données réelles et non pas sur des intuitions linguistiques.
 
 Ainsi, les sens ne sont pas définis en tant que tels, mais sont avant tout des
 occurrences dans un contexte donné. C'est une façon de comprendre la citation
@@ -60,20 +66,24 @@ de \citep{firth1957synopsys} : \emph{You shall know a word by the company it
 keeps}\footnote{Vous devriez connaître un mot par ce qui l'accompagne.}. En
 effet, selon \citep{kilgarriff1997don}, un ensemble de sens n'est défini que
 par rapport à un corpus, et il est illusoire de vouloir définir un dictionnaire
-parfait pour tous les sens possibles d'un mot.  Néanmoins, il n'est pas
+parfait pour tous les sens possibles d'un mot. Néanmoins, il n'est pas
 concevable de réaliser manuellement un dictionnaire par corpus : il faut
 surtout être conscient des difficultés théoriques posées par le sens des mots.
 
 On considèrera dans ce travail que les sens définis dans un dictionnaire
 classique relèvent du «~domaine général~», et que les sens qui apparaissent
-dans d'autres domaines sont des sens «~spécialisés~». Par exemple, le
+dans d'autres domaines sont des sens «~de spécialité~». Par exemple, le
 dictionnaire DicoInfo \citep{corpusolst} spécialisé dans les domaines de
 l'Informatique et d'Internet mentionne un sens spécifique pour le nom
 \emph{compilation} : \emph{action effectuée par un compilateur qui consiste à
     transformer du code créé au moyen d'un langage de programmation évolué en
 un langage compréhensible par l'ordinateur}. Ce sens est par exemple absent du
 TLFi \citep{TLFi} parce qu'il ne faisait pas partie des sens du mot dans le
-corpus utilisé pour établir les définitions.
+corpus utilisé pour établir les définitions. Le lexique \emph{Les Verbes
+Français} (section~\ref{sec:lvflg}) contient bien le sens informatique du verbe
+\emph{compiler} mais le domaine (Informatique) et le niveau de lexique (5, soit
+«~grands dictionnaires de langue ou encyclopédiques, lexiques spécialisés~»)
+indiquent bien que c'est un sens de spécialité.
 
 \subsection{Ressources lexicales actuelles}
 \label{subsec:ressources_lexicales}
@@ -99,27 +109,27 @@ cause, mais :
 
 De plus, l'utilisation de dictionnaires récents implique un coût d'achat et le
 respect de la licence restrictive, ce qui explique que ces dictionnaires ont
-rapidement étés abandonnés en TAL au profit d'autres ressources disponibles
-sous une licence libre comme WordNet, Wikipédia ou encore le Wiktionnaire. En
-effet, ces ressources autorisent une utilisation à la fois à des fins de
-recherche mais aussi pour un usage commercial, ce qui leur a assuré une large
-diffusion.
+rapidement étés abandonnés au profit d'autres ressources généralement
+disponibles sous une licence libre comme WordNet, Wikipédia ou encore le
+Wiktionnaire. En effet, ces ressources autorisent une utilisation à la fois à
+des fins de recherche mais aussi pour un usage commercial, ce qui leur a assuré
+une large diffusion.
 
 La première ressource lexicale à tirer partie de la possibilité de représenter
 le lexique sous la forme d'un graphe est WordNet, décrit à la
 section~\ref{presentation_wordnet}.
 
-\citep{hovy2006ontonotes,ide2006making,navigli2007semeval,snow2007learning} ont
+\cite{hovy2006ontonotes,ide2006making,navigli2007semeval,snow2007learning} ont
 jugé que la trop grande finesse de distinction des sens de WordNet justifiait
 une alternative avec des sens distingués plus grossièrement. Ce problème est
 attribué selon \cite{edmonds2002introduction} au manque de rigueur
 lexicographique de WordNet, et à la mise en avant de la similarité entre les
-mots à travers les synsets au détriment de la distinction des sens de chaque
-mot. Il s'est en effet avéré que l'accord inter-annotateurs pour un étiquetage
-avec WordNet est faible : de l'ordre de 70\% \citep{snyder2004english}.
-Utiliser un autre inventaire est un moyen efficace de s'adapter à différentes
-applications \citep{palmer2004different}, ce qui a entraîné des travaux
-utilisant des inventaires plus grossiers \citep{navigli2007semeval}.
+mots au détriment de la distinction des différents sens de chaque mot. Il s'est
+en effet avéré que l'accord inter-annotateurs pour un étiquetage avec WordNet
+est faible : de l'ordre de 70\% \citep{snyder2004english}.  Utiliser un autre
+inventaire est un moyen efficace de s'adapter à différentes applications
+\citep{palmer2004different}, ce qui a entraîné des travaux utilisant des
+inventaires plus grossiers \citep{navigli2007semeval}.
 
 Au-delà des fusions de synsets automatiques \citep{snow2007learning}, de
 nouveaux inventaires de sens moins fins ont étés développés :
@@ -131,8 +141,8 @@ nouveaux inventaires de sens moins fins ont étés développés :
         inter-annotateur de 90\%.
 
     \item DANTE\footnote{Les entrées pour les mots entre M et R sont
-        disponibles sur http://webdante.com/} \citep{mccarthy2010dante} est un
-        inventaire entièrement nouveau, conçu dans l'objectif de corriger les
+        disponibles sur \url{http://webdante.com/}.} \citep{mccarthy2010dante} est un
+        inventaire entièrement nouveau conçu dans l'objectif de corriger les
         erreurs faites avec WordNet \citep{kilgarriff2010detailed}.
 
     \item Le Réseau Lexical du Français \citep{gader2014lexicon} lie des sens de
@@ -142,8 +152,9 @@ nouveaux inventaires de sens moins fins ont étés développés :
 \end{itemize}
 
 Ces inventaires semblent plus adaptés que WordNet pour la désambiguïsation
-lexicale \citep{navigli2012quick}, mais ils ne sont pas encore disponibles ou
-ne sont pas utilisables librement à des fins commerciales.
+lexicale \citep{navigli2012quick}. Cependant, les deux premiers ne sont pas
+librement utilisables (en particulier à des fins commerciales) et le troisième,
+bien qu'il sera diffusé sous une licence libre, n'est pas encore terminé.
 
 Une approche complètement différente est celle de la structure de qualia
 \citep{johnston1996qualia} qui s'inscrit dans le contexte plus général du
@@ -157,11 +168,11 @@ semblable à celle qui définit le sens d'un mot comme une liste de sèmes
 \citep{buitelaar1998corelex} est le seul inventaire et système de
 désambiguïsation lexicale suivant cette approche.
 
-Enfin, différents travaux mentionnent la possibilité d'utiliser plus d'un sens
-pour un mot donné. \cite{smith2011rumble} propose d'utiliser des distributions
-de probabilité sur les différents sens possibles pour définir un sens précis
-dans un corpus. Dans SemCor, les annotateurs pouvaient choisir plusieurs sens
-si besoin, mais seulement 0.3\% des occurrences de SemCor sont étiquetées avec
+Différents travaux mentionnent la possibilité d'utiliser plus d'un sens pour un
+mot donné. \cite{smith2011rumble} propose d'utiliser des distributions de
+probabilité sur les différents sens possibles pour définir un sens précis dans
+un corpus. Dans SemCor, les annotateurs pouvaient choisir plusieurs sens si
+besoin, mais seulement 0.3\% des occurrences de SemCor sont étiquetées avec
 plus d'un sens. \cite{erk2013measuring} montrent qu'un accord inter-annotateur
 élevé peut être obtenu en demandant aux annotateurs d'indiquer pour chaque sens
 sa correspondance avec l'usage sur une échelle de 1 à 5. Une campagne
@@ -169,20 +180,66 @@ d'évaluation a eu lieu en 2013 à ce sujet \citep{jurgens2013semeval}. Les
 annotations obtenues avec Amazon Mechanical Turk ont été abandonnées au profit
 de l'annotation par les deux organisateurs de la tâche. Dans les deux cas,
 l'accord inter-annotateur était modéré, ce qui remet en question la pertinence
-de l'annotation de différents sens fins.
+de l'annotation graduée de chacun des sens de l'inventaire.
+
+Dans le cadre de l'adaptation aux domaines, d'autres travaux s'attachent à la
+prise en compte du changement des sens suivant les domaines.
+\cite{agirre2010semeval17} ont proposé une campagne d'évaluation sur le domaine
+environnemental en anglais, chinois, néerlandais et italien. Pour chacune des
+langues, au moins un système a battu la baseline du sens le plus fréquent, et
+les systèmes fondés sur la connaissance ont pu s'adapter au domaine plus
+facilement que les systèmes supervisés. Les scores maximaux, entre 52~\% et
+57~\%, restent loin de l'accord inter-annotateur, compris entre 72~\% et 96~\%.
+En fouille d'opinion, \cite{marchand2014influence} évaluent eux l'apport de la
+prise en compte du changement de polarité des mots lors d'un changement de
+domaine. Par exemple, il s'avère que les termes mélioratifs au passé tels que
+«~I loved~» sont plutôt positifs pour le cinéma ou le théâtre et plutôt négatif
+en cuisine ou électroménager. Dans un cas, on parle simplement de la séance au
+passé ; dans l'autre, on aimait l'objet au début mais ce n'est plus le cas. Un
+autre exemple est l'adjectif «~imprévisible~» : c'est une qualité pour un film,
+et un défaut pour de l'électroménager.
+
+Contrairement aux systèmes généraux de désambiguïsation lexicale qui cherchent
+à choisir un sens parmi un ensemble donné de sens, \cite{marchand2014influence}
+ne s'intéressent qu'aux changements de sens utiles pour l'application, ce qui
+rend le système plus robuste. Différentes tâches bénéficiant soit de tels
+«~inventaires~» spécifiques ont ainsi étés proposées lors de campagnes
+d'évaluation, en particulier SemEval. Par exemple :
+
+\begin{itemize}
+    \item la simplification lexicale
+\citep{specia2012semeval1,fabre2014presentation},
+    \item l'induction de sens et la désambiguïsation lexicale pour le
+groupement de résultats en recherche d'information \citep{navigli2013semeval11},
+    \item ou la traduction de fragments en langue natale (L1) dans un texte
+écrit dans une langue apprise (L2) \citep{vangompel2014semeval5}
+\end{itemize}
+
+Enfin, une tendance récente facilitée par l'existence de ressources telles que
+WordNet, Wikipédia ou le Wiktionnaire dans de nombreuses langues est de
+représenter les sens des mots dans différentes langues simultanément
+\citep{navigli2013babelnet}. Lors de SemEval-2010 \citep{lefever2010semeval3},
+les meilleurs systèmes de la campagne utilisaient des corpus parallèles. Lors
+d'une tâche proche à SemEval-2013 \citep{navigli2013semeval12}, aucun système
+n'a profité du fait que BabelNet soit un inventaire multilingue ni que les
+données de tests étaient parallèles. Néanmoins, les organisateurs ont remarqué
+qu'en ne validant que les sens qui étaient les mêmes lorsque les mots étaient
+alignés, la précision augmentait considérablement, ce qui est une piste à
+explorer pour de futurs travaux.
 
 \subsection{Modèles de langue pour la similarité sémantique}
 \label{subsec:modeles_de_langue}
 
-Un modèle de langue prédit la probabilité d'un mot étant donné son contexte
-dans la phrase. Cette probabilité est directement utile pour des tâches telles
-que la traduction automatique ou la reconnaissance de la parole dans lesquelles
-un modèle de langue favorisera des phrases globalement plausibles au lieu
-d'étudier chaque mot individuellement.
+Une autre façon de représenter le sens des mots est possible grâce aux modèles
+de langues. Un modèle de langue prédit la probabilité d'un mot étant donné son
+contexte dans la phrase. Cette probabilité est directement utile pour des
+tâches telles que la traduction automatique ou la reconnaissance de la parole
+dans lesquelles un modèle de langue favorisera des phrases globalement
+plausibles au lieu d'étudier chaque mot individuellement.
 
 Ces modèles de langue permettent aussi d'obtenir des mesures de similarité
 sémantiques utiles, ce qui est justifié par l'hypothèse distributionnelle
-\cite[p.~786]{harris1954distributional} :
+\cite[p.~156]{harris1954distributional} :
 
 \begin{quote} ... si l'on considère que le sens de deux mots ou morphèmes A et B
     diffère davantage que le sens de A et C, alors on observe souvent que les
@@ -190,9 +247,12 @@ sémantiques utiles, ce qui est justifié par l'hypothèse distributionnelle
     Autrement dit, la différence de sens est corrélée à la différence de
     distribution. \end{quote}
 
-Les modèles de langue sont un moyen d'étudier ces distributions de probabilité.
-On peut étudier deux types de distributions différentes correspondant à deux
-types de relations entre les mots \citep{sahlgren2008distributional} :
+Cette observation est utilisée depuis longtemps pour étudier les similarités
+sémantiques entre les mots à l'aide de matrices de co-occurrences
+\citep{miller1967empirical}. Les modèles de langue sont une généralisation
+étudier ces distributions de probabilité. On peut étudier deux types de
+distributions différentes correspondant à deux types de relations entre les
+mots \citep{sahlgren2008distributional} :
 
 \begin{itemize}
     \item les relations syntagmatiques identifient les mots qui sont présents
@@ -208,18 +268,18 @@ phrase. Au contraire, \emph{thé} et \emph{café} ne sont pas ici présents dans
 la même phrase, mais apparaissent dans un même contexte (\emph{Je bois du}) :
 ils sont liés par une relation paradigmatique.
 
-Observer les distributions de contexte des mots peut séparer les mots en
+Selon l'hypothèse distributionnelle faible \citep{lenci2008distributional},
+observer les distributions de contexte des mots peut séparer les mots en
 différents sens selon l'usage de chaque sens
 \citep{yarowsky1993one,pantel2002discovering,pedersen2010duluth}. Cependant,
 dans la littérature que nous exposons et dans nos travaux, les modèles de
 langue ne décrivent que des mots en confondant leurs différents sens. Nous ne
-mentionnerons plus par la suite cette difficulté, en considérant (par
-simplification) qu'il suffit que le modèle de langue décrive parmi tous les
-sens le sens que nous souhaitons observer.
+mentionnerons plus par la suite cette difficulté, en considérant qu'il suffit
+que le modèle de langue décrive parmi tous les sens celui que nous souhaitons
+observer.
 
-% TODO qu'a dit le monsieur dans l'invited talk à GWC 2014 ?
-Comment observer ces distributions de probabilité ? Une façon d'opérer est de
-calculer la probabilité d'un mot dans une phrase étant donné les mots
+Comment observer ces distributions de probabilité ? Un modèle de langue
+classique indique la probabilité d'un mot dans une phrase étant donné les mots
 précédents. Par exemple, étant donné le début de phrase \emph{Au-delà des
 approches ...}, on veut connaître la probabilité du mot suivant, en espérant
 que celle de \emph{statistiques} ou \emph{supervisées} soit plus importante que
@@ -228,10 +288,10 @@ précèdent le mot étudié, on calcule sa probabilité simplement avec le maxim
 de vraisemblance :
 
 \[
-p(w_i|w_{i-2}, w_{i-1}) = \frac{compte(w_{i-2}, w_{i-1}, w_i)}{compte(w_{i-1}, w_i)}
+p(w_i|w_{i-2}, w_{i-1}) = \frac{\#(w_{i-2}, w_{i-1}, w_i)}{\#(w_{i-1}, w_i)}
 \]
 
-La séquence $w_{i-2}, w_{i-1}, w_{i}$ est un 3-gramme, et $compte$ indique le
+La séquence $w_{i-2}, w_{i-1}, w_{i}$ est un 3-gramme, et $\#$ indique le
 nombre d'occurrences de cette séquence dans le corpus considéré. La taille du
 contexte peut varier, ce qui est la raison pour laquelle on parle de manière
 générale de n-grammes. Le nombre de paramètres à estimer pour obtenir une
@@ -246,7 +306,8 @@ vraisemblance \citep[Chapitre~4]{jurafsky2008speech}. En effet, la plupart des
 probabilités sont initialement nulles, que ce soit parce que le n-gramme est
 grammaticalement invalide ou simplement parce qu'il n'a pas été observé dans le
 corpus étudié. Il faut alors estimer la probabilité de tels n-grammes à partir
-d'un n-gramme plus court ou leur assigner une probabilité très faible.
+d'un n-gramme plus court ou leur assigner une probabilité très faible pour
+éviter les probabilités nulles.
 
 Diverses extensions de ces modèles de langues à base de n-grammes existent,
 l'une d'entre elles étant le modèle de langue syntaxique
@@ -263,19 +324,32 @@ utilisée comme un analyseur syntaxique à base de règles produisant des
 dépendances syntaxiques fines. Pour une relation donnée $r$ et un lemme $x$, le
 modèle de langue indique quels sont les 100 premiers lemmes co-occurrant le
 plus fréquemment avec $x$ dans la relation $r$.  Avec le mot \textit{avion} et
-la relation de complément du nom, le mot \textit{billet} modifie le plus
+la relation de complément du nom, c'est le mot \textit{billet} modifie le plus
 \textit{avion} : \textit{billet d'avion} est fréquent dans le corpus.
 
-% TODO petite figure ici ?
+
+\tikzstyle{block}=[draw, fill=blue!5, rectangle, minimum height=0.5cm, minimum width=3cm, text width=5cm]
+
+\begin{figure}[ht]
+  \centering
+  \begin{tikzpicture}[auto, node distance=2cm,>=latex']
+    % Inspired from http://www.texample.net/tikz/examples/control-system-principles/
+    \node [block, text width=10cm] (quillsynt1) {\Huge{billet}, \large{}pilote, vol, accident, \LARGE{détournement}, \large{}tour, \LARGE{collision}, \large{moteur}, \small{monde}, \LARGE{crash}, \large{}aile, bruit, \small{type}, \large{}carburant, attentat, \small{guerre}, \large{}chute, commande, \small{construction}, descente, \small{nombre}, \small{prix}, \small{achat}, \small{place}, \large{}réservation, passager, \small{programme}, \large{}bombe, \small{}peur, avion, \large{flotte}, \small{}transport \large{pilotage}, \LARGE{écrasement}, \small{}vitesse, utilisation, arrivée, \normalsize{}...};
+
+  \end{tikzpicture}
+  \caption{\emph{avion} est complément de ces noms d'après notre modèle de langue syntaxique.}
+\end{figure}
 
 % TODO donner des raisons de l'efficacité, "exponentiel" tout ça
 
 D'autres types de modèles de langue représentent les mots de manières
-distribuée en utilisant un vecteur de nombres réels. La manière la plus
-répandue pour faire cela est d'utiliser un réseau de neurones dont une des
-couches sera le vecteur représentant chaque mot. \cite{hinton1986learning} a
-d'abord proposé l'idée d'un réseau de neurones pour représenter des concepts à
-l'aide de vecteurs faisant partie du réseau,
+distribuée en utilisant un vecteur de nombres réels. LSA
+\citep{deerwester1990indexing} 
+
+La manière la plus répandue pour faire cela est d'utiliser un réseau de
+neurones peu profond dont une des couches sera le vecteur représentant chaque
+mot. \cite{hinton1986learning} a d'abord proposé l'idée d'un réseau de neurones
+pour représenter des concepts à l'aide de vecteurs faisant partie du réseau,
 \cite{bengio2001neural,bengio2003neural} ont présenté le modèle de langue
 neuronal tel qu'on le connaît aujourd'hui, et \cite{mikolov2013efficient} a
 optimisé un modèle de langue en supprimant notamment une couche cachée pour
@@ -296,14 +370,11 @@ réseaux de neurones sont encore difficiles à entraîner et à paramétrer
 \citep{do2014modeles}, mais représentent une alternative plus efficace que les
 modèles de langue simples à base de n-grammes \citep{baroni2014dont}.
 
-% TODO LSA fait une partie du chemin
-
 Les réseaux de neurones ne sont qu'une façon d'obtenir de tels résultats. En
-particulier, \cite{levy2014linguistic} montrent qu'une nouvelle mesure de
-similarité permet d'obtenir des résultats similaires à
-\cite{mikolov2013efficient}, ce qui montre le besoin de continuer à étudier les
-réseaux de neurones pour mieux comprendre leur fonctionnement et savoir quand
-leur utilisation est pertinente.
+particulier, \cite{levy2014neural} montrent qu'une nouvelle mesure de
+similarité obtient des résultats similaires à \cite{mikolov2013efficient}, ce
+qui est un pas important vers une meilleure compréhension du comportement des
+réseaux de neurones pour apprendre des représentations de mots.
 
 \section{Traductions de ressources linguistiques}
 \label{sec:translation}
@@ -460,7 +531,7 @@ désambiguïsation parmi les deux traductions possibles.
     \draw [<-] (porcupinesynt1) -- node[below] {(modèle de langue)} (quillsynt1);
 
   \end{tikzpicture}
-  \caption{\protect\centering\label{meronymyexample}Traduction via la relation de méronymie de partie.}
+  \caption{\label{meronymyexample}Traduction via la relation de méronymie de partie.}
 \end{figure}
 
 Un problème potentiel avec cette approche est que la relation de complément du
@@ -626,7 +697,7 @@ secondaires (\textit{Location}, \textit{Extent}, \textit{Manner}, etc.)
 
 En raison de la difficulté de conception d'un tel corpus, peu d'équivalents
 existent dans d'autres langues. C'est la raison pour laquelle
-\cite{exner2014nugues} proposent de développer automatiquement un nouveau
+\cite{exner2014using} proposent de développer automatiquement un nouveau
 PropBank du suédois en se basant sur le PropBank anglais et en utilisant
 Wikipédia comme un corpus parallèle. C'est une piste intéressante pour apporter
 l'annotation en rôles sémantiques à une nouvelle langue, et finalement assez
