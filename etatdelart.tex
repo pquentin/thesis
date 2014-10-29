@@ -250,9 +250,9 @@ sémantiques utiles, ce qui est justifié par l'hypothèse distributionnelle
 Cette observation est utilisée depuis longtemps pour étudier les similarités
 sémantiques entre les mots à l'aide de matrices de co-occurrences
 \citep{miller1967empirical}. Les modèles de langue sont une généralisation
-étudier ces distributions de probabilité. On peut étudier deux types de
-distributions différentes correspondant à deux types de relations entre les
-mots \citep{sahlgren2008distributional} :
+permettant d'étudier ces distributions de probabilité. On peut étudier deux
+types de distributions différentes correspondant à deux types de relations
+entre les mots \citep{sahlgren2008distributional} :
 
 \begin{itemize}
     \item les relations syntagmatiques identifient les mots qui sont présents
@@ -294,16 +294,16 @@ p(w_i|w_{i-2}, w_{i-1}) = \frac{\#(w_{i-2}, w_{i-1}, w_i)}{\#(w_{i-1}, w_i)}
 La séquence $w_{i-2}, w_{i-1}, w_{i}$ est un 3-gramme, et $\#$ indique le
 nombre d'occurrences de cette séquence dans le corpus considéré. La taille du
 contexte peut varier, ce qui est la raison pour laquelle on parle de manière
-générale de n-grammes. Le nombre de paramètres à estimer pour obtenir une
-distribution de probabilité conditionnelle fiable est $|V|^N$, $|V|$ étant la
-taille du vocabulaire et $N$ la taille du contexte étudié. En considérant un
-petit vocabulaire (10~000 mots) et un contexte de trois mots, il faut déjà
-estimer $10^{9}$ probabilités, ce qui requiert un corpus très large : Google a
-utilisé un corpus de livres de $10^{12}$ mots pour produire des n-grammes
-allant jusqu'à $n=5$ \citep{brants2006web}. Diverses techniques de lissage
-existent pour mieux répartir les probabilités obtenues par maximum de
-vraisemblance \citep[Chapitre~4]{jurafsky2008speech}. En effet, la plupart des
-probabilités sont initialement nulles, que ce soit parce que le n-gramme est
+générale de n-grammes. Le nombre de paramètres à estimer pour une distribution
+de probabilité conditionnelle est $|V|^N$, $|V|$ étant la taille du vocabulaire
+et $N$ la taille du contexte étudié. En considérant un petit vocabulaire
+(10~000 mots) et un contexte de trois mots, il faut déjà estimer $10^{9}$
+probabilités, ce qui requiert un corpus très large : Google a utilisé un corpus
+de livres de $10^{12}$ mots pour produire des n-grammes allant jusqu'à $n=5$
+\citep{brants2006web}. Diverses techniques de lissage existent pour mieux
+répartir les probabilités obtenues par maximum de vraisemblance
+\citep[Chapitre~4]{jurafsky2008speech}. En effet, la plupart des probabilités
+sont initialement nulles, que ce soit parce que le n-gramme est
 grammaticalement invalide ou simplement parce qu'il n'a pas été observé dans le
 corpus étudié. Il faut alors estimer la probabilité de tels n-grammes à partir
 d'un n-gramme plus court ou leur assigner une probabilité très faible pour
@@ -324,8 +324,8 @@ utilisée comme un analyseur syntaxique à base de règles produisant des
 dépendances syntaxiques fines. Pour une relation donnée $r$ et un lemme $x$, le
 modèle de langue indique quels sont les 100 premiers lemmes co-occurrant le
 plus fréquemment avec $x$ dans la relation $r$.  Avec le mot \textit{avion} et
-la relation de complément du nom, c'est le mot \textit{billet} modifie le plus
-\textit{avion} : \textit{billet d'avion} est fréquent dans le corpus.
+la relation de complément du nom, c'est le mot \textit{billet} qui modifie le
+plus \textit{avion} : \textit{billet d'avion} est fréquent dans le corpus.
 
 
 \tikzstyle{block}=[draw, fill=blue!5, rectangle, minimum height=0.5cm, minimum width=3cm, text width=5cm]
@@ -340,23 +340,37 @@ la relation de complément du nom, c'est le mot \textit{billet} modifie le plus
   \caption{\emph{avion} est complément de ces noms d'après notre modèle de langue syntaxique.}
 \end{figure}
 
-% TODO donner des raisons de l'efficacité, "exponentiel" tout ça
-
 D'autres types de modèles de langue représentent les mots de manières
 distribuée en utilisant un vecteur de nombres réels. LSA
-\citep{deerwester1990indexing} 
+\citep{deerwester1990indexing}, par exemple, considère une matrice de termes et
+de documents, les termes étant en ligne, les document en colonne. Les éléments
+de cette matrice sont typiquement calculés avec TF-IDF. Cette matrice est
+ensuite réduite, ce qui permet de généraliser en rapprochant la similarité
+cosinus des mots qui apparaissent dans les mêmes documents. LSA fait partie
+d'une classe de méthodes où on considère une matrice de co-occurrence entre les
+mots et leurs contexte, une mesure d'association quelconque, une factorisation
+potentielle, et une mesure de la distance entre les éléments, l'objectif final
+étant de rapprocher les mots sémantiquement proches.
 
-La manière la plus répandue pour faire cela est d'utiliser un réseau de
-neurones peu profond dont une des couches sera le vecteur représentant chaque
-mot. \cite{hinton1986learning} a d'abord proposé l'idée d'un réseau de neurones
-pour représenter des concepts à l'aide de vecteurs faisant partie du réseau,
-\cite{bengio2001neural,bengio2003neural} ont présenté le modèle de langue
-neuronal tel qu'on le connaît aujourd'hui, et \cite{mikolov2013efficient} a
-optimisé un modèle de langue en supprimant notamment une couche cachée pour
-l'utiliser sur de plus gros corpus. Dans tous ces modèles, lors de la
-rétropropagation du gradient, la représentation des mots évolue, ce qui a pour
-effet de rapprocher la représentation des mots sémantiquement proches. Par
-exemple, \cite{mikolov2013distributed} montre que la distance entre le mot
+Depuis la diffusion de word2vec \citep{mikolov2013distributed} et de ses bons
+résultats obtenus dans un certain nombre de tâches, les représentations de mots
+à l'aide de réseaux de neurones sont populaires\footnote{Les bons résultats
+    obtenus notamment en vision par ordinateur par des réseaux de neurones
+    profonds ont sûrement contribué à cet enthousiasme, il est donc important
+    de rappeller que les réseaux de neurones concernés ici ne sont pas
+profonds.}.  La manière la plus répandue pour faire cela est d'utiliser un
+réseau de neurones peu profond dont une des couches sera le vecteur
+représentant chaque mot.  \cite{hinton1986learning} a d'abord proposé l'idée
+d'un réseau de neurones pour représenter des concepts à l'aide de vecteurs
+faisant partie du réseau, \cite{bengio2001neural,bengio2003neural} ont présenté
+le modèle de langue neuronal tel qu'on le connaît aujourd'hui, et
+\cite{mikolov2013distributed} (parmi d'autres) a optimisé un modèle de langue
+en supprimant notamment une couche cachée pour l'utiliser sur de plus gros
+corpus. Dans tous ces modèles, lors de la rétropropagation du gradient, la
+représentation des mots évolue, ce qui a pour effet de rapprocher la
+représentation des mots sémantiquement proches afin d'offrir une meilleure
+généralisation, comme le fait LSA en factorisant la matrice de co-occurrences.
+Par exemple, \cite{mikolov2013distributed} montre que la distance entre le mot
 représentant un pays (par exemple \emph{Turkey}) et le mot représentant la
 capitale de ce pays (ici \emph{Ankara}) correspond au vecteur du mot
 \emph{capital}.  Ces représentations de mots peuvent être ensuite utilisées ou
@@ -367,14 +381,21 @@ apprises pour diverses tâches. Nous citerons ici l'extraction d'évènements
 ou moins importantes) de telle représentations de mots où les mots
 sémantiquement proches sont proches dans la représentation choisie.  Ces
 réseaux de neurones sont encore difficiles à entraîner et à paramétrer
-\citep{do2014modeles}, mais représentent une alternative plus efficace que les
-modèles de langue simples à base de n-grammes \citep{baroni2014dont}.
+\citep{do2014modeles}, mais semblent représenter une alternative plus efficace
+que les modèles de langue simples à base de n-grammes \citep{baroni2014dont}.
 
-Les réseaux de neurones ne sont qu'une façon d'obtenir de tels résultats. En
-particulier, \cite{levy2014neural} montrent qu'une nouvelle mesure de
-similarité obtient des résultats similaires à \cite{mikolov2013efficient}, ce
-qui est un pas important vers une meilleure compréhension du comportement des
-réseaux de neurones pour apprendre des représentations de mots.
+La compréhension des méchanismes derrières ces réseaux de neurones est un champ
+actif de recherche. \cite{levy2014neural} ont montré que la méthode de
+\emph{negative sampling} de \cite{mikolov2013distributed} revient à factoriser
+la matrice d'information mutuelle entre les mots et les contextes en accordant
+plus d'importance aux termes fréquents, ce qui est très proche des méthodes
+couramment utilisées en sémantique distributionnelle et permet d'espérer une
+optimisation plus directe de l'objectif afin d'améliorer les résultats tout en
+comprenant les méthodes utilisées.
+
+Bien que nous ne tirions pas profit des méthodes les plus récentes dans les
+travaux que nous avons choisi de présenter ici, ces progrès importants sont à
+considérer pour tout travail futur sur le sujet.
 
 \section{Traductions de ressources linguistiques}
 \label{sec:translation}
