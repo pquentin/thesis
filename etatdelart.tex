@@ -446,9 +446,10 @@ de langue syntaxique.
 \label{subsec:jaws_translation_process}
 
 Notre traduction de WordNet nommée WoNeF (Chapitre~\ref{ch:wonef}) est le
-successeur de JAWS \citep{mouton2010jaws,mouton2010phd} que nous présentons
-ici. Le Chapitre~\ref{ch:wonef} liste les différences avec JAWS : il est donc
-nécessaire d'avoir compris le fonctionnement de JAWS avant de le lire.
+successeur de JAWS \citep{mouton2010jaws,mouton2010phd}. Cette section présente
+JAWS. Le Chapitre~\ref{ch:wonef} liste lui seulement les différences avec JAWS
+: il est donc nécessaire d'avoir compris le fonctionnement de JAWS avant de le
+lire.
 
 JAWS repose sur un algorithme faiblement supervisé qui ne demande aucune donnée
 annotée manuellement. Pour traduire un wordnet source, JAWS s'appuie sur un
@@ -463,16 +464,13 @@ synset parmi l'ensemble du vocabulaire mais seulement parmi un petit nombre de
 candidats (9 en moyenne).  Le processus de traduction se fait en trois étapes :
 
 \begin{enumerate}
-    
     \item Créer un wordnet vide : la structure de WordNet est préservée, mais
         les synsets eux-mêmes n'ont pas de littéraux associés.
-
     \item Choisir les traductions les plus faciles parmi les candidats des
-    dictionnaires pour commencer à remplir JAWS.
-
+        dictionnaires pour commencer à remplir JAWS (sélecteurs initiaux).
     \item Étendre JAWS de manière incrémentale en utilisant le modèle de
-        langue, les relations entre synsets et le JAWS déjà existant.
-
+        langue, les relations entre synsets et le JAWS déjà existant (autres
+        sélecteurs).
 \end{enumerate}
 
 \paragraph{Sélecteurs initiaux} Quatre algorithmes que nous nommons sélecteurs
@@ -484,11 +482,11 @@ par les dictionnaires.
     \item Premièrement, les mots qui apparaissent dans un seul synset ne sont
         pas ambigus et il suffit d'ajouter toutes leurs traductions au WordNet
         français : c'est le sélecteur par monosémie. C'est le cas de
-        \textit{grumpy} : toutes ses traductions sont validées dans le synset
-        où il apparaît.
+        \textit{grumpy} : toutes ses traductions sont validées dans le seul
+        synset où il apparaît.
 
     \item Deuxièmement, le sélecteur par unicité identifie les mots n'ayant
-        qu'une seule traduction et la valident dans tous les synsets où cette
+        qu'une seule traduction et la valide dans tous les synsets où cette
         traduction est présente. Les cinq synsets contenant \textit{pill} en
         anglais sont ainsi complétés avec \textit{pilule}.
 
@@ -527,7 +525,7 @@ Prenons l'exemple de \textit{quill} qui peut se traduire par \textit{piquant}
 ou \textit{plume} (Figure \ref{meronymyexample}). Dans WordNet, \textit{quill}
 est méronyme de \textit{porcupine} qui a déjà été traduit par
 \textit{porc-épic} par un sélecteur initial. Dans le modèle de langue,
-\textit{piquant} fait partie des compléments du noms de \textit{porc-épic} mais
+\textit{piquant} fait partie des compléments du nom de \textit{porc-épic} mais
 ce n'est pas le cas de \textit{plume}. Ici, la relation de complément du nom
 implique la méronymie et c'est donc \textit{piquant} qu'il faut choisir comme
 la traduction correcte de \textit{quill}. Le modèle de langue a permis la
@@ -591,6 +589,10 @@ d'hyponymie.
 
 \subsection{VerbNet}
 
+Étant donné l'intérêt de la classification de verbes à la manière de VerbNet et
+l'intérêt de la ressource en Traitement Automatique des Langues, VerbNet a été
+traduit ou recréé dans plusieurs langues.
+
 \cite{merlo2002multilingual} ont utilisé des similarités entres langues pour
 convertir 20 classes de Levin vers l'Italien. Des acquisitions automatiques ont
 aussi été menées en japonais \citep{suzuki2009classifying}, allemand
@@ -599,20 +601,22 @@ traductions directes dont nous avons la connaissance sont le VerbNet estonien
 \citep{jentson2014verbnet} et le VerbNet portuguais brésilien
 \citep{scarton2012towards} qui utilise des mappings entre VerbNet et WordNet,
 et entre WordNet.Br et WordNet. \cite{scarton2014using} propose la création
-d'un VerbNet brésilien en s'appuyant sur la traduction manuelles des frames
-VerbNet vers la langue cible et les ressources lexicales WordNet, VerbNet et
-WordNet.Br, dans l'optique de créer des VerbNets pour les langues proches de
-l'anglais disposant déjà d'un WordNet. La méthode a été testée pour le
-brésilien portuguais ; la comparaison des clusters de verbes de
-\citep{scarton2012towards} indique un F-score de 60~\%. Comme l'indiquent les
-auteurs, la ressource obtenue ne peut servir que de base à une annotation
-linguistique.
+d'un VerbNet en s'appuyant comme seul effort manuel sur la traduction manuelles
+des frames VerbNet vers la langue cible, puis de ressources lexicales déjà
+disponibles (WordNet, VerbNet et WordNet traduit dans la langue cible), le tout
+dans l'optique de créer des VerbNets pour les langues proches de l'anglais
+disposant déjà d'un WordNet.  La méthode a été testée pour le brésilien
+portuguais ; la comparaison des clusters de verbes de
+\citep{scarton2012towards} indique un F-score de 60~\%.  Comme l'indiquent les
+auteurs, la ressource obtenue ne peut pour l'instant que servir de base à une
+annotation linguistique.
 
+% TODO mieux étudier saintdizier1996constructing
 Pour le français, \cite{saintdizier1996constructing} a produit une ressource
 proche des classes de Levin. À notre connaissance, l'effort sur cette ressource
 s'est arrêté et le résultat n'est pas disponible\footnote{Nous n'avons
-cependant pas contacté l'auteur de cette ressource}. Des travaux se sont
-ensuite concentrés sur l'acquisition automatique de cadres de
+cependant pas contacté l'auteur de cette ressource pour en savoir plus.}. Des
+travaux se sont ensuite concentrés sur l'acquisition automatique de cadres de
 sous-catégorisation et sur le regroupement de verbes en se basant sur ces
 cadres et sur des similarités sémantiques. \cite{sun2010investigating} ont
 utilisé un large lexique de cadres de sous-catégorisation
@@ -625,15 +629,16 @@ utilisent des features différentes, ce qui améliore la F-mesure sur la même
 vérité-terrain mais simplifiée, ce qui donne une F-mesure de 70\%. Ces
 ressources mettent en valeur de nouvelles façons de séparer les verbes du
 Français, mais les erreurs qu'elles contiennent seront une nouvelle source
-d'erreur dans les applications : il est important de les corriger si possible.
-
+d'erreur dans les applications : il est important de les corriger si possible,
+ce qui est la raison pour laquelle nous adoptons une approche différente dans
+le Chapitre~\ref{ch:verbnet}.
 
 \section{Annotation en rôles sémantiques}
 \label{sec:srl}
 
-Nous étudions les différentes façons de définir les rôles sémantiques,
-examinons diverses ressources utiles pour la tâche d'annotation, et présentons
-les techniques principales pour réaliser l'annotation elle-même.
+Dans cette section, nous étudions les différentes façons de définir les rôles
+sémantiques, examinons diverses ressources utiles pour la tâche d'annotation,
+et présentons les techniques principales pour réaliser l'annotation elle-même.
 
 % TODO définir frame ?
 
