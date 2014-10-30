@@ -81,8 +81,9 @@ de nouvelles tâches. Ainsi, l'annotation en rôles sémantiques à aussi été
 utilisée sur des tâches moins classiques en : la détection de plagiat
 \citep{osman2012improved}, la prédiction des cours de bourse
 \citep{xie2013semantic}, la génération de scènes 3D \citep{chang2014learning},
-la recommandation fondée sur le contenu \citep{de2014exploiting} ou
-l'interprétation de recettes de cuisine \citep{malmaud2014cooking}.
+la recommandation fondée sur le contenu \citep{de2014exploiting}, la détection
+de comparaisons de produits \citep{kessler2013detection} ou l'interprétation de
+recettes de cuisine \citep{malmaud2014cooking}.
 
 \subsection{Contraintes}
 
@@ -138,47 +139,51 @@ approches présentées.
 
 % TAL a besoin d'infos sur les verbes, c'est difficile et fragile, et on a
 % besoin d'énormes corpus, donc on essaie les lexiques
+
 Le Traitement Automatique des Langues requiert des lexiques et de larges
 quantités de données annotées pour analyser efficacement des textes dans le
 domaine général. Obtenir cette quantité de données est un problème en soi connu
 sous le nom de "knowledge acquisition bottleneck" en désambiguïsation lexicale
 \citep{gale1992method,navigli2009word}. Le problème se pose aussi pour
 l'annotation en rôles sémantiques où la quantité de données annotées est
-limitée \citep[section 1]{das2012structure}. Il est possible de résoudre ce problème
-domaine par domaine en annotant de grandes quantités de données pour chaque
-domaine, mais d'autres stratégies sont nécessaires pour atteindre nos objectifs
-dans un grand nombre de domaines. Une possibilité est d'utiliser au mieux les
-données annotées en perfectionnant les algorithmes existants, une autre est
-d'utiliser intelligemment les données non annotées qui existent en quantité
-bien plus importante. Une troisième possibilité, celle que nous choisissons
-d'explorer ici, est d'exploiter des lexiques couvrant l'interface
+limitée \citep[section 1]{das2012structure}. Il est possible de résoudre ce
+problème domaine par domaine en annotant de grandes quantités de données pour
+chaque domaine, mais d'autres stratégies sont nécessaires pour atteindre nos
+objectifs dans un grand nombre de domaines. Une possibilité est d'utiliser au
+mieux les données annotées en perfectionnant les algorithmes existants, une
+autre est d'utiliser intelligemment les données non annotées qui existent en
+quantité bien plus importante. Une troisième possibilité, celle que nous
+choisissons d'explorer ici, est d'exploiter des lexiques couvrant l'interface
 syntaxe-sémantique sur une large partie du vocabulaire. C'est ce qui est fait
-par exemple dans VerbNet où les traits partagés par les mêmes verbes sont
-explicitement notés, ce qui permet à chaque modification dans VerbNet
-d'améliorer le traitement de plusieurs verbes au lieu d'un seul.
+par exemple dans VerbNet où les traits syntaxiques et sémantiques partagés par
+les mêmes verbes sont explicitement notés, ce qui permet à chaque modification
+dans VerbNet d'améliorer le traitement de plusieurs verbes au lieu d'un seul.
 
 % VerbNet a montré son efficacité dans le domaine de par son approche
 % pragmatique. Vient des classes de Levin, donne des correspondances entre
 % syntaxe et sémantique
+
 Deux difficultés majeures qu'affrontent les créateurs de lexique sont la
 granularité de sens et la distinction des sens. Ces deux difficultés sont
 gérées par les classes de Levin \citep{levin1993english}. Dans ces classes, les
 verbes sont classifiés principalement à travers leur alternances syntaxiques,
 ce qui fournit un critère qui est à la fois facilement observable et qui
-produit des distinctions sémantiques intéressantes. VerbNet
-\citep{kipperschuler2005verbnet} est un lexique électronique basé sur les
-classes de Levin. Il encode non plus les alternances mais les cadres de
-sous-catégorisation valables pour chaque classe, et rajoute des informations de
-rôle et de sémantique à travers une logique des prédicats simplifiée. De
-nouvelles classes, constructions et verbes ont étés ajoutés à VerbNet au fil
-des ans. Au-delà de son encodage efficace, VerbNet est un lexique adapté à la
-tâche d'annotation en rôles sémantiques : on peut utiliser un cadre de
-sous-catégorisation pour associer des syntagmes à des rôles thématiques
-\citep{swier2005exploiting,pradet2013revisiting}. Grâce à sa couverture élevée
-(plus de quatre mille verbes distincts) et son groupement de verbes utile,
-VerbNet est bien adapté à l'annotation en rôles sémantiques.
+produit des distinctions sémantiques intéressantes validées par des expériences
+empiriques impliquant un grand nombre d'annotateurs
+\citep{hartshorne2014verbcorner}. VerbNet \citep{kipperschuler2005verbnet} est
+un lexique électronique basé sur les classes de Levin. Il encode non plus les
+alternances mais les cadres de sous-catégorisation valables pour chaque classe,
+et rajoute des informations de rôle et de sémantique à travers une logique des
+prédicats simplifiée. De nouvelles classes, constructions et verbes ont étés
+ajoutés à VerbNet au fil des ans. Au-delà de son encodage efficace, VerbNet est
+un lexique adapté à la tâche d'annotation en rôles sémantiques : on peut
+utiliser un cadre de sous-catégorisation pour associer des syntagmes à des
+rôles thématiques \citep{swier2005exploiting,pradet2013revisiting}. Grâce à sa
+couverture élevée (plus de quatre mille verbes distincts) et son groupement de
+verbes utile, VerbNet est bien adapté à l'annotation en rôles sémantiques.
 
 % De la même manière, WordNet est complémentaire à VerbNet
+
 WordNet est une autre ressource qui complète VerbNet en nous fournissant des
 informations sur le sens des verbes inclus dans VerbNet grâce au projet
 SemLink, mais aussi sur le sens des mots liés au verbe, ce qui permet de

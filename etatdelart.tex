@@ -276,7 +276,9 @@ dans la littérature que nous exposons et dans nos travaux, les modèles de
 langue ne décrivent que des mots en confondant leurs différents sens. Nous ne
 mentionnerons plus par la suite cette difficulté, en considérant qu'il suffit
 que le modèle de langue décrive parmi tous les sens celui que nous souhaitons
-observer.
+observer. Cette simplification est largement partagée par la littérature, même
+si la disponibilité de corpus de plus d'un milliard de mots (\emph{giga-word})
+rend possible des résultats plus fins \citep{kawahara2014step}.
 
 Comment observer ces distributions de probabilité ? Un modèle de langue
 classique indique la probabilité d'un mot dans une phrase étant donné les mots
@@ -589,9 +591,12 @@ d'hyponymie.
 
 \subsection{VerbNet}
 
-Étant donné l'intérêt de la classification de verbes à la manière de VerbNet et
-l'intérêt de la ressource en Traitement Automatique des Langues, VerbNet a été
-traduit ou recréé dans plusieurs langues.
+Étant donné l'intérêt de la classification de verbes à la manière de VerbNet
+\citep{hartshorne2014verbcorner} et l'intérêt de la ressource en Traitement
+Automatique des Langues, VerbNet a été traduit ou recréé dans plusieurs
+langues.
+
+% TODO se baser sur kawahara2014step pour donner plus de choses
 
 \cite{merlo2002multilingual} ont utilisé des similarités entres langues pour
 convertir 20 classes de Levin vers l'Italien. Des acquisitions automatiques ont
@@ -640,7 +645,8 @@ Dans cette section, nous étudions les différentes façons de définir les rôl
 sémantiques, examinons diverses ressources utiles pour la tâche d'annotation,
 et présentons les techniques principales pour réaliser l'annotation elle-même.
 
-% TODO définir frame ?
+% TODO définir frame ruppenhofer 2010 script-like conceptual structure
+% Taylor 1995 : 87 a une définition (the knowledge network blabla)
 
 \subsection{Les rôles sémantiques}
 \label{subsec:roles_semantiques}
@@ -819,7 +825,7 @@ phrases. FrameNet est un travail colossal qui est encore loin de couvrir un
 éventail complet du vocabulaire anglais \citep[p.~155]{marquez2008semantic}.
 % TODO check citation marquez
 % TODO citer différents FrameNets ? Copa 2014 Bresil FrameNet ?
-% TODO citer traduction mouton
+% TODO citer traduction mouton + http://www.aclweb.org/anthology/P13-1134.bib
 % TODO citer traduction apidianaki http://www.aclweb.org/anthology/C/C14/C14-1121.pdf
 
 % TODO citer méthodes basées sur word2vec : lechelle2014, kanerva2014 http://www.aclweb.org/anthology/W/W14/W14-1501.pdf
@@ -858,6 +864,15 @@ correction manuelle du corpus. De manière similaire, \cite{exner2014using}
 proposent de développer automatiquement un nouveau PropBank du suédois en se
 basant sur le PropBank anglais et en utilisant Wikipédia comme un corpus
 parallèle. La précision des données obtenues est encore inconnue.
+
+D'autres méthodes transfèrent directement les modèles appris d'une langue vers
+d'autres. \citep{zeman2008cross} appliquent un modèle appris sur un corpus
+danois et l'appliquent à un corpus suédois, et montrent qu'il faut 1500 phrases
+annotées pour qu'un modèle entraîné directement sur le corpus suédois soit
+meilleur. \citep{kozhevnikov2013cross} montrent sur trois paires de langues
+(Anglais-Chinois, Anglais-Tchèque et Anglais-Français) que les résultats sont
+meilleurs en modifiant le modèle appris qu'en projetant l'annotation comme au
+paragraphe précédent.
 
 \paragraph{Non supervisées}
 
