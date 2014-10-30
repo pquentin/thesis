@@ -673,8 +673,6 @@ sémantiques généralement acceptés, on peut citer :
 
 \subsection{Lexiques et corpus}
 
-% TODO Groningen Meaning Bank (GMB)
-
 Il existe en anglais différentes ressources pour l'annotation en rôles
 sémantique : nous aborderons ici FrameNet, PropBank et NomBank, VerbNet ayant
 déjà été présenté plus longuement à la
@@ -721,25 +719,6 @@ patient. D'autres arguments sont disponibles pour étiqueter des rôles plus
 spécifiques (\textit{ARG2}, \textit{ARG3}, etc.) ainsi que des rôles
 secondaires (\textit{Location}, \textit{Extent}, \textit{Manner}, etc.)
 
-En raison de la difficulté de conception d'un tel corpus, peu d'équivalents
-existent dans d'autres langues. C'est la raison pour laquelle
-\cite{exner2014using} proposent de développer automatiquement un nouveau
-PropBank du suédois en se basant sur le PropBank anglais et en utilisant
-Wikipédia comme un corpus parallèle. C'est une piste intéressante pour apporter
-l'annotation en rôles sémantiques à une nouvelle langue, et finalement assez
-proche de la notre. Les principales différences sont les suivantes :
-
-\begin{itemize}
-    \item notre approche produit une nouvelle ressource, VerbNet, qui est
-        l'occasion de décrire les verbes du français et de corriger certaines
-        erreurs des ressources existantes \citep{pradet2014adapting},
-    \item notre approche produit probablement un système avec une performance
-        moins bonne \emph{sur le corpus PropBank}, et probablement aussi bonne
-        sur d'autres corpus d'autres domaines ou d'autres genres,
-    \item et la simplicité de notre approche permet de l'intégrer facilement à un
-        système complexe ayant besoin de comprendre le langage naturel.
-\end{itemize}
-
 \paragraph{NomBank}
 
 NomBank \citep{meyers2004nombank} a été conçu à l'image de PropBank. La
@@ -768,6 +747,38 @@ possible de référer à un argument présent dans une prase précédente.
 
 Enfin, PropBank a récemment décidé d'inclure d'autres parties du discours : les
 noms, les adjectifs, et les verbes support \citep{bonial2014propbank}.
+
+\paragraph{Groningen Meaning Bank (GMB)}
+
+Ce corpus \citep{basile2014developing} vise à fournir un large corpus annoté
+avec un nombre important de couches, le but étant de réaliser une annotation
+sémantique. Sont notamment inclus parmi les couches : les lemmes, les parties
+du discours, la syntaxe (avec CCG). Il y a aussi les sens WordNet, les rôles
+thématiques VerbNet, des annotations sémantiques avec la DRT et des relations
+discours avec SDRT. C'est un corpus prometteur qui unifie un nombre important
+d'annotations complémentaires et jusque-là distinctes.
+
+L'annotation des rôles VerbNet est effectuée grâce au niveau de la syntaxe, CCG
+permettant un moyen élégant d'associer les rôles au token prédicat
+\citep{bos2012annotating}. Quelques difficultés conséquentes subsistent avant
+de pouvoir s'en servir comme d'un corpus VerbNet:
+
+\begin{itemize}
+    \item Les classes VerbNet ne sont pas explicitement annotées, il faut les
+        retrouver à travers le sens WordNet.
+    \item Les frames VerbNet ne sont pas explicitement annotées, il faut les
+        reconstruire d'après les supertags CCG.
+    \item Il n'y a aucune garantie de cohérence avec VerbNet : si une frame est
+        manquante ou erronée dans VerbNet, les annotateurs utilisent le mode
+        \emph{open} et peuvent choisir n'importe quel rôle VerbNet.
+\end{itemize}
+
+\paragraph{Abstract Meaning Representation Bank (AMR Bank)}
+
+Ce corpus \citep{banarescu2013abstract} est un autre corpus à visée sémantique.
+Sa particularité est qu'il propose une forme d'interlingue permettant d'annoter
+des corpus parallèles sémantiquement. Les rôles sémantiques sont ceux de
+PropBank, ce qui permet d'envisager de s'en servir en tant que corpus VerbNet.
 
 \subsection{Approches d'annotation}
 
@@ -834,6 +845,19 @@ systèmes et de réaliser une évaluation sur une vérité-terrain. Il est toujo
 possible d'utiliser un corpus pour régler les paramètres à l'aide d'un
 échantillon de validation ou comme base pour annoter de nouveaux exemples ;
 mais des corpus plus conséquents sont toujours utilisés.
+
+\paragraph{Semi-supervisées}
+
+\cite{vanderplas2014cross} annotent le corpus Europarl anglais avec un système
+automatique entrainé sur PropBank, puis utilisent les alignements du corpus
+pour obtenir un corpus français automatiquement annoté en rôles PropBank. C'est
+une piste intéressante pour obtenir des corpus annotés en rôles sémantiques
+pour le français. Diverses difficultés restent : les données PropBank anglaises
+ont été directement utilisées pour le français, et les scores nécessitent une
+correction manuelle du corpus. De manière similaire, \cite{exner2014using}
+proposent de développer automatiquement un nouveau PropBank du suédois en se
+basant sur le PropBank anglais et en utilisant Wikipédia comme un corpus
+parallèle. La précision des données obtenues est encore inconnue.
 
 \paragraph{Non supervisées}
 
