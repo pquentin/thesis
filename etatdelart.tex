@@ -145,7 +145,7 @@ nouveaux inventaires de sens moins fins ont étés développés :
         inventaire entièrement nouveau conçu dans l'objectif de corriger les
         erreurs faites avec WordNet \citep{kilgarriff2010detailed}.
 
-    \item Le Réseau Lexical du Français \citep{gader2014lexicon} lie des sens de
+    \item Le Réseau Lexical du Français \citep{polguere2014principes} lie des sens de
         mots avec de nombreuses fonctions lexicales associés à un degré de
         confiance, le tout permettant de produire des articles de dictionnaires.
 
@@ -404,17 +404,17 @@ considérer pour tout travail futur sur le sujet.
 
 \subsection{WordNet}
 
-WordNet reste une ressource extrêmement utile et reproduire ce travail pour
-d'autres langues serait coûteux et difficile à maintenir. Malgré quelques
-problèmes théoriques, traduire WordNet en gardant sa structure et ses synsets
-mène à des ressources linguistiques utiles
-\citep{fellbaum2007connecting,demelo2008utility}. Cependant, il n'existe encore
-que peu d'équivalents de même qualité dans d'autres langues
-\citep{bond2012survey}, et il est donc utile de s'atteler à la traduction de
-cette ressource.
+WordNet (section~\ref{presentation_wordnet}) est une ressource extrêmement
+utile pour l'anglais : reproduire ce travail pour d'autres langues serait
+coûteux et difficile à maintenir. Malgré quelques problèmes théoriques,
+traduire WordNet en gardant sa structure et ses synsets mène à des ressources
+linguistiques utiles \citep{fellbaum2007connecting,demelo2008utility}.
+Cependant, il n'existe encore que peu d'équivalents de même qualité dans
+d'autres langues \citep{bond2012survey}, et il est donc utile de s'atteler à la
+traduction de cette ressource.
 
 Les traductions automatiques de WordNet emploient une approche dite d'extension
-(\textit{extend approach}) : la structure de WordNet est préservée et seuls les
+(\textit{expand approach}) : la structure de WordNet est préservée et seuls les
 littéraux sont traduits. Trois techniques principales représentent cette
 approche dans la littérature. La plus simple utilise des dictionnaires
 bilingues pour faciliter le travail des lexicographes qui filtrent ensuite
@@ -426,12 +426,14 @@ l'utilisation de dictionnaires qui peuvent entraîner un biais lexicographique.
 \textit{back-translations} entre le norvégien et l'anglais, alors que
 \citep{sagot2008construction} combinent un lexique multilingue et les
 différents WordNets de BalkaNet comme autant de sources aidant à la
-désambiguïsation. Enfin, plus récemment, des ressources telles que Wikipédia ou
-le Wiktionnaire ont été explorées. Grâce aux nombreux liens entre les
-différentes langues de ces ressources, il est possible de créer de nouveaux
-wordnets \citep{demelo2009towards,navigli2010babelnet} ou d'améliorer des
-wordnets existants \citep{hanoka2012wordnet}.
-% TODO mettre à jour l'état de l'art avec GWC 2014 et LREC 2014 ?
+désambiguïsation. Troisièmement, plus récemment, des ressources telles que
+Wikipédia ou le Wiktionnaire ont été explorées. Grâce aux nombreux liens entre
+les différentes langues de ces ressources, il est possible de créer de nouveaux
+wordnets
+\citep{demelo2009towards,navigli2010babelnet,bond2013linking,aliabadi2014towards,oliver2014wn}
+ou d'améliorer des wordnets existants \citep{hanoka2012wordnet}. Enfin,
+\cite{fiser2014slowcrowd} montrent qu'il est possible de faire appel à la
+production participative (\emph{crowdsourcing}).
 
 Concernant le français, l'EuroWordNet \citep{vossen1998eurowordnet} est la
 première traduction française de WordNet. C'est une ressource d'une couverture
@@ -441,9 +443,11 @@ accessible. WOLF est une seconde traduction initialement construite à l'aide de
 corpus parallèles \citep{sagot2008construction} et étendue depuis avec
 différentes techniques \citep{apidianaki2012applying}. WOLF est distribué sous
 une licence libre compatible avec la LGPL et c'est aujourd'hui le WordNet
-français standard. Enfin, JAWS \citep{mouton2010jaws} est une traduction des
-noms de WordNet développée à l'aide de dictionnaires bilingues et d'un modèle
-de langue syntaxique.
+français standard. JAWS \citep{mouton2010jaws} est une traduction des noms de
+WordNet développée à l'aide de dictionnaires bilingues et d'un modèle de langue
+syntaxique. Enfin, \cite{gader2014lexicon} montrent qu'il est possible de
+convertir le Réseau Lexical du Français vers une représentation WordNet.
+
 
 \label{subsec:jaws_translation_process}
 
@@ -596,43 +600,55 @@ d'hyponymie.
 Automatique des Langues, VerbNet a été traduit ou recréé dans plusieurs
 langues.
 
-% TODO se baser sur kawahara2014step pour donner plus de choses
+Premièrement, même si ce n'est pas dans le cadre d'une traduction de VerbNet,
+un certain nombre de travaux cherchent à catégoriser automatiquement les verbes
+en classes sémantiques, notamment pour l'espagnol \citep{ferrer2004towards},
+l'allemand \citep{im2006experiments}, le japonais \citep{suzuki2009classifying}
+et l'anglais
+\citep{stevenson2003semi,lapata2004verb,vlachos2009unsupervised,lippincott2012learning,kawahara2014step},
+où l'évaluation se fait notamment sur les classes de Levin. Pour l'anglais,
+\citep{kawahara2014step} montre qu'un corpus de plusieurs milliards de mot
+permet de considérer la polysémie. En particulier, un corpus de 20 milliards de
+mot améliore de manière conséquente l'état de l'art en considérant
+l'affectation de verbes à plusieurs classes (71.39~\% de F1 contre 61.97~\%
+pour LDA-frames \citep{materna2012lda}).
 
-\cite{merlo2002multilingual} ont utilisé des similarités entres langues pour
-convertir 20 classes de Levin vers l'Italien. Des acquisitions automatiques ont
-aussi été menées en japonais \citep{suzuki2009classifying}, allemand
-\citep{im2006experiments} et espagnol \citep{ferrer2004towards}. Les seules
-traductions directes dont nous avons la connaissance sont le VerbNet estonien
-\citep{jentson2014verbnet} et le VerbNet portuguais brésilien
-\citep{scarton2012towards} qui utilise des mappings entre VerbNet et WordNet,
-et entre WordNet.Br et WordNet. \cite{scarton2014using} propose la création
-d'un VerbNet en s'appuyant comme seul effort manuel sur la traduction manuelles
-des frames VerbNet vers la langue cible, puis de ressources lexicales déjà
-disponibles (WordNet, VerbNet et WordNet traduit dans la langue cible), le tout
-dans l'optique de créer des VerbNets pour les langues proches de l'anglais
-disposant déjà d'un WordNet.  La méthode a été testée pour le brésilien
-portuguais ; la comparaison des clusters de verbes de
+Concernant les traductions directes, \cite{merlo2002multilingual} ont utilisé
+des similarités entres langues pour convertir 20 classes de Levin vers
+l'Italien. Les seules traductions directes de VerbNet dont nous avons la
+connaissance sont le VerbNet estonien \citep{jentson2014verbnet} et le VerbNet
+portuguais brésilien \citep{scarton2012towards} qui utilise des mappings entre
+VerbNet et WordNet, et entre WordNet.Br et WordNet. \cite{scarton2014using}
+propose la création d'un VerbNet en s'appuyant comme seul effort manuel sur la
+traduction manuelles des frames VerbNet vers la langue cible, puis de
+ressources lexicales déjà disponibles (WordNet, VerbNet et WordNet traduit dans
+la langue cible), le tout dans l'optique de créer des VerbNets pour les langues
+proches de l'anglais disposant déjà d'un WordNet.  La méthode a été testée pour
+le brésilien portuguais ; la comparaison des clusters de verbes de
 \citep{scarton2012towards} indique un F-score de 60~\%.  Comme l'indiquent les
 auteurs, la ressource obtenue ne peut pour l'instant que servir de base à une
 annotation linguistique.
 
-% TODO mieux étudier saintdizier1996constructing
 Pour le français, \cite{saintdizier1996constructing} a produit une ressource
-proche des classes de Levin. À notre connaissance, l'effort sur cette ressource
-s'est arrêté et le résultat n'est pas disponible\footnote{Nous n'avons
-cependant pas contacté l'auteur de cette ressource pour en savoir plus.}. Des
-travaux se sont ensuite concentrés sur l'acquisition automatique de cadres de
-sous-catégorisation et sur le regroupement de verbes en se basant sur ces
-cadres et sur des similarités sémantiques. \cite{sun2010investigating} ont
-utilisé un large lexique de cadres de sous-catégorisation
-\citep{messiant2010acquisition} pour regrouper les verbes en clusters à l'aide
-de traits sémantiques (colocations et préférences lexicales des verbes) et
-syntaxiques (cadres de sous-catégorisation). L'évaluation sur une
-vérité-terrain créée manuellement a mené à une F-mesure de 55.1\%.
-\cite{falk2012classifying} appliquent un algorithme de clustering différent et
-utilisent des features différentes, ce qui améliore la F-mesure sur la même
-vérité-terrain mais simplifiée, ce qui donne une F-mesure de 70\%. Ces
-ressources mettent en valeur de nouvelles façons de séparer les verbes du
+proche des classes de Levin dans l'objectif de s'en servir en Traitement
+Automatique de Langues, tout comme VerbNet dix ans plus tard. Chacun des 1700
+verbes est décrit par un certain nombre de «~contextes~» provenant de
+différentes sources : les classes de Levin, les tables du Lexique-Grammaire, de
+corpus et d'intuition linguistique. Cependant, à notre connaissance, l'effort
+sur cette ressource s'est arrêté et le résultat n'est pas
+disponible\footnote{Nous n'avons cependant pas contacté l'auteur de cette
+ressource pour en savoir plus.}. Des travaux se sont ensuite concentrés sur
+l'acquisition automatique de cadres de sous-catégorisation et sur le
+regroupement de verbes en se basant sur ces cadres et sur des similarités
+sémantiques. \cite{sun2010investigating} ont utilisé un large lexique de cadres
+de sous-catégorisation \citep{messiant2010acquisition} pour regrouper les
+verbes en clusters à l'aide de traits sémantiques (colocations et préférences
+lexicales des verbes) et syntaxiques (cadres de sous-catégorisation).
+L'évaluation sur une vérité-terrain créée manuellement a mené à une F-mesure de
+55.1\%.  \cite{falk2012classifying} appliquent un algorithme de clustering
+différent et utilisent des features différentes, ce qui améliore la F-mesure
+sur la même vérité-terrain mais simplifiée, ce qui donne une F-mesure de 70\%.
+Ces ressources mettent en valeur de nouvelles façons de séparer les verbes du
 Français, mais les erreurs qu'elles contiennent seront une nouvelle source
 d'erreur dans les applications : il est important de les corriger si possible,
 ce qui est la raison pour laquelle nous adoptons une approche différente dans
@@ -679,26 +695,9 @@ sémantiques généralement acceptés, on peut citer :
 
 \subsection{Lexiques et corpus}
 
-Il existe en anglais différentes ressources pour l'annotation en rôles
-sémantique : nous aborderons ici FrameNet, PropBank et NomBank, VerbNet ayant
-déjà été présenté plus longuement à la
-section~\ref{presentation_verbnet}. 
-
-\paragraph{FrameNet}
-\label{presentation_framenet}
-
-% TODO move out to introduction
-
-FrameNet \citep{baker1998berkeley} repose sur la théorie des \textit{Frame
-Semantics}, élaborée par Fillmore en modifiant sa théorie initiale. Ici, les
-rôles sémantiques \textit{frame elements} sont spécifiques à chaque situation
-(\textit{frame}) tout en se recoupant par endroits. On retrouve ainsi le rôle
-d'agent, mais aussi des rôles spécifiques comme \textbf{Food} dans
-\textbf{Apply\_heat} ou \textbf{Completeness} dans \textbf{Activity\_pause}.
-Les rôles sont classifiés selon leur importance dans la situation : centraux
-(nécessaires), périphériques (toujours liés à la situation mais optionnels) et
-circonstanciels (potentiellement présent dans toutes les situations, par
-exemple le lieu ou le temps).
+Il existe différentes ressources utiles dans le cadre de l'annotation en rôles
+sémantique. Toutes les ressources que nous utilisons directement dans nos
+travaux ont été présentées à la section~\ref{ressources_utilisees}.
 
 \paragraph{PropBank}
 
@@ -808,34 +807,26 @@ connaissance et non supervisées.
 
 \paragraph{Supervisées}
 
+% TODO différencier Propbank/SRL Framenet/frame-parsing?
+
 Les méthodes supervisées
-\citep{gildea2002automatic,surdeanu2008conll,das2014frame,hermann2014semantic}
+\citep{gildea2002automatic,surdeanu2008conll,das2014frame,hermann2014semantic,lluis2014shortest}
 utilisent un corpus annoté, et adoptent donc l'inventaire associé. Des
 techniques classiques d'apprentissage automatique sont utilisées pour
 déterminer le sens correct de chaque occurrence d'un mot étant donné les
 informations obtenues à partir du contexte de cette occurrence.  L'annotation
-en rôles sémantiques supervisée est souvent divisée en plusieurs sous-tâches :
-l'identification des prédicats, puis des frames, l'identification des arguments
-qui établit les syntagmes jouant un rôle dans la phrase et la classification
-des rôles qui détermine le rôle effectif de chaque syntagme parmi ceux retenus
-à la phase précédente.
+en rôles sémantiques supervisée est souvent divisée en plusieurs sous-tâches,
+parfois regroupées en partie :
 
-Ces méthodes supervisées ont des difficultés pour couvrir un large éventail de
-phrases. FrameNet est un travail colossal qui est encore loin de couvrir un
-éventail complet du vocabulaire anglais \citep[p.~155]{marquez2008semantic}.
-% TODO check citation marquez
-% TODO citer différents FrameNets ? Copa 2014 Bresil FrameNet ?
-% TODO citer traduction mouton + http://www.aclweb.org/anthology/P13-1134.bib
-% TODO citer traduction apidianaki http://www.aclweb.org/anthology/C/C14/C14-1121.pdf
+\begin{itemize}
+    \item l'identification des prédicats,
+    \item l'identification des frames,
+    \item l'identification des arguments qui établit les syntagmes jouant un rôle dans la phrase,
+    \item et la classification des rôles qui détermine le rôle effectif de
+chaque syntagme parmi ceux retenus à la phase précédente.
+\end{itemize}
 
-% TODO citer méthodes basées sur word2vec : lechelle2014, kanerva2014 http://www.aclweb.org/anthology/W/W14/W14-1501.pdf
-
-% TODO citer konstas2014incremental
-% TODO citer lluis2014shortest
-% TODO citer yang2014multi
-
-% TODO roth2014composition (word repr composition improves SRL)
-
+% TODO citer méthodes basées sur word2vec : lechelle2014, kanerva2014 http://www.aclweb.org/anthology/W/W14/W14-1501.pdf roth2014composition (word repr composition improves SRL)
 
 \paragraph{Fondées sur la connaissance}
 

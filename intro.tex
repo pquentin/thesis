@@ -221,6 +221,7 @@ WordNet et VerbNet (Partie~\ref{part:translation}) et les \emph{méthodes}
 (Partie~\ref{part:srl}) répondant à ces objectifs.
 
 \section{Ressources lexicales utilisées}
+\label{ressources_utilisees}
 
 La première ressource lexicale à tirer parti de la possibilité de représenter
 le lexique sous la forme d'un graphe est WordNet \citep{fellbaum1998wordnet}.
@@ -415,6 +416,28 @@ correspond d'abord à l'Agent puis au Patient.}
 
 \end{figure}
 
+\subsection{FrameNet}
+\label{presentation_framenet}
+
+FrameNet \citep{baker1998berkeley} repose sur la théorie des \textit{Frame
+Semantics}, élaborée par Fillmore en modifiant sa théorie initiale. Ici, les
+rôles sémantiques \textit{frame elements} sont spécifiques à chaque situation
+(\textit{frame}) tout en se recoupant par endroits. On retrouve ainsi le rôle
+d'agent, mais aussi des rôles spécifiques comme \textbf{Food} dans
+\textbf{Apply\_heat} ou \textbf{Completeness} dans \textbf{Activity\_pause}.
+Les rôles sont classifiés selon leur importance dans la situation : centraux
+(nécessaires), périphériques (toujours liés à la situation mais optionnels) et
+circonstanciels (potentiellement présent dans toutes les situations, par
+exemple le lieu ou le temps).
+
+FrameNet est un travail colossal qui est encore loin de couvrir un éventail
+complet du vocabulaire anglais \citep[§5.4]{marquez2008semantic}, nécessitant
+de trouver d'autres moyens pour étendre la ressource, notamment avec la
+production participative (\emph{crowdsourcing})
+\citep{fossati2013outsourcing,baker2014framenet}.
+
+% TODO citer différents FrameNets ? Copa 2014 Bresil FrameNet ?
+% TODO citer traduction mouton + http://www.aclweb.org/anthology/P13-1134.bib
 
 \subsection{Les Verbes Français et Lexique-Grammaire}
 \label{sec:lvflg}
