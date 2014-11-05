@@ -386,49 +386,30 @@ liaison entre les syntagmes et les rôles thématiques, une formule sémantique
 basée sur la logique des prédicats explicitant la relation entre les
 participants et les évènements.
 
-% TODO exemple
+% TODO exemple ? autre que exemple_srl dans etatdelart ?
 
 % TODO autre exemple non intuitif avec verbe complet en bas
 
-% TODO Introduire fig:example_srl
- VerbNet a montré la cohérence de sa classification et est très
-utilisé, notamment pour l'annotation en rôles sémantiques
+VerbNet a montré la cohérence de sa classification et est très utilisé,
+notamment pour l'annotation en rôles sémantiques
 \citep{swier2005exploiting,palmer2013semantic} où il présente l'intérêt de ne
 pas être restreint à un domaine spécifique tout en couvrant une large partie
 des occurrences des verbes anglais dans un texte donné.
-
-\begin{figure}[ht]
-    \centering
-    \begin{tabular}{ccc}
-        \toprule
-        Carol & crushed   & the ice \\
-        Agent & V         & Patient \\
-        \midrule
-        The ice & crushes & easily  \\
-        Patient & V       &         \\
-        \bottomrule
-    \end{tabular}
-
-    \caption{\label{fig:example_srl}Ces deux phrases annotées avec la classe
-    VerbNet \texttt{carve-21.2} montrent que la position des arguments ne
-détermine pas à elle seule les rôles sémantique. Ici, le sujet syntaxique
-correspond d'abord à l'Agent puis au Patient.}
-
-\end{figure}
 
 \subsection{FrameNet}
 \label{presentation_framenet}
 
 FrameNet \citep{baker1998berkeley} repose sur la théorie des \textit{Frame
-Semantics}, élaborée par Fillmore en modifiant sa théorie initiale. Ici, les
-rôles sémantiques \textit{frame elements} sont spécifiques à chaque situation
-(\textit{frame}) tout en se recoupant par endroits. On retrouve ainsi le rôle
-d'agent, mais aussi des rôles spécifiques comme \textbf{Food} dans
-\textbf{Apply\_heat} ou \textbf{Completeness} dans \textbf{Activity\_pause}.
-Les rôles sont classifiés selon leur importance dans la situation : centraux
-(nécessaires), périphériques (toujours liés à la situation mais optionnels) et
-circonstanciels (potentiellement présent dans toutes les situations, par
-exemple le lieu ou le temps).
+Semantics}, élaborée par \cite{fillmore1982frame} en modifiant sa théorie des
+cas \citep{fillmore1968case}. Ici, les rôles sémantiques \textit{frame
+elements} sont spécifiques à chaque situation (\textit{frame}) tout en se
+recoupant par endroits. On retrouve ainsi le rôle d'agent, mais aussi des rôles
+spécifiques comme \textbf{Food} dans \textbf{Apply\_heat} ou
+\textbf{Completeness} dans \textbf{Activity\_pause}.  Les rôles sont classifiés
+selon leur importance dans la situation : centraux (nécessaires), périphériques
+(toujours liés à la situation mais optionnels) et circonstanciels
+(potentiellement présent dans toutes les situations, par exemple le lieu ou le
+temps).
 
 FrameNet est un travail colossal qui est encore loin de couvrir un éventail
 complet du vocabulaire anglais \citep[§5.4]{marquez2008semantic}, nécessitant

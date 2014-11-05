@@ -277,8 +277,9 @@ langue ne décrivent que des mots en confondant leurs différents sens. Nous ne
 mentionnerons plus par la suite cette difficulté, en considérant qu'il suffit
 que le modèle de langue décrive parmi tous les sens celui que nous souhaitons
 observer. Cette simplification est largement partagée par la littérature, même
-si la disponibilité de corpus de plus d'un milliard de mots (\emph{giga-word})
-rend possible des résultats plus fins \citep{kawahara2014step}.
+si la disponibilité de corpus de plus d'un milliard de mots (\emph{gigaword})
+rend possible des travaux prenant en compte la polysémie
+\citep{kawahara2014step}.
 
 Comment observer ces distributions de probabilité ? Un modèle de langue
 classique indique la probabilité d'un mot dans une phrase étant donné les mots
@@ -311,23 +312,24 @@ corpus étudié. Il faut alors estimer la probabilité de tels n-grammes à part
 d'un n-gramme plus court ou leur assigner une probabilité très faible pour
 éviter les probabilités nulles.
 
-Diverses extensions de ces modèles de langues à base de n-grammes existent,
-l'une d'entre elles étant le modèle de langue syntaxique
-\citep{lin1998automatic,goldberg2013dataset}. Dans ce modèle, on considère les
-mots présents ensemble dans une relation syntaxique donnée. Pour la relation
-complément du nom par exemple, on s'attend à ce que \emph{vélo} soit le
-complément du nom des mots \emph{pédale}, \emph{guidon}, \emph{pneu}... Nous
-utilisons pour la traduction de WordNet (Chapitre~\ref{ch:wonef}) un tel modèle
-de langue syntaxique (\url{http://www.kalisteo.fr/demo/semanticmap/}).  Il a
-été entraîné sur un corpus extrait du web francophone
-\citep{grefenstette2007conquering}. Le corpus a ensuite été analysé par LIMA
-\citep{besancon2010lima}, une chaîne d'analyse linguistique désormais libre ici
-utilisée comme un analyseur syntaxique à base de règles produisant des
-dépendances syntaxiques fines. Pour une relation donnée $r$ et un lemme $x$, le
-modèle de langue indique quels sont les 100 premiers lemmes co-occurrant le
-plus fréquemment avec $x$ dans la relation $r$.  Avec le mot \textit{avion} et
-la relation de complément du nom, c'est le mot \textit{billet} qui modifie le
-plus \textit{avion} : \textit{billet d'avion} est fréquent dans le corpus.
+\paragraph{Modèles de langues syntaxiques} Diverses extensions de ces modèles
+de langues à base de n-grammes existent, l'une d'entre elles étant le modèle de
+langue syntaxique \citep{lin1998automatic,goldberg2013dataset}. Dans ce modèle,
+on considère les mots présents ensemble dans une relation syntaxique donnée.
+Pour la relation complément du nom par exemple, on s'attend à ce que
+\emph{vélo} soit le complément du nom des mots \emph{pédale}, \emph{guidon},
+\emph{pneu}... Nous utilisons pour la traduction de WordNet
+(Chapitre~\ref{ch:wonef}) un tel modèle de langue syntaxique
+(\url{http://www.kalisteo.fr/demo/semanticmap/}).  Il a été entraîné sur un
+corpus extrait du web francophone \citep{grefenstette2007conquering}. Le corpus
+a ensuite été analysé par LIMA \citep{besancon2010lima}, une chaîne d'analyse
+linguistique désormais libre ici utilisée comme un analyseur syntaxique à base
+de règles produisant des dépendances syntaxiques fines. Pour une relation
+donnée $r$ et un lemme $x$, le modèle de langue indique quels sont les 100
+premiers lemmes co-occurrant le plus fréquemment avec $x$ dans la relation $r$.
+Avec le mot \textit{avion} et la relation de complément du nom, c'est le mot
+\textit{billet} qui modifie le plus \textit{avion} : \textit{billet d'avion}
+est fréquent dans le corpus.
 
 
 \tikzstyle{block}=[draw, fill=blue!5, rectangle, minimum height=0.5cm, minimum width=3cm, text width=5cm]
@@ -342,30 +344,30 @@ plus \textit{avion} : \textit{billet d'avion} est fréquent dans le corpus.
   \caption{\emph{avion} est complément de ces noms d'après notre modèle de langue syntaxique.}
 \end{figure}
 
-D'autres types de modèles de langue représentent les mots de manières
-distribuée en utilisant un vecteur de nombres réels. LSA
-\citep{deerwester1990indexing}, par exemple, considère une matrice de termes et
-de documents, les termes étant en ligne, les document en colonne. Les éléments
-de cette matrice sont typiquement calculés avec TF-IDF. Cette matrice est
-ensuite réduite, ce qui permet de généraliser en rapprochant la similarité
-cosinus des mots qui apparaissent dans les mêmes documents. LSA fait partie
-d'une classe de méthodes où on considère une matrice de co-occurrence entre les
-mots et leurs contexte, une mesure d'association quelconque, une factorisation
-potentielle, et une mesure de la distance entre les éléments, l'objectif final
-étant de rapprocher les mots sémantiquement proches.
+\paragraph{Modèles de langues continus} D'autres types de modèles de langue
+représentent les mots de manières distribuée en utilisant un vecteur de nombres
+réels. LSA \citep{deerwester1990indexing}, par exemple, considère une matrice
+de termes et de documents, les termes étant en ligne, les document en colonne.
+Les éléments de cette matrice sont typiquement calculés avec TF-IDF. Cette
+matrice est ensuite réduite, ce qui permet de généraliser en rapprochant la
+similarité cosinus des mots qui apparaissent dans les mêmes documents. LSA fait
+partie d'une classe de méthodes où on considère une matrice de co-occurrence
+entre les mots et leurs contexte, une mesure d'association quelconque, une
+factorisation potentielle, et une mesure de la distance entre les éléments,
+l'objectif final étant de rapprocher les mots sémantiquement proches.
 
-Depuis la diffusion de word2vec \citep{mikolov2013distributed} et de ses bons
-résultats obtenus dans un certain nombre de tâches, les représentations de mots
-à l'aide de réseaux de neurones sont populaires\footnote{Les bons résultats
-    obtenus notamment en vision par ordinateur par des réseaux de neurones
-    profonds ont sûrement contribué à cet enthousiasme, il est donc important
-    de rappeller que les réseaux de neurones concernés ici ne sont pas
-profonds.}.  La manière la plus répandue pour faire cela est d'utiliser un
-réseau de neurones peu profond dont une des couches sera le vecteur
-représentant chaque mot.  \cite{hinton1986learning} a d'abord proposé l'idée
-d'un réseau de neurones pour représenter des concepts à l'aide de vecteurs
-faisant partie du réseau, \cite{bengio2001neural,bengio2003neural} ont présenté
-le modèle de langue neuronal tel qu'on le connaît aujourd'hui, et
+\paragraph{Modèles de langues neuronaux} Depuis la diffusion de word2vec
+\citep{mikolov2013distributed} et de ses bons résultats obtenus dans un certain
+nombre de tâches, les représentations de mots à l'aide de réseaux de neurones
+sont populaires\footnote{Les bons résultats obtenus notamment en vision par
+ordinateur par des réseaux de neurones profonds ont sûrement contribué à cet
+enthousiasme, il est donc important de rappeller que les réseaux de neurones
+concernés ici ne sont pas profonds.}.  La manière la plus répandue pour faire
+cela est d'utiliser un réseau de neurones peu profond dont une des couches sera
+le vecteur représentant chaque mot.  \cite{hinton1986learning} a d'abord
+proposé l'idée d'un réseau de neurones pour représenter des concepts à l'aide
+de vecteurs faisant partie du réseau, \cite{bengio2001neural,bengio2003neural}
+ont présenté le modèle de langue neuronal tel qu'on le connaît aujourd'hui, et
 \cite{mikolov2013distributed} (parmi d'autres) a optimisé un modèle de langue
 en supprimant notamment une couche cachée pour l'utiliser sur de plus gros
 corpus. Dans tous ces modèles, lors de la rétropropagation du gradient, la
@@ -386,14 +388,15 @@ réseaux de neurones sont encore difficiles à entraîner et à paramétrer
 \citep{do2014modeles}, mais semblent représenter une alternative plus efficace
 que les modèles de langue simples à base de n-grammes \citep{baroni2014dont}.
 
-La compréhension des méchanismes derrières ces réseaux de neurones est un champ
-actif de recherche. \cite{levy2014neural} ont montré que la méthode de
-\emph{negative sampling} de \cite{mikolov2013distributed} revient à factoriser
-la matrice d'information mutuelle entre les mots et les contextes en accordant
-plus d'importance aux termes fréquents, ce qui est très proche des méthodes
-couramment utilisées en sémantique distributionnelle et permet d'espérer une
-optimisation plus directe de l'objectif afin d'améliorer les résultats tout en
-comprenant les méthodes utilisées.
+La compréhension des mécanismes derrières ces réseaux de neurones est un champ
+actif de recherche. \cite{levy2014neural} ont montré que la méthode recommandée
+par \cite{mikolov2013distributed} (\emph{negative sampling}) revient à
+factoriser la matrice d'information mutuelle (légèrement modifiée) entre les
+mots et les contextes en accordant plus d'importance aux termes fréquents, ce
+qui est très proche des méthodes couramment utilisées en sémantique
+distributionnelle et permet d'espérer une optimisation plus directe de
+l'objectif afin d'améliorer les résultats tout en comprenant les méthodes
+utilisées.
 
 Bien que nous ne tirions pas profit des méthodes les plus récentes dans les
 travaux que nous avons choisi de présenter ici, ces progrès importants sont à
@@ -671,7 +674,7 @@ Comment aller au-delà d'une analyse syntaxique pour représenter le sens d'une
 phrase ? La notion de rôle sémantique semble particulièrement adaptée aux
 approches statistiques que nous présentons ici. Ces rôles ont pour objectif de
 s'abstraire des alternances de diathèse présentes dans le langage naturel
-(Figure~\ref{fig:example_srl}). Différentes théories linguistiques proposent
+(Figure~\ref{fig:exemple_srl}). Différentes théories linguistiques proposent
 différentes représentations pour ces rôles ; nous nous intéresserons ici aux
 rôles VerbNet et à la théorie élaborée par \cite{fillmore1968case} qui établit
 que le cas grammatical exhibe des relations profondes et sémantiques. De
@@ -683,8 +686,28 @@ grammatical, même s'il n'est pas marqué au niveau morphologique dans la langue
 étudiée.
 % TODO clarifier
 
+\begin{figure}[ht]
+    \centering
+    \begin{tabular}{ccc}
+        \toprule
+        Carol & crushed   & the ice \\
+        Agent & V         & Patient \\
+        \midrule
+        The ice & crushes & easily  \\
+        Patient & V       &         \\
+        \bottomrule
+    \end{tabular}
+
+    \caption{\label{fig:exemple_srl}Ces deux phrases annotées avec la classe
+    VerbNet \texttt{carve-21.2} montrent que la position des arguments ne
+détermine pas à elle seule les rôles sémantique. Ici, le sujet syntaxique est
+tour à tour Agent (pour \emph{Carol}) puis Patient (pour \emph{The ice}).}
+
+\end{figure}
+
 Il n'y a pas de réel consensus sur un inventaire de cas donnés. Parmi les rôles
-sémantiques généralement acceptés, on peut citer :
+sémantiques généralement acceptés \citep[p.~4]{palmer2010semantic}, on peut
+citer :
 
 \begin{itemize}
     \item l'\textbf{Agent} qui est à l'origine de l'action
@@ -694,6 +717,7 @@ sémantiques généralement acceptés, on peut citer :
 \end{itemize}
 
 \subsection{Lexiques et corpus}
+\label{ressources_non_utilisees}
 
 Il existe différentes ressources utiles dans le cadre de l'annotation en rôles
 sémantique. Toutes les ressources que nous utilisons directement dans nos
@@ -705,11 +729,11 @@ Malgré quelques critiques \citep{riemer2011conception}, l'interface
 syntaxe-sémantique nous permet d'utiliser les informations syntaxiques d'un
 verbe pour distinguer différents sens et identifer ses arguments sémantique.
 Par exemple, nous pouvons expliquer la différence entre deux sens majeurs du
-verbe « retenir » ainsi :
+verbe « retenir » syntaxiquement :
 
 \begin{enumerate}
-    \item se souvenir de quelque chose
-    \item empêcher quelqu'un de faire quelque chose
+    \item retenir quelque chose (se souvenir)
+    \item retenir quelqu'un de faire quelque chose (empêcher)
 \end{enumerate}
 
 PropBank \citep{palmer2005proposition} a décidé d'utiliser les annotations
@@ -737,11 +761,12 @@ les mêmes : dans « Il a acheté un arbre » et « l'achat d'un arbre »,
 \textit{ARG1} sera dans les deux cas l'arbre. D'autres catégories incluent les
 noms partitifs, relationnels et environnementaux.
 
-Pour une phrase telle que \emph{They gave the chefs a standing ovation}, les
-annotations PropBank et NomBank peuvent montrer les liens possibles entre ces
-deux ressources. Cette similarité volontaire a permis de lier ces ressources
-\citep{pustejovsky2005merging,verhagen2007combining}, mais des applications
-utilisant de telles ressources unifiées doivent encore voir le jour.
+que \emph{They gave the chefs a standing ovation}, les annotations PropBank et
+NomBank proposent la même annotation, l'une étant basée sur le groupe nominal
+(\emph{a standing ovation}), l'autre sur la structure prédicat-argument autour
+du verbe \emph{gave}.. Cette similarité volontaire a permis de lier ces
+ressources \citep{pustejovsky2005merging,verhagen2007combining}, mais nous ne
+connaissons pas d'applications tirant profit de ces deux ressources.
 
 \cite{gerber2010beyond} ont étendu NomBank aux arguments
 implicites, améliorant ainsi la couverture de NomBank de 65\%, c'est-à-dire en
@@ -750,21 +775,25 @@ n'est pas rare que les arguments soient implicites mais présent dans d'autres
 phrases. Les annotations étant limitées à la phrase actuelle, il n'est pas
 possible de référer à un argument présent dans une prase précédente.
 
-Enfin, PropBank a récemment décidé d'inclure d'autres parties du discours : les
-noms, les adjectifs, et les verbes support \citep{bonial2014propbank}.
+Enfin, PropBank lui-même a récemment décidé d'inclure d'autres parties du
+discours impliquant potentiellement des structures prédicat-argument en
+s'inspirant notamment de NomBank : les noms, les adjectifs, et les verbes
+support \citep{bonial2014propbank}.
+
 
 \paragraph{Groningen Meaning Bank (GMB)}
 
 Ce corpus \citep{basile2014developing} vise à fournir un large corpus annoté
-avec un nombre important de couches, le but étant de réaliser une annotation
-sémantique. Sont notamment inclus parmi les couches : les lemmes, les parties
-du discours, la syntaxe (avec CCG). Il y a aussi les sens WordNet, les rôles
-thématiques VerbNet, des annotations sémantiques avec la DRT et des relations
-discours avec SDRT. C'est un corpus prometteur qui unifie un nombre important
-d'annotations complémentaires et jusque-là distinctes.
+avec un nombre important de couches, le but étant de fournir un grand corpus
+pour la recherche en «~sémantique~». Sont notamment inclus parmi les couches :
+les lemmes, les parties du discours, la syntaxe (avec CCG). Il y a aussi les
+sens WordNet, les rôles thématiques VerbNet, des annotations sémantiques avec
+la DRT et des relations discours avec SDRT. C'est un corpus prometteur qui
+unifie un nombre important d'annotations complémentaires et jusque-là
+distinctes.
 
-L'annotation des rôles VerbNet est effectuée grâce au niveau de la syntaxe, CCG
-permettant un moyen élégant d'associer les rôles au token prédicat
+L'annotation des rôles VerbNet est effectuée directement au niveau de la
+syntaxe, CCG donnant un moyen élégant d'associer les rôles au token prédicat
 \citep{bos2012annotating}. Quelques difficultés conséquentes subsistent avant
 de pouvoir s'en servir comme d'un corpus VerbNet:
 
@@ -791,14 +820,15 @@ Les systèmes d'annotation en rôles sémantiques utilisent deux types de
 ressources :
 
 \begin{enumerate}
-    \item Les \textbf{inventaires} examinés à la section précédente permettent
-        de fournir un socle commun à différents systèmes. Ce sera par exemple
-        la définition des frames, des rôles, des cadre de sous-catégorisation
-        et des prédicats possibles.
-    \item Les \textbf{corpus annotés} par des humains qui utilisent un
-        inventaire donné pour réaliser la tâche qu'on essaie de faire apprendre
-        aux systèmes. FrameNet contient de nombreux exemples annotés en plus
-        des rôles sémantiques définis pour chacune des situations.
+    \item Les \textbf{inventaires} examinés aux
+        sections~\ref{ressources_utilisees} et \ref{ressources_non_utilisees}
+        permettent de fournir un socle commun à différents systèmes. Ce sera
+        par exemple la définition des frames, des rôles, des cadre de
+        sous-catégorisation et des prédicats possibles.
+    \item Les \textbf{corpus annotés} par des humains utilisent un inventaire
+        donné pour réaliser la tâche qu'on essaie de faire apprendre aux
+        systèmes. FrameNet contient de nombreux exemples annotés en plus des
+        rôles sémantiques définir pour chacune des situations.
 \end{enumerate}
 
 Ces ressources sont utilisées différemment suivant les méthodes, souvent
@@ -830,18 +860,17 @@ chaque syntagme parmi ceux retenus à la phase précédente.
 
 \paragraph{Fondées sur la connaissance}
 
-Contrairement aux approches supervisées, ces approches n'utilisent pas de
-corpus annoté \citep{swier2005exploiting,pradet2013revisiting}. Les systèmes
-s'affranchissent alors de la petite taille inhérente à tout corpus annoté et
-peuvent utiliser un large corpus non annoté tel que le web. Un inventaire de
-sens est tout de même utilisé, et il faut toujours faire de la classification ;
-la difficulté principale étant ici d'obtenir des informations utiles à partir
-des exemples non annotés. Étant donné que ces méthodes continuent à utiliser un
-inventaire, il reste possible de comparer les résultats entre différents
-systèmes et de réaliser une évaluation sur une vérité-terrain. Il est toujours
-possible d'utiliser un corpus pour régler les paramètres à l'aide d'un
-échantillon de validation ou comme base pour annoter de nouveaux exemples ;
-mais des corpus plus conséquents sont toujours utilisés.
+Quelques approchent n'utilisent pas de corpus annoté mais se content de la
+ressource VerbNet
+\citep{swier2004unsupervised,swier2005exploiting,pradet2013revisiting}. Les
+systèmes s'affranchissent alors de la petite taille inhérente à tout corpus
+annoté et s'appuient sur les cadres de sous-catégorisation pour l'annotation.
+Un inventaire de sens est utilisé : il faut toujours aussi faire de la
+classification ; la difficulté principale étant ici d'obtenir des informations
+utiles sans exemples annotés. Étant donné que ces méthodes continuent à
+utiliser un inventaire, il reste possible de comparer les résultats entre
+différents systèmes et de réaliser une évaluation sur une vérité-terrain. La
+présentation de ces méthodes est l'objet du chapitre~\ref{ch:srl}.
 
 \paragraph{Semi-supervisées}
 
@@ -858,12 +887,12 @@ parallèle. La précision des données obtenues est encore inconnue.
 
 D'autres méthodes transfèrent directement les modèles appris d'une langue vers
 d'autres. \citep{zeman2008cross} appliquent un modèle appris sur un corpus
-danois et l'appliquent à un corpus suédois, et montrent qu'il faut 1500 phrases
-annotées pour qu'un modèle entraîné directement sur le corpus suédois soit
-meilleur. \citep{kozhevnikov2013cross} montrent sur trois paires de langues
-(Anglais-Chinois, Anglais-Tchèque et Anglais-Français) que les résultats sont
-meilleurs en modifiant le modèle appris qu'en projetant l'annotation comme au
-paragraphe précédent.
+danois et l'appliquent à un corpus suédois, et montrent qu'il faut un corpus de
+1500 phrases annotées en suédois pour qu'un modèle entraîné directement sur le
+corpus suédois soit meilleur que leur système. \citep{kozhevnikov2013cross}
+montrent sur trois paires de langues (Anglais-Chinois, Anglais-Tchèque et
+Anglais-Français) que les résultats sont meilleurs en modifiant le modèle
+appris qu'en projetant l'annotation comme au paragraphe précédent.
 
 \paragraph{Non supervisées}
 
