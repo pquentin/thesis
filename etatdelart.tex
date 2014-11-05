@@ -603,6 +603,8 @@ d'hyponymie.
 Automatique des Langues, VerbNet a été traduit ou recréé dans plusieurs
 langues.
 
+\paragraph{Acquisitions de VerbNets}
+
 Premièrement, même si ce n'est pas dans le cadre d'une traduction de VerbNet,
 un certain nombre de travaux cherchent à catégoriser automatiquement les verbes
 en classes sémantiques, notamment pour l'espagnol \citep{ferrer2004towards},
@@ -615,6 +617,8 @@ permet de considérer la polysémie. En particulier, un corpus de 20 milliards d
 mot améliore de manière conséquente l'état de l'art en considérant
 l'affectation de verbes à plusieurs classes (71.39~\% de F1 contre 61.97~\%
 pour LDA-frames \citep{materna2012lda}).
+
+\paragraph{Traductions de VerbNet}
 
 Concernant les traductions directes, \cite{merlo2002multilingual} ont utilisé
 des similarités entres langues pour convertir 20 classes de Levin vers
@@ -631,6 +635,8 @@ le brésilien portuguais ; la comparaison des clusters de verbes de
 \citep{scarton2012towards} indique un F-score de 60~\%.  Comme l'indiquent les
 auteurs, la ressource obtenue ne peut pour l'instant que servir de base à une
 annotation linguistique.
+
+\paragraph{VerbNet en français}
 
 Pour le français, \cite{saintdizier1996constructing} a produit une ressource
 proche des classes de Levin dans l'objectif de s'en servir en Traitement
@@ -664,27 +670,25 @@ Dans cette section, nous étudions les différentes façons de définir les rôl
 sémantiques, examinons diverses ressources utiles pour la tâche d'annotation,
 et présentons les techniques principales pour réaliser l'annotation elle-même.
 
-% TODO définir frame ruppenhofer 2010 script-like conceptual structure
-% Taylor 1995 : 87 a une définition (the knowledge network blabla)
-
 \subsection{Les rôles sémantiques}
 \label{subsec:roles_semantiques}
 
 Comment aller au-delà d'une analyse syntaxique pour représenter le sens d'une
-phrase ? La notion de rôle sémantique semble particulièrement adaptée aux
-approches statistiques que nous présentons ici. Ces rôles ont pour objectif de
-s'abstraire des alternances de diathèse présentes dans le langage naturel
-(Figure~\ref{fig:exemple_srl}). Différentes théories linguistiques proposent
-différentes représentations pour ces rôles ; nous nous intéresserons ici aux
-rôles VerbNet et à la théorie élaborée par \cite{fillmore1968case} qui établit
-que le cas grammatical exhibe des relations profondes et sémantiques. De
-nombreuses langues marquent ces relations au niveau morphologique ; l'élatif
+phrase ? La notion de rôle sémantique semble particulièrement adaptée à notre
+motivation et à nos objectifs (Chapitre~\ref{ch:intro}). Ces rôles ont pour
+objectif de s'abstraire des alternances de diathèse présentes dans le langage
+naturel (Figure~\ref{fig:exemple_srl}). Différentes théories linguistiques
+proposent différentes représentations pour ces rôles ; nous nous intéresserons
+ici aux rôles VerbNet et à la théorie élaborée par \cite{fillmore1968case} qui
+établit que le cas grammatical exhibe des relations profondes et sémantiques.
+De nombreuses langues marquent ces relations au niveau morphologique ; l'élatif
 est un exemple de cas grammatical qui exprime le lieu de l'intérieur duquel
 provient un mouvement et qui est marqué morphologiquement en finnois, hongrois
 et estonien. Il est alors sensé de prévoir un rôle sémantique pour ce cas
 grammatical, même s'il n'est pas marqué au niveau morphologique dans la langue
 étudiée.
-% TODO clarifier
+
+% TODO clarifier une fois que l'intro est refaite
 
 \begin{figure}[ht]
     \centering
@@ -837,7 +841,7 @@ connaissance et non supervisées.
 
 \paragraph{Supervisées}
 
-% TODO différencier Propbank/SRL Framenet/frame-parsing?
+% TODO où différencier Propbank/SRL Framenet/frame-parsing?
 
 Les méthodes supervisées
 \citep{gildea2002automatic,surdeanu2008conll,das2014frame,hermann2014semantic,lluis2014shortest}
@@ -856,7 +860,14 @@ parfois regroupées en partie :
 chaque syntagme parmi ceux retenus à la phase précédente.
 \end{itemize}
 
-% TODO citer méthodes basées sur word2vec : lechelle2014, kanerva2014 http://www.aclweb.org/anthology/W/W14/W14-1501.pdf roth2014composition (word repr composition improves SRL)
+Nous ne rentrons pas ici dans le détail des techniques utilisées par les
+méthodes supervisées. Elles s'adaptent en général efficacement à leur corpus
+annoté et possèdent donc les meilleurs résultats sur ces corpus, mais d'autres
+techniques sont souhaitables pour généraliser à d'autres domaines non couverts
+par ces corpus annotés.
+
+% Si on voulait faire un état de l'art, on pourrait citer des méthodes basées
+% sur des word reprs: lechelle2014, kanerva2014, roth2014composition
 
 \paragraph{Fondées sur la connaissance}
 
@@ -885,6 +896,8 @@ proposent de développer automatiquement un nouveau PropBank du suédois en se
 basant sur le PropBank anglais et en utilisant Wikipédia comme un corpus
 parallèle. La précision des données obtenues est encore inconnue.
 
+% TODO pado2006optimal, furstenau2012semi, titov2013crosslingual
+
 D'autres méthodes transfèrent directement les modèles appris d'une langue vers
 d'autres. \citep{zeman2008cross} appliquent un modèle appris sur un corpus
 danois et l'appliquent à un corpus suédois, et montrent qu'il faut un corpus de
@@ -896,15 +909,12 @@ appris qu'en projetant l'annotation comme au paragraphe précédent.
 
 \paragraph{Non supervisées}
 
-% TODO Need ref
-
 Ces approches n'utilisent aucune connaissance \textit{a priori}, que ce soit un
 inventaire ou un corpus annoté. Une approche non supervisée doit nécessairement
 construire son propre inventaire. Cette construction peut se faire via du
 \textit{clustering} de sens à partir des occurrences de contextes trouvées dans
-le corpus, en considérant l'hypothèse distributionnelle (section
-\ref{subsec:modeles_de_langue}). Une fois que l'inventaire de sens est défini, il
-faut l'utiliser pour étiqueter le texte.
+le corpus
+\citep{lang2011unsupervised,garg2012unsupervised,titov2012bayesian,materna2013parameter}.
 
 Les avantages potentiels sont nombreux. Ces algorithmes ne nécessitent aucune
 ressource, et offrent de fait deux propriétés intéressantes :
@@ -925,6 +935,8 @@ Malheureusement, les systèmes utilisant une approche non supervisée sont
 difficiles à évaluer et à utiliser directement dans des systèmes plus
 importants. Par exemple, dans le cadre de la traduction automatique, distinguer
 les sens ne suffit pas ; il faut aussi savoir quelle traduction appliquer.
+Ainsi, bien que représentant une voie prometteuse, nous n'avons pas considéré
+ici ce type de méthode.
 
 \subsection{Adaptation au domaine}
 
