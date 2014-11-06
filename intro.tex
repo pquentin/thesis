@@ -4,7 +4,96 @@
 
 \section{Motivation}
 
-% TODO l'analyse syntaxique ne suffit pas comme dans palmer2010semantic.
+\subsection{Historique}
+
+En Intelligence Artificielle et Traitement Automatique des Langues, les années
+60 étaient pleines d'optimisme. D'après \citep{crevier1993},
+\cite{simon1965shape} prédisait que « dans 20 ans, les machines devaient être
+capables de réaliser n'importe quel travail humain », et \cite{minsky1967}
+assurait que « dans une génération, le problème de créer une intelligence
+artificielle sera essentiellement résolu ».
+
+Après la déception des années 70, ces disciplines se sont rendues compte qu'il
+fallait s'attaquer à des problèmes plus abordables : en Intelligence
+Artificielle, c'était les micro-mondes souvent constitués de blocs de couleurs.
+En effet, selon \citep{} c'était avec ce type de modèles simples que des
+disciplines telles la physique avaient pu avancer, en complexifiant ces modèles
+petit à petit. De la même manière, le Traitement Automatique des Langues s'est
+appuyé sur la résolution graduelle de sous-tâches :
+
+\begin{itemize}
+    \item Le Brown Corpus a été annoté en parties du discours entre le milieu
+        des années 60 et la fin des années 1970, ce qui a permis d'entraîner
+        divers algorithmes, tels que les chaînes de Markov cachées et plus
+        tard des méthodes d'apprentissage supervisées telles que les SVMs ou les
+        CRFs. Un plateau a été atteint autour de 97~\% d'exactitude depuis le
+        milieu des années 2000.
+    \item Au début des années 1990, le corpus du Penn Treebank a permis
+        d'avancer la recherche en analyse syntaxique ; différents chercheurs
+        ont introduit un certain nombre d'algorithmes ayant chacun leurs
+        avantages et leurs défauts, la représentation en dépendances a été
+        largement adoptée. Depuis le début des années 2010, et de la même
+        manière que pour l'annotation des parties du discours, un plateau a été
+        atteint autour de 90~\% d'exactitude, et ce quelle que soit la méthode
+        : c'est le cas en particulier de certaines approches symboliques.
+\end{itemize}
+
+Pour un certain nombre de chercheurs, c'est le moment de se tourner vers de
+nouvelles tâches dites «~sémantiques~»\footnote{L'inconvénient d'utiliser le
+terme «~sémantique~» est qu'il couvre aujourd'hui de nombreuses approches de la
+compréhension de textes avec peu de points communs.}. C'est pour cette raison
+qu'à la manière des corpus annotés en parties du discours ou en syntaxe qui ont
+tant fait progresser leurs domaines respectifs, des corpus «~sémantiques~» ont
+vu le jour dans le passé \citep{framenet,propbank,penn discourse
+treebank,rstbank,timebank} mais voient surtout le jour aujourd'hui
+\citep{candito2014developing,bos2012annotating,banarescu2013abstract} dans le
+but affiché de «~faire progresser la sémantique comme la syntaxe a progressé
+dans les années 1990~», et ce indépendamment des nombreuses applications auquel
+le Traitement Automatique des Langues est déjà appliqué.
+
+\subsection{Au-delà de l'analyse syntaxique}
+
+L'annotation syntaxique d'un test ne suffit par nature pas à déterminer qui
+réalise l'action décrite par le verbe. Par exemple, étant donné une phrase
+telle que \emph{Le ballon repoussé par Léa a cassé la vitre des voisins}, il
+s'avère que le sujet syntaxique correspond parfaitement à l'Agent sémantique.
+Dans d'autres situations, ce n'est pas le cas : pour \emph{La vitre des voisins
+a cassé sous le choc du ballon tiré par Léo}, le sujet syntaxique est \emph{La
+vitre des voisins} (la voix passive n'étant pas utilisée), pourtant ce n'est
+pas l'Agent sémantique, mais le Patient qui change d'état en subissant
+l'action.
+
+De manière plus marquée, l'analyse syntaxique ne fournit pas suffisamment
+d'information pour désambiguïser le rôle des objets du verbes. Prenons les
+phrases \emph{Luc a posé des livres sur la table} et \emph{Luc a posé sur la
+table ses livres préférés sur la génétique des chimpanzés}. Ici, l'ordre des
+objets ne suffit pas, il faut identifier que parmi les deux objets syntaxiques
+:
+\begin{itemize}
+    \item l'un est un syntagme prépositionnel introduit par une
+        préposition de location (\emph{sur}),
+    \item tandis que l'autre est un syntagme nominal.
+\end{itemize}
+
+On peut alors déterminer que le livre est le thème sémantique pour la prédicat
+poser et que la table est la destination sémantique pour ce même prédicat. Ici,
+même la syntaxe en elle-même ne résout pas le problème, c'est uniquement grâce
+à la syntaxe qu'on peut déterminer le rôle de chaque syntagme.
+
+Dans d'autres cas, la syntaxe ne suffit plus. Par exemple, pour la phrase
+\emph{When you've booted the machine you've built yourself}, le sujet et
+l'objet sont tous les deux des syntagmes nominaux, et la syntaxe ne suffit
+alors pas à désambiguïser entre le sens informatique de boot (démarrer un
+ordinateur) et le sens géographique de boot (exclure un individu de quelque
+part). Ici, des informations sémantiques peuvent nous aider. Dans le cas
+informatique, l'objet n'est pas animé, alors que dans le second il l'est : il
+devient alors possible de désambiguïser et d'attribuer à la fois le sens au
+verbe et les rôles corrects aux syntagmes (respectivement thème et
+destination.)
+
+Cette tâche d'attribution des rôles sémantiques au lieu des syntagmes
+syntaxiques est une étape au-delà de l'analyse syntaxique : c'est l'annotation
+en rôles sémantiques.
 
 \section{Objectifs}
 
