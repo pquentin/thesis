@@ -14,10 +14,11 @@ correct d'un mot utilisé en contexte. WordNet \citep{fellbaum1998wordnet}
 regroupe les mots en ensembles de synonymes (\emph{synonym sets} ou
 \emph{synsets}) et lie ces synsets entre eux par différentes relations
 sémantiques comme par exemple l'antonymie, l'hyperonymie, l'hyponymie ou encore
-la méronymie (section~\ref{subsec:ressources_lexicales}).
+la méronymie (section~\ref{subsec:ressources_lexicales}). Une partie
+conséquente de ce chapitre provient d'articles déjà publiés
+\citep{pradet2013wonef,pradet2014wonef}.
 
-Nos travaux \citep{pradet2013wonef,pradet2014wonef} sont la suite de JAWS, dont
-le fonctionnement est détaillé à la
+Nos travaux sont la suite de JAWS, dont le fonctionnement est détaillé à la
 section~\ref{subsec:jaws_translation_process}. Cette nouvelle version de JAWS
 se nomme WoNeF : le nouveau nom évite la confusion avec une API Java pour
 WordNet (\emph{Java API for WordNet Searching}). Dans la suite de ce travail,
@@ -102,16 +103,17 @@ du vocabulaire anglais est d'origine française \citep{finkenstaedt1973ordered},
 et l'anglicisation a produit des transformations prévisibles. Il est possible
 d'appliquer ces mêmes transformations aux littéraux candidats français, et
 seulement alors d'appliquer la distance de Levenshtein. Nous commençons par
-supprimer les accents, puis appliquons différentes opérations. Par exemple,
-l'inversion des lettres "r" et "e" prend en compte
-(\textit{order}/\textit{ordre}) et (\textit{tiger}/\textit{tigre})\footnote{La
-distance de Damerau-Levenshtein qui prend en compte les inversions n'importe-où
-dans un mot \citep{damerau1964technique} a donné de moins bons résultats.}.
-Toutes les transformations ne s'appliquent qu'à la fin des mots : \textit{-que}
-est transformé en \textit{-k} ou \textit{-c} (\textit{marque} devient
+supprimer les accents, puis appliquons différentes opérations
+(Table~\ref{table:levenshteinrules}. Par exemple, l'inversion des lettres "r"
+et "e" prend en compte (\textit{order}/\textit{ordre}) et
+(\textit{tiger}/\textit{tigre})\footnote{La distance de Damerau-Levenshtein qui
+prend en compte les inversions n'importe-où dans un mot
+\citep{damerau1964technique} a donné de moins bons résultats.}.  Toutes les
+transformations ne s'appliquent qu'à la fin des mots : \textit{-que} est
+transformé en \textit{-k} ou \textit{-c} (\textit{marque} devient
 \textit{mark}), \textit{-té} vers \textit{-ty} (\textit{extremité} devient
-\textit{extremity}), etc. Les faux-amis ne sont toujours pas explicitement pris
-en compte.
+\textit{extremity}), etc. Les faux-amis ne peuvent pas être pris en compte en
+compte par cette méthode qui est purement orthographique..
 
 \begin{table}[ht]
 \centering
@@ -119,12 +121,15 @@ en compte.
   \toprule
 -que & -k & banque &$\to$& bank \\
 -aire & -ary & tertiaire &$\to$& tertiary \\
--eur & -or & vapeur &$\to$& vapor \\
+-eur & -or & chercheur &$\to$& cherchor \\
 -ie & -y & cajolerie &$\to$& cajolery \\
 -té & -ty & extremité &$\to$& extremity \\
 -re & -er & tigre &$\to$& tiger \\
 -ais & -ese & libanais &$\to$& libanese \\
--ant & -ing & changeant &$\to$& changing \\
+-ois & -ese & chinois &$\to$& chinese \\
+-ant & -ing & changeant &$\to$& changeing \\
+-ment & -ly & confortablement &$\to$& confortably \\
+-ose & -osis & osmose &$\to$& osmosis \\
   \bottomrule
 \end{tabular}
 
@@ -133,6 +138,11 @@ français avant d'utiliser le sélecteur de la distance de Levenshtein.}
 
 \end{table}
 
+Il serait possible d'améliorer cette table des correspondances en réutilisant
+les correspondances listées dans le Wiktionnaire français : pour chacun des
+suffixes du français, une liste de suffixes correspondants dans d'autres
+langues (dont l'anglais) est parfois indiquée, par exemple pour -ment :
+\url{http://fr.wiktionary.org/wiki/-ment}.
 
 \subsection{Apprentissage de seuils}
 \label{subsec:learning_thresholds}
@@ -574,6 +584,58 @@ de WoNeF de 83~\%.
 
 %\subsection{Hyponymy detection}
 %There is no clear inclusion relationship between the distributions of hyponyms/hypernyms. As a result, research used other ways to detect hypernymy \citep{hearst1992automatic, entailment baroni}. Our works show that it is in fact possible to use ... syntactic language model ... dictionaries ... but only works on nouns so far Result of 60%...
+
+\if false
+
+\section{Reproduction des résultats}
+
+Alors que les sections précédentes décrivent le fonctionnement général du
+système, celle-ci indique précisément le fonctionnement de la méthode.
+
+\subsection{Sélecteurs}
+
+nouns : 1 SimSyn, 2 HyperHypo(COMPDUNOM, HYPER), 3 MeroHoloLikeHyper, 4
+MeroHolo, 6 HyperHypo(SUJ_V, HYPER), 7 HyperHypo(COMPDUNOM, HYPO), 8
+HyperHypo(COD_V, HYPER), 9 HyperHypo(window10, HYPER)
+verb :  1 LastChance, 2 SimSyn, 3 HyperHypo(SUJ_V_RELG, HYPER), 4
+HyperHypo(COD_V.reverse, HYPER), 6 HyperHypo(CPL_V.reverse, HYPER), 6
+HyperHypo(ATB_S.reverse, HYPER), 7 HyperHypo(SUJ_V.reverse, HYPER),
+8(CPLV_V.reverse, HYPER)
+adj : 1 LastChance 2 SimSyn
+adv : 1 SimSyn
+
+\subsection{Combinaisons}
+
+noun precision monosemous uniq levenshtein
+noun fscore monosemous uniq levenshtein multiplesource
+noun coverage monosemous uniq levenshtein multiplesource
+
+verb precision uniq
+verb fscore uniq monosemous
+verb coverage monosemous uniq multiplesource
+
+adj precision monosemous uniq levenshtein
+adj fscore    monosemous unique multiplesource levenshtein
+adj coverage  monosemous unique multiplesource levenshtein
+
+adv all all
+
+noun precision 3 4
+adj precision 2
+verb precision 2
+adv precision 2
+
+noun fscore 3 4 8
+adj fscore 2
+verb fscore 2
+adv fscore 2
+
+noun coverage 3 4 8 1 2 6 7
+adj coverage 2
+verb coverage 2
+adv coverage 2
+
+\fi
 
 \section*{Conclusion}
 
