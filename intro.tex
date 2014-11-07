@@ -7,78 +7,91 @@
 \subsection{Historique}
 
 En Intelligence Artificielle et Traitement Automatique des Langues, les années
-60 étaient pleines d'optimisme. D'après \citep{crevier1993},
+60 étaient pleines d'optimisme. D'après \citep{crevier1993ai},
 \cite{simon1965shape} prédisait que « dans 20 ans, les machines devaient être
-capables de réaliser n'importe quel travail humain », et \cite{minsky1967}
-assurait que « dans une génération, le problème de créer une intelligence
-artificielle sera essentiellement résolu ».
+capables de réaliser n'importe quel travail humain », et
+\cite{minsky1967computation} assurait que « dans une génération, le problème de
+créer une intelligence artificielle sera essentiellement résolu ».
+
+% TODO page AIAMA
 
 Après la déception des années 70, ces disciplines se sont rendues compte qu'il
 fallait s'attaquer à des problèmes plus abordables : en Intelligence
 Artificielle, c'était les micro-mondes souvent constitués de blocs de couleurs.
-En effet, selon \citep{} c'était avec ce type de modèles simples que des
-disciplines telles la physique avaient pu avancer, en complexifiant ces modèles
-petit à petit. De la même manière, le Traitement Automatique des Langues s'est
-appuyé sur la résolution graduelle de sous-tâches :
+En effet, selon \citep{russell2009artificial} c'était avec ce type de modèles
+simples que des disciplines telles la physique avaient pu avancer, en
+complexifiant ces modèles petit à petit. De la même manière, le Traitement
+Automatique des Langues s'est appuyé sur des applications et sous-tâches plus
+accessibles. Nous citerons ici deux de ces tâches :
 
 \begin{itemize}
-    \item Le Brown Corpus a été annoté en parties du discours entre le milieu
-        des années 60 et la fin des années 1970, ce qui a permis d'entraîner
-        divers algorithmes, tels que les chaînes de Markov cachées et plus
-        tard des méthodes d'apprentissage supervisées telles que les SVMs ou les
-        CRFs. Un plateau a été atteint autour de 97~\% d'exactitude depuis le
-        milieu des années 2000.
-    \item Au début des années 1990, le corpus du Penn Treebank a permis
-        d'avancer la recherche en analyse syntaxique ; différents chercheurs
-        ont introduit un certain nombre d'algorithmes ayant chacun leurs
-        avantages et leurs défauts, la représentation en dépendances a été
-        largement adoptée. Depuis le début des années 2010, et de la même
-        manière que pour l'annotation des parties du discours, un plateau a été
-        atteint autour de 90~\% d'exactitude, et ce quelle que soit la méthode
-        : c'est le cas en particulier de certaines approches symboliques.
+    \item \textbf{Étiquetage morpho-syntaxique} Le Brown Corpus a été annoté en
+    parties du discours entre le milieu des années 60 et la fin des années
+    1970, ce qui a permis d'entraîner divers algorithmes, tels que les chaînes
+    de Markov cachées et plus tard des méthodes d'apprentissage supervisées
+    telles que les SVMs ou les CRFs. Un plateau a été atteint autour de 97~\%
+    d'exactitude depuis le milieu des années 2000.
+    \item \textbf{Analyse syntaxique} Au début des années 1990, le corpus du
+    Penn Treebank \citep{marcus1993building} a permis d'avancer la recherche en
+    analyse syntaxique ; différents chercheurs ont introduit un certain nombre
+    d'algorithmes ayant chacun leurs avantages et leurs défauts, la
+    représentation en dépendances a été largement adoptée. Depuis le début des
+    années 2010, et de la même manière que pour l'annotation des parties du
+    discours, un plateau a été atteint autour de 90~\% d'exactitude, et ce
+    quelle que soit la méthode : c'est le cas en particulier de certaines
+    approches symboliques.
 \end{itemize}
 
-Pour un certain nombre de chercheurs, c'est le moment de se tourner vers de
-nouvelles tâches dites «~sémantiques~»\footnote{L'inconvénient d'utiliser le
-terme «~sémantique~» est qu'il couvre aujourd'hui de nombreuses approches de la
-compréhension de textes avec peu de points communs.}. C'est pour cette raison
-qu'à la manière des corpus annotés en parties du discours ou en syntaxe qui ont
-tant fait progresser leurs domaines respectifs, des corpus «~sémantiques~» ont
-vu le jour dans le passé \citep{framenet,propbank,penn discourse
-treebank,rstbank,timebank} mais voient surtout le jour aujourd'hui
-\citep{candito2014developing,bos2012annotating,banarescu2013abstract} dans le
-but affiché de «~faire progresser la sémantique comme la syntaxe a progressé
-dans les années 1990~», et ce indépendamment des nombreuses applications auquel
-le Traitement Automatique des Langues est déjà appliqué.
+Pour un certain nombre de chercheurs
+\citep{bos2012annotating,banarescu2013abstract}, c'est le moment de se tourner
+vers de nouvelles tâches dites «~sémantiques~»\footnote{L'inconvénient
+d'utiliser le terme «~sémantique~» est qu'il couvre aujourd'hui de nombreuses
+approches de la compréhension de textes avec peu de points communs.}. C'est
+pour cette raison qu'à la manière des corpus annotés en parties du discours ou
+en syntaxe qui ont tant fait progresser leurs domaines respectifs, des corpus
+«~sémantiques~» ont vu le jour dans le passé tels que FrameNet, PropBank ou
+RSTBank, mais d'autres, plus ambitieux, voient le jour aujourd'hui
+\citep{bos2012annotating,banarescu2013abstract}
+(section~\ref{ressources_non_utilisees}) dans le but affiché de «~faire
+progresser la sémantique comme la syntaxe a progressé dans les années 1990~»,
+et ce indépendamment des nombreuses applications auquel le Traitement
+Automatique des Langues est déjà appliqué.
 
 \subsection{Au-delà de l'analyse syntaxique}
 
-L'annotation syntaxique d'un test ne suffit par nature pas à déterminer qui
-réalise l'action décrite par le verbe. Par exemple, étant donné une phrase
-telle que \emph{Le ballon repoussé par Léa a cassé la vitre des voisins}, il
-s'avère que le sujet syntaxique correspond parfaitement à l'Agent sémantique.
+Dès lors, si l'on considère que l'analyse syntaxique est un problème auquel il
+n'est plus efficient de s'attaquer, quelle direction prendre ? Commençons par
+identifier les informations manquantes une fois que l'analyse syntaxique d'une
+phrase a été effectuée.
+
+Le problème principal que nous voyons est que connaître le sujet et les objets
+syntaxiques d'un verbe ne suffit pas à déterminer les sujets et objets
+sémantiques, c'est-à-dire l'agent, le patient, etc. Par exemple, étant donné la
+phrase \emph{Le ballon repoussé par Léa a cassé la vitre des voisins}, il
+s'avère que le sujet syntaxique correspond parfaitement à l'agent sémantique.
 Dans d'autres situations, ce n'est pas le cas : pour \emph{La vitre des voisins
 a cassé sous le choc du ballon tiré par Léo}, le sujet syntaxique est \emph{La
-vitre des voisins} (la voix passive n'étant pas utilisée), pourtant ce n'est
-pas l'Agent sémantique, mais le Patient qui change d'état en subissant
-l'action.
+vitre des voisins} (la voix passive n'étant pas employée ici). Pourtant ce
+sujet syntaxique n'est pas l'agent sémantique, mais le patient, étant donné que
+la vitre change d'état en subissant l'action.
 
-De manière plus marquée, l'analyse syntaxique ne fournit pas suffisamment
-d'information pour désambiguïser le rôle des objets du verbes. Prenons les
-phrases \emph{Luc a posé des livres sur la table} et \emph{Luc a posé sur la
-table ses livres préférés sur la génétique des chimpanzés}. Ici, l'ordre des
-objets ne suffit pas, il faut identifier que parmi les deux objets syntaxiques
-:
+De manière plus marquée que pour les sujets, l'analyse syntaxique ne fournit
+pas suffisamment d'information pour désambiguïser le rôle des objets du verbes.
+Prenons les phrases \emph{Luc a posé un livre sur la table} et \emph{Luc a
+posé sur la table son livre préféré traitant de la génétique des chimpanzés}.
+Ici, l'ordre des objets ne suffit pas, il faut identifier que parmi les deux
+objets syntaxiques :
+
 \begin{itemize}
-    \item l'un est un syntagme prépositionnel introduit par une
-        préposition de location (\emph{sur}),
+    \item l'un est un syntagme prépositionnel introduit par une préposition de
+    location (\emph{sur}),
     \item tandis que l'autre est un syntagme nominal.
 \end{itemize}
 
-On peut alors déterminer que le livre est le thème sémantique pour la prédicat
-poser et que la table est la destination sémantique pour ce même prédicat. Ici,
-même la syntaxe en elle-même ne résout pas le problème, c'est uniquement grâce
-à la syntaxe qu'on peut déterminer le rôle de chaque syntagme.
+On peut alors déterminer que le livre est le thème sémantique pour le prédicat
+\emph{poser} et que la table est la destination sémantique pour ce même
+prédicat. Ici, même si la syntaxe en elle-même ne résout pas le problème, c'est
+bien grâce à elle qu'on peut déterminer le rôle de chaque syntagme.
 
 Dans d'autres cas, la syntaxe ne suffit plus. Par exemple, pour la phrase
 \emph{When you've booted the machine you've built yourself}, le sujet et
@@ -99,19 +112,15 @@ en rôles sémantiques.
 
 \subsection{L'annotation en rôles sémantiques}
 
-L'annotation en rôles sémantiques est une tâche d'analyse sémantique aux
-applications nombreuses, telles que l'extraction et la recherche d'information,
-la traduction automatique, ou encore le résumé automatique de textes.
-
-Elle répond à la question « Qui a fait Quoi à Qui, Comment, Où et Quand ? ».
-Prenons pour exemple la phrase \emph{Mrs. Aouda essaya vainement de retenir Mr.
-Fogg} (extrait du \emph{Tour du monde en quatre-vingts jours} de Jules Verne).
-En considérant pour exemple le cadre de FrameNet
-(section~\ref{presentation_framenet}), une annotation en rôles sémantique du
-prédicat \emph{essayer} déterminera que cette utilisation du verbe correspond à
-une situation de tentative, puis identifiera parmi les syntagmes liés aux
-verbes quel est l'Agent, l'Activité tentée, et le Résultat.  Ainsi, le résultat
-de l'annotation serait :
+L'annotation en rôles sémantiques répond à la question « Qui a fait Quoi à Qui,
+Comment, Où et Quand ? ». Prenons pour exemple la phrase \emph{Mrs. Aouda
+essaya vainement de retenir Mr. Fogg} (extrait du \emph{Tour du monde en
+quatre-vingts jours} de Jules Verne).  En considérant pour exemple le cadre de
+FrameNet (section~\ref{presentation_framenet}), une annotation en rôles
+sémantique du prédicat \emph{essayer} déterminera que cette utilisation du
+verbe correspond à une situation de Tentative, puis identifiera parmi les
+syntagmes liés aux verbes quel est l'Agent, l'Activité tentée, et le Résultat.
+Ainsi, le résultat de l'annotation serait :
 
 \begin{figure}[ht]
     \centering
@@ -119,8 +128,9 @@ de l'annotation serait :
     [Agent]  & \textbf{Tentative} & [Résultat]  & [Activité]         \tabularnewline
     Mrs. Aouda & \textbf{essaya}  & vainement & de retenir Mr. Fogg. \tabularnewline
     \end{tabular}
-    \caption{\label{fig:introsrl}Le verbe \emph{essayer} déclenche la situation \emph{Tentative}.
-    Les différents syntagmes liés au verbe jouent chacun un rôle sémantique ici.}
+    \caption{\label{fig:introsrl}Le verbe \emph{essayer} déclenche la situation
+    \emph{Tentative}.  Les différents syntagmes liés au verbe jouent chacun un
+    rôle sémantique ici, mais ce n'est pas toujours le cas.}
 \end{figure}
 
 Différentes informations sont disponibles après l'annotation en rôles
@@ -196,18 +206,22 @@ ressources sémantiques en cadre ouvert. Il n'existe pas aujourd'hui de VerbNet
 (section~\ref{presentation_wordnet}) ou de FrameNet
 (section~\ref{presentation_framenet}) du français avec une couverture et une
 qualité proches de leurs équivalents respectifs en langue anglaise. Ne
-disposant pas des moyens pour créer de telles ressources manuellement, le
-système présenté doit pouvoir se contenter de transpositions automatiques de
-ces ressources vers le français. Avec cette approche de mutualisation des
-ressources au niveau de la langue, chaque nouvelle utilisation d'une de nos
-ressources est l'occasion de l'améliorer à la fois pour utilisation immédiate
-mais aussi pour les utilisations futures.
+disposant pas des moyens pour créer de telles ressources entièrement
+manuellement, le système présenté doit pouvoir se contenter de transpositions
+automatiques de ces ressources vers le français.\footnote{L'exception ici est
+VerbNet, ressource traduite «~semi-manuellement~» vers le français
+(Chapitre~\ref{ch:verbnet}) mais qui n'est encore ni finalisée ni
+homogénéisée}. Avec cette approche de mutualisation des ressources au niveau de
+la langue, chaque nouvelle utilisation d'une de nos ressources est l'occasion
+de l'améliorer à la fois pour utilisation immédiate mais aussi pour les
+utilisations futures.
 
 \paragraph{Simplicité} Nous voulons que notre système soit très simple à mettre
 en place et qu'il soit tout aussi facile de corriger quelques erreurs
 spécifiques, même au prix d'une performance moins bonne que des approches plus
 complexes dans le cas général. La stratégie que nous adoptons est de simplifier
-nos systèmes, puis de les améliorer une fois qu'ils ont montré leurs limites.
+nos systèmes afin que toute intervention manuelle sur les ressources soit
+possible, puis de les améliorer une fois qu'ils ont montré leurs limites.
 
 \paragraph{Efficacité} Cette contrainte est moins forte que les autres, mais
 reste nécessaire pour que les systèmes présentées puissent être utilisées à
@@ -218,10 +232,11 @@ d'exécution trop longs pour l'utilisation que nous voulons en faire ici.
 \paragraph{Libre diffusion} Enfin, il est important que les outils et
 ressources soient au maximum libre d'accès afin que d'autres puissent les
 utiliser et les étudier. Pour cette raison, la grande majorité du code source
-écrit pendant cette thèse est disponible sur GitHub. Le système d'annotation en
-rôles sémantiques développé dans le cadre de cette thèse est utilisable
-indépendamment mais a aussi été intégré dans l'analyseur linguistique libre
-LIMA (\url{http://aymara.github.io/lima/}).
+écrit pendant cette thèse est disponible sur GitHub : en particulier, le
+système d'annotation en rôles sémantiques est disponible sur
+\url{https://github.com/aymara/knowledgesrl}. Il est utilisable indépendamment
+mais a aussi été intégré dans l'analyseur linguistique libre LIMA
+(\url{http://aymara.github.io/lima/}).
 
 % MEGATODO faire que ce soit le cas
 Ces contraintes seront utilisées pour évaluer à la fois l'état de l'art et les
@@ -241,16 +256,17 @@ sous le nom de "knowledge acquisition bottleneck" en désambiguïsation lexicale
 l'annotation en rôles sémantiques où la quantité de données annotées est
 limitée \citep[section 1]{das2012structure}. Il est possible de résoudre ce
 problème domaine par domaine en annotant de grandes quantités de données pour
-chaque domaine, mais d'autres stratégies sont nécessaires pour atteindre nos
-objectifs dans un grand nombre de domaines. Une possibilité est d'utiliser au
-mieux les données annotées en perfectionnant les algorithmes existants, une
-autre est d'utiliser intelligemment les données non annotées qui existent en
-quantité bien plus importante. Une troisième possibilité, celle que nous
-choisissons d'explorer ici, est d'exploiter des lexiques couvrant l'interface
-syntaxe-sémantique sur une large partie du vocabulaire. C'est ce qui est fait
-par exemple dans VerbNet où les traits syntaxiques et sémantiques partagés par
-les mêmes verbes sont explicitement notés, ce qui permet à chaque modification
-dans VerbNet d'améliorer le traitement de plusieurs verbes au lieu d'un seul.
+chaque domaine, mais d'autres stratégies sont nécessaires pour mieux
+généraliser et atteindre nos objectifs dans un grand nombre de domaines. Une
+possibilité est d'utiliser au mieux les données annotées en perfectionnant les
+algorithmes existants, une autre est d'utiliser intelligemment les données non
+annotées qui existent en quantité bien plus importante. Une troisième
+possibilité, celle que nous choisissons d'explorer ici, est d'exploiter des
+lexiques couvrant l'interface syntaxe-sémantique sur une large partie du
+vocabulaire. C'est ce qui est fait dans VerbNet où les traits syntaxiques et
+sémantiques partagés par les mêmes verbes sont explicitement notés, ce qui
+permet à chaque modification dans VerbNet d'améliorer le traitement de
+plusieurs verbes au lieu d'un seul.
 
 % VerbNet a montré son efficacité dans le domaine de par son approche
 % pragmatique. Vient des classes de Levin, donne des correspondances entre
@@ -258,37 +274,33 @@ dans VerbNet d'améliorer le traitement de plusieurs verbes au lieu d'un seul.
 
 Deux difficultés majeures qu'affrontent les créateurs de lexique sont la
 granularité de sens et la distinction des sens. Ces deux difficultés sont
-gérées par les classes de Levin \citep{levin1993english}. Dans ces classes, les
-verbes sont classifiés principalement à travers leur alternances syntaxiques,
-ce qui fournit un critère qui est à la fois facilement observable et qui
-produit des distinctions sémantiques intéressantes validées par des expériences
+traitées par les classes de Levin \citep{levin1993english} qui sont à l'origine
+de VerbNet. Dans ces classes, les verbes sont classifiés principalement à
+travers leur alternances syntaxiques, ce qui fournit un critère qui est à la
+fois facilement observable et qui produit des distinctions sémantiques
+intéressantes (section~\ref{presentation_levin}) validées par des expériences
 empiriques impliquant un grand nombre d'annotateurs
-\citep{hartshorne2014verbcorner}. VerbNet \citep{kipperschuler2005verbnet} est
-un lexique électronique basé sur les classes de Levin. Il encode non plus les
-alternances mais les cadres de sous-catégorisation valables pour chaque classe,
-et rajoute des informations de rôle et de sémantique à travers une logique des
-prédicats simplifiée. De nouvelles classes, constructions et verbes ont étés
-ajoutés à VerbNet au fil des ans. Au-delà de son encodage efficace, VerbNet est
-un lexique adapté à la tâche d'annotation en rôles sémantiques : on peut
-utiliser un cadre de sous-catégorisation pour associer des syntagmes à des
-rôles thématiques \citep{swier2005exploiting,pradet2013revisiting}. Grâce à sa
-couverture élevée (plus de quatre mille verbes distincts) et son groupement de
-verbes utile, VerbNet est bien adapté à l'annotation en rôles sémantiques.
+\citep{hartshorne2014verbcorner}.  VerbNet \citep{kipperschuler2005verbnet},
+basé sur les classes de Levin, encode non plus les alternances mais les cadres
+de sous-catégorisation valables pour chaque classe, et rajoute des informations
+de rôle et de sémantique à travers une logique des prédicats simplifiée. De
+nouvelles classes, constructions et verbes ont étés ajoutés à VerbNet au fil
+des ans. Au-delà de son encodage efficace, VerbNet est un lexique adapté à la
+tâche d'annotation en rôles sémantiques : on peut utiliser un cadre de
+sous-catégorisation pour associer des syntagmes à des rôles thématiques
+\citep{swier2005exploiting,pradet2013revisiting}. Grâce à sa couverture élevée
+(plus de quatre mille verbes distincts) et son groupement de verbes utile,
+VerbNet est bien adapté à l'annotation en rôles sémantiques.
 
 % De la même manière, WordNet est complémentaire à VerbNet
 
 WordNet est une autre ressource qui complète VerbNet en nous fournissant des
 informations sur le sens des verbes inclus dans VerbNet grâce au projet
-SemLink, mais aussi sur le sens des mots liés au verbe, ce qui permet de
-
-\begin{itemize}
-
-    \item désambiguïser la classe VerbNet utilisée,
-
-    \item et de respecter les restrictions de sélections indiquées par VerbNet pour
-        le sujet et les objets du verbe.
-
-\end{itemize}
+SemLink, mais aussi sur le sens des mots liés au verbe, ce qui permet notamment
+de de respecter les restrictions de sélections indiquées par VerbNet pour le
+sujet et les objets du verbe et ainsi mieux désambiguïser parmi les classes et
+constructions syntaxiques possibles pour un emploi donné d'un verbe
+(Chapitre~\ref{ch:semantic}).
 
 
 % Dans les langues autres que l'anglais, cette ressource utile n'existe pas
@@ -305,27 +317,24 @@ sa structure, ainsi que l'information sémantique et les rôles thématiques, ce
 qui donne la possibilité de produire un lexique utile sans des années de
 travail manuel.
 
-% TODO étendre, mais comment ? Inclure méthodes et ressources plus haut ?
 Une fois que ces ressources ont été traduites vers le français, il faut les
-utiliser pour réaliser la tâche d'annotation en rôles sémantiques.
-
-Cette thèse fournit donc les \emph{ressources} nécessaires en traduisant
-WordNet et VerbNet (Partie~\ref{part:translation}) et les \emph{méthodes}
-(Partie~\ref{part:srl}) répondant à ces objectifs.
+utiliser pour réaliser la tâche d'annotation en rôles sémantiques. Cette thèse
+fournit les \emph{ressources} nécessaires en traduisant WordNet et VerbNet
+(Partie~\ref{part:translation}) et les \emph{méthodes} (Partie~\ref{part:srl})
+répondant à ces objectifs.
 
 \section{Ressources lexicales utilisées}
 \label{ressources_utilisees}
 
-La première ressource lexicale à tirer parti de la possibilité de représenter
-le lexique sous la forme d'un graphe est WordNet \citep{fellbaum1998wordnet}.
-
 \subsection{WordNet}
 \label{presentation_wordnet}
 
-L'élaboration de WordNet a commencé en 1985 \citep{miller1990introduction}.
-Établi sur des principes psycholinguistiques, WordNet propose quatre graphes
-pour les quatre parties du discours formant une classe ouverte : noms, verbes,
-adjectifs, adverbes. Les nœuds du graphe sont des ensembles de synonymes
+La première ressource lexicale à tirer parti de la possibilité de représenter
+le lexique sous la forme d'un graphe est WordNet \citep{fellbaum1998wordnet}.
+Son élaboration a commencé en 1985 \citep{miller1990introduction}. Établi sur
+des principes psycholinguistiques, WordNet propose quatre graphes pour les
+quatre parties du discours formant une classe ouverte : noms, verbes,
+adjectifs et adverbes. Les nœuds du graphe sont des ensembles de synonymes
 (\emph{synonym sets} ou \emph{synsets}). Un synset regroupe plusieurs mots, une
 définition, et potentiellement des exemples.
 
@@ -355,15 +364,16 @@ WordNet est un graphe (Figure~\ref{fig:wordnet_relations}).
         l'hyponymie.}
 \end{figure}
 
-Les sens proposés ont étés utilisés pour annoter différents corpus
+Les sens proposés par WordNet ont étés utilisés pour annoter différents corpus
 \citep{petrolito2014survey}, ce qui a permis d'entraîner des systèmes
 supervisés. WordNet est rapidement devenu le standard de la désambiguïsation
 lexicale et a été utilisé dans de nombreuses campagnes d'évaluation
-\citep{navigli2009word}. C'est aussi une ressource très utilisée de manière
-générale \footnote{Au moment de l'écriture de ce manuscrit, ses 10~000
-    citations sur Google Scholar sont le meilleur moyen de l'attester.}.
+\citep{navigli2009word}. C'est aussi une ressource très utilisée pour beaucoup
+d'applications : au moment de l'écriture de ce manuscrit, ses 10~000 citations
+sur Google Scholar sont le meilleur moyen de l'attester.
 
 \subsection{Les classes de Levin}
+\label{presentation_levin}
 
 Les classes de Levin \citep{levin1993english} sont une classification des
 verbes anglais établie suivant un principe simple : le comportement syntaxique
@@ -372,14 +382,18 @@ d'alternances de diathèses possibles, les verbes sont classés en groupes
 partageant les mêmes alternances.
 
 Par exemple, les \emph{fill verbs} tels que \emph{staff}, \emph{coat} ou encore
-\emph{pollute} acceptent notamment la \emph{locatum subject alternation} :
+\emph{pollute} \citep[p.~119]{levin1993english} acceptent notamment la
+\emph{locatum subject alternation} \citep[p.~85]{levin1993english}, donc ces
+deux constructions sont possibles :
 
 \begin{itemize}
     \item Leslie staffed the store with employees
     \item The employees staffed the store
 \end{itemize}
 
-mais n'acceptent pas par exemple, la \emph{conative alternation} :
+mais n'acceptent pas par exemple, la \emph{conative alternation}
+\citep[p.~41]{levin1993english}, donc seule la première construction est
+possible :
 
 \begin{itemize}
     \item ~ \emph{Leslie staffed the store with employees}
@@ -394,28 +408,25 @@ Cette classification a trois intérêts pour l'annotation en rôles sémantiques
 \begin{itemize}
 
     \item Une grande majorité des verbes anglais sont couverts, rendant la
-        ressource utile pour des annotations à large échelle.
+    ressource utile pour des annotations à large échelle.
 
     \item La classification est hiérarchique et regroupe de nombreux verbes :
-        avec une cinquantaine de classes principales, des généralisations et
-        partages d'informations entre les verbes de classes identiques ou
-        proches sont possibles.
+    avec une cinquantaine de classes principales, des généralisations et
+    partages d'informations entre les verbes de classes identiques ou proches
+    sont possibles.
 
     \item Les comportements syntaxiques déterminent les comportements
-        sémantiques, ce qui correspond au schéma classique de l'annotation en
-        rôles sémantiques qui s'appuie sur une analyse syntaxique.
+    sémantiques, ce qui correspond au schéma classique de l'annotation en rôles
+    sémantiques qui s'appuie avant tout sur une analyse syntaxique.
 
 \end{itemize}
 
-%\subsection{Intersection des classes de Levin}
-
-% TODO raccourcir sans dire de bêtises
-
 Dans les classes de Levin, toute distinction de classe doit s'appuyer sur un
 critère clairement observable, tel que le comportement syntaxique ou les
-propriétés morphologiques d'un verbe. Et ceci même si la distinction entre deux
-classes est motivée par la volonté de prendre en compte une différence
-sémantique entre deux groupes de verbes.
+propriétés morphologiques d'un verbe. Ainsi, même dans les cas où l'on veut
+identifier une différence sémantique provenant d'une intuition linguistique, il
+faut établir des critères clairs et précis permettant d'assurer la cohérence et
+la robustesse de l'ensemble.
 
 Pour cette raison, les groupements de verbes sont parfois grossiers d'un point
 de vue sémantique. Ainsi, dans les \textit{put verbs} se trouve la classe
@@ -423,11 +434,11 @@ de vue sémantique. Ainsi, dans les \textit{put verbs} se trouve la classe
 "mettre en prison" (\emph{jail}). Cependant, le comportement syntaxique est le
 même : le regroupement est logique et les différences de sens ne sont a priori
 pas gênantes pour des tâches telles que l'annotation en rôles sémantiques qui
-ne se basent pas sur le sens précis des verbes. Il est possible d'affiner
-automatiquement les classes de Levin en réalisant des intersections de classes
-: les verbes obtenus seront alors définis plus strictement
-\citep{dang1998investigating}. Cette possibilité n'est cependant pas utilisée
-dans nos travaux.
+ne se basent pas sur le sens précis des verbes. Si ce manque de finesse est
+gênant, il est possible d'affiner automatiquement les classes de Levin en
+réalisant des intersections de classes : les verbes obtenus seront alors
+définis plus strictement \citep{dang1998investigating}. Cette possibilité n'est
+cependant pas utilisée dans nos travaux.
 
 \subsection{VerbNet}
 \label{presentation_verbnet}
@@ -444,7 +455,7 @@ classes de Levin qui ont été améliorées sur plusieurs fronts avec :
     \item de nouveaux verbes provenant de \cite{dorr2001lcs},
 
     \item la liaisons des verbes à WordNet, OntoNotes, PropBank et FrameNet
-        dans le cadre du projet SemLink \citep{palmer2009semlink}
+        dans le cadre du projet SemLink \citep{palmer2009semlink},
 
     \item de nombreuses corrections au fil des versions, une des améliorations
         prévues dans le futur étant d'ajouter d'autres verbes via l'étude de
@@ -459,19 +470,21 @@ moment de l'écriture de ce manuscrit étant la 3.2. Malheureusement, la version
 3.2 évolue sans que soient marqués clairement les sous-versions : suivant le
 jour de téléchargement de VerbNet, nous pouvons avoir à disposition la version
 3.2.1, 3.2.2 ou 3.2.3, sans pouvoir clairement distinguer ces trois versions.
-Pour cette raison, nous rendons disponibles la version 3.2 de VerbNet datant
-d'avril 2013 que nous utilisons dans l'ensemble de ce travail à l'adresse
-suivante : \url{https://github.com/pquentin/verbnet/archive/v3.2_2013-04.zip}.
+De plus, nous avons du modifier la ressource pour corriger certaines
+incohérences que nous espérons voir incluses dans la prochaine version de
+VerbNet. Pour cette raison, nous rendons disponibles la version de VerbNet que
+nous utilisons dans l'ensemble de ce travail à l'adresse suivante :
+\url{https://github.com/aymara/verbnet/archive/pradet-thesis.zip}.
 
-% TODO mieux décrire la hiérarchie et ses niveaux
 VerbNet contient 3769 lemmes, 5257 entrées réparties en 500 sous-classes dont
-270 classes de niveau 2 et 109 classes de niveau 1. La hiérarchie est
-relativement plate. Pour chaque classe, ce lexique indique :
+270 classes de niveau 2 et 109 classes de niveau 1. Pour chaque sous-classe, ce
+lexique indique :
 
 \begin{itemize}
         \item la liste des verbes de la classe,
         \item les rôles thématiques en jeu ainsi que leur restrictions de sélection,
-        \item la liste des \emph{frames} VerbNet.
+        \item la liste des \emph{frames} VerbNet,
+        \item les éventuelles sous-classes.
 \end{itemize}
 
 Une frame inclut une phrase d'exemple, une formule syntaxique donnant la
