@@ -532,25 +532,16 @@ production participative (\emph{crowdsourcing})
 % TODO citer différents FrameNets ? Copa 2014 Bresil FrameNet ?
 % TODO citer traduction mouton + http://www.aclweb.org/anthology/P13-1134.bib
 
+% TODO expliciter la différence entre frame-semantic parsing et semantic role
+% labeling
+
 \subsection{Les Verbes Français et Lexique-Grammaire}
 \label{sec:lvflg}
 
-% TODO mieux structurer : avantage *puis* inconvénient (ou l'inverse)
 À partir des années 70 deux ressources lexicales pour les verbes français ont
 été dévelopées : LVF et LG\footnote{Plus tard, dans les années 1990, une autre
     ressource a été dévelopée : Dicovalence. Nous ne l'utilisons presque pas
-dans nos travaux.}. Pourquoi ne pas utiliser ces ressources directement ?  Un
-des intérêts des classes de Levin et de VerbNet par rapport aux ressources
-françaises est leur approche pragmatique qui se traduit notamment par l'absence
-de prise en compte des emplois métaphorique d'un verbe donné. Ainsi, LG inclut
-des usages tels que \textit{Il galopait dans son esprit que Marie allait venir}
-qui peuvent induire en erreur une application.  Certains usages métaphoriques
-peuvent certes être prise en compte dans VerbNet, mais ils n'y sont pas par
-défaut. En effet, \cite{brown2012semantic} proposent une analyse systématique
-des emplois métaphorique de deux verbes représentatifs et montrent qu'utiliser
-VerbNet pour raisonner sur les emplois métaphorique d'un texte est en partie
-possible au prix d'une complexité plus importante et de prédicats sémantiques
-moins précis.
+dans nos travaux.}.
 
 LVF (Les Verbes Français, \cite{dubois1997verbes}) contient environ 25000
 entrées classées en quatre niveaux :
@@ -580,16 +571,41 @@ supplémentaires s'appliquant à certains des verbes de la table.
 
 % TODO exemple
 
+Pourquoi ne pas utiliser ces ressources directement dans nos travaux ? Pour
+plusieurs raisons :
 
-Les classes LVF et les tables LG peuvent toutes les deux être comparées aux
-classes VerbNet. Cependant, ces ressources n'encodent ni les rôles thématiques
-ni les formules sémantiques \footnote{Les notions de rôles thématiques et
-d'évènement n'étaient pas répandues dans les années 1970.}.  C'est la raison
-principale pour laquelle nous voulons construire une nouvelle ressource
-française, \verbenet{} (Chapitre~\ref{ch:verbnet}). Cette ressource tire profit
-d'une part des ressources existantes pour le français avec un encodage
-sémantique et syntaxique riche, et d'autre part de l'information sémantique
-présente dans VerbNet pour l'anglais, une langue proche du français.
+\begin{itemize}
+    \item LVF inclut de nombreux usages techniques : il y a en réalité
+        \emph{trop} de verbes et de sens : nous voulons nous concentrer sur les
+        verbes les plus fréquents, environ 5~000.
+    \item LVF (et dans une moindre mesure, LG), incluent de nombreux emplois
+        métaphoriques, ce qui nuit à la ressource : des usages tels que
+        \textit{Il galopait dans son esprit que Marie allait venir} (extrait de
+        LG) ne sont pas souhaitables. Certains usages métaphoriques peuvent
+        certes être prise en compte dans VerbNet, mais ils n'y sont pas par
+        défaut. En effet, \cite{brown2012semantic} proposent une analyse
+        systématique des emplois métaphorique de deux verbes représentatifs et
+        montrent qu'utiliser VerbNet pour raisonner sur les emplois
+        métaphorique d'un texte est en partie possible au prix d'une complexité
+        plus importante et de prédicats sémantiques moins précis.
+    \item LG ignore presque complètement la sémantique : de nombreuses classes
+        auraient pu être séparées plus utilement en considérant des différences
+        sémantiques exprimées par ailleurs dans la syntaxe.
+    \item LVF, au contraire, se base sur des critères difficile à comprendre et
+        manifestement subjectifs, au contraire de VerbNet et LG.
+    \item Ni LVF ni LG n'encodent de rôles thématiques ni de formules
+        sémantiques\footnote{Les notions de rôles thématiques et d'évènement
+        n'étaient pas répandues dans les années 1970.}.
+\end{itemize}
+
+Ce sont les raisons principales pour laquelle nous voulons construire une
+nouvelle ressource française, \verbenet{} (Chapitre~\ref{ch:verbnet}). Cette
+ressource tire profit d'une part des ressources existantes pour le français
+avec un encodage sémantique et syntaxique riche, et d'autre part de
+l'information sémantique présente dans VerbNet pour l'anglais, une langue
+proche du français. \verbenet{} peut être vu dans une certaine mesure comme une
+réorganisation des classes LVF, étant donné que les deux ressources sont
+essentiellement basées sur des critères syntaxiques.
 
 \section*{Conclusion}
 
