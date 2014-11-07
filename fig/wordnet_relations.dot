@@ -1,16 +1,24 @@
-digraph G {
+graph G {
+    overlap=scale;
     dpi = 400;
-    node[fontname="Nimbus Roman No9 L", width=5,fontsize=16];
+    ratio = 1.5;
+    node[shape=box, fontname="Nimbus Roman No9 L", fontsize=20];
+    nodes[nodesep=0.75,style="invis"];
 
-    day [label=<<b>day, 24-hour interval, solar day</b><br/>time for Earth to make a complete rotation on its axis<br/><i>"two days later they left"</i>, <i>"there are 30,000 passengers per day"</i>>, style=filled, fillcolor="#999999"];
+    day [label=<<b>day, 24-hour interval, solar day</b><br/>time for Earth to make a complete rotation on its axis<br/><i>"two days later they left"</i>, <i>"there are 30,000 passengers per day"</i>>, style=filled, fillcolor="#bbbbbb"];
 
 
     time [label=<<b>time unit, unit of time</b><br/>a unit for measuring time periods>];
-    day -> time;
+    daytime [label=<<b>day, daytime, daylight</b><br />the time after sunrise and before sunset while it is light outside<br /><i>"it is easier to make the repairs in the daytime"</i>>];
+    noon [label=<<b>noon, twelve noon, high noon, midday, noonday, nootide</b><br />the middle of the day>];
+    night [label=<<b>night, nighttime, dark</b><br />the time after sunset and before sunrise while it is dark outside>];
+    hour [label=<<b>hour, hr, 60 minutes</b><br />a period of time equal to 1/24th of a day<br /><i>"the job will take more than an hour"</i>>];
 
-    day -> daytime;
-    day -> noon;
-    day -> night;
-    day -> hour;
+    day -- hour [len=0.32];
+    day -- noon [len=0.5];
+    day -- night [len=0.4];
+
+    day -- daytime[len=0.4];
+    day -- time [len=0.3];
 
 }

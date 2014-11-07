@@ -9,7 +9,7 @@ digraph G {
     time [label=<<b>time unit, unit of time</b><br/>a unit for measuring time periods>];
     entity -> abstraction -> measure -> time -> day;
 
-    day [label=<<b>day, 24-hour interval, solar day</b><br/>time for Earth to make a complete rotation on its axis<br/><i>"two days later they left"</i>, <i>"there are 30,000 passengers per day"</i>>, style=filled, fillcolor="#999999"];
+    day [label=<<b>day, 24-hour interval, solar day</b><br/>time for Earth to make a complete rotation on its axis<br/><i>"two days later they left"</i>, <i>"there are 30,000 passengers per day"</i>>, style=filled, fillcolor="#bbbbbb"];
     tomorrow [label=<<b>tomorrow</b>>,width=0];
     today [label=<<b>today</b>>, width=0];
 
