@@ -44,13 +44,11 @@ accessibles. Nous citerons ici deux de ces tâches :
 
 Pour un certain nombre de chercheurs
 \citep{bos2012annotating,banarescu2013abstract}, c'est le moment de se tourner
-vers de nouvelles tâches dites «~sémantiques~»\footnote{L'inconvénient
-d'utiliser le terme «~sémantique~» est qu'il couvre aujourd'hui de nombreuses
-approches de la compréhension de textes avec peu de points communs.}. C'est
-pour cette raison qu'à la manière des corpus annotés en parties du discours ou
-en syntaxe qui ont tant fait progresser leurs domaines respectifs, des corpus
-«~sémantiques~» ont vu le jour dans le passé tels que FrameNet, PropBank ou
-RSTBank, mais d'autres, plus ambitieux, voient le jour aujourd'hui
+vers de nouvelles tâches plus sémantiques. C'est pour cette raison qu'à la
+manière des corpus annotés en parties du discours ou en syntaxe qui ont tant
+fait progresser leurs domaines respectifs, des corpus «~sémantiques~» ont vu le
+jour dans le passé tels que FrameNet, PropBank ou RSTBank, mais d'autres, plus
+ambitieux, voient le jour aujourd'hui
 \citep{bos2012annotating,banarescu2013abstract}
 (section~\ref{ressources_non_utilisees}) dans le but affiché de «~faire
 progresser la sémantique comme la syntaxe a progressé dans les années 1990~»,
@@ -58,34 +56,34 @@ et ce indépendamment des nombreuses applications auquel le Traitement
 Automatique des Langues est déjà appliqué.
 
 \subsection{Au-delà de l'analyse syntaxique}
+\label{au_dela}
 
-Dès lors, si l'on considère que l'analyse syntaxique est un problème auquel il
-n'est plus efficient de s'attaquer, quelle direction prendre ? Commençons par
-identifier les informations manquantes une fois que l'analyse syntaxique d'une
-phrase a été effectuée.
+Dès lors, si l'on considère que l'analyse syntaxique n'est plus la priorité,
+quelle direction prendre ? Commençons par identifier les informations
+manquantes une fois que l'analyse syntaxique d'une phrase a été effectuée.
 
-Le problème principal que nous voyons est que connaître le sujet et les objets
-syntaxiques d'un verbe ne suffit pas à déterminer les sujets et objets
+Le problème principal que nous voyons est que le sujet et les objets
+syntaxiques d'un verbe ne suffisent pas à déterminer les sujets et objets
 sémantiques, c'est-à-dire l'agent, le patient, etc. Par exemple, étant donné la
 phrase \emph{Le ballon repoussé par Léa a cassé la vitre des voisins}, il
-s'avère que le sujet syntaxique correspond parfaitement à l'agent sémantique.
-Dans d'autres situations, ce n'est pas le cas : pour \emph{La vitre des voisins
-a cassé sous le choc du ballon tiré par Léo}, le sujet syntaxique est \emph{La
-vitre des voisins} (la voix passive n'étant pas employée ici). Pourtant ce
-sujet syntaxique n'est pas l'agent sémantique, mais le patient, étant donné que
-la vitre change d'état en subissant l'action.
+s'avère que le sujet syntaxique (\emph{Le ballon repoussé par Léa} correspond
+parfaitement à l'agent sémantique.  Dans d'autres situations, ce n'est pas le
+cas : pour \emph{La vitre des voisins a cassé sous le choc du ballon tiré par
+Léo}, le sujet syntaxique est \emph{La vitre des voisins} (la voix passive
+n'étant pas employée ici). Pourtant ce sujet syntaxique n'est pas l'agent
+sémantique, mais le patient, étant donné que la vitre subit l'action.
 
-De manière plus marquée que pour les sujets, l'analyse syntaxique ne fournit
-pas suffisamment d'information pour désambiguïser le rôle des objets du verbes.
-Prenons les phrases \emph{Luc a posé un livre sur la table} et \emph{Luc a
-posé sur la table son livre préféré traitant de la génétique des chimpanzés}.
-Ici, l'ordre des objets ne suffit pas, il faut identifier que parmi les deux
-objets syntaxiques :
+De manière plus marquée que pour les sujets, l'analyse syntaxique en tant que
+telle ne fournit pas suffisamment d'information pour désambiguïser le rôle des
+objets du verbe.  Prenons les phrases \emph{Luc a posé un livre sur la table}
+et \emph{Luc a posé sur la table son livre préféré traitant de la génétique des
+chimpanzés}.  Ici, l'ordre des objets ne suffit pas, il faut identifier que
+parmi les deux objets syntaxiques :
 
 \begin{itemize}
-    \item l'un est un syntagme prépositionnel introduit par une préposition de
-    location (\emph{sur}),
-    \item tandis que l'autre est un syntagme nominal.
+    \item l'un est un syntagme prépositionnel introduit par une préposition
+        locative (\emph{sur}),
+    \item tandis que l'autre est un syntagme nominal direct.
 \end{itemize}
 
 On peut alors déterminer que le livre est le thème sémantique pour le prédicat
@@ -95,18 +93,27 @@ bien grâce à elle qu'on peut déterminer le rôle de chaque syntagme.
 
 Dans d'autres cas, la syntaxe ne suffit plus. Par exemple, pour la phrase
 \emph{When you've booted the machine you've built yourself}, le sujet et
-l'objet sont tous les deux des syntagmes nominaux, et la syntaxe ne suffit
-alors pas à désambiguïser entre le sens informatique de boot (démarrer un
-ordinateur) et le sens géographique de boot (exclure un individu de quelque
-part). Ici, des informations sémantiques peuvent nous aider. Dans le cas
-informatique, l'objet n'est pas animé, alors que dans le second il l'est : il
-devient alors possible de désambiguïser et d'attribuer à la fois le sens au
-verbe et les rôles corrects aux syntagmes (respectivement thème et
-destination.)
+l'objet de \emph{boot} sont tous les deux des syntagmes nominaux, et la syntaxe
+ne suffit alors pas à désambiguïser entre le sens informatique de \emph{boot}
+(démarrer un ordinateur) et le sens géographique de \emph{boot} (exclure un
+individu de quelque part). Ici, des informations sémantiques peuvent nous
+aider. Dans le cas informatique, l'objet n'est pas animé, alors que dans le
+second il l'est : il devient alors possible :
 
-Cette tâche d'attribution des rôles sémantiques au lieu des syntagmes
-syntaxiques est une étape au-delà de l'analyse syntaxique : c'est l'annotation
-en rôles sémantiques.
+\begin{enumerate}
+    \item d'exclure le sens géographique du verbe,
+    \item et d'attribuer les rôles corrects aux syntagmes (respectivement thème et
+        destination),
+\end{enumerate}
+
+% C'est un peu tôt pour donner le lien entre frame-semantic parsing, WSD et
+% SRL, mais où le mettre ?
+
+Ces deux informations sont importantes : c'est bien le sens du verbe qui permet
+d'interpréter les rôles sémantiques attribués aux syntagmes.
+
+Cette étape d'analyse au-delà de l'analyse syntaxique s'appelle l'annotation en
+rôles sémantiques.
 
 \section{Objectifs}
 
@@ -129,8 +136,11 @@ Ainsi, le résultat de l'annotation serait :
     Mrs. Aouda & \textbf{essaya}  & vainement & de retenir Mr. Fogg. \tabularnewline
     \end{tabular}
     \caption{\label{fig:introsrl}Le verbe \emph{essayer} déclenche la situation
-    \emph{Tentative}.  Les différents syntagmes liés au verbe jouent chacun un
-    rôle sémantique ici, mais ce n'est pas toujours le cas.}
+        \emph{Tentative}. Les différents syntagmes liés au verbe jouent chacun
+        un rôle sémantique ici, mais ce n'est pas toujours le cas. Par exemple,
+        si la phrase précisait \emph{après le dîner}, ce syntagme aurait été un
+    complément sans rôle sémantique associé.}
+
 \end{figure}
 
 Différentes informations sont disponibles après l'annotation en rôles
@@ -174,14 +184,14 @@ difficultés sont différentes \citep{boros2014etiquetage} :
         nombre de situations différentes, chacune ayant ses propres étiquettes.
 \end{itemize}
 
-L'annotation en rôles sémantiques a par contre été utilisée dans un grand
+L'annotation en rôles sémantiques a, par contre, été utilisée dans un grand
 nombre d'autres applications, notamment les systèmes de questions-réponses
 \citep{shen2007using}, l'extraction d'évènements \citep{exner2011using},
 l'analyse d'opinions \citep{das2012structure} ou la traduction automatique
 \citep{bazrafshan2013semantic,bazrafshan2014comparing}. Un des intérêts de la
 généralité de l'annotation en rôles sémantiques est de s'adapter facilement à
 de nouvelles tâches. Ainsi, l'annotation en rôles sémantiques à aussi été
-utilisée sur des tâches moins classiques en : la détection de plagiat
+utilisée sur des tâches moins classiques : la détection de plagiat
 \citep{osman2012improved}, la prédiction des cours de bourse
 \citep{xie2013semantic}, la génération de scènes 3D \citep{chang2014learning},
 la recommandation fondée sur le contenu \citep{de2014exploiting}, la détection
@@ -191,10 +201,11 @@ recettes de cuisine \citep{malmaud2014cooking}.
 \subsection{Contraintes}
 
 Nous souhaitons que notre système d'annotation en rôles sémantiques puisse être
-utilisé dans un environnement industriel dans lequel d'une part l'annotation en
-rôles sémantiques fournit des informations utiles au développement des tâches
-applicatives et d'autre part les domaines à couvrir ne sont pas connus à
-l'avance. Les contraintes suivantes découlent de ces prérequis.
+utilisé dans un environnement industriel dans lequel d'une part cette
+annotation en rôles sémantiques fournit des informations utiles au
+développement de tâches applicatives et d'autre part les domaines à couvrir ne
+sont pas connus à l'avance. Les contraintes suivantes découlent de ces
+prérequis.
 
 \paragraph{Cadre ouvert} Se contenter de certaines situations dans un domaine
 fermé n'est pas satisfaisant. Les inventaires de sens utilisés doivent couvrir
@@ -211,7 +222,7 @@ manuellement, le système présenté doit pouvoir se contenter de transpositions
 automatiques de ces ressources vers le français.\footnote{L'exception ici est
 VerbNet, ressource traduite «~semi-manuellement~» vers le français
 (Chapitre~\ref{ch:verbnet}) mais qui n'est encore ni finalisée ni
-homogénéisée}. Avec cette approche de mutualisation des ressources au niveau de
+homogénéisée.}. Avec cette approche de mutualisation des ressources au niveau de
 la langue, chaque nouvelle utilisation d'une de nos ressources est l'occasion
 de l'améliorer à la fois pour utilisation immédiate mais aussi pour les
 utilisations futures.
@@ -294,14 +305,18 @@ VerbNet est bien adapté à l'annotation en rôles sémantiques.
 
 % De la même manière, WordNet est complémentaire à VerbNet
 
-WordNet est une autre ressource qui complète VerbNet en nous fournissant des
-informations sur le sens des verbes inclus dans VerbNet grâce au projet
-SemLink, mais aussi sur le sens des mots liés au verbe, ce qui permet notamment
-de de respecter les restrictions de sélections indiquées par VerbNet pour le
-sujet et les objets du verbe et ainsi mieux désambiguïser parmi les classes et
-constructions syntaxiques possibles pour un emploi donné d'un verbe
-(Chapitre~\ref{ch:semantic}).
+WordNet \citep{fellbaum1998wordnet} est une autre ressource qui complète
+VerbNet d'au moins deux façons.
 
+\begin{itemize}
+    \item D'une part, WordNet peut être utilisé pour désambiguïser le sens des
+        verbes et donc aider à choisir la bonne classe VerbNet.
+    \item D'autre part, comme indiqué à la section~\ref{au_dela}, certaines
+        propriétés sémantiques des syntagmes (animé, humain, organisation,
+        etc.) sont utiles à l'annotation en rôles sémantiques, et la hiérarchie
+        offerte par WordNet est le moyen idéal pour déterminer ces propriétés
+        (Chapitre~\ref{ch:semantic}).
+\end{itemize}
 
 % Dans les langues autres que l'anglais, cette ressource utile n'existe pas
 % mais ne demande qu'à exister étant donné le potentiel \textit{cross-lingual}
@@ -385,8 +400,8 @@ Par exemple, les \emph{fill verbs} tels que \emph{staff}, \emph{coat} ou encore
 deux constructions sont possibles :
 
 \begin{itemize}
-    \item Leslie staffed the store with employees
-    \item The employees staffed the store
+    \item \emph{Leslie staffed the store with employees}
+    \item \emph{The employees staffed the store}
 \end{itemize}
 
 mais n'acceptent pas par exemple, la \emph{conative alternation}
@@ -514,28 +529,29 @@ des occurrences des verbes anglais dans un texte donné.
 
 FrameNet \citep{baker1998berkeley} repose sur la théorie des \textit{Frame
 Semantics}, élaborée par \cite{fillmore1982frame} en modifiant sa théorie des
-cas \citep{fillmore1968case}. Ici, les rôles sémantiques (nommés \textit{frame
-elements}) sont spécifiques à chaque situation (\textit{frame}) même si le même
-nom peut être réutilisé. On retrouve ainsi le rôle Agent, mais surtout des
-rôles spécifiques comme Food dans Apply\_heat ou Completeness dans
-Activity\_pause. Les rôles sont classifiés selon leur importance dans la
-situation : centraux (nécessaires), périphériques (toujours liés à la situation
-mais optionnels) et circonstanciels (pas spécifiques donc potentiellement
-présent dans toutes les situations, par exemple le lieu ou le temps).
+cas \citep{fillmore1968case}. Ici, les rôles sémantiques sont spécifiques à
+chaque situation. Par exemple, la situation \emph{Infecting} définit les rôles
+sémantiques \emph{Infected\_entity}, \emph{Infection} et
+\emph{Infection\_cause}, alors que la situation \emph{Commerce\_buy} définit les
+rôles sémantiques \emph{Buyer}, \emph{Seller} et \emph{Goods}. Les rôles sont
+classifiés selon leur importance dans la situation : centraux (nécessaires),
+périphériques (toujours liés à la situation mais optionnels) et circonstanciels
+(pas spécifiques donc potentiellement présent dans toutes les situations, par
+exemple le lieu ou le temps).
 
 La théorie de FrameNet peut être utilisées dans d'autres domaines et d'autres
 langues \citep{boas2009multilingual}. Il existe ainsi notamment des FrameNet en
 espagnol \citep{subirats2003surprise}, japonais \citep{ohara2004japanese},
-suédois \citep{heppin2012rocky} ou encore français
+suédois \citep{heppin2012rocky} ou encore français avec le projet ANR ASFALDA
 \citep{candito2014developing}. Certaines méthodes automatiques utilisent le
 Wiktionnaire pour traduire le lexique FrameNet, mais pas son corpus
 \citep{mouton2010framenet,hartmann2013framenet}, ce qui n'est pas directement
-utile. Le Kicktionary \citep{schmidt2009kicktionary} est lui spécifique en
+utile. Le Kicktionary \citep{schmidt2009kicktionary} est lui spécifique au
 football et annote en trois langues (français, anglais, allemand) des dépêches
 de presses de l'UEFA.  \cite{venturi2009towards} proposent un FrameNet italien
 centré sur le domaine du droit. Enfin, il existe plusieurs FrameNets
 spécialisés en portugais brésilien : un dans le domaine du droit
-\citep{bertoldi2012developing} et l'autre pour la coupe du monde 2014
+\citep{bertoldi2012frame} et l'autre pour la coupe du monde 2014
 \citep{torrent2014copa}.
 
 FrameNet est donc une ressource très riche qui peut s'adapter à de nombreux
@@ -554,7 +570,7 @@ encore loin de couvrir un éventail complet du vocabulaire anglais
 \subsection{Les Verbes Français et Lexique-Grammaire}
 \label{sec:lvflg}
 
-À partir des années 70 deux ressources lexicales pour les verbes français ont
+À partir des années 1970 deux ressources lexicales pour les verbes français ont
 été dévelopées : LVF et LG\footnote{Plus tard, dans les années 1990, une autre
     ressource a été dévelopée : Dicovalence. Nous ne l'utilisons presque pas
 dans nos travaux.}.
@@ -600,14 +616,14 @@ plusieurs raisons :
         LG) ne sont pas souhaitables. Certains usages métaphoriques peuvent
         certes être prise en compte dans VerbNet, mais ils n'y sont pas par
         défaut. En effet, \cite{brown2012semantic} proposent une analyse
-        systématique des emplois métaphorique de deux verbes représentatifs et
+        systématique des emplois métaphoriques de deux verbes représentatifs et
         montrent qu'utiliser VerbNet pour raisonner sur les emplois
-        métaphorique d'un texte est en partie possible au prix d'une complexité
+        métaphoriques d'un texte est en partie possible au prix d'une complexité
         plus importante et de prédicats sémantiques moins précis.
     \item LG ignore presque complètement la sémantique : de nombreuses classes
         auraient pu être séparées plus utilement en considérant des différences
         sémantiques exprimées par ailleurs dans la syntaxe.
-    \item LVF, au contraire, se base sur des critères difficile à comprendre et
+    \item LVF, au contraire, se base sur des critères difficiles à comprendre et
         manifestement subjectifs, au contraire de VerbNet et LG.
     \item Ni LVF ni LG n'encodent de rôles thématiques ni de formules
         sémantiques\footnote{Les notions de rôles thématiques et d'évènement
@@ -620,7 +636,7 @@ ressource tire profit d'une part des ressources existantes pour le français
 avec un encodage sémantique et syntaxique riche, et d'autre part de
 l'information sémantique présente dans VerbNet pour l'anglais, une langue
 proche du français. \verbenet{} peut être vu dans une certaine mesure comme une
-réorganisation des classes LVF, étant donné que les deux ressources sont
+réorganisation des classes LG, étant donné que les deux ressources sont
 essentiellement basées sur des critères syntaxiques.
 
 \section*{Conclusion}

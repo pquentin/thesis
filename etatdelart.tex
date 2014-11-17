@@ -345,7 +345,7 @@ est fréquent dans le corpus.
 \end{figure}
 
 \paragraph{Modèles de langues continus} D'autres types de modèles de langue
-représentent les mots de manières distribuée en utilisant un vecteur de nombres
+représentent les mots de manière distribuée en utilisant un vecteur de nombres
 réels. LSA \citep{deerwester1990indexing}, par exemple, considère une matrice
 de termes et de documents, les termes étant en ligne, les document en colonne.
 Les éléments de cette matrice sont typiquement calculés avec TF-IDF. Cette
@@ -358,23 +358,24 @@ l'objectif final étant de rapprocher les mots sémantiquement proches.
 
 \paragraph{Modèles de langues neuronaux} Depuis la diffusion de word2vec
 \citep{mikolov2013distributed} et de ses bons résultats obtenus dans un certain
-nombre de tâches, les représentations de mots à l'aide de réseaux de neurones
-sont populaires\footnote{Les bons résultats obtenus notamment en vision par
-ordinateur par des réseaux de neurones profonds ont sûrement contribué à cet
-enthousiasme, il est donc important de rappeller que les réseaux de neurones
-concernés ici ne sont pas profonds.}.  La manière la plus répandue pour faire
-cela est d'utiliser un réseau de neurones peu profond dont une des couches sera
-le vecteur représentant chaque mot.  \cite{hinton1986learning} a d'abord
-proposé l'idée d'un réseau de neurones pour représenter des concepts à l'aide
-de vecteurs faisant partie du réseau, \cite{bengio2001neural,bengio2003neural}
-ont présenté le modèle de langue neuronal tel qu'on le connaît aujourd'hui, et
-\cite{mikolov2013distributed} (parmi d'autres) a optimisé un modèle de langue
-en supprimant notamment une couche cachée pour l'utiliser sur de plus gros
-corpus. Dans tous ces modèles, lors de la rétropropagation du gradient, la
-représentation des mots évolue, ce qui a pour effet de rapprocher la
-représentation des mots sémantiquement proches afin d'offrir une meilleure
-généralisation, comme le fait LSA en factorisant la matrice de co-occurrences.
-Par exemple, \cite{mikolov2013distributed} montre que la distance entre le mot
+nombre de tâches, l'utilisation de représentations de mots à l'aide de réseaux
+de neurones est un champ actif de recherche\footnote{Les bons résultats obtenus
+notamment en vision par ordinateur par des réseaux de neurones profonds ont
+sûrement contribué à cet enthousiasme, il est donc important de rappeller que
+les réseaux de neurones concernés ici ne sont pas profonds.}.  La manière la
+plus répandue pour faire cela est d'utiliser un réseau de neurones peu profond
+dont une des couches sera le vecteur représentant chaque mot.
+\cite{hinton1986learning} a d'abord proposé l'idée d'un réseau de neurones pour
+représenter des concepts à l'aide de vecteurs faisant partie du réseau,
+\cite{bengio2001neural,bengio2003neural} ont présenté le modèle de langue
+neuronal tel qu'on le connaît aujourd'hui, et \cite{mikolov2013distributed}
+(parmi d'autres) a optimisé un modèle de langue en supprimant notamment une
+couche cachée pour l'utiliser sur de plus gros corpus. Dans tous ces modèles,
+lors de la rétropropagation du gradient, la représentation des mots évolue, ce
+qui a pour effet de rapprocher la représentation des mots sémantiquement
+proches afin d'offrir une meilleure généralisation, comme le fait LSA en
+factorisant la matrice de co-occurrences.  Par exemple,
+\cite{mikolov2013distributed} montrent que la distance entre le mot
 représentant un pays (par exemple \emph{Turkey}) et le mot représentant la
 capitale de ce pays (ici \emph{Ankara}) correspond au vecteur du mot
 \emph{capital}.  Ces représentations de mots peuvent être ensuite utilisées ou
@@ -612,7 +613,7 @@ l'allemand \citep{im2006experiments}, le japonais \citep{suzuki2009classifying}
 et l'anglais
 \citep{stevenson2003semi,lapata2004verb,vlachos2009unsupervised,lippincott2012learning,kawahara2014step},
 où l'évaluation se fait notamment sur les classes de Levin. Pour l'anglais,
-\citep{kawahara2014step} montre qu'un corpus de plusieurs milliards de mot
+\citep{kawahara2014step} montrent qu'un corpus de plusieurs milliards de mot
 permet de considérer la polysémie. En particulier, un corpus de 20 milliards de
 mot améliore de manière conséquente l'état de l'art en considérant
 l'affectation de verbes à plusieurs classes (71.39~\% de F1 contre 61.97~\%
@@ -626,8 +627,8 @@ l'Italien. Les seules traductions directes de VerbNet dont nous avons la
 connaissance sont le VerbNet estonien \citep{jentson2014verbnet} et le VerbNet
 portuguais brésilien \citep{scarton2012towards} qui utilise des mappings entre
 VerbNet et WordNet, et entre WordNet.Br et WordNet. \cite{scarton2014using}
-propose la création d'un VerbNet en s'appuyant comme seul effort manuel sur la
-traduction manuelles des frames VerbNet vers la langue cible, puis de
+proposent la création d'un VerbNet en s'appuyant comme seul effort manuel sur
+la traduction manuelle des frames VerbNet vers la langue cible, puis de
 ressources lexicales déjà disponibles (WordNet, VerbNet et WordNet traduit dans
 la langue cible), le tout dans l'optique de créer des VerbNets pour les langues
 proches de l'anglais disposant déjà d'un WordNet.  La méthode a été testée pour
@@ -660,8 +661,8 @@ sur la même vérité-terrain mais simplifiée, ce qui donne une F-mesure de 70\
 Ces ressources mettent en valeur de nouvelles façons de séparer les verbes du
 Français, mais les erreurs qu'elles contiennent seront une nouvelle source
 d'erreur dans les applications : il est important de les corriger si possible,
-ce qui est la raison pour laquelle nous adoptons une approche différente dans
-le Chapitre~\ref{ch:verbnet}.
+ce qui est la raison pour laquelle nous adoptons une approche différente qui
+sera présentée au Chapitre~\ref{ch:verbnet}.
 
 \section{Annotation en rôles sémantiques}
 \label{sec:srl}
@@ -765,12 +766,13 @@ les mêmes : dans « Il a acheté un arbre » et « l'achat d'un arbre »,
 \textit{ARG1} sera dans les deux cas l'arbre. D'autres catégories incluent les
 noms partitifs, relationnels et environnementaux.
 
-que \emph{They gave the chefs a standing ovation}, les annotations PropBank et
-NomBank proposent la même annotation, l'une étant basée sur le groupe nominal
-(\emph{a standing ovation}), l'autre sur la structure prédicat-argument autour
-du verbe \emph{gave}.. Cette similarité volontaire a permis de lier ces
-ressources \citep{pustejovsky2005merging,verhagen2007combining}, mais nous ne
-connaissons pas d'applications tirant profit de ces deux ressources.
+Pour une phrase telle que \emph{They gave the chefs a standing ovation}, les
+annotations PropBank et NomBank proposent la même annotation, l'une étant basée
+sur le groupe nominal (\emph{a standing ovation}), l'autre sur la structure
+prédicat-argument autour du verbe \emph{gave}. Cette similarité volontaire a
+permis de lier ces ressources
+\citep{pustejovsky2005merging,verhagen2007combining}, mais nous ne connaissons
+pas d'applications tirant profit de ces deux ressources.
 
 \cite{gerber2010beyond} ont étendu NomBank aux arguments
 implicites, améliorant ainsi la couverture de NomBank de 65\%, c'est-à-dire en
