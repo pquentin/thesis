@@ -17,23 +17,22 @@ chapitre provient d'articles déjà publiés
 La construction de cette ressource se fait en trois étapes.
 \begin{enumerate}
     \item Nous avons d'abord traduit vers le français les membres de VerbNet en
-        utilisant des ressources linguistiques qui encodent des informations
+        utilisant deux ressources linguistiques qui encodent des informations
         syntaxiques et sémantiques sur les verbes du français
         (section~\ref{first}).
-    \item La deuxième étape, toujours en cours, est l'adaptation des frames
-        VerbNet vers le français et la réorganisation les classes de VerbNet en
-        fonction de ces frames, ce qui pose divers problèmes que nous décrirons
-        en partie ici (section~\ref{second}).
-    \item La troisième étape, en cours de réalisation en parallèle avec la
-        seconde, est la validation des verbes français de chaque classe
-        (section~\ref{third}).
+    \item La deuxième étape (section~\ref{second}), toujours en cours, est
+        l'adaptation des frames VerbNet vers le français et la réorganisation
+        les classes VerbNet en fonction de ces frames, ce qui pose divers
+        problèmes que nous décrivons en partie ici (section~\ref{casebycase}).
+    \item La troisième étape (section~\ref{third}), aussi en cours de
+        réalisation, est la validation des verbes français de chaque classe.
 \end{enumerate}
 
 Grâce aux mise aux correspondance réalisées lors de la première étape, notre
 traduction de VerbNet est liée aux deux ressources linguistiques que nous
 utilisons, Les Verbes Français et le Lexique-Grammaire. La ressources est aussi
 ouverte : nous voulons encourager les contributions externes avec notre outil
-basé sur le web. Nous souhaitons aussi faciliter l'utilisation de la ressource
+basé sur le web. Nous souhaitons enfin faciliter l'utilisation de la ressource
 en utilisant le même format XML que le VerbNet anglais et en rendant
 \verbenet{} librement réutilisable sous la licence TODO, qui autorise notamment
 les usages commerciaux.
@@ -42,17 +41,36 @@ les usages commerciaux.
 
 Notre principe de base est que la hiérarchie supérieure de VerbNet doit être
 aussi proche que possible de celle de VerbNet et ses 270 classes. Néanmoins,
-certaines classes peuvent disparaître. Ceci peut être dû à des raisons purement
-morphologiques. Une classe VerbNet ne contenant que des verbes dénominaux n'a
-pas d'équivalent en français. C'est le cas de \texttt{pit-10.7} avec des verbes
-tels que \emph{bark} et \emph{bone} ou \texttt{week-end-56} et ses verbes
-\emph{week-end} ou \emph{december}. Par contre, \texttt{debone-10.8} et ses
-verbes formés par le préfixe \emph{dé-} plus un nominal (\emph{debark, debone})
-a un équivalent français avec les préfixes \emph{dé-} ou \emph{é}
-(\emph{déveiner}, \emph{équeuter}).
+certaines classes peuvent disparaître dès lors que les critères utilisés pour
+l'anglais ne s'appliquent pas au français, ce qui est parfois le cas lorsque
+VerbNet emploit des critères morphologiques. Ainsi, une classe VerbNet ne
+contenant que des verbes dénominaux n'a pas d'équivalent en français. C'est le
+cas de :
+\begin{itemize}
+    \item \texttt{pit-10.7} formé avec des parties constitutives d'animaux ou
+        d'objets avec des verbes tels que :
+        \begin{itemize}
+            \item \emph{peel} : enlever la peau (\emph{peel}) de certains fruits
+                et légumes,
+            \item \emph{bark} : enlever l'écorce (\emph{bark}) d'un arbre ou
+                d'une buche,
+            \item ou \emph{bone} : enlever les os (\emph{bones}) d'un poisson,
+        \end{itemize}
+    \item ou \texttt{weekend-56} formé à partir de verbes issus de noms
+        décrivant une période de temps tels que :
+        \begin{itemize}
+            \item \emph{vacation} : \emph{Luc Leclerc vacationed with Zambito in
+                Mexico},
+            \item ou \emph{summer} : \emph{My family always summered at the seashore}.
+        \end{itemize}
+\end{itemize}
 
-Étant donné ce principe de base, la construction de \verbenet{} se fait en
-trois étapes.
+Par contre, \texttt{debone-10.8} et ses verbes formés par le préfixe \emph{dé-}
+plus un nominal (\emph{debark, debone}) a un équivalent français avec les
+préfixes \emph{dé-} ou \emph{é} (\emph{déveiner}, \emph{équeuter}).
+
+Pour les toues les classes conservées, la construction de \verbenet{} se fait
+en trois étapes.
 
 \subsection{Première étape : traduction des verbes}\label{first}
 
@@ -184,7 +202,7 @@ syntagme prépositionnel. C'est à l'utilisateur de la ressource de considérer
 que l'autre option (\emph{NP V PP.Destination NP}, \emph{Nora a apporté au meeting
 le livre}) est tout aussi valable.
 
-\subsection{Travail au cas par cas}\label{subsubsec:casebycase}
+\subsection{Travail au cas par cas}\label{casebycase}
 
 Dans certains cas, cette deuxième étape pose des difficultés, et ce pour deux
 raisons principales. Premièrement, certaines différences sémantiques entre
