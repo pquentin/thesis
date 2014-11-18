@@ -477,7 +477,72 @@ Troisièmement, cela permet de généraliser à d'autres phénomènes de syntaxe
 profonde, par exemple en utilisant les systèmes existants
 \citep{bonfante2011modular,ribeyre2013systeme}.
 
-\section{Evaluation}
+\section{Restrictions de sélection avec WordNet}
+\label{restrictions_selection}
+
+Deux types de données aident à l'annotation en rôles sémantiques : d'une part
+les informations syntaxiques, et d'autre part les informations sémantiques.
+Nous avons traité jusque-là la question de l'apport de la syntaxe à
+l'annotation en rôles sémantiques avec d'une part l'utilisation des cadres de
+sous-catégorisations présents dans VerbNet et d'autre part la prise en compte
+de la voix passive.
+
+Nous explorons dans cette section l'apport d'une information de nature plus
+sémantique pour montrer la complémentarité de la syntaxe et de la sémantique
+pour notre tâche. Différentes informations sémantiques ont déjà montré leur
+utilité en annotation en rôles sémantiques supervisée. Citons :
+
+\begin{itemize}
+    \item la présence de relations WordNet entre mots des prédicats pour
+        l'identification des prédicats \citep{das2010probabilistic},
+    \item etl'apport de la représentation de mots pour une meilleure
+        généralisation \citep{lechelle2014utilisation}
+\end{itemize}
+
+Pour rester dans le cadre de l'annotation en rôles sémantiques fondée sur la
+connaissance, nous allons dans cette section explorer l'utilisation des
+restrictions de sélections présentes dans VerbNet.
+
+% TODO est-il bien nécessaire d'avoir tout cet exemple ? Il y a pareil en
+% intro. Citer l'intro. S'assurer des transitions ici : on a complètement
+% changé l'objet de ces paragraphes en les intégrant à un nouveau chapitre.
+
+Prenons pour exemple ces cinq phrases mettant en jeu le verbe
+\emph{conspire} de la classe \texttt{conspire-71} du VerbNet anglais :
+
+\begin{itemize}
+    \item \emph{Alan Rock conspired with passionate scientists like Henry Friesen}
+    \item \emph{P. Baglioni conspired against the Borgias}
+    \item \emph{He joined Mazzini and conspired for the redemption of Italy}
+    \item \emph{The companies conspire together on price-fixing}
+    \item \emph{The delegation organized by Mr. Chan-Ou-Teung did not conspire about holding a UBCV Congress}
+\end{itemize}
+
+L'annotation du sujet syntaxique ne pose pas de difficultés : le sujet est
+toujours Agent dans cette classe selon VerbNet. Les informations lexicales au
+sujet des prépositions qui sont présentes dans VerbNet suffisent aussi à
+annoter les deux premières phrases: \emph{with passionate scientists like Henry
+Friesen} est Co-Agent alors que \emph{against the Borgias} est Beneficiary. Ce
+n'est pas le cas des phrases suivantes : les prépositions \emph{for}, \emph{on}
+et \emph{about} ne sont pas prévues pas VerbNet.
+
+Ici, une solution est de continuer à agrandir VerbNet en incluant de nouvelles
+constructions ou en étendant les constructions existantes, mais c'est un
+travail long et difficile qui ne pourra vraisemblablement jamais être terminé.
+De plus, pour TODO\% des arguments de notre corpus FrameNet, la syntaxe ne
+permet pas d'identifier le rôle correct, mais seulement de le limiter à
+quelques rôles possibles. Cette délimitation est très précise : quand VerbNet
+aboutit à plusieurs rôles possibles, la probabilité pour que le rôle correct
+soit présent dans la liste est supérieure à TODO\%. Nous posons alors la
+question suivante : comment tirer profit de cette courte liste de rôles
+possibles à l'aide de la sémantique ?
+
+La piste que nous explorons dans cette section est l'utilisation des
+restrictions de sélections présentes dans VerbNet. Ces restrictions sont
+relativement grossières et mal documentées mais sont une première piste
+explorées dans la section~\ref{sec:restr_verbnet}.
+
+\section{Évaluation}
 \label{srl:evaluation}
 
 L'intérêt du système ne réside pas dans l'annotation automatique d'un large
