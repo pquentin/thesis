@@ -10,27 +10,35 @@ nos objectifs (section~\ref{objectifs_these}) mais n'existe qu'en anglais :
 c'est pourquoi nous présentons dans ce chapitre sa traduction vers le français,
 \verbenet{}\footnote{Le nom vient de la prononciation à la française qui
 "rajoute" un \emph{e}. Le $\ni$ est là pour bien marquer ce \emph{e} et ainsi
-essayer d'éviter la confusion avec VerbNet.}. Une partie conséquente de cette
-article provient d'articles déjà publiés
+essayer d'éviter la confusion avec VerbNet.}. Une partie conséquente de ce
+chapitre provient d'articles déjà publiés
 \citep{danlos2014vers,pradet2014adapting}.
 
-La construction de cette ressource s'est faite en trois étapes. Nous avons
-d'abord traduit vers le français les membres des classes de premier niveau dans
-VerbNet en utilisant des ressources linguistiques qui encodent des informations
-syntaxiques et sémantiques sur les verbes du français (section~\ref{first}). La
-deuxième étape, toujours en cours, est l'adaptation des frames VerbNet vers le
-français et la réorganisation les classes de VerbNet en fonction de ces frames,
-ce qui pose divers problèmes que nous décrirons en partie ici
-(section~\ref{second}). La troisième étape sera l'occasion de valider les
-membres français de chaque classe (section~\ref{third}).
+La construction de cette ressource se fait en trois étapes.
+\begin{enumerate}
+    \item Nous avons d'abord traduit vers le français les membres de VerbNet en
+        utilisant des ressources linguistiques qui encodent des informations
+        syntaxiques et sémantiques sur les verbes du français
+        (section~\ref{first}).
+    \item La deuxième étape, toujours en cours, est l'adaptation des frames
+        VerbNet vers le français et la réorganisation les classes de VerbNet en
+        fonction de ces frames, ce qui pose divers problèmes que nous décrirons
+        en partie ici (section~\ref{second}).
+    \item La troisième étape, en cours de réalisation en parallèle avec la
+        seconde, est la validation des verbes français de chaque classe
+        (section~\ref{third}).
+\end{enumerate}
 
-Notre traduction de VerbNet est liée aux deux ressources linguistiques que nous
+Grâce aux mise aux correspondance réalisées lors de la première étape, notre
+traduction de VerbNet est liée aux deux ressources linguistiques que nous
 utilisons, Les Verbes Français et le Lexique-Grammaire. La ressources est aussi
 ouverte : nous voulons encourager les contributions externes avec notre outil
 basé sur le web. Nous souhaitons aussi faciliter l'utilisation de la ressource
-en utilisant le même format XML que le VerbNet anglais.
+en utilisant le même format XML que le VerbNet anglais et en rendant
+\verbenet{} librement réutilisable sous la licence TODO, qui autorise notamment
+les usages commerciaux.
 
-\section{Construction de \verbenet{}}
+\section{Étapes de constructions de \verbenet{}}
 
 Notre principe de base est que la hiérarchie supérieure de VerbNet doit être
 aussi proche que possible de celle de VerbNet et ses 270 classes. Néanmoins,
@@ -87,7 +95,7 @@ français : \emph{composer}, \emph{couper}, \emph{donner}, \emph{exécuter},
 pour cette classe.  Cette méthode produit un lexique de 4058 verbes (2128
 verbes distincts).
 
-% TODO Évaluer automatiquement à l'aide de la validation des verbes
+% TODO Noter quelque part que l'évaluation se fait manuellement
 
 \subsection{Deuxième étape}\label{second}
 
@@ -114,53 +122,27 @@ diffèrent des frames anglaises (section~\ref{princp}). Finalement, une étude
 fine au cas par cas révèle des différences difficiles à traiter entre l'anglais
 et le français (section~\ref{subsubsec:casebycase}).
 
-\subsubsection{Outil d'édition de \verbenet{}}\label{toolquentin}
+\subsection{Troisième étape}
+\label{third}
 
-Nous avons du développer un outil permettant d'éditer collaborativement
-VerbNet\footnote{Cet outil est libre et disponible sur GitHub :
-\url{https://github.com/aymara/verbenet-editor}.}. Cet outil est en fait un
-site web présentant VerbNet : ses classes, ses frames, ses verbes, etc.  Tous
-les éléments sont modifiables, ce qui permet aux lexicographes de se concentrer
-sur les problèmes lexicographiques sans avoir à se préoccuper de la
-représentation des données. Le site web est réalisé avec Django, un framework
-web Python. VerbNet est stocké dans une base de donnée PostgreSQL. Avant de
-commencer l'édition, nous avons commencé par charger VerbNet et les mappings
-réalisés lors de la première étape. L'édition elle-même se fait classe de Levin
-par classe de Levin. Par exemple, nous avons traité ensemble les classes
-{\color{blue}throw-17.1} et {\color{blue}pelt-17.2} parce qu'elles font toutes
-les deux partie de la «~super-classe~» 17 : Throwing. Plusieurs classes faisant
-partie d'une même super-classe sont souvent liées et il faut les comprendre
-dans leur ensemble avant de commencer l'édition. Pour chaque classe, nous
-pouvons éditer ses frames, ajouter ou supprimer des sous-classes ou des frames.
-Par exemple, pour la suppression, toutes les frames impliquant un conatif, un
-datif ou une alternance bénéfactive peuvent être systématiquement supprimées :
-ces alternances n'existent pas en français.
+La troisième étape  est de valider manuellement pour chaque classes les verbes
+proposés par correspondance de ressources en supprimant les verbes erronés et
+en rajoutant les verbes manquants afin que la ressource ait été entièrement
+validée manuellement. Aucun verbe n'est ajouté manuellement : les annotateurs
+cliquent directement sur les verbes inférés pour les valider ou les invalider.
+Les traductions des dictionnaires étant très productives, les verbes souhaités
+sont systématiquement dans les traductions proposées, même s'ils peuvent être
+absent des correspondances LADL, LVF ou les deux. Dans les rares cas où un
+verbe souhaité n'est pas trouvé, c'est une occasion de contribuer au
+Wiktionnaire pour le rajouter.
 
-\begin{figure}
+\section{Adaptation pas à pas d'une classe d'exemple}
 
-    \includegraphics[width=\textwidth]{fig/tool_screenshot_2014-09-12.png}
+TODO
 
-    \caption{\label{tool}Interface web pour analyser et modifier \verbenet{}.
-        Chaque frame peut être modifiée et les classes peuvent être
-        réorganisées. Les traductions en violet apaprtiennent à l'intersection
-        de \Clvf{}, \Clg{} et \Ltrad{} (section~\ref{first}), les traductions
-        en rouge (respectivement en vert) uniquement à \Clvf{} et \Ltrad
-        (respectivement uniquement à \Clg{} et \Ltrad{}). La description de
-        {\color{blue}break-45.1} est en cours de modification : en cliquant sur
-        'Confirmer', la modification sera prise en compte rapidement sans avoir
-    à recharger la page pour éviter d'interrompre le travail lexicographique.}
+\section{Principes adoptés pendant l'adaptation}
 
-\end{figure}
-
-Avec l'aide de cet outil (illustré à la Figure~\ref{tool}), la deuxième étape
-peut s'avérer très simple. Par exemple, les quatre sous-classes de
-{\color{blue}image-creation-25} ont des classes directement équivalentes en
-français, donc les seules choses à faire sont de traduire les exemples en
-français avec les bonnes prépositions. Par exemple, dans la classe
-{\color{blue}illustrate-25.3}, il a fallu remplacer \emph{with} par la
-combinaison de \emph{de} et \emph{avec}.
-
-\subsubsection{Principes sur les frames}\label{princp}
+\subsection{Principes sur les frames}\label{princp}
 
 Nous avons jusqu'ici identifié deux différences principales entre le codage des
 frames anglaises et françaises.
@@ -202,7 +184,7 @@ syntagme prépositionnel. C'est à l'utilisateur de la ressource de considérer
 que l'autre option (\emph{NP V PP.Destination NP}, \emph{Nora a apporté au meeting
 le livre}) est tout aussi valable.
 
-\subsubsection{Travail au cas par cas}\label{subsubsec:casebycase}
+\subsection{Travail au cas par cas}\label{subsubsec:casebycase}
 
 Dans certains cas, cette deuxième étape pose des difficultés, et ce pour deux
 raisons principales. Premièrement, certaines différences sémantiques entre
@@ -286,19 +268,52 @@ Cependant, nous essayons de limiter les modifications quand il est impossible
 de faire autrement afin de profiter au maximum de VerbNet et pour pouvoir
 profiter du lien entre les deux ressources.
 
-\subsection{Troisième étape}
-\label{third}
+\section{Outil d'édition de \verbenet{}}\label{toolquentin}
 
-La troisième étape  est de valider manuellement pour chaque classes les verbes
-proposés par correspondance de ressources en supprimant les verbes erronés et
-en rajoutant les verbes manquants afin que la ressource ait été entièrement
-validée manuellement. Aucun verbe n'est ajouté manuellement : les annotateurs
-cliquent directement sur les verbes inférés pour les valider ou les invalider.
-Les traductions des dictionnaires étant très productives, les verbes souhaités
-sont systématiquement dans les traductions proposées, même s'ils peuvent être
-absent des correspondances LADL, LVF ou les deux. Dans les rares cas où un
-verbe souhaité n'est pas trouvé, c'est une occasion de contribuer au
-Wiktionnaire pour le rajouter.
+Nous avons du développer un outil permettant d'éditer collaborativement
+VerbNet\footnote{Cet outil est libre et disponible sur GitHub :
+\url{https://github.com/aymara/verbenet-editor}.}. Cet outil est en fait un
+site web présentant VerbNet : ses classes, ses frames, ses verbes, etc.  Tous
+les éléments sont modifiables, ce qui permet aux lexicographes de se concentrer
+sur les problèmes lexicographiques sans avoir à se préoccuper de la
+représentation des données. Le site web est réalisé avec Django, un framework
+web Python. VerbNet est stocké dans une base de donnée PostgreSQL. Avant de
+commencer l'édition, nous avons commencé par charger VerbNet et les mappings
+réalisés lors de la première étape. L'édition elle-même se fait classe de Levin
+par classe de Levin. Par exemple, nous avons traité ensemble les classes
+{\color{blue}throw-17.1} et {\color{blue}pelt-17.2} parce qu'elles font toutes
+les deux partie de la «~super-classe~» 17 : Throwing. Plusieurs classes faisant
+partie d'une même super-classe sont souvent liées et il faut les comprendre
+dans leur ensemble avant de commencer l'édition. Pour chaque classe, nous
+pouvons éditer ses frames, ajouter ou supprimer des sous-classes ou des frames.
+Par exemple, pour la suppression, toutes les frames impliquant un conatif, un
+datif ou une alternance bénéfactive peuvent être systématiquement supprimées :
+ces alternances n'existent pas en français.
+
+\begin{figure}
+
+    \includegraphics[width=\textwidth]{fig/tool_screenshot_2014-09-12.png}
+
+    \caption{\label{tool}Interface web pour analyser et modifier \verbenet{}.
+        Chaque frame peut être modifiée et les classes peuvent être
+        réorganisées. Les traductions en violet apaprtiennent à l'intersection
+        de \Clvf{}, \Clg{} et \Ltrad{} (section~\ref{first}), les traductions
+        en rouge (respectivement en vert) uniquement à \Clvf{} et \Ltrad
+        (respectivement uniquement à \Clg{} et \Ltrad{}). La description de
+        {\color{blue}break-45.1} est en cours de modification : en cliquant sur
+        'Confirmer', la modification sera prise en compte rapidement sans avoir
+    à recharger la page pour éviter d'interrompre le travail lexicographique.}
+
+\end{figure}
+
+Avec l'aide de cet outil (illustré à la Figure~\ref{tool}), la deuxième étape
+peut s'avérer très simple. Par exemple, les quatre sous-classes de
+{\color{blue}image-creation-25} ont des classes directement équivalentes en
+français, donc les seules choses à faire sont de traduire les exemples en
+français avec les bonnes prépositions. Par exemple, dans la classe
+{\color{blue}illustrate-25.3}, il a fallu remplacer \emph{with} par la
+combinaison de \emph{de} et \emph{avec}.
+
 
 \section{Conclusion}
 
