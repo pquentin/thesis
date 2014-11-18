@@ -260,17 +260,17 @@ relations sont alors entre les têtes des syntagmes correspondants).
     ADVADV        &  adverbe modifiant un adverbe          & tout simplement, très bien \\ \midrule
     AdvSub        &  adverbe modifiant un substantif       & que j, beaucoup plus, non pas \\ \midrule
     AdvVerbe      &  adverbe modifiant un verbe            & haut voir, ici envoyer \\ \midrule
-    APPOS         &  \specialcell{apposition \\ (cf. APP dans PEAS)} & aristocrate royaliste, abri piscine \\ \midrule
-    ATB\_O        &  \specialcell{attribut de l'objet \\ (cf. ATB\_SO dans PEAS)} & site site, álbum annuaire \\ \midrule
-    ATB\_S        &  \specialcell{attribut du sujet en relation \\ avec le verbe \\ (cf. ATB\_SO dans PEAS)} & disponible être, possible être \\ \midrule
-    ATB\_SG       &  attribut du sujet en relation avec le sujet & nouveau message \\ \midrule
+    APPOS         &  apposition (cf. APP dans PEAS)        & aristocrate royaliste, abri piscine \\ \midrule
+    ATB\_O        &  \specialcell{attribut de l'objet (cf. ATB\_SO \\ dans PEAS)} & site site, álbum annuaire \\ \midrule
+    ATB\_S        &  \specialcell{attribut du sujet en relation avec le \\ verbe (cf. ATB\_SO dans PEAS)} & disponible être, possible être \\ \midrule
+    ATB\_SG       &  \specialcell{attribut du sujet en relation avec le \\ sujet} & nouveau message \\ \midrule
     COD\_V        &  complément d'objet direct du verbe    & être pouvoir,  profil voir \\ \midrule
     COMPADJ       &  complément de l'adjectif              & site plan, page haut \\ \midrule
     COMPADV       &  complément de l'adverbe               & page haut, forum uniquement \\ \midrule
     COMPDUNOM     &  complément du nom                     & page numéro, page pas, page haut \\ \midrule
-    COMPL         &  complémenteur (cf. COMP dans PEAS)    & que être, que avoir, si être \\ \midrule
+    COMPL         &  \specialcell{complémenteur (cf. COMP dans \\ PEAS)} & que être, que avoir, si être \\ \midrule
     CPL\_V        &  \specialcell{complément indirect ou \\ circonstanciel du verbe } & être être, être avoir  \\ \midrule
-    CPLV\_V       &  \specialcell{groupe prépositionnel infinitif \\ après le verbe} & connecter cliquer, voir revenir \\ \midrule
+    CPLV\_V       &  \specialcell{groupe prépositionnel infinitif après \\ le verbe} & connecter cliquer, voir revenir \\ \midrule
     DetIntSub     &  déterminant interrogatif              & quelle période, quelle manière \\ \midrule
     DetSubNum     &  déterminant numéral cardinal          & neuf appartement, trente an \\ \midrule
     MOD\_A        &  modificateur de l'adjectif            & être vrai, être même, être autre \\ \midrule
@@ -278,55 +278,68 @@ relations sont alors entre les têtes des syntagmes correspondants).
     MOD\_V        &  modificateur du verbe                 & que être, être aller, matière tabler \\ \midrule
     NePas         &  négation                              & ne pas, ne rien, ne jamais \\ \midrule
     Prefixe       &  préfixe                               & il- pas, il- être, anti-criminalité \\ \midrule
-    PrepDetInt    &  \specialcell{relation entre préposition \\ et déterminant interrogatif} & de quelle, dans quelle, pour quelle \\ \midrule
-    PrepPronCliv  &  \specialcell{relation entre préposition \\ et conjonction de subordination \\ considérée comme un pronom clivé} & de que, em que, une que \\ \midrule
-    PrepPron      &  \specialcell{relation entre préposition \\ et pronom personnel} & de tézigue, pour mézigue \\ \midrule
-    PrepPronRelCa &  \specialcell{relation entre préposition et \\ pronom relatif \\complément d'attribution} & dans lequel, pour qui, sur lequel  \\ \midrule
-    PrepPronRel   &  \specialcell{relation entre préposition et \\ pronom relatif} & de quoi, en quoi, comme quoi \\ \midrule
+    PrepDetInt    &  \specialcell{relation entre préposition et \\ déterminant interrogatif} & de quelle, dans quelle, pour quelle \\ \midrule
+    PrepPronCliv  &  \specialcell{relation entre préposition et \\ conjonction de subordination \\ considérée comme un pronom clivé} & de que, em que, une que \\ \midrule
+    PrepPron      &  \specialcell{relation entre préposition et \\ pronom personnel} & de tézigue, pour mézigue \\ \midrule
+    PrepPronRelCa &  \specialcell{relation entre préposition et pronom \\ relatif complément d'attribution} & dans lequel, pour qui, sur lequel  \\ \midrule
+    PrepPronRel   &  \specialcell{relation entre préposition et pronom \\ relatif} & de quoi, en quoi, comme quoi \\ \midrule
     SUBADJPOST    &  adjectif épithète post-nominal        & posté profil, référencé page \\ \midrule
     SUBSUBJUX     &  substantif juxtaposé à un substantif  & top thé, article présent, web site \\ \midrule
     SUJ\_V        &  sujet du verbe                        & j avoir, thé pager, j être \\ \midrule
-    SUJ\_V\_REL   &  \specialcell{pronom sujet du verbe \\ de la proposition relative} & qui être, que avoir \\ \midrule
-    SUJ\_V\_RELG  &  \specialcell{antécédent sujet du verbe \\ de la proposition relative} & définition suivre, personne avoir \\
+    SUJ\_V\_REL   &  \specialcell{pronom sujet du verbe de la \\ proposition relative} & qui être, que avoir \\ \midrule
+    SUJ\_V\_RELG  &  \specialcell{antécédent sujet du verbe de la \\ proposition relative} & définition suivre, personne avoir \\
     \bottomrule
 
-    \caption{\label{table:relationswonef} TODO}
+    \caption{\label{table:relationswonef}Relations syntaxiques présentes dans
+        le modèle de langue syntaxique utilisé pour la traduction de WordNet
+        vers WoNeF. La troisième colonne présente plusieurs exemples de
+        relations entres lemmes fréquentes dans les corpus. Le modèle de langue
+    est disponible sur \protect\url{http://www.kalisteo.fr/demo/semanticmap/}.}
 \end{longtable}
 
 
 
 \section{Sélecteurs employés pour produire WoNeF}
 
-Alors que les sections précédentes décrivent le fonctionnement général du
-système, celle-ci indique précisément le fonctionnement de la méthode.
+\if false
 
-\subsection{Sélecteurs}
+nouns : 1 SimSyn, 2 HyperHypo(COMPDUNOM, HYPER), 3 MeroHoloLikeHyper, 4 MeroHolo, 6 HyperHypo(SUJ\_V, HYPER), 7 HyperHypo(COMPDUNOM, HYPO), 8 HyperHypo(COD\_V, HYPER), 9 HyperHypo(window10, HYPER)
 
-nouns : 1 SimSyn, 2 HyperHypo(COMPDUNOM, HYPER), 3 MeroHoloLikeHyper, 4
-MeroHolo, 6 HyperHypo(SUJ\_V, HYPER), 7 HyperHypo(COMPDUNOM, HYPO), 8
-HyperHypo(COD\_V, HYPER), 9 HyperHypo(window10, HYPER)
-verb :  1 LastChance, 2 SimSyn, 3 HyperHypo(SUJ\_V\_RELG, HYPER), 4
-HyperHypo(COD\_V.reverse, HYPER), 6 HyperHypo(CPL\_V.reverse, HYPER), 6
-HyperHypo(ATB\_S.reverse, HYPER), 7 HyperHypo(SUJ\_V.reverse, HYPER),
-8(CPLV\_V.reverse, HYPER)
+verb :  1 LastChance, 2 SimSyn, 3 HyperHypo(SUJ\_V\_RELG, HYPER), 4 HyperHypo(COD\_V.reverse, HYPER), 6 HyperHypo(CPL\_V.reverse, HYPER), 6 HyperHypo(ATB\_S.reverse, HYPER), 7 HyperHypo(SUJ\_V.reverse, HYPER), 8(CPLV\_V.reverse, HYPER)
+
 adj : 1 LastChance 2 SimSyn
+
 adv : 1 SimSyn
 
-\subsection{Combinaisons}
+\fi
 
-noun precision monosemous uniq levenshtein
-noun fscore monosemous uniq levenshtein multiplesource
-noun coverage monosemous uniq levenshtein multiplesource
+\subsection{Combinaisons de sélecteurs initiaux}
 
-verb precision uniq
-verb fscore uniq monosemous
-verb coverage monosemous uniq multiplesource
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{lll}
+        \toprule
+        noun &  precision &  monosemous uniq levenshtein \\
+        noun &  fscore    &  monosemous uniq levenshtein multiplesource \\
+        noun &  coverage  &  monosemous uniq levenshtein multiplesource \\
+        \midrule
+        verb &  precision &  uniq \\
+        verb &  fscore    &  uniq monosemous \\
+        verb &  coverage  &  monosemous uniq multiplesource \\
+        \midrule
+        adj  &  precision &  monosemous uniq levenshtein \\
+        adj  &  fscore    &  monosemous unique multiplesource levenshtein \\
+        adj  &  coverage  &  monosemous unique multiplesource levenshtein \\
+        \midrule
+        adv  &  precision &  monosemous unique multiplesource levenshtein \\
+        adv  &  fscore    &  monosemous unique multiplesource levenshtein \\
+        adv  &  coverage  &  monosemous unique multiplesource levenshtein \\
+        \bottomrule
+    \end{tabular}
+    \caption{TODO}
+\end{table}
 
-adj precision monosemous uniq levenshtein
-adj fscore    monosemous unique multiplesource levenshtein
-adj coverage  monosemous unique multiplesource levenshtein
-
-adv all all
+\subsection{Combinaisons de sélecteurs syntaxiques}
 
 noun precision 3 4
 adj precision 2
