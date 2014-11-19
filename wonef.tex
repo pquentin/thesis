@@ -549,25 +549,24 @@ adjectifs. Cela met en avant l'importance des dictionnaires.
 \caption{\label{table:wolfcomparison}Évaluation de la ressource à haute précision en considérant WOLF 0.1.4 et 1.0b comme des références.}
 \end{table}
 
-
 Il n'est pas possible de comparer WOLF et WoNeF en utilisant notre annotation
 de référence : tout mot correct de WOLF non présent dans les dictionnaires
 pénalisera WOLF injustement. Nous avons décidé d'évaluer WoNeF en considérant
 WOLF 0.1.4 et WOLF 1.0b comme des références
 (Table~\ref{table:wolfcomparison}). Les mesures ne sont pas de véritables
 précision et rappel puisque WOLF lui-même n'est pas entièrement validé. Le
-dernier article donnant des chiffres globaux \citep{sagot2012automatic} indique
-un nombre de paires autour de 77~000 pour une précision de 86~\% \footnote{Les
-résultats détaillés pour WOLF 1.0b ne sont pas actuellement disponibles.}. Nous
-appelons donc pseudo-précision (pP) le pourcentage des éléments présents dans
-WoNeF qui sont également présents dans WOLF, et pseudo-rappel le pourcentage
-d'éléments de WOLF qui sont présents dans WoNeF.  Ces chiffres montrent que
-même si WoNeF est encore plus petit que WOLF, il s'agit d'une ressource
-complémentaire, surtout quand on se souvient que le WoNeF utilisé pour cette
-comparaison est celui présentant une précision élevée, avec une précision
-globale de 93,3~\%. Il convient également de noter que la comparaison de la
-différence entre WOLF 0.1.4 et \ WOLF 1.0b est instructive puisque elle montre
-l'étendue des améliorations apportées à WOLF.
+dernier article donnant des chiffres globaux \citep{sagot2012automatic} dont
+nous avons connaissance indique un nombre de paires autour de 77~000 pour une
+précision de 86~\% \footnote{Les résultats détaillés pour WOLF 1.0b ne sont pas
+actuellement disponibles.}. Nous appelons donc pseudo-précision (pP) le
+pourcentage des éléments présents dans WoNeF qui sont également présents dans
+WOLF, et pseudo-rappel le pourcentage d'éléments de WOLF qui sont présents dans
+WoNeF.  Ces chiffres montrent que même si WoNeF est encore plus petit que WOLF,
+il s'agit d'une ressource complémentaire, surtout quand on se souvient que le
+WoNeF utilisé pour cette comparaison est celui présentant une précision élevée,
+avec une précision globale de 93,3~\%. Il convient également de noter que la
+comparaison de la différence entre WOLF 0.1.4 et WOLF 1.0b est instructive
+puisque elle montre l'étendue des améliorations apportées à WOLF.
 
 La colonne «~Ajouts~» donne le nombre de traductions qui sont présentes dans
 WoNeF mais pas dans WOLF. Pour les noms, les verbes et les adjectifs, cela
@@ -582,8 +581,31 @@ mais fournirait 57~032 nouvelles paires (littéral, synset) par rapport à WOLF
 paires (littéral, synset), augmentant la couverture de WOLF de 56~\% et celle
 de WoNeF de 83~\%.
 
-%\subsection{Hyponymy detection}
-%There is no clear inclusion relationship between the distributions of hyponyms/hypernyms. As a result, research used other ways to detect hypernymy \citep{hearst1992automatic, entailment baroni}. Our works show that it is in fact possible to use ... syntactic language model ... dictionaries ... but only works on nouns so far Result of 60%...
+\section{Fusion entre WOLF et WoNeF}
+
+WOLF et WoNeF ne sont pas des compétiteurs. En réalité, les travaux sur WoNeF
+et WOLF ont commencé indépendamment sans que les auteurs respectifs ne soient
+au courant des travaux de l'autre équipe. Pourquoi est-ce que les deux versions
+existent toujours en 2014 alors que les premières publications datent de 2008
+et 2009 ?  Une fusion a en réalité été envisagée en 2014, mais elle n'a pas
+aboutie : les auteurs de WoNeF et WOLF n'ont pas encore la même vision de ce
+que constitue une traduction correcte dans un synset.
+
+Le premier problème, et le plus simple, est du au biais lexicographique
+particulièrement présent dans WoNeF. En effet, WordNet contient un synset pour
+l'adverbe \emph{unkindly\#1} qui est traduit dans nos dictionnaires par
+\emph{sans aménité}. Ceci pose un problème parce que \emph{sans aménité} n'est
+pas une unité lexicale qu'on s'attend à trouver dans un dictionnaire monolingue
+étant donné que le sens est déductible par compositionnalité. Ce problème est
+accru en raison de la productivité de l'anglais : \emph{unkindly} étant un
+token attesté en anglais, il est logique de l'inclure dans WordNet, même si on
+peut aussi déduire son sens par compositionnalité.
+
+Le second problème est du à la finesse des sens proposés par WordNet, ce qui...
+TODO
+
+Le lecteur qui considère que ces problèmes ne l'affectent pas peut utiliser la
+fusion des deux ressources disponible sur \url{http://wonef.fr/data/}.
 
 \section*{Conclusion}
 
@@ -620,5 +642,3 @@ sera couplé avec la collecte d'un corpus issu du Web plus récent et plus grand
 analysé avec une version récente de notre analyseur linguistique LIMA. Cela
 nous permettra de mesurer l'impact de la qualité du modèle de langue sur la
 traduction de WordNet.
-
-% TODO explications donnée à Francis Bond sur la non-fusion
