@@ -62,7 +62,7 @@ est basé sur des données réelles et non pas sur des intuitions linguistiques.
 
 Ainsi, les sens ne sont pas définis en tant que tels, mais sont avant tout des
 occurrences dans un contexte donné. C'est une façon de comprendre la citation
-de \citep{firth1957synopsys} : \emph{You shall know a word by the company it
+de \citep{firth1957synopsys} : \textit{You shall know a word by the company it
 keeps}\footnote{Vous devriez connaître un mot par ce qui l'accompagne.}. En
 effet, selon \citep{kilgarriff1997don}, un ensemble de sens n'est défini que
 par rapport à un corpus, et il est illusoire de vouloir définir un dictionnaire
@@ -75,13 +75,13 @@ classique relèvent du «~domaine général~», et que les sens qui apparaissent
 dans d'autres domaines sont des sens «~de spécialité~». Par exemple, le
 dictionnaire DicoInfo \citep{corpusolst} spécialisé dans les domaines de
 l'Informatique et d'Internet mentionne un sens spécifique pour le nom
-\emph{compilation} : \emph{action effectuée par un compilateur qui consiste à
+\textit{compilation} : \textit{action effectuée par un compilateur qui consiste à
     transformer du code créé au moyen d'un langage de programmation évolué en
 un langage compréhensible par l'ordinateur}. Ce sens est par exemple absent du
 TLFi \citep{TLFi} parce qu'il ne faisait pas partie des sens du mot dans le
-corpus utilisé pour établir les définitions. Le lexique \emph{Les Verbes
+corpus utilisé pour établir les définitions. Le lexique \textit{Les Verbes
 Français} (section~\ref{sec:lvflg}) contient bien le sens informatique du verbe
-\emph{compiler} mais le domaine (Informatique) et le niveau de lexique (5, soit
+\textit{compiler} mais le domaine (Informatique) et le niveau de lexique (5, soit
 «~grands dictionnaires de langue ou encyclopédiques, lexiques spécialisés~»)
 indiquent bien que c'est un sens de spécialité.
 
@@ -261,11 +261,11 @@ entre les mots \citep{sahlgren2008distributional} :
         dans un même contexte, mais sans y être présents ensemble.
 \end{itemize}
 
-Par exemple, étant donné les deux phrases \emph{Je bois du café} et \emph{Je
-bois du thé}, on peut déduire que les lemmes \emph{boire} et \emph{thé} sont
+Par exemple, étant donné les deux phrases \textit{Je bois du café} et \textit{Je
+bois du thé}, on peut déduire que les lemmes \textit{boire} et \textit{thé} sont
 liés par une relation syntagmatique : ils sont présents ensemble dans la
-phrase. Au contraire, \emph{thé} et \emph{café} ne sont pas ici présents dans
-la même phrase, mais apparaissent dans un même contexte (\emph{Je bois du}) :
+phrase. Au contraire, \textit{thé} et \textit{café} ne sont pas ici présents dans
+la même phrase, mais apparaissent dans un même contexte (\textit{Je bois du}) :
 ils sont liés par une relation paradigmatique.
 
 Selon l'hypothèse distributionnelle faible \citep{lenci2008distributional},
@@ -277,16 +277,16 @@ langue ne décrivent que des mots en confondant leurs différents sens. Nous ne
 mentionnerons plus par la suite cette difficulté, en considérant qu'il suffit
 que le modèle de langue décrive parmi tous les sens celui que nous souhaitons
 observer. Cette simplification est largement partagée par la littérature, même
-si la disponibilité de corpus de plus d'un milliard de mots (\emph{gigaword})
+si la disponibilité de corpus de plus d'un milliard de mots (\textit{gigaword})
 rend possible des travaux prenant en compte la polysémie
 \citep{kawahara2014step}.
 
 Comment observer ces distributions de probabilité ? Un modèle de langue
 classique indique la probabilité d'un mot dans une phrase étant donné les mots
-précédents. Par exemple, étant donné le début de phrase \emph{Au-delà des
+précédents. Par exemple, étant donné le début de phrase \textit{Au-delà des
 approches ...}, on veut connaître la probabilité du mot suivant, en espérant
-que celle de \emph{statistiques} ou \emph{supervisées} soit plus importante que
-celle de \emph{chat}. En prenant par exemple le contexte des deux mots qui
+que celle de \textit{statistiques} ou \textit{supervisées} soit plus importante que
+celle de \textit{chat}. En prenant par exemple le contexte des deux mots qui
 précèdent le mot étudié, on calcule sa probabilité simplement avec le maximum
 de vraisemblance :
 
@@ -317,8 +317,8 @@ de langues à base de n-grammes existent, l'une d'entre elles étant le modèle 
 langue syntaxique \citep{lin1998automatic,goldberg2013dataset}. Dans ce modèle,
 on considère les mots présents ensemble dans une relation syntaxique donnée.
 Pour la relation complément du nom par exemple, on s'attend à ce que
-\emph{vélo} soit le complément du nom des mots \emph{pédale}, \emph{guidon},
-\emph{pneu}... Nous utilisons pour la traduction de WordNet
+\textit{vélo} soit le complément du nom des mots \textit{pédale}, \textit{guidon},
+\textit{pneu}... Nous utilisons pour la traduction de WordNet
 (Chapitre~\ref{ch:wonef}) un tel modèle de langue syntaxique
 (\url{http://www.kalisteo.fr/demo/semanticmap/}).  Il a été entraîné sur un
 corpus extrait du web francophone \citep{grefenstette2007conquering}. Le corpus
@@ -341,7 +341,7 @@ est fréquent dans le corpus.
     \node [block, text width=10cm] (quillsynt1) {\Huge{billet}, \large{}pilote, vol, accident, \LARGE{détournement}, \large{}tour, \LARGE{collision}, \large{moteur}, \small{monde}, \LARGE{crash}, \large{}aile, bruit, \small{type}, \large{}carburant, attentat, \small{guerre}, \large{}chute, commande, \small{construction}, descente, \small{nombre}, \small{prix}, \small{achat}, \small{place}, \large{}réservation, passager, \small{programme}, \large{}bombe, \small{}peur, avion, \large{flotte}, \small{}transport \large{pilotage}, \LARGE{écrasement}, \small{}vitesse, utilisation, arrivée, \normalsize{}...};
 
   \end{tikzpicture}
-  \caption{\emph{avion} est complément de ces noms d'après notre modèle de langue syntaxique.}
+  \caption{\textit{avion} est complément de ces noms d'après notre modèle de langue syntaxique.}
 \end{figure}
 
 \paragraph{Modèles de langues continus} D'autres types de modèles de langue
@@ -376,9 +376,9 @@ qui a pour effet de rapprocher la représentation des mots sémantiquement
 proches afin d'offrir une meilleure généralisation, comme le fait LSA en
 factorisant la matrice de co-occurrences.  Par exemple,
 \cite{mikolov2013distributed} montrent que la distance entre le mot
-représentant un pays (par exemple \emph{Turkey}) et le mot représentant la
-capitale de ce pays (ici \emph{Ankara}) correspond au vecteur du mot
-\emph{capital}.  Ces représentations de mots peuvent être ensuite utilisées ou
+représentant un pays (par exemple \textit{Turkey}) et le mot représentant la
+capitale de ce pays (ici \textit{Ankara}) correspond au vecteur du mot
+\textit{capital}.  Ces représentations de mots peuvent être ensuite utilisées ou
 apprises pour diverses tâches. Nous citerons ici l'extraction d'évènements
 \citep{boros2014etiquetage}, l'annotation en rôles sémantiques
 \citep{lechelle2014utilisation} et la traduction automatique
@@ -391,7 +391,7 @@ que les modèles de langue simples à base de n-grammes \citep{baroni2014dont}.
 
 La compréhension des mécanismes derrières ces réseaux de neurones est un champ
 actif de recherche. \cite{levy2014neural} ont montré que la méthode recommandée
-par \cite{mikolov2013distributed} (\emph{negative sampling}) revient à
+par \cite{mikolov2013distributed} (\textit{negative sampling}) revient à
 factoriser la matrice d'information mutuelle (légèrement modifiée) entre les
 mots et les contextes en accordant plus d'importance aux termes fréquents, ce
 qui est très proche des méthodes couramment utilisées en sémantique
@@ -437,7 +437,7 @@ wordnets
 \citep{demelo2009towards,navigli2010babelnet,bond2013linking,aliabadi2014towards,oliver2014wn}
 ou d'améliorer des wordnets existants \citep{hanoka2012wordnet}. Enfin,
 \cite{fiser2014slowcrowd} montrent qu'il est possible de faire appel à la
-production participative (\emph{crowdsourcing}).
+production participative (\textit{crowdsourcing}).
 
 Concernant le français, l'EuroWordNet \citep{vossen1998eurowordnet} est la
 première traduction française de WordNet. C'est une ressource d'une couverture
@@ -706,7 +706,7 @@ grammatical, même s'il n'est pas marqué au niveau morphologique dans la langue
     \caption{\label{fig:exemple_srl}Ces deux phrases annotées avec la classe
     VerbNet \texttt{carve-21.2} montrent que la position des arguments ne
 détermine pas à elle seule les rôles sémantique. Ici, le sujet syntaxique est
-tour à tour Agent (pour \emph{Carol}) puis Patient (pour \emph{The ice}).}
+tour à tour Agent (pour \textit{Carol}) puis Patient (pour \textit{The ice}).}
 
 \end{figure}
 
@@ -766,10 +766,10 @@ les mêmes : dans « Il a acheté un arbre » et « l'achat d'un arbre »,
 \textit{ARG1} sera dans les deux cas l'arbre. D'autres catégories incluent les
 noms partitifs, relationnels et environnementaux.
 
-Pour une phrase telle que \emph{They gave the chefs a standing ovation}, les
+Pour une phrase telle que \textit{They gave the chefs a standing ovation}, les
 annotations PropBank et NomBank proposent la même annotation, l'une étant basée
-sur le groupe nominal (\emph{a standing ovation}), l'autre sur la structure
-prédicat-argument autour du verbe \emph{gave}. Cette similarité volontaire a
+sur le groupe nominal (\textit{a standing ovation}), l'autre sur la structure
+prédicat-argument autour du verbe \textit{gave}. Cette similarité volontaire a
 permis de lier ces ressources
 \citep{pustejovsky2005merging,verhagen2007combining}, mais nous ne connaissons
 pas d'applications tirant profit de ces deux ressources.
@@ -810,7 +810,7 @@ de pouvoir s'en servir comme d'un corpus VerbNet:
         reconstruire d'après les supertags CCG.
     \item Il n'y a aucune garantie de cohérence avec VerbNet : si une frame est
         manquante ou erronée dans VerbNet, les annotateurs utilisent le mode
-        \emph{open} et peuvent choisir n'importe quel rôle VerbNet.
+        \textit{open} et peuvent choisir n'importe quel rôle VerbNet.
 \end{itemize}
 
 \paragraph{Abstract Meaning Representation Bank (AMR Bank)}
@@ -945,12 +945,12 @@ ici ce type de méthode.
 \cite{chen2008learning} entraînent un système de commentaires en utilisant des
 commentaires existants et des simulations de jeux de football, mais sans
 connaissance explicite sur la langue anglaise. Leur approche a entraîné des
-travaux sur le \emph{situated language understanding} (compréhension ancrée du
+travaux sur le \textit{situated language understanding} (compréhension ancrée du
 langage): \cite{bordes2010towards,richardson2012towards} ont proposé par la
 suite d'autres corpus pour cette tâche. Notre système
 (Chapitre~\ref{ch:domainsrl}) est similaire dans le sens où nous minimisons
 l'effort humain pour annoter de nouveaux domaines, mais nous nous concentrons
-sur l'annotation en rôles sémantiques \emph{à la FrameNet}.
+sur l'annotation en rôles sémantiques \textit{à la FrameNet}.
 
 Le système d'annotation en rôles sémantiques de \cite{gormley2014low} n'a pas
 besoin de syntaxe supervisée, mais nécessite un corpus annoté en rôles

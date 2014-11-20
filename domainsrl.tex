@@ -20,7 +20,7 @@ sémantiques sur de nouveaux domaines reste un problème ouvert.
 Étant donné qu'il se base sur l'approche présentée au Chapitre~\ref{ch:srl},
 notre système est, suivant le point de vue :
 \begin{itemize}
-    \item une \emph{baseline} forte,
+    \item une \textit{baseline} forte,
     \item une première étape pour annoter un nouveau domaine avec peu d'efforts,
     \item un système complet d'annotation en rôles sémantiques une fois que
         VerbNet a été mis à jour par rapport au domaine considéré.
@@ -58,7 +58,7 @@ prédicats, identifie la frame correcte évoquée par ces prédicats, puis
 identifie les groupes de mots qui jouent un rôle pour ce prédicat donné.
 
 Une autre tâche proche de l'annotation en rôles sémantiques est celle de la
-compréhension située (\emph{situated understanding} en anglais). L'objectif est
+compréhension située (\textit{situated understanding} en anglais). L'objectif est
 de comprendre un texte écrit en langage naturel dans un certain contexte
 spatial bien délimité, par exemple un terrain de football pendant un match, ou
 la pièce d'une maison. Dans le domaine du football, \cite{chen2008learning}
@@ -105,20 +105,20 @@ arguments jouent un rôle, mais on ne sait pas lequel. La raison est que nous
 voulons nous concentrer pour le moment sur la couverture syntaxique de VerbNet
 sans avoir à analyser syntaxiquement nos corpus : les erreurs d'annotation
 représenteraient une difficulté supplémentaire. Cela signifie aussi que notre
-système n'a pas besoin de distinguer les arguments jouant un rôle (\emph{core}
-dans FrameNet) des autres (\emph{non-core}), ce qui est une part importante de
+système n'a pas besoin de distinguer les arguments jouant un rôle (\textit{core}
+dans FrameNet) des autres (\textit{non-core}), ce qui est une part importante de
 tout système complet d'annotation en rôles sémantiques.
 
 Pour annoter une phrase donnée avec des remplisseurs de rôle déjà identifiés
 (mais sans connaître pas la classe VerbNet ni les rôles corrects), nous listons
 d'abord toutes les classes qui peuvent être déclenchées par un verbe donné. Par
-exemple, étant donné la phrase \emph{The online judge allocates the same amount
+exemple, étant donné la phrase \textit{The online judge allocates the same amount
 of memory to both chess engines}, la seule classe possible pour le verbe
-\emph{allocate} est \texttt{future\_having-13.3}. Dans d'autres cas, le choix
-pourrait être ambigu. C'est le cas notamment de \emph{The ocean circulation
+\textit{allocate} est \texttt{future\_having-13.3}. Dans d'autres cas, le choix
+pourrait être ambigu. C'est le cas notamment de \textit{The ocean circulation
 transports warm water to the North Atlantic} : les deux classes
 \texttt{amuse-31.1} et \texttt{send-11.1} sont possibles pour le verbe
-\emph{transport}.
+\textit{transport}.
 
 Maintenant qu'une liste de classes a été établie, la phrase est représentée
 avec la notation VerbNet, qui est par exemple \texttt{NP} \texttt{V}
@@ -349,16 +349,16 @@ présentes dans DiCoInfo et DiCoEnviro :
 
 \begin{itemize}
 
-    \item \emph{In the interest of fair competition you should ALLOCATE the
+    \item \textit{In the interest of fair competition you should ALLOCATE the
         same amount of memory to both engines}.
 
-    \item \emph{Techniques and tools exist to MEASURE carbon stocks in project areas
+    \item \textit{Techniques and tools exist to MEASURE carbon stocks in project areas
         relatively precisely depending on the carbon pool.}
 
 \end{itemize}
 
 Dans la première phrase, le sens du verbe \textit{allocate} au sens
-\emph{allouer de la mémoire vive} est très précis et très spécifique au domaine
+\textit{allouer de la mémoire vive} est très précis et très spécifique au domaine
 de l'informatique. Pourtant, il se comporte syntaxiquement de la même manière
 que le sens plus général considéré par WordNet et OntoNotes: \textit{distribute
 or set aside according to plan}. Par conséquent, un mapping manuel a été
@@ -375,8 +375,8 @@ VerbNet) ont étés mis en correspondance avec les rôles de VerbNet :
 
 Une fois que ce mapping est réalisé, la tâche de notre algorithme d'annotation
 en rôles sémantiques devient de détecter que la classe \texttt{future\_having-13.3} est
-utilisée ici, que \emph{You} est Agent, que \emph{the same amount of memory} est Theme,
-et que \emph{to both engines} est Goal.
+utilisée ici, que \textit{You} est Agent, que \textit{the same amount of memory} est Theme,
+et que \textit{to both engines} est Goal.
 
 Pour la seconde phrase, la démarche est la même : il s'agit d'identifier que la
 classe Verbnet est \texttt{register-54.1}, que \textit{Techniques and tools}
@@ -468,7 +468,7 @@ du vocabulaire.
 Deuxièmement, les résultats varient par domaines : en particulier, le
 Kicktionary est le corpus le plus loin de VerbNet. Cependant, les erreurs sont
 principalement dus à des mots « du domaine général » qui ne sont pas spécifique
-au football. Par exemple, le verbe \emph{celebrate} est absent du Kicktionary
+au football. Par exemple, le verbe \textit{celebrate} est absent du Kicktionary
 mais il serait tout de même utile dans le domaine général.
 % TODO montrer au-delà d'un exemple (comment ?) que les erreurs dans
 % Kicktionary ne sont pas spécifiques et bénéficiraient à VN

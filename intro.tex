@@ -65,37 +65,37 @@ manquantes une fois que l'analyse syntaxique d'une phrase a été effectuée.
 Le problème principal que nous voyons est que le sujet et les objets
 syntaxiques d'un verbe ne suffisent pas à déterminer les sujets et objets
 sémantiques, c'est-à-dire l'agent, le patient, etc. Par exemple, étant donné la
-phrase \emph{Le ballon repoussé par Léa a cassé la vitre des voisins}, il
-s'avère que le sujet syntaxique (\emph{Le ballon repoussé par Léa} correspond
+phrase \textit{Le ballon repoussé par Léa a cassé la vitre des voisins}, il
+s'avère que le sujet syntaxique (\textit{Le ballon repoussé par Léa} correspond
 parfaitement à l'agent sémantique.  Dans d'autres situations, ce n'est pas le
-cas : pour \emph{La vitre des voisins a cassé sous le choc du ballon tiré par
-Léo}, le sujet syntaxique est \emph{La vitre des voisins} (la voix passive
+cas : pour \textit{La vitre des voisins a cassé sous le choc du ballon tiré par
+Léo}, le sujet syntaxique est \textit{La vitre des voisins} (la voix passive
 n'étant pas employée ici). Pourtant ce sujet syntaxique n'est pas l'agent
 sémantique, mais le patient, étant donné que la vitre subit l'action.
 
 De manière plus marquée que pour les sujets, l'analyse syntaxique en tant que
 telle ne fournit pas suffisamment d'information pour désambiguïser le rôle des
-objets du verbe.  Prenons les phrases \emph{Luc a posé un livre sur la table}
-et \emph{Luc a posé sur la table son livre préféré traitant de la génétique des
+objets du verbe.  Prenons les phrases \textit{Luc a posé un livre sur la table}
+et \textit{Luc a posé sur la table son livre préféré traitant de la génétique des
 chimpanzés}.  Ici, l'ordre des objets ne suffit pas, il faut identifier que
 parmi les deux objets syntaxiques :
 
 \begin{itemize}
     \item l'un est un syntagme prépositionnel introduit par une préposition
-        locative (\emph{sur}),
+        locative (\textit{sur}),
     \item tandis que l'autre est un syntagme nominal direct.
 \end{itemize}
 
 On peut alors déterminer que le livre est le thème sémantique pour le prédicat
-\emph{poser} et que la table est la destination sémantique pour ce même
+\textit{poser} et que la table est la destination sémantique pour ce même
 prédicat. Ici, même si la syntaxe en elle-même ne résout pas le problème, c'est
 bien grâce à elle qu'on peut déterminer le rôle de chaque syntagme.
 
 Dans d'autres cas, la syntaxe ne suffit plus. Par exemple, pour la phrase
-\emph{When you've booted the machine you've built yourself}, le sujet et
-l'objet de \emph{boot} sont tous les deux des syntagmes nominaux, et la syntaxe
-ne suffit alors pas à désambiguïser entre le sens informatique de \emph{boot}
-(démarrer un ordinateur) et le sens géographique de \emph{boot} (exclure un
+\textit{When you've booted the machine you've built yourself}, le sujet et
+l'objet de \textit{boot} sont tous les deux des syntagmes nominaux, et la syntaxe
+ne suffit alors pas à désambiguïser entre le sens informatique de \textit{boot}
+(démarrer un ordinateur) et le sens géographique de \textit{boot} (exclure un
 individu de quelque part). Ici, des informations sémantiques peuvent nous
 aider. Dans le cas informatique, l'objet n'est pas animé, alors que dans le
 second il l'est : il devient alors possible :
@@ -120,11 +120,11 @@ rôles sémantiques.
 \subsection{L'annotation en rôles sémantiques}
 
 L'annotation en rôles sémantiques répond à la question « Qui a fait Quoi à Qui,
-Comment, Où et Quand ? ». Prenons pour exemple la phrase \emph{Mrs. Aouda
-essaya vainement de retenir Mr. Fogg} (extrait du \emph{Tour du monde en
+Comment, Où et Quand ? ». Prenons pour exemple la phrase \textit{Mrs. Aouda
+essaya vainement de retenir Mr. Fogg} (extrait du \textit{Tour du monde en
 quatre-vingts jours} de Jules Verne).  En considérant pour exemple le cadre de
 FrameNet (section~\ref{presentation_framenet}), une annotation en rôles
-sémantique du prédicat \emph{essayer} déterminera que cette utilisation du
+sémantique du prédicat \textit{essayer} déterminera que cette utilisation du
 verbe correspond à une situation de Tentative, puis identifiera parmi les
 syntagmes liés aux verbes quel est l'Agent, l'Activité tentée, et le Résultat.
 Ainsi, le résultat de l'annotation serait :
@@ -135,10 +135,10 @@ Ainsi, le résultat de l'annotation serait :
     [Agent]  & \textbf{Tentative} & [Résultat]  & [Activité]         \tabularnewline
     Mrs. Aouda & \textbf{essaya}  & vainement & de retenir Mr. Fogg. \tabularnewline
     \end{tabular}
-    \caption{\label{fig:introsrl}Le verbe \emph{essayer} déclenche la situation
-        \emph{Tentative}. Les différents syntagmes liés au verbe jouent chacun
+    \caption{\label{fig:introsrl}Le verbe \textit{essayer} déclenche la situation
+        \textit{Tentative}. Les différents syntagmes liés au verbe jouent chacun
         un rôle sémantique ici, mais ce n'est pas toujours le cas. Par exemple,
-        si la phrase précisait \emph{après le dîner}, ce syntagme aurait été un
+        si la phrase précisait \textit{après le dîner}, ce syntagme aurait été un
     complément sans rôle sémantique associé.}
 
 \end{figure}
@@ -151,8 +151,8 @@ sémantiques :
         figure~\ref{fig:introsrl}, c'est un verbe. D'autres parties du
         discours peuvent déclencher une frame, mais nous nous concentrons dans
         ce travail essentiellement sur les verbes.
-    \item La frame est identifiée, ici \emph{Tentative}.
-    \item Enfin, les rôles exprimés sont annotés. Par exemple, \emph{Mrs.
+    \item La frame est identifiée, ici \textit{Tentative}.
+    \item Enfin, les rôles exprimés sont annotés. Par exemple, \textit{Mrs.
         Aouda} est l'Agent.
 \end{itemize}
 
@@ -334,8 +334,8 @@ travail manuel.
 
 Une fois que ces ressources ont été traduites vers le français, il faut les
 utiliser pour réaliser la tâche d'annotation en rôles sémantiques. Cette thèse
-fournit les \emph{ressources} nécessaires en traduisant WordNet et VerbNet
-(Partie~\ref{part:translation}) et les \emph{méthodes} (Partie~\ref{part:srl})
+fournit les \textit{ressources} nécessaires en traduisant WordNet et VerbNet
+(Partie~\ref{part:translation}) et les \textit{méthodes} (Partie~\ref{part:srl})
 répondant à ces objectifs.
 
 \section{Ressources lexicales utilisées}
@@ -350,21 +350,21 @@ Son élaboration a commencé en 1985 \citep{miller1990introduction}. Établi sur
 des principes psycholinguistiques, WordNet propose quatre graphes pour les
 quatre parties du discours formant une classe ouverte : noms, verbes,
 adjectifs et adverbes. Les nœuds du graphe sont des ensembles de synonymes
-(\emph{synonym sets} ou \emph{synsets}). Un synset regroupe plusieurs mots, une
+(\textit{synonym sets} ou \textit{synsets}). Un synset regroupe plusieurs mots, une
 définition, et potentiellement des exemples.
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.6\textwidth]{fig/wordnet_hypernymy.png}
     \caption{\label{fig:wordnet_hypernymy}Hypéronymie dans WordNet autour du
-        synset \emph{day}. Les synsets au-dessus de \emph{day} sont ses hypéronymes
-        (\emph{day} est-un \emph{time unit}), et les synsets au-dessus font partie de
-        ses hyponymes (\emph{tomorrow} est-un \emph{day}).}
+        synset \textit{day}. Les synsets au-dessus de \textit{day} sont ses hypéronymes
+        (\textit{day} est-un \textit{time unit}), et les synsets au-dessus font partie de
+        ses hyponymes (\textit{tomorrow} est-un \textit{day}).}
 \end{figure}
 
 Chaque synset est lié à d'autres synsets à travers un certain nombre de
-relations telles que l'hypéronymie, la méronymie de partie (\emph{guidon} est
-un méronyme de partie de \emph{vélo}), l'antonymie, etc. Si on ne considère que
+relations telles que l'hypéronymie, la méronymie de partie (\textit{guidon} est
+un méronyme de partie de \textit{vélo}), l'antonymie, etc. Si on ne considère que
 l'hypéronymie, WordNet peut être visualisé comme un arbre
 (Figure~\ref{fig:wordnet_hypernymy}). En considérant les autres relations,
 WordNet est un graphe (Figure~\ref{fig:wordnet_relations}).
@@ -372,7 +372,7 @@ WordNet est un graphe (Figure~\ref{fig:wordnet_relations}).
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{fig/wordnet_relations.png}
-    \caption{\label{fig:wordnet_relations} Le synset \emph{day} est aussi lié à
+    \caption{\label{fig:wordnet_relations} Le synset \textit{day} est aussi lié à
         d'autres synsets si on considère d'autres relations que l'hypéronymie et
         l'hyponymie.}
 \end{figure}
@@ -394,23 +394,23 @@ des verbes détermine en partie leur sens. Après avoir défini un certain nombr
 d'alternances de diathèses possibles, les verbes sont classés en groupes
 partageant les mêmes alternances.
 
-Par exemple, les \emph{fill verbs} tels que \emph{staff}, \emph{coat} ou encore
-\emph{pollute} \citep[p.~119]{levin1993english} acceptent notamment la
-\emph{locatum subject alternation} \citep[p.~85]{levin1993english}, donc ces
+Par exemple, les \textit{fill verbs} tels que \textit{staff}, \textit{coat} ou encore
+\textit{pollute} \citep[p.~119]{levin1993english} acceptent notamment la
+\textit{locatum subject alternation} \citep[p.~85]{levin1993english}, donc ces
 deux constructions sont possibles :
 
 \begin{itemize}
-    \item \emph{Leslie staffed the store with employees}
-    \item \emph{The employees staffed the store}
+    \item \textit{Leslie staffed the store with employees}
+    \item \textit{The employees staffed the store}
 \end{itemize}
 
-mais n'acceptent pas par exemple, la \emph{conative alternation}
+mais n'acceptent pas par exemple, la \textit{conative alternation}
 \citep[p.~41]{levin1993english}, donc seule la première construction est
 possible :
 
 \begin{itemize}
-    \item ~ \emph{Leslie staffed the store with employees}
-    \item * \emph{The store staffed with employees}
+    \item ~ \textit{Leslie staffed the store with employees}
+    \item * \textit{The store staffed with employees}
 \end{itemize}
 
 Ainsi, pour chaque groupe de verbes, différents critères précis permettent de
@@ -443,8 +443,8 @@ la robustesse de l'ensemble.
 
 Pour cette raison, les groupements de verbes sont parfois grossiers d'un point
 de vue sémantique. Ainsi, dans les \textit{put verbs} se trouve la classe
-\textit{Pocket} qui regroupe les verbes "mettre dans sa poche" (\emph{put}) et
-"mettre en prison" (\emph{jail}). Cependant, le comportement syntaxique est le
+\textit{Pocket} qui regroupe les verbes "mettre dans sa poche" (\textit{put}) et
+"mettre en prison" (\textit{jail}). Cependant, le comportement syntaxique est le
 même : le regroupement est logique et les différences de sens ne sont a priori
 pas gênantes pour des tâches telles que l'annotation en rôles sémantiques qui
 ne se basent pas sur le sens précis des verbes. Si ce manque de finesse est
@@ -509,7 +509,7 @@ lexique indique :
 \begin{itemize}
         \item la liste des verbes de la classe,
         \item les rôles thématiques en jeu ainsi que leur restrictions de sélection,
-        \item la liste des \emph{frames} VerbNet,
+        \item la liste des \textit{frames} VerbNet,
         \item les éventuelles sous-classes.
 \end{itemize}
 
@@ -534,10 +534,10 @@ des occurrences des verbes anglais dans un texte donné.
 FrameNet \citep{baker1998berkeley} repose sur la théorie des \textit{Frame
 Semantics}, élaborée par \cite{fillmore1982frame} en modifiant sa théorie des
 cas \citep{fillmore1968case}. Ici, les rôles sémantiques sont spécifiques à
-chaque situation. Par exemple, la situation \emph{Infecting} définit les rôles
-sémantiques \emph{Infected\_entity}, \emph{Infection} et
-\emph{Infection\_cause}, alors que la situation \emph{Commerce\_buy} définit les
-rôles sémantiques \emph{Buyer}, \emph{Seller} et \emph{Goods}. Les rôles sont
+chaque situation. Par exemple, la situation \textit{Infecting} définit les rôles
+sémantiques \textit{Infected\_entity}, \textit{Infection} et
+\textit{Infection\_cause}, alors que la situation \textit{Commerce\_buy} définit les
+rôles sémantiques \textit{Buyer}, \textit{Seller} et \textit{Goods}. Les rôles sont
 classifiés selon leur importance dans la situation : centraux (nécessaires),
 périphériques (toujours liés à la situation mais optionnels) et circonstanciels
 (pas spécifiques donc potentiellement présent dans toutes les situations, par
@@ -565,7 +565,7 @@ et n'utilisons cette ressource que pour l'évaluation. Le projet FrameNet est
 encore loin de couvrir un éventail complet du vocabulaire anglais
 \citep[§5.4]{marquez2008semantic}, nécessitant de trouver d'autres moyens pour
 étendre la ressource, notamment avec la production participative
-(\emph{crowdsourcing}) \citep{fossati2013outsourcing,baker2014framenet}.
+(\textit{crowdsourcing}) \citep{fossati2013outsourcing,baker2014framenet}.
 
 
 % TODO expliciter la différence entre frame-semantic parsing et semantic role
@@ -584,15 +584,15 @@ entrées classées en quatre niveaux :
 
 \begin{itemize}
 
-    \item 14 classes génériques (par exemple \emph{E : Verbes de mouvement}),
+    \item 14 classes génériques (par exemple \textit{E : Verbes de mouvement}),
 
-    \item 54 sous-classes sémantico-syntaxiques (par exemple \emph{C1 :
+    \item 54 sous-classes sémantico-syntaxiques (par exemple \textit{C1 :
         s'exprimer par un son, une parole}),
 
-    \item 246 sous-classes syntaxiques (par exemple \emph{M3b : imprimer tel
+    \item 246 sous-classes syntaxiques (par exemple \textit{M3b : imprimer tel
         mouvement à quelquec chose} et
 
-    \item 533 sous-types (par exemple \emph{R3b.2 : défaire l'opération
+    \item 533 sous-types (par exemple \textit{R3b.2 : défaire l'opération
         faite}).
 
 \end{itemize}
@@ -612,7 +612,7 @@ plusieurs raisons :
 
 \begin{itemize}
     \item LVF inclut de nombreux usages techniques : il y a en réalité
-        \emph{trop} de verbes et de sens : nous voulons nous concentrer sur les
+        \textit{trop} de verbes et de sens : nous voulons nous concentrer sur les
         verbes les plus fréquents, environ 5~000.
     \item LVF (et dans une moindre mesure, LG), incluent de nombreux emplois
         métaphoriques, ce qui nuit à la ressource : des usages tels que

@@ -27,7 +27,7 @@ exemple, la prise en compte de la voix passive a réduit le taux d'erreur de
 15,7~\%, ce qui montre la marge de progrès existante. Malgré des performances
 moindres par rapport aux approches supervisées quand des données d'entraînement
 existent, l'approche facilite l'analyse des erreurs, n'a pas besoin d'un corpus
-annoté manuellement et est \emph{a priori} indépendante du domaine considéré.
+annoté manuellement et est \textit{a priori} indépendante du domaine considéré.
 
 Ce chapitre se concentre sur notre système d'annotation en rôles sémantiques
 dans un cadre général en l'utilisant sur le corpus FrameNet anglais (qui a été
@@ -48,7 +48,7 @@ avec des frames et des rôles FrameNet. Nous utiliserons notamment cette phrase
 d'exemple par la suite pour illustrer notre propos. Pour une phrase donnée, les
 prédicats verbaux et la frame qu'ils évoquent sont identifiés. Dans chaque
 phrase, des syntagmes vont remplir un des rôles prévus par la frame dans
-FrameNet. Ces syntagmes sont nommés «~remplisseurs de rôle~» (\emph{role
+FrameNet. Ces syntagmes sont nommés «~remplisseurs de rôle~» (\textit{role
 filler} en anglais).
 
 \begin{figure}[ht]
@@ -61,17 +61,17 @@ filler} en anglais).
     L'objectif est d'aboutir à la représentation suivante :
 
     \begin{itemize}
-        \item \emph{declare} déclenche la frame Statement dont les rôles sont remplis ainsi :
+        \item \textit{declare} déclenche la frame Statement dont les rôles sont remplis ainsi :
         \begin{itemize}
             \item Speaker : Russia
             \item Message : it will eliminate its tactical nuclear weapons by the end of 2004
             \item Time : in 2002
         \end{itemize}
-        \item \emph{eliminate} déclenche la frame Removing dont les rôles sont remplis ainsi :
+        \item \textit{eliminate} déclenche la frame Removing dont les rôles sont remplis ainsi :
         \begin{itemize}
             \item Agent: it
             \item Theme: its tactical nuclear weapons
-            \item Source: \emph{non instancié}
+            \item Source: \textit{non instancié}
         \end{itemize}
     \end{itemize}
     \caption{\label{fig:srlrussia}Exemple d'annotation en rôles sémantiques}
@@ -80,15 +80,15 @@ filler} en anglais).
 Toute interprétation supplémentaire non présente dans la
 figure~\ref{fig:srlrussia} est en dehors du cadre de l'annotation en rôles
 sémantiques, ce qui est la raison pour laquelle la tâche est aussi connue sous
-le nom d'analyse sémantique de surface (\emph{shallow semantic parsing}).  Il
+le nom d'analyse sémantique de surface (\textit{shallow semantic parsing}).  Il
 est néanmoins intéressant de garder à l'esprit les applications possibles de
 tels travaux. Par exemple, un système de question-réponse pourrait utiliser la
-représentation de ces deux \emph{frames} pour répondre à la question \emph{Does
+représentation de ces deux \textit{frames} pour répondre à la question \textit{Does
 Russia possess tactical nuclear weapons?} L'annotation de la
 figure~\ref{fig:srlrussia} est une information utile, mais elle ne serait pas
 suffisante pour répondre à la question : il faut aussi comprendre la question,
-annoter les coréférences (\emph{it} fait référence à \emph{Russia}), comprendre
-la sémantique \emph{Removing}, établir la crédibilité du \emph{Speaker},
+annoter les coréférences (\textit{it} fait référence à \textit{Russia}), comprendre
+la sémantique \textit{Removing}, établir la crédibilité du \textit{Speaker},
 s'intéresser à d'autres phrases potentiellement contradictoires, etc.
 
 \section{Système}
@@ -117,28 +117,28 @@ section~\ref{presentation_verbnet}) sur l'interface entre la syntaxe
 et la sémantique. Dans VerbNet, chaque classe regroupe un certain nombre de
 verbes acceptant tous les mêmes constructions syntaxiques. Les syntagmes
 participant à ces constructions sont associés à des rôles sémantiques à
-interpréter dans le contexte de la classe. Ces \emph{frames} sont notées de
+interpréter dans le contexte de la classe. Ces \textit{frames} sont notées de
 cette façon : NP.Agent V NP.Theme. Ici, dans cette construction transitive
-(NP V NP, e.g. \emph{Sally pushed the chair}), le premier syntagme nominal
-(\emph{Sally}) est Agent alors que le second (\emph{the chair}) est Theme.
+(NP V NP, e.g. \textit{Sally pushed the chair}), le premier syntagme nominal
+(\textit{Sally}) est Agent alors que le second (\textit{the chair}) est Theme.
 Bien que des règles précises régissent leur attributions, l'interprétation
 complète des rôles (ici Theme et Agent) dépend de la classe VerbNet
 considérée. Par exemple, la classe \texttt{resign-10.11} contient notamment
-NP.Agent V PP.Source (\emph{I resigned from the military}). Dans cette
+NP.Agent V PP.Source (\textit{I resigned from the military}). Dans cette
 classe, l'Agent est la personne qui démissionne et la Source est le poste qui
 a été quitté.
 
 Pour une phrase donnée, le système commence par identifier les verbes de cette
 phrase. Pour chacun de ces verbes, un ensemble de classes VerbNet est
 identifié. Ainsi, pour notre phrase d'exemple ci-dessus, les classes possibles
-pour le verbe \emph{declare} sont \texttt{declare-29-4-1-1-1},
+pour le verbe \textit{declare} sont \texttt{declare-29-4-1-1-1},
 \texttt{say-37.7-1} et \texttt{reflexive\_appearance-48.1.2}. Le choix correct
 est \texttt{say-37.7-1}, mais il ne nous est pas possible de le déterminer
 avant de considérer les frames listées par VerbNet dans ces différentes
 classes.
 
 Par exemple, \texttt{reflexive\_appearance-48.1.2} contient la frame NP.Agent V
-NP.Theme. Ainsi, si un des verbes de cette classe, tel que \emph{present} :
+NP.Theme. Ainsi, si un des verbes de cette classe, tel que \textit{present} :
 \begin{itemize}
     \item est utilisé dans un sens compatible avec la classe
         \texttt{reflexive\_appearance-48.1.2},
@@ -148,17 +148,17 @@ NP.Theme. Ainsi, si un des verbes de cette classe, tel que \emph{present} :
 alors le sujet du verbe est l'Agent et l'objet est le Theme.
 
 La phrase d'exemple de la figure~\ref{fig:srlrussia} ne correspond pas à NP V
-NP mais à NP V that S (\emph{that S} étant la notation VerbNet pour les
-complétives introduites par \emph{that}). La seule occurrence de cette frame
-VerbNet est dans \texttt{say-37.7-1} : NP.Agent V that S.Topic (\emph{He
+NP mais à NP V that S (\textit{that S} étant la notation VerbNet pour les
+complétives introduites par \textit{that}). La seule occurrence de cette frame
+VerbNet est dans \texttt{say-37.7-1} : NP.Agent V that S.Topic (\textit{He
 ordered that he go}). Les classes \texttt{declare-29-4-1-1-1} et
 \texttt{reflexive\_appearance-48.1.2} ne listant pas cette frame, il est
 possible d'établir que :
 
 \begin{itemize}
     \item la classe VerbNet qui convient est \texttt{say-37.7-1},
-    \item \emph{Russia} est Agent,
-    \item \emph{it will eliminate its tactical nuclear weapons by the end of 2004} est Topic.
+    \item \textit{Russia} est Agent,
+    \item \textit{it will eliminate its tactical nuclear weapons by the end of 2004} est Topic.
 \end{itemize}
 
 % TODO la conversion se fait dans l'autre sens
@@ -177,7 +177,7 @@ phrase d'exemple.
 On ne peut pas toujours identifier la classe VerbNet correcte. C'est le cas par
 exemple de \texttt{reflexive\_appearance-48.1.2} et \texttt{say-37.7-1} qui
 contiennent toutes les deux le cadre NP V NP. Ainsi, si notre phrase d'exemple
-avait été \emph{Russia declared its intentions}, la classe serait restée
+avait été \textit{Russia declared its intentions}, la classe serait restée
 ambigüe. Sans corpus annoté, ces ambiguïtés ne peuvent pas être résolues.
 Cependant, une fois qu'une première série de correspondances a été effectuée,
 il est possible d'utiliser les connaissances du domaine étudié pour annoter de
@@ -243,7 +243,7 @@ contributions.
 \subsection{Correspondance exacte des frames}
 
 Cette étape associe zéro, un ou plusieurs rôles sémantiques à chaque syntagme
-candidat identifié lors de l'étape précédente. Elle correspond au \emph{frame
+candidat identifié lors de l'étape précédente. Elle correspond au \textit{frame
 matching} de \citet{swier2005exploiting}.
 
 Nous incluons ici deux étapes traditionnellement séparées dans les systèmes
@@ -259,12 +259,12 @@ Regardons comment se déroule cette étape. Premièrement, les syntagmes candida
 sont représentés au format VerbNet. Par exemple, si trois syntagmes nominaux
 ont été identifiés comme arguments, dont un avant le verbe, la représentation
 VerbNet de la phrase devient NP V NP NP. Si le troisième syntagme est un
-syntagme prépositionnel introduit par \emph{in}, la représentation devient NP
+syntagme prépositionnel introduit par \textit{in}, la représentation devient NP
 V NP in PP, et ainsi de suite.
 
 Ensuite, pour comparer la représentation VerbNet de la phrase aux frames
 VerbNet, nous identifions toutes les classes VerbNet incluant le prédicat. Par
-exemple, le prédicat \emph{classify} est présent dans deux classes VerbNet~:
+exemple, le prédicat \textit{classify} est présent dans deux classes VerbNet~:
 \texttt{characterize-29.2} et \texttt{classify-29.10}. Les frames VerbNet
 possibles sont~:
 
@@ -282,19 +282,19 @@ possibles sont~:
 % domainsrl
 
 % TODO commencer par la phrase d'exemple (declare ou eliminate)
-Considérons la phrase \emph{The curator classified the artifacts}. La
+Considérons la phrase \textit{The curator classified the artifacts}. La
 représentation VerbNet de cette phrase est NP V NP, ce qui correspond au
 NP.Agent V NP.Theme de la classe \texttt{classify-29.10}. On en déduit que
-\emph{The curator} est Agent, et que \emph{the artifacts} est Theme. Cette
+\textit{The curator} est Agent, et que \textit{the artifacts} est Theme. Cette
 phrase est donc correctement annotée en rôles sémantiques VerbNet.
 
-Prenons un autre example, cette fois tiré de FrameNet. La phrase \emph{The
+Prenons un autre example, cette fois tiré de FrameNet. La phrase \textit{The
 company also classifies short and wide radius ruts according to their severity}
 est transformée en NP V NP according PP. Dans ce cas, seuls les deux premiers
 syntagmes peuvent être mis en correspondance avec les frames VerbNet listées
 ci-dessus. Il n'y a pas de correspondance possible pour le troisième syntagme:
-VerbNet n'encode pas \emph{according} comme une préposition possible alors que
-\emph{in} et \emph{as} sont acceptées. De tels arguments non prévus pas VerbNet
+VerbNet n'encode pas \textit{according} comme une préposition possible alors que
+\textit{in} et \textit{as} sont acceptées. De tels arguments non prévus pas VerbNet
 ne sont pas annotés lors de cette étape. C'est ici un problème de couverture.
 Les auteurs de VerbNet travaillent actuellement sur la couverture de la
 ressource en ajoutant des informations syntaxiques et lexicales issues de très
@@ -312,8 +312,8 @@ interprétable dans une application.
 %Prenons les phrases suivantes, inspirées de la classe \texttt{cut-21.1} :
 
 %\begin{itemize}
-%    \item \emph{Luc a découpé la photo dans le journal avec des ciseaux}
-%    \item \emph{Luc a découpé avec des ciseaux la photo sa maison de vacances dans le journal de la commune de Lacanau}
+%    \item \textit{Luc a découpé la photo dans le journal avec des ciseaux}
+%    \item \textit{Luc a découpé avec des ciseaux la photo sa maison de vacances dans le journal de la commune de Lacanau}
 %    \item\e Luc a découpé avec des ciseaux dans le journal la photo où il montre l'énorme poisson qu'il venaît de pêcher
 %\end{itemize}
 
@@ -334,7 +334,7 @@ En effet, elles sont simplement obtenues automatiquement sur le corpus existant
 entier est à annoter, mais dans le cas où l'annotation se ferait phrase par
 phrase, il serait possible d'abandonner cette étape ou d'alimenter les
 classifieurs que nous utilisons au fur et à mesure des annotations. Cette étape
-correspond aux \emph{probability models} de \citet{swier2004unsupervised}.
+correspond aux \textit{probability models} de \citet{swier2004unsupervised}.
 
 L'apprentissage se fait sous la forme d'un simple classifieur statistique. Deux
 classifieurs sont utilisés : le premier détermine la classe VerbNet quand
@@ -344,7 +344,7 @@ plusieurs choix sont possibles.
 Le premier classifieur détermine la classe VerbNet en fonction du prédicat.
 \citet{abend2008supervised} ont déjà identifié cette tâche comme étant proche
 de la désambiguïsation lexicale. Dans cette tâche, il est difficile de battre
-la \emph{baseline} du sens le plus fréquent. Par exemple, lors de la tâche de
+la \textit{baseline} du sens le plus fréquent. Par exemple, lors de la tâche de
 désambiguïsation lexicale de SemEval-2007, seuls 25~\% des systèmes ont fait
 mieux que cette baseline, et les autres systèmes ont incorporé cette
 information. Nous choisissons de rester pour l'instant dans la simplicité en
@@ -367,7 +367,7 @@ est considérée à part.
 
 Ce classifieur utilise l'information du prédicat et la fonction grammaticale
 détectée. Par exemple, dans notre corpus (section~\ref{subsec:details_exp}),
-l'objet direct du verbe \emph{négliger} est le plus souvent \emph{Theme}. La
+l'objet direct du verbe \textit{négliger} est le plus souvent \textit{Theme}. La
 précision pour ce modèle est forte, mais il n'assigne des rôles que pour 40~\%
 des arguments : dans les autres cas, nous ne disposons pas d'informations pour
 cette paire (prédicat, fonction grammaticale).
@@ -434,9 +434,9 @@ pas la voix passive qui est un phénomène syntaxique, et non un phénomène
 lexical, car (pratiquement) tous les verbes anglais permettent le passif (ce
 qui n'est pas le cas du français). C'est donc au moment de l'analyse syntaxique
 que les sujets et objets syntaxiques, profonds ou non, doivent être identifiés
-correctement. Pour annoter la phrase \emph{the artifacts were classified by the
+correctement. Pour annoter la phrase \textit{the artifacts were classified by the
 curator} en rôles sémantiques, il est donc important de d'abord transformer la
-phrase en \emph{the curator classified the artifacts} avant d'effectuer la
+phrase en \textit{the curator classified the artifacts} avant d'effectuer la
 correspondance avec les frames VerbNet.
 
 Les sujets et objets profonds ne sont pas encodés dans les corpus annotés en
@@ -453,8 +453,8 @@ passive qui était le phénomène de syntaxe profonde le plus présent dans notr
 corpus.  Pour annoter les verbes utilisés avec la voix passive (et uniquement
 pour ceux là), nous avons remplacés les frames VerbNet par leur deux
 équivalents à la voix passive. Les verbes utilisés au passif en anglais sont au
-participe passé et gouvernés par une forme du verbe \emph{to be}. Étant donné
-une frame VerbNet telle que \emph{NP.Agent V NP.Theme (eg. the
+participe passé et gouvernés par une forme du verbe \textit{to be}. Étant donné
+une frame VerbNet telle que \textit{NP.Agent V NP.Theme (eg. the
 curator classified the artifacts)}, nous la remplaçons par deux nouvelles
 frames :
 
@@ -469,7 +469,7 @@ passive est detectée, ce qui améliore les résultats
 phénomènes syntaxiques. Pour aller plus loin, il faudra non pas modifier
 VerbNet mais bien annoter la phrase en syntaxe profonde avant de réaliser les
 correspondances exactes puis probabilistes. Premièrement, cela limite
-l'ambiguïté provoquée par la transformation de Verbnet : par exemple, \emph{by}
+l'ambiguïté provoquée par la transformation de Verbnet : par exemple, \textit{by}
 n'est pas limité à l'introduction du sujet dans une construction passive.
 Deuxièmement, il est plus naturel d'identifier les sujets profonds avant de les
 comparer à des représentations conçues pour utiliser la voix active.
@@ -508,23 +508,23 @@ restrictions de sélections présentes dans VerbNet.
 % changé l'objet de ces paragraphes en les intégrant à un nouveau chapitre.
 
 Prenons pour exemple ces cinq phrases mettant en jeu le verbe
-\emph{conspire} de la classe \texttt{conspire-71} du VerbNet anglais :
+\textit{conspire} de la classe \texttt{conspire-71} du VerbNet anglais :
 
 \begin{itemize}
-    \item \emph{Alan Rock conspired with passionate scientists like Henry Friesen}
-    \item \emph{P. Baglioni conspired against the Borgias}
-    \item \emph{He joined Mazzini and conspired for the redemption of Italy}
-    \item \emph{The companies conspire together on price-fixing}
-    \item \emph{The delegation organized by Mr. Chan-Ou-Teung did not conspire about holding a UBCV Congress}
+    \item \textit{Alan Rock conspired with passionate scientists like Henry Friesen}
+    \item \textit{P. Baglioni conspired against the Borgias}
+    \item \textit{He joined Mazzini and conspired for the redemption of Italy}
+    \item \textit{The companies conspire together on price-fixing}
+    \item \textit{The delegation organized by Mr. Chan-Ou-Teung did not conspire about holding a UBCV Congress}
 \end{itemize}
 
 L'annotation du sujet syntaxique ne pose pas de difficultés : le sujet est
 toujours Agent dans cette classe selon VerbNet. Les informations lexicales au
 sujet des prépositions qui sont présentes dans VerbNet suffisent aussi à
-annoter les deux premières phrases: \emph{with passionate scientists like Henry
-Friesen} est Co-Agent alors que \emph{against the Borgias} est Beneficiary. Ce
-n'est pas le cas des phrases suivantes : les prépositions \emph{for}, \emph{on}
-et \emph{about} ne sont pas prévues pas VerbNet.
+annoter les deux premières phrases: \textit{with passionate scientists like Henry
+Friesen} est Co-Agent alors que \textit{against the Borgias} est Beneficiary. Ce
+n'est pas le cas des phrases suivantes : les prépositions \textit{for}, \textit{on}
+et \textit{about} ne sont pas prévues pas VerbNet.
 
 Ici, une solution est de continuer à agrandir VerbNet en incluant de nouvelles
 constructions ou en étendant les constructions existantes, mais c'est un
@@ -655,7 +655,7 @@ ou plusieurs rôles VerbNet :
 
 Dans tous les autres cas, un rôle FrameNet correspond à un rôle VerbNet unique,
 et c'est ce rôle VerbNet que notre système doit déterminer. Nous mesurons la
-précision, le rappel et l'exactitude (\emph{accuracy}) des associations
+précision, le rappel et l'exactitude (\textit{accuracy}) des associations
 rôle/syntagmes candidats. 10~\% du corpus a été utilisé pour obtenir les
 résultats, le reste correspond au corpus "d'entraînement" traditionnellement
 utilisé en apprentissage automatique. En effet, aucun modèle n'a été appris sur
@@ -666,11 +666,11 @@ Enfin, différents modèles sont appliqués :
 
 \begin{itemize}
 
-    \item \emph{passif} indique que la voix passive a été prise en compte
+    \item \textit{passif} indique que la voix passive a été prise en compte
     (section~\ref{sec:passif}).
 
-    \item \emph{prédicat-fonction} indique que le modèle de probabilité
-    \emph{prédicat-fonction} a été appliqué (section~\ref{subsec:probability}).
+    \item \textit{prédicat-fonction} indique que le modèle de probabilité
+    \textit{prédicat-fonction} a été appliqué (section~\ref{subsec:probability}).
 
 \end{itemize}
 
@@ -699,7 +699,7 @@ Enfin, différents modèles sont appliqués :
         \bottomrule
     \end{tabular}
 
-    \caption{\label{table:results}Résultats pour différentes tâches. \emph{probabiliste} indique la correspondance probabiliste. \emph{passif} indique la détection de la voix passive. \emph{Identification} est l'identification des arguments.}
+    \caption{\label{table:results}Résultats pour différentes tâches. \textit{probabiliste} indique la correspondance probabiliste. \textit{passif} indique la détection de la voix passive. \textit{Identification} est l'identification des arguments.}
 
 \end{table*}
 
@@ -803,10 +803,10 @@ FrameNet :
 
 \begin{itemize}
 
-    \item \emph{You are not fair when you belittle Sheik Bin Baz 's blunder and
+    \item \textit{You are not fair when you belittle Sheik Bin Baz 's blunder and
         exaggerate the one by Sheik Maqdasi ...}
 
-    \item \emph{Hostile and even friendly nations routinely steal information
+    \item \textit{Hostile and even friendly nations routinely steal information
         from U.S. companies and share it with their own companies}
 
 \end{itemize}
