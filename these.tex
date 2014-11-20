@@ -1,6 +1,14 @@
 \RequirePackage[l2tabu, orthodox]{nag}
 % vim: set spell spelllang=fr:
 \documentclass[oneside,parskip,draft]{scrbook}
+\usepackage{tgpagella}
+\linespread{1.05}
+\usepackage{eulervm}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+
 
 % no dot after parts
 % http://tex.stackexchange.com/q/102303/1
@@ -23,7 +31,7 @@
 \newcommand{\Clg}{{\color{green}$C_{lg}$}}
 \newcommand{\Ltrad}{$L_{trad}$}
 
-\usepackage[utf8]{inputenc}
+
 
 % addtolist warning
 \usepackage{scrhack}
@@ -41,27 +49,42 @@
 
 \usepackage{graphicx}
 \usepackage[obeyspaces]{url}
-\usepackage{mathptmx}
 \usepackage{multirow}
 \usepackage{booktabs}
+\usepackage{longtable}
+
+\newcommand{\specialcell}[2][l]{%
+      \begin{tabular}[#1]{@{}l@{}}#2\end{tabular}}
 
 % Texte barré
 \usepackage{ulem}
-\normalem
 
 \usepackage[xindy]{glossaries}
 \makeglossaries
 \input{glossaire}
 \glsaddall
 
+% Glossary -> Glossaire
+\addto\captionsfrench{%
+  \renewcommand{\glossaryname}{Glossaire}%
+}
+
 \usepackage{tikz}
 \usetikzlibrary{arrows}
 \usetikzlibrary{shapes.multipart}
 
-\title{Annotation en rôles sémantiques \\ du français en domaine spécialisé}
-\author{Quentin Pradet}
-\date{Gaël de Chalendar, Laurence Danlos}
-\publishers{Commissariat à l'Énergie Atomique\\Université Paris Diderot}
+\title{Annotation en rôles sémantiques \\ du français en domaine spécifique}
+\author{Quentin \textsc{Pradet}}
+\date{\today}
+
+\publishers{
+    Guy \textsc{Lapalme} \\
+    Patrick \textsc{Saint-Dizier} \\
+    Laurence \textsc{Danlos} \\
+    Gaël \textsc{de Chalendar} \\
+~\\
+~\\
+Commissariat à l'Énergie Atomique\\Université Paris Diderot}
 
 %\includeonly{srl,glossaire}
 
@@ -71,28 +94,52 @@
 
 \frontmatter
 
-\chapter{Remerciements}
+%\chapter{Remerciements}
 
-I would like to thank my supervisor, Professor Someone. This
-research was funded by the Imaginary Research Council.
+%I would like to thank my supervisor, Professor Someone. This
+%research was funded by the Imaginary Research Council.
 
-% TODO in one chapter
 \chapter{Résumé}
 
-Un résumé d'une page.
+% TODO Expliquer depuis le résumé ce qu'est le SRL du fr en domaines.
 
-\chapter{Abstract}
+Cette thèse a pour objectif l'annotation en rôles sémantiques du français en
+domaine spécifique. Nous considérons ici trois domaines : le réchauffement
+climatique, Informatique et Internet, et le football. Nous montrons que les
+traductions de WordNet et de VerbNet donnent la possibilité d'annoter en rôles
+sémantiques des textes aussi bien en domaine général qu'en domaine spécifique.
 
-A one-page abstract.
+Nous commençons par expliquer le contexte et les objectifs de nos travaux,
+avant de dresser un état de l'art autour de la représentation des mots, de la
+traduction de ressources et de l'annotation en rôles sémantiques.
+
+Nous montrons ensuite comment nous avons traduit automatiquement la ressource
+WordNet vers le français en utilisant un large modèle de langue syntaxique du
+français. Nous présentons ensuite la traduction de la ressource VerbNet, elle
+réalisée avec plus de travail manuel tout en maximisant le travail pouvant être
+automatisé en réutilisant deux ressources linguistiques françaises existantes,
+le Lexique-Grammaire et Les Verbes Français. Ces deux ressources sont librement
+distribuées et sont une contribution majeure de cette thèse.
+
+Ensuite, nous montrons comment VerbNet peut être utilisé pour une annotation en
+rôles sémantiques qui n'utilise pas de corpus annoté. Nous expliquons comment
+WordNet peut complémenter VerbNet pour mieux désambiguïser les annotations
+effectuées.
+
+Enfin, une fois que toutes les autres briques ont été mises en place, nous
+traitons l'annotation en rôles sémantiques du français dans nos trois domaines
+spécifiques, avant de dresser un bilan et des perspectives pour le futur.
+
+% TODO translate french abstract at some point
+%\chapter{Abstract}
+%A one-page abstract.
 
 \setcounter{tocdepth}{3}
 \tableofcontents
 %\listoffigures
 %\listoftables
 
-
 \mainmatter
-
 
 \part{L'annotation en rôles sémantiques}
 
@@ -104,7 +151,7 @@ A one-page abstract.
 \label{part:translation}
 
 
-% TODO c'est sur sa propre page, OK ?
+% TODO c'est sur sa propre page, est-ce que c'est gênant ?
 % TODO justifier l'utilisation de ressources
 Nous avons choisi d'accorder dans ces travaux une part importante à
 l'utilisation de ressources lexicales. La première, WordNet, représente le sens
@@ -171,13 +218,15 @@ rôles sémantiques :
 
 \include{srl}
 
-\include{similarity}
-
 \include{domainsrl}
 
 \chapter*{Conclusion}
 \label{ch:conc}
 
+\section{Perspectives}
+
+broad-coverage semantic parsing
+FrameNet more syntax stuff, eg. light verbs et je sais pas quoi baker2014framenet yang2014multi
 
 \backmatter
 % A glossary and list of acronyms may go here
@@ -192,6 +241,124 @@ rôles sémantiques :
 
 Ce chapitre traite de divers détails destinés à aider le lecteur a reproduire
 un des systèmes présentés dans ces travaux.
+
+\section{Relations syntaxiques identifiées par LIMA présentes dans notre modèle
+de langue syntaxique}
+
+Cette table décrit les identifiants des relations syntaxiques utilisés dans
+LIMA et donc présents dans le modèle de langue syntaxique que nous utilisons
+pour traduire WordNet. Ces relations ont été définies à partir des relations
+définies lors des campagnes d'évaluation Easy et Passage. La définition
+initiale d'un certain nombre d'entre elles se trouve dans le guide d'annotation
+de la campagne Easy
+(\url{http://perso.limsi.fr/Individu/anne/Guide/PEAS_reference_annotations_v2.2.html}).
+Il faut noter que dans ces campagnes les relations sont indiquées entre
+constituants, alors que LIMA fournit des relations en dépendances (les
+relations sont alors entre les têtes des syntagmes correspondants).
+
+\begin{longtable}{lll}
+    \toprule
+    Identifiant   & Description & Exemples fréquents \\ \midrule
+    ADJPRENSUB    &  adjectif épithète pré-nominal         & premier fois, présent loi, bon état \\ \midrule
+    ADVADJ        &  adverbe modifiant un adjectif         & tout autre, plus grand \\ \midrule
+    ADVADV        &  adverbe modifiant un adverbe          & tout simplement, très bien \\ \midrule
+    AdvSub        &  adverbe modifiant un substantif       & que j, beaucoup plus, non pas \\ \midrule
+    AdvVerbe      &  adverbe modifiant un verbe            & haut voir, ici envoyer \\ \midrule
+    APPOS         &  apposition (cf. APP dans PEAS)        & aristocrate royaliste, abri piscine \\ \midrule
+    ATB\_O        &  \specialcell{attribut de l'objet (cf. ATB\_SO \\ dans PEAS)} & site site, álbum annuaire \\ \midrule
+    ATB\_S        &  \specialcell{attribut du sujet en relation avec le \\ verbe (cf. ATB\_SO dans PEAS)} & disponible être, possible être \\ \midrule
+    ATB\_SG       &  \specialcell{attribut du sujet en relation avec le \\ sujet} & nouveau message \\ \midrule
+    COD\_V        &  complément d'objet direct du verbe    & être pouvoir,  profil voir \\ \midrule
+    COMPADJ       &  complément de l'adjectif              & site plan, page haut \\ \midrule
+    COMPADV       &  complément de l'adverbe               & page haut, forum uniquement \\ \midrule
+    COMPDUNOM     &  complément du nom                     & page numéro, page pas, page haut \\ \midrule
+    COMPL         &  \specialcell{complémenteur (cf. COMP dans \\ PEAS)} & que être, que avoir, si être \\ \midrule
+    CPL\_V        &  \specialcell{complément indirect ou \\ circonstanciel du verbe } & être être, être avoir  \\ \midrule
+    CPLV\_V       &  \specialcell{groupe prépositionnel infinitif après \\ le verbe} & connecter cliquer, voir revenir \\ \midrule
+    DetIntSub     &  déterminant interrogatif              & quelle période, quelle manière \\ \midrule
+    DetSubNum     &  déterminant numéral cardinal          & neuf appartement, trente an \\ \midrule
+    MOD\_A        &  modificateur de l'adjectif            & être vrai, être même, être autre \\ \midrule
+    MOD\_N        &  modificateur du nom                   & commander libraire, être personne  \\ \midrule
+    MOD\_V        &  modificateur du verbe                 & que être, être aller, matière tabler \\ \midrule
+    NePas         &  négation                              & ne pas, ne rien, ne jamais \\ \midrule
+    Prefixe       &  préfixe                               & il- pas, il- être, anti-criminalité \\ \midrule
+    PrepDetInt    &  \specialcell{relation entre préposition et \\ déterminant interrogatif} & de quelle, dans quelle, pour quelle \\ \midrule
+    PrepPronCliv  &  \specialcell{relation entre préposition et \\ conjonction de subordination \\ considérée comme un pronom clivé} & de que, em que, une que \\ \midrule
+    PrepPron      &  \specialcell{relation entre préposition et \\ pronom personnel} & de tézigue, pour mézigue \\ \midrule
+    PrepPronRelCa &  \specialcell{relation entre préposition et pronom \\ relatif complément d'attribution} & dans lequel, pour qui, sur lequel  \\ \midrule
+    PrepPronRel   &  \specialcell{relation entre préposition et pronom \\ relatif} & de quoi, en quoi, comme quoi \\ \midrule
+    SUBADJPOST    &  adjectif épithète post-nominal        & posté profil, référencé page \\ \midrule
+    SUBSUBJUX     &  substantif juxtaposé à un substantif  & top thé, article présent, web site \\ \midrule
+    SUJ\_V        &  sujet du verbe                        & j avoir, thé pager, j être \\ \midrule
+    SUJ\_V\_REL   &  \specialcell{pronom sujet du verbe de la \\ proposition relative} & qui être, que avoir \\ \midrule
+    SUJ\_V\_RELG  &  \specialcell{antécédent sujet du verbe de la \\ proposition relative} & définition suivre, personne avoir \\
+    \bottomrule
+
+    \caption{\label{table:relationswonef}Relations syntaxiques présentes dans
+        le modèle de langue syntaxique utilisé pour la traduction de WordNet
+        vers WoNeF. La troisième colonne présente plusieurs exemples de
+        relations entres lemmes fréquentes dans les corpus. Le modèle de langue
+    est disponible sur \protect\url{http://www.kalisteo.fr/demo/semanticmap/}.}
+\end{longtable}
+
+
+
+\section{Sélecteurs employés pour produire WoNeF}
+
+\if false
+
+nouns : 1 SimSyn, 2 HyperHypo(COMPDUNOM, HYPER), 3 MeroHoloLikeHyper, 4 MeroHolo, 6 HyperHypo(SUJ\_V, HYPER), 7 HyperHypo(COMPDUNOM, HYPO), 8 HyperHypo(COD\_V, HYPER), 9 HyperHypo(window10, HYPER)
+
+verb :  1 LastChance, 2 SimSyn, 3 HyperHypo(SUJ\_V\_RELG, HYPER), 4 HyperHypo(COD\_V.reverse, HYPER), 6 HyperHypo(CPL\_V.reverse, HYPER), 6 HyperHypo(ATB\_S.reverse, HYPER), 7 HyperHypo(SUJ\_V.reverse, HYPER), 8(CPLV\_V.reverse, HYPER)
+
+adj : 1 LastChance 2 SimSyn
+
+adv : 1 SimSyn
+
+\fi
+
+\subsection{Combinaisons de sélecteurs initiaux}
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{lll}
+        \toprule
+        noun &  precision &  monosemous uniq levenshtein \\
+        noun &  fscore    &  monosemous uniq levenshtein multiplesource \\
+        noun &  coverage  &  monosemous uniq levenshtein multiplesource \\
+        \midrule
+        verb &  precision &  uniq \\
+        verb &  fscore    &  uniq monosemous \\
+        verb &  coverage  &  monosemous uniq multiplesource \\
+        \midrule
+        adj  &  precision &  monosemous uniq levenshtein \\
+        adj  &  fscore    &  monosemous unique multiplesource levenshtein \\
+        adj  &  coverage  &  monosemous unique multiplesource levenshtein \\
+        \midrule
+        adv  &  precision &  monosemous unique multiplesource levenshtein \\
+        adv  &  fscore    &  monosemous unique multiplesource levenshtein \\
+        adv  &  coverage  &  monosemous unique multiplesource levenshtein \\
+        \bottomrule
+    \end{tabular}
+    \caption{TODO}
+\end{table}
+
+\subsection{Combinaisons de sélecteurs syntaxiques}
+
+noun precision 3 4
+adj precision 2
+verb precision 2
+adv precision 2
+
+noun fscore 3 4 8
+adj fscore 2
+verb fscore 2
+adv fscore 2
+
+noun coverage 3 4 8 1 2 6 7
+adj coverage 2
+verb coverage 2
+adv coverage 2
 
 \section{Règle d'identification des arguments}
 \label{argument_identification}

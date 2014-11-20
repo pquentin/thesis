@@ -11,17 +11,18 @@ Identifier les sens possibles des mots du vocabulaire est un problème difficile
 demandant un travail manuel très conséquent (section~\ref{subsec:sens_mots}).
 Ce travail est cependant nécessaire pour pour pouvoir identifier le sens
 correct d'un mot utilisé en contexte. WordNet \citep{fellbaum1998wordnet}
-regroupe les mots en ensembles de synonymes (\emph{synonym sets} ou
-\emph{synsets}) et lie ces synsets entre eux par différentes relations
+regroupe les mots en ensembles de synonymes (\textit{synonym sets} ou
+\textit{synsets}) et lie ces synsets entre eux par différentes relations
 sémantiques comme par exemple l'antonymie, l'hyperonymie, l'hyponymie ou encore
-la méronymie (section~\ref{subsec:ressources_lexicales}).
+la méronymie (section~\ref{subsec:ressources_lexicales}). Une partie
+conséquente de ce chapitre provient d'articles déjà publiés
+\citep{pradet2013wonef,pradet2014wonef}.
 
-Nos travaux \citep{pradet2013wonef,pradet2014wonef} sont la suite de JAWS, dont
-le fonctionnement est détaillé à la
+Nos travaux sont la suite de JAWS, dont le fonctionnement est détaillé à la
 section~\ref{subsec:jaws_translation_process}. Cette nouvelle version de JAWS
 se nomme WoNeF : le nouveau nom évite la confusion avec une API Java pour
-WordNet (\emph{Java API for WordNet Searching}). Dans la suite de ce travail,
-le terme \emph{JAWS} ne fera pas référence à l'API mais à la version précédente
+WordNet (\textit{Java API for WordNet Searching}). Dans la suite de ce travail,
+le terme \textit{JAWS} ne fera pas référence à l'API mais à la version précédente
 de WoNeF \citep{mouton2010jaws,mouton2010phd}.
 
 Nous étendons et améliorons les techniques utilisées dans JAWS et l'évaluons à
@@ -102,16 +103,17 @@ du vocabulaire anglais est d'origine française \citep{finkenstaedt1973ordered},
 et l'anglicisation a produit des transformations prévisibles. Il est possible
 d'appliquer ces mêmes transformations aux littéraux candidats français, et
 seulement alors d'appliquer la distance de Levenshtein. Nous commençons par
-supprimer les accents, puis appliquons différentes opérations. Par exemple,
-l'inversion des lettres "r" et "e" prend en compte
-(\textit{order}/\textit{ordre}) et (\textit{tiger}/\textit{tigre})\footnote{La
-distance de Damerau-Levenshtein qui prend en compte les inversions n'importe-où
-dans un mot \citep{damerau1964technique} a donné de moins bons résultats.}.
-Toutes les transformations ne s'appliquent qu'à la fin des mots : \textit{-que}
-est transformé en \textit{-k} ou \textit{-c} (\textit{marque} devient
+supprimer les accents, puis appliquons différentes opérations
+(Table~\ref{table:levenshteinrules}. Par exemple, l'inversion des lettres "r"
+et "e" prend en compte (\textit{order}/\textit{ordre}) et
+(\textit{tiger}/\textit{tigre})\footnote{La distance de Damerau-Levenshtein qui
+prend en compte les inversions n'importe-où dans un mot
+\citep{damerau1964technique} a donné de moins bons résultats.}.  Toutes les
+transformations ne s'appliquent qu'à la fin des mots : \textit{-que} est
+transformé en \textit{-k} ou \textit{-c} (\textit{marque} devient
 \textit{mark}), \textit{-té} vers \textit{-ty} (\textit{extremité} devient
-\textit{extremity}), etc. Les faux-amis ne sont toujours pas explicitement pris
-en compte.
+\textit{extremity}), etc. Les faux-amis ne peuvent pas être pris en compte en
+compte par cette méthode qui est purement orthographique..
 
 \begin{table}[ht]
 \centering
@@ -119,12 +121,15 @@ en compte.
   \toprule
 -que & -k & banque &$\to$& bank \\
 -aire & -ary & tertiaire &$\to$& tertiary \\
--eur & -or & vapeur &$\to$& vapor \\
+-eur & -or & chercheur &$\to$& cherchor \\
 -ie & -y & cajolerie &$\to$& cajolery \\
 -té & -ty & extremité &$\to$& extremity \\
 -re & -er & tigre &$\to$& tiger \\
 -ais & -ese & libanais &$\to$& libanese \\
--ant & -ing & changeant &$\to$& changing \\
+-ois & -ese & chinois &$\to$& chinese \\
+-ant & -ing & changeant &$\to$& changeing \\
+-ment & -ly & confortablement &$\to$& confortably \\
+-ose & -osis & osmose &$\to$& osmosis \\
   \bottomrule
 \end{tabular}
 
@@ -133,6 +138,11 @@ français avant d'utiliser le sélecteur de la distance de Levenshtein.}
 
 \end{table}
 
+Il serait possible d'améliorer cette table des correspondances en réutilisant
+les correspondances listées dans le Wiktionnaire français : pour chacun des
+suffixes du français, une liste de suffixes correspondants dans d'autres
+langues (dont l'anglais) est parfois indiquée, par exemple pour -ment :
+\url{http://fr.wiktionary.org/wiki/-ment}.
 
 \subsection{Apprentissage de seuils}
 \label{subsec:learning_thresholds}
@@ -539,25 +549,24 @@ adjectifs. Cela met en avant l'importance des dictionnaires.
 \caption{\label{table:wolfcomparison}Évaluation de la ressource à haute précision en considérant WOLF 0.1.4 et 1.0b comme des références.}
 \end{table}
 
-
 Il n'est pas possible de comparer WOLF et WoNeF en utilisant notre annotation
 de référence : tout mot correct de WOLF non présent dans les dictionnaires
 pénalisera WOLF injustement. Nous avons décidé d'évaluer WoNeF en considérant
 WOLF 0.1.4 et WOLF 1.0b comme des références
 (Table~\ref{table:wolfcomparison}). Les mesures ne sont pas de véritables
 précision et rappel puisque WOLF lui-même n'est pas entièrement validé. Le
-dernier article donnant des chiffres globaux \citep{sagot2012automatic} indique
-un nombre de paires autour de 77~000 pour une précision de 86~\% \footnote{Les
-résultats détaillés pour WOLF 1.0b ne sont pas actuellement disponibles.}. Nous
-appelons donc pseudo-précision (pP) le pourcentage des éléments présents dans
-WoNeF qui sont également présents dans WOLF, et pseudo-rappel le pourcentage
-d'éléments de WOLF qui sont présents dans WoNeF.  Ces chiffres montrent que
-même si WoNeF est encore plus petit que WOLF, il s'agit d'une ressource
-complémentaire, surtout quand on se souvient que le WoNeF utilisé pour cette
-comparaison est celui présentant une précision élevée, avec une précision
-globale de 93,3~\%. Il convient également de noter que la comparaison de la
-différence entre WOLF 0.1.4 et \ WOLF 1.0b est instructive puisque elle montre
-l'étendue des améliorations apportées à WOLF.
+dernier article donnant des chiffres globaux \citep{sagot2012automatic} dont
+nous avons connaissance indique un nombre de paires autour de 77~000 pour une
+précision de 86~\% \footnote{Les résultats détaillés pour WOLF 1.0b ne sont pas
+actuellement disponibles.}. Nous appelons donc pseudo-précision (pP) le
+pourcentage des éléments présents dans WoNeF qui sont également présents dans
+WOLF, et pseudo-rappel le pourcentage d'éléments de WOLF qui sont présents dans
+WoNeF.  Ces chiffres montrent que même si WoNeF est encore plus petit que WOLF,
+il s'agit d'une ressource complémentaire, surtout quand on se souvient que le
+WoNeF utilisé pour cette comparaison est celui présentant une précision élevée,
+avec une précision globale de 93,3~\%. Il convient également de noter que la
+comparaison de la différence entre WOLF 0.1.4 et WOLF 1.0b est instructive
+puisque elle montre l'étendue des améliorations apportées à WOLF.
 
 La colonne «~Ajouts~» donne le nombre de traductions qui sont présentes dans
 WoNeF mais pas dans WOLF. Pour les noms, les verbes et les adjectifs, cela
@@ -572,8 +581,31 @@ mais fournirait 57~032 nouvelles paires (littéral, synset) par rapport à WOLF
 paires (littéral, synset), augmentant la couverture de WOLF de 56~\% et celle
 de WoNeF de 83~\%.
 
-%\subsection{Hyponymy detection}
-%There is no clear inclusion relationship between the distributions of hyponyms/hypernyms. As a result, research used other ways to detect hypernymy \citep{hearst1992automatic, entailment baroni}. Our works show that it is in fact possible to use ... syntactic language model ... dictionaries ... but only works on nouns so far Result of 60%...
+\section{Fusion entre WOLF et WoNeF}
+
+WOLF et WoNeF ne sont pas des compétiteurs. En réalité, les travaux sur WoNeF
+et WOLF ont commencé indépendamment sans que les auteurs respectifs ne soient
+au courant des travaux de l'autre équipe. Pourquoi est-ce que les deux versions
+existent toujours en 2014 alors que les premières publications datent de 2008
+et 2009 ?  Une fusion a en réalité été envisagée en 2014, mais elle n'a pas
+aboutie : les auteurs de WoNeF et WOLF n'ont pas encore la même vision de ce
+que constitue une traduction correcte dans un synset.
+
+Le premier problème, et le plus simple, est du au biais lexicographique
+particulièrement présent dans WoNeF. En effet, WordNet contient un synset pour
+l'adverbe \textit{unkindly\#1} qui est traduit dans nos dictionnaires par
+\textit{sans aménité}. Ceci pose un problème parce que \textit{sans aménité} n'est
+pas une unité lexicale qu'on s'attend à trouver dans un dictionnaire monolingue
+étant donné que le sens est déductible par compositionnalité. Ce problème est
+accru en raison de la productivité de l'anglais : \textit{unkindly} étant un
+token attesté en anglais, il est logique de l'inclure dans WordNet, même si on
+peut aussi déduire son sens par compositionnalité.
+
+Le second problème est du à la finesse des sens proposés par WordNet, ce qui...
+TODO
+
+Le lecteur qui considère que ces problèmes ne l'affectent pas peut utiliser la
+fusion des deux ressources disponible sur \url{http://wonef.fr/data/}.
 
 \section*{Conclusion}
 
@@ -610,5 +642,3 @@ sera couplé avec la collecte d'un corpus issu du Web plus récent et plus grand
 analysé avec une version récente de notre analyseur linguistique LIMA. Cela
 nous permettra de mesurer l'impact de la qualité du modèle de langue sur la
 traduction de WordNet.
-
-% TODO explications donnée à Francis Bond sur la non-fusion

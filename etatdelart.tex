@@ -2,7 +2,15 @@
 
 \setchapterpreamble[ur][.7\textwidth]{%
   \dictum[Robin Hobb, \textit{La Voie royale}]{%
-  Un jour, alors que je venais de connaître Burrich, il m'avait ordonné de défaire le harnais d'un équipage de chevaux. [...] Quand Burrich revint voir ce qui me prenait tant de temps, il demeura muet de stupéfaction mais ne put me reprocher de n'avoir pas obéi à son ordre. Quant à moi, j'étais effaré du nombre de pièces qui entraient dans la composition d'un objet apparemment d'une seule pièce quand je m'y étais attaqué. [...] Tous ces sont pour faire un mot, tous ces mots pour former une pensée ! Le langage tombait en morceaux entre mes mains. Jamais je n'y avais réfléchi.}}
+  Un jour, alors que je venais de connaître Burrich, il m'avait ordonné de
+  défaire le harnais d'un équipage de chevaux. [...] Quand Burrich revint voir
+  ce qui me prenait tant de temps, il demeura muet de stupéfaction mais ne put
+  me reprocher de n'avoir pas obéi à son ordre. Quant à moi, j'étais effaré du
+  nombre de pièces qui entraient dans la composition d'un objet apparemment
+  d'une seule pièce quand je m'y étais attaqué. J'avais la même impression sur
+  la route : tous ces sons pour faire un mot, tous ces mots pour former une
+  pensée ! Le langage tombait en morceaux entre mes mains. Jamais je n'y avais
+  réfléchi.}}
 
 \chapter{État de l'art} 
 \label{ch:etatdelart} 
@@ -19,10 +27,10 @@ partie~\ref{part:srl}.
 \section{Représentation des mots}
 \label{sec:mots}
 
-Nous abordons certains aspects du sens des mots à travers les dictionnaires et
-différentes ressources lexicales. Nous présentons ensuite les modèles de langue
-qui sont une manière directe de représenter les mots, leur utilisation, et donc
-leur sens, le tout à partir d'un corpus brut.
+Nous abordons certains aspects du sens des mots à travers l'étude de
+différentes ressources lexicales, en commençant par les dictionnaires. Nous
+présentons ensuite les modèles de langue qui sont une manière directe de
+représenter les mots et leurs sens à partir d'un corpus brut.
 
 \subsection{Représentation du sens des mots}
 \label{subsec:sens_mots}
@@ -36,44 +44,46 @@ lequel le Traitement Automatique des Langues peut s'appuyer pour représenter le
 sens des mots.
 
 Pour pouvoir identifier les différents sens d'un mot, les lexicographes
-n'opèrent pas par intuition linguistique \citep{kilgarriff1997don}. Ils
+n'opèrent plus par intuition linguistique \citep{kilgarriff1997don}. Ils
 commencent par établir un corpus équilibré et de taille assez importante pour
 représenter la langue étudiée. Ce corpus peut par exemple être constitué de
 textes de journaux, de fiction, ou encore de blogs, le tout étant supposé être
 représentatif de ce qu'une personne lambda lit durant sa vie. Pour un mot
-donné, le lexicographe examine ses différents usages dans ce corpus dans le but
-de séparer ces différents usages en sens. Certains sens, jugés trop peu
-fréquents, sont laissés de côté. Le lexicographe étudie ensuite la séparation
-obtenue pour établir des critères objectifs distinguant les différents sens du
-mot étudié. Une phase d'ajustement de la séparation suit pour vérifier que les
-critères ont été correctement appliqués, ce qui peut amener à raffiner ces
-critères. Une fois les critères définitifs établis, la définition peut être
-rédigée, les occurrences étudiées pouvant servir d'exemples.  L'avantage
-principal est que le processus lexicographique est basé sur des données réelles
-et non pas sur des intuitions linguistiques.
-
-% TODO exemple
+donné, le lexicographe examine ses différents usages dans ce corpus à l'aide
+d'un concordancier dans le but de séparer ces différents usages en sens.
+Certains sens, jugés trop peu fréquents, sont laissés de côté. Le lexicographe
+étudie ensuite la séparation obtenue pour établir des critères objectifs
+distinguant les différents sens du mot étudié. Une phase d'ajustement de la
+séparation suit pour vérifier que les critères ont été correctement appliqués,
+ce qui peut amener à raffiner ces critères. Une fois les critères définitifs
+établis, la définition peut être rédigée, les occurrences étudiées pouvant
+servir d'exemples. L'avantage principal est que le processus lexicographique
+est basé sur des données réelles et non pas sur des intuitions linguistiques.
 
 Ainsi, les sens ne sont pas définis en tant que tels, mais sont avant tout des
 occurrences dans un contexte donné. C'est une façon de comprendre la citation
-de \citep{firth1957synopsys} : \emph{You shall know a word by the company it
+de \citep{firth1957synopsys} : \textit{You shall know a word by the company it
 keeps}\footnote{Vous devriez connaître un mot par ce qui l'accompagne.}. En
 effet, selon \citep{kilgarriff1997don}, un ensemble de sens n'est défini que
 par rapport à un corpus, et il est illusoire de vouloir définir un dictionnaire
-parfait pour tous les sens possibles d'un mot.  Néanmoins, il n'est pas
+parfait pour tous les sens possibles d'un mot. Néanmoins, il n'est pas
 concevable de réaliser manuellement un dictionnaire par corpus : il faut
 surtout être conscient des difficultés théoriques posées par le sens des mots.
 
 On considèrera dans ce travail que les sens définis dans un dictionnaire
 classique relèvent du «~domaine général~», et que les sens qui apparaissent
-dans d'autres domaines sont des sens «~spécialisés~». Par exemple, le
+dans d'autres domaines sont des sens «~de spécialité~». Par exemple, le
 dictionnaire DicoInfo \citep{corpusolst} spécialisé dans les domaines de
 l'Informatique et d'Internet mentionne un sens spécifique pour le nom
-\emph{compilation} : \emph{action effectuée par un compilateur qui consiste à
+\textit{compilation} : \textit{action effectuée par un compilateur qui consiste à
     transformer du code créé au moyen d'un langage de programmation évolué en
 un langage compréhensible par l'ordinateur}. Ce sens est par exemple absent du
 TLFi \citep{TLFi} parce qu'il ne faisait pas partie des sens du mot dans le
-corpus utilisé pour établir les définitions.
+corpus utilisé pour établir les définitions. Le lexique \textit{Les Verbes
+Français} (section~\ref{sec:lvflg}) contient bien le sens informatique du verbe
+\textit{compiler} mais le domaine (Informatique) et le niveau de lexique (5, soit
+«~grands dictionnaires de langue ou encyclopédiques, lexiques spécialisés~»)
+indiquent bien que c'est un sens de spécialité.
 
 \subsection{Ressources lexicales actuelles}
 \label{subsec:ressources_lexicales}
@@ -99,27 +109,27 @@ cause, mais :
 
 De plus, l'utilisation de dictionnaires récents implique un coût d'achat et le
 respect de la licence restrictive, ce qui explique que ces dictionnaires ont
-rapidement étés abandonnés en TAL au profit d'autres ressources disponibles
-sous une licence libre comme WordNet, Wikipédia ou encore le Wiktionnaire. En
-effet, ces ressources autorisent une utilisation à la fois à des fins de
-recherche mais aussi pour un usage commercial, ce qui leur a assuré une large
-diffusion.
+rapidement étés abandonnés au profit d'autres ressources généralement
+disponibles sous une licence libre comme WordNet, Wikipédia ou encore le
+Wiktionnaire. En effet, ces ressources autorisent une utilisation à la fois à
+des fins de recherche mais aussi pour un usage commercial, ce qui leur a assuré
+une large diffusion.
 
 La première ressource lexicale à tirer partie de la possibilité de représenter
 le lexique sous la forme d'un graphe est WordNet, décrit à la
 section~\ref{presentation_wordnet}.
 
-\citep{hovy2006ontonotes,ide2006making,navigli2007semeval,snow2007learning} ont
+\cite{hovy2006ontonotes,ide2006making,navigli2007semeval,snow2007learning} ont
 jugé que la trop grande finesse de distinction des sens de WordNet justifiait
 une alternative avec des sens distingués plus grossièrement. Ce problème est
 attribué selon \cite{edmonds2002introduction} au manque de rigueur
 lexicographique de WordNet, et à la mise en avant de la similarité entre les
-mots à travers les synsets au détriment de la distinction des sens de chaque
-mot. Il s'est en effet avéré que l'accord inter-annotateurs pour un étiquetage
-avec WordNet est faible : de l'ordre de 70\% \citep{snyder2004english}.
-Utiliser un autre inventaire est un moyen efficace de s'adapter à différentes
-applications \citep{palmer2004different}, ce qui a entraîné des travaux
-utilisant des inventaires plus grossiers \citep{navigli2007semeval}.
+mots au détriment de la distinction des différents sens de chaque mot. Il s'est
+en effet avéré que l'accord inter-annotateurs pour un étiquetage avec WordNet
+est faible : de l'ordre de 70\% \citep{snyder2004english}.  Utiliser un autre
+inventaire est un moyen efficace de s'adapter à différentes applications
+\citep{palmer2004different}, ce qui a entraîné des travaux utilisant des
+inventaires plus grossiers \citep{navigli2007semeval}.
 
 Au-delà des fusions de synsets automatiques \citep{snow2007learning}, de
 nouveaux inventaires de sens moins fins ont étés développés :
@@ -131,19 +141,20 @@ nouveaux inventaires de sens moins fins ont étés développés :
         inter-annotateur de 90\%.
 
     \item DANTE\footnote{Les entrées pour les mots entre M et R sont
-        disponibles sur http://webdante.com/} \citep{mccarthy2010dante} est un
-        inventaire entièrement nouveau, conçu dans l'objectif de corriger les
+        disponibles sur \url{http://webdante.com/}.} \citep{mccarthy2010dante} est un
+        inventaire entièrement nouveau conçu dans l'objectif de corriger les
         erreurs faites avec WordNet \citep{kilgarriff2010detailed}.
 
-    \item Le Réseau Lexical du Français \citep{gader2014lexicon} lie des sens de
+    \item Le Réseau Lexical du Français \citep{polguere2014principes} lie des sens de
         mots avec de nombreuses fonctions lexicales associés à un degré de
         confiance, le tout permettant de produire des articles de dictionnaires.
 
 \end{itemize}
 
 Ces inventaires semblent plus adaptés que WordNet pour la désambiguïsation
-lexicale \citep{navigli2012quick}, mais ils ne sont pas encore disponibles ou
-ne sont pas utilisables librement à des fins commerciales.
+lexicale \citep{navigli2012quick}. Cependant, les deux premiers ne sont pas
+librement utilisables (en particulier à des fins commerciales) et le troisième,
+bien qu'il sera diffusé sous une licence libre, n'est pas encore terminé.
 
 Une approche complètement différente est celle de la structure de qualia
 \citep{johnston1996qualia} qui s'inscrit dans le contexte plus général du
@@ -157,11 +168,11 @@ semblable à celle qui définit le sens d'un mot comme une liste de sèmes
 \citep{buitelaar1998corelex} est le seul inventaire et système de
 désambiguïsation lexicale suivant cette approche.
 
-Enfin, différents travaux mentionnent la possibilité d'utiliser plus d'un sens
-pour un mot donné. \cite{smith2011rumble} propose d'utiliser des distributions
-de probabilité sur les différents sens possibles pour définir un sens précis
-dans un corpus. Dans SemCor, les annotateurs pouvaient choisir plusieurs sens
-si besoin, mais seulement 0.3\% des occurrences de SemCor sont étiquetées avec
+Différents travaux mentionnent la possibilité d'utiliser plus d'un sens pour un
+mot donné. \cite{smith2011rumble} propose d'utiliser des distributions de
+probabilité sur les différents sens possibles pour définir un sens précis dans
+un corpus. Dans SemCor, les annotateurs pouvaient choisir plusieurs sens si
+besoin, mais seulement 0.3\% des occurrences de SemCor sont étiquetées avec
 plus d'un sens. \cite{erk2013measuring} montrent qu'un accord inter-annotateur
 élevé peut être obtenu en demandant aux annotateurs d'indiquer pour chaque sens
 sa correspondance avec l'usage sur une échelle de 1 à 5. Une campagne
@@ -169,20 +180,66 @@ d'évaluation a eu lieu en 2013 à ce sujet \citep{jurgens2013semeval}. Les
 annotations obtenues avec Amazon Mechanical Turk ont été abandonnées au profit
 de l'annotation par les deux organisateurs de la tâche. Dans les deux cas,
 l'accord inter-annotateur était modéré, ce qui remet en question la pertinence
-de l'annotation de différents sens fins.
+de l'annotation graduée de chacun des sens de l'inventaire.
+
+Dans le cadre de l'adaptation aux domaines, d'autres travaux s'attachent à la
+prise en compte du changement des sens suivant les domaines.
+\cite{agirre2010semeval17} ont proposé une campagne d'évaluation sur le domaine
+environnemental en anglais, chinois, néerlandais et italien. Pour chacune des
+langues, au moins un système a battu la baseline du sens le plus fréquent, et
+les systèmes fondés sur la connaissance ont pu s'adapter au domaine plus
+facilement que les systèmes supervisés. Les scores maximaux, entre 52~\% et
+57~\%, restent loin de l'accord inter-annotateur, compris entre 72~\% et 96~\%.
+En fouille d'opinion, \cite{marchand2014influence} évaluent eux l'apport de la
+prise en compte du changement de polarité des mots lors d'un changement de
+domaine. Par exemple, il s'avère que les termes mélioratifs au passé tels que
+«~I loved~» sont plutôt positifs pour le cinéma ou le théâtre et plutôt négatif
+en cuisine ou électroménager. Dans un cas, on parle simplement de la séance au
+passé ; dans l'autre, on aimait l'objet au début mais ce n'est plus le cas. Un
+autre exemple est l'adjectif «~imprévisible~» : c'est une qualité pour un film,
+et un défaut pour de l'électroménager.
+
+Contrairement aux systèmes généraux de désambiguïsation lexicale qui cherchent
+à choisir un sens parmi un ensemble donné de sens, \cite{marchand2014influence}
+ne s'intéressent qu'aux changements de sens utiles pour l'application, ce qui
+rend le système plus robuste. Différentes tâches bénéficiant soit de tels
+«~inventaires~» spécifiques ont ainsi étés proposées lors de campagnes
+d'évaluation, en particulier SemEval. Par exemple :
+
+\begin{itemize}
+    \item la simplification lexicale
+\citep{specia2012semeval1,fabre2014presentation},
+    \item l'induction de sens et la désambiguïsation lexicale pour le
+groupement de résultats en recherche d'information \citep{navigli2013semeval11},
+    \item ou la traduction de fragments en langue natale (L1) dans un texte
+écrit dans une langue apprise (L2) \citep{vangompel2014semeval5}
+\end{itemize}
+
+Enfin, une tendance récente facilitée par l'existence de ressources telles que
+WordNet, Wikipédia ou le Wiktionnaire dans de nombreuses langues est de
+représenter les sens des mots dans différentes langues simultanément
+\citep{navigli2013babelnet}. Lors de SemEval-2010 \citep{lefever2010semeval3},
+les meilleurs systèmes de la campagne utilisaient des corpus parallèles. Lors
+d'une tâche proche à SemEval-2013 \citep{navigli2013semeval12}, aucun système
+n'a profité du fait que BabelNet soit un inventaire multilingue ni que les
+données de tests étaient parallèles. Néanmoins, les organisateurs ont remarqué
+qu'en ne validant que les sens qui étaient les mêmes lorsque les mots étaient
+alignés, la précision augmentait considérablement, ce qui est une piste à
+explorer pour de futurs travaux.
 
 \subsection{Modèles de langue pour la similarité sémantique}
 \label{subsec:modeles_de_langue}
 
-Un modèle de langue prédit la probabilité d'un mot étant donné son contexte
-dans la phrase. Cette probabilité est directement utile pour des tâches telles
-que la traduction automatique ou la reconnaissance de la parole dans lesquelles
-un modèle de langue favorisera des phrases globalement plausibles au lieu
-d'étudier chaque mot individuellement.
+Une autre façon de représenter le sens des mots est possible grâce aux modèles
+de langues. Un modèle de langue prédit la probabilité d'un mot étant donné son
+contexte dans la phrase. Cette probabilité est directement utile pour des
+tâches telles que la traduction automatique ou la reconnaissance de la parole
+dans lesquelles un modèle de langue favorisera des phrases globalement
+plausibles au lieu d'étudier chaque mot individuellement.
 
 Ces modèles de langue permettent aussi d'obtenir des mesures de similarité
 sémantiques utiles, ce qui est justifié par l'hypothèse distributionnelle
-\cite[p.~786]{harris1954distributional} :
+\cite[p.~156]{harris1954distributional} :
 
 \begin{quote} ... si l'on considère que le sens de deux mots ou morphèmes A et B
     diffère davantage que le sens de A et C, alors on observe souvent que les
@@ -190,9 +247,12 @@ sémantiques utiles, ce qui est justifié par l'hypothèse distributionnelle
     Autrement dit, la différence de sens est corrélée à la différence de
     distribution. \end{quote}
 
-Les modèles de langue sont un moyen d'étudier ces distributions de probabilité.
-On peut étudier deux types de distributions différentes correspondant à deux
-types de relations entre les mots \citep{sahlgren2008distributional} :
+Cette observation est utilisée depuis longtemps pour étudier les similarités
+sémantiques entre les mots à l'aide de matrices de co-occurrences
+\citep{miller1967empirical}. Les modèles de langue sont une généralisation
+permettant d'étudier ces distributions de probabilité. On peut étudier deux
+types de distributions différentes correspondant à deux types de relations
+entre les mots \citep{sahlgren2008distributional} :
 
 \begin{itemize}
     \item les relations syntagmatiques identifient les mots qui sont présents
@@ -201,91 +261,124 @@ types de relations entre les mots \citep{sahlgren2008distributional} :
         dans un même contexte, mais sans y être présents ensemble.
 \end{itemize}
 
-Par exemple, étant donné les deux phrases \emph{Je bois du café} et \emph{Je
-bois du thé}, on peut déduire que les lemmes \emph{boire} et \emph{thé} sont
+Par exemple, étant donné les deux phrases \textit{Je bois du café} et \textit{Je
+bois du thé}, on peut déduire que les lemmes \textit{boire} et \textit{thé} sont
 liés par une relation syntagmatique : ils sont présents ensemble dans la
-phrase. Au contraire, \emph{thé} et \emph{café} ne sont pas ici présents dans
-la même phrase, mais apparaissent dans un même contexte (\emph{Je bois du}) :
+phrase. Au contraire, \textit{thé} et \textit{café} ne sont pas ici présents dans
+la même phrase, mais apparaissent dans un même contexte (\textit{Je bois du}) :
 ils sont liés par une relation paradigmatique.
 
-Observer les distributions de contexte des mots peut séparer les mots en
+Selon l'hypothèse distributionnelle faible \citep{lenci2008distributional},
+observer les distributions de contexte des mots peut séparer les mots en
 différents sens selon l'usage de chaque sens
 \citep{yarowsky1993one,pantel2002discovering,pedersen2010duluth}. Cependant,
 dans la littérature que nous exposons et dans nos travaux, les modèles de
 langue ne décrivent que des mots en confondant leurs différents sens. Nous ne
-mentionnerons plus par la suite cette difficulté, en considérant (par
-simplification) qu'il suffit que le modèle de langue décrive parmi tous les
-sens le sens que nous souhaitons observer.
+mentionnerons plus par la suite cette difficulté, en considérant qu'il suffit
+que le modèle de langue décrive parmi tous les sens celui que nous souhaitons
+observer. Cette simplification est largement partagée par la littérature, même
+si la disponibilité de corpus de plus d'un milliard de mots (\textit{gigaword})
+rend possible des travaux prenant en compte la polysémie
+\citep{kawahara2014step}.
 
-% TODO qu'a dit le monsieur dans l'invited talk à GWC 2014 ?
-Comment observer ces distributions de probabilité ? Une façon d'opérer est de
-calculer la probabilité d'un mot dans une phrase étant donné les mots
-précédents. Par exemple, étant donné le début de phrase \emph{Au-delà des
+Comment observer ces distributions de probabilité ? Un modèle de langue
+classique indique la probabilité d'un mot dans une phrase étant donné les mots
+précédents. Par exemple, étant donné le début de phrase \textit{Au-delà des
 approches ...}, on veut connaître la probabilité du mot suivant, en espérant
-que celle de \emph{statistiques} ou \emph{supervisées} soit plus importante que
-celle de \emph{chat}. En prenant par exemple le contexte des deux mots qui
+que celle de \textit{statistiques} ou \textit{supervisées} soit plus importante que
+celle de \textit{chat}. En prenant par exemple le contexte des deux mots qui
 précèdent le mot étudié, on calcule sa probabilité simplement avec le maximum
 de vraisemblance :
 
 \[
-p(w_i|w_{i-2}, w_{i-1}) = \frac{compte(w_{i-2}, w_{i-1}, w_i)}{compte(w_{i-1}, w_i)}
+p(w_i|w_{i-2}, w_{i-1}) = \frac{\#(w_{i-2}, w_{i-1}, w_i)}{\#(w_{i-1}, w_i)}
 \]
 
-La séquence $w_{i-2}, w_{i-1}, w_{i}$ est un 3-gramme, et $compte$ indique le
+La séquence $w_{i-2}, w_{i-1}, w_{i}$ est un 3-gramme, et $\#$ indique le
 nombre d'occurrences de cette séquence dans le corpus considéré. La taille du
 contexte peut varier, ce qui est la raison pour laquelle on parle de manière
-générale de n-grammes. Le nombre de paramètres à estimer pour obtenir une
-distribution de probabilité conditionnelle fiable est $|V|^N$, $|V|$ étant la
-taille du vocabulaire et $N$ la taille du contexte étudié. En considérant un
-petit vocabulaire (10~000 mots) et un contexte de trois mots, il faut déjà
-estimer $10^{9}$ probabilités, ce qui requiert un corpus très large : Google a
-utilisé un corpus de livres de $10^{12}$ mots pour produire des n-grammes
-allant jusqu'à $n=5$ \citep{brants2006web}. Diverses techniques de lissage
-existent pour mieux répartir les probabilités obtenues par maximum de
-vraisemblance \citep[Chapitre~4]{jurafsky2008speech}. En effet, la plupart des
-probabilités sont initialement nulles, que ce soit parce que le n-gramme est
+générale de n-grammes. Le nombre de paramètres à estimer pour une distribution
+de probabilité conditionnelle est $|V|^N$, $|V|$ étant la taille du vocabulaire
+et $N$ la taille du contexte étudié. En considérant un petit vocabulaire
+(10~000 mots) et un contexte de trois mots, il faut déjà estimer $10^{9}$
+probabilités, ce qui requiert un corpus très large : Google a utilisé un corpus
+de livres de $10^{12}$ mots pour produire des n-grammes allant jusqu'à $n=5$
+\citep{brants2006web}. Diverses techniques de lissage existent pour mieux
+répartir les probabilités obtenues par maximum de vraisemblance
+\citep[Chapitre~4]{jurafsky2008speech}. En effet, la plupart des probabilités
+sont initialement nulles, que ce soit parce que le n-gramme est
 grammaticalement invalide ou simplement parce qu'il n'a pas été observé dans le
 corpus étudié. Il faut alors estimer la probabilité de tels n-grammes à partir
-d'un n-gramme plus court ou leur assigner une probabilité très faible.
+d'un n-gramme plus court ou leur assigner une probabilité très faible pour
+éviter les probabilités nulles.
 
-Diverses extensions de ces modèles de langues à base de n-grammes existent,
-l'une d'entre elles étant le modèle de langue syntaxique
-\citep{lin1998automatic,goldberg2013dataset}. Dans ce modèle, on considère les
-mots présents ensemble dans une relation syntaxique donnée. Pour la relation
-complément du nom par exemple, on s'attend à ce que \emph{vélo} soit le
-complément du nom des mots \emph{pédale}, \emph{guidon}, \emph{pneu}... Nous
-utilisons pour la traduction de WordNet (Chapitre~\ref{ch:wonef}) un tel modèle
-de langue syntaxique (\url{http://www.kalisteo.fr/demo/semanticmap/}).  Il a
-été entraîné sur un corpus extrait du web francophone
-\citep{grefenstette2007conquering}. Le corpus a ensuite été analysé par LIMA
-\citep{besancon2010lima}, une chaîne d'analyse linguistique désormais libre ici
-utilisée comme un analyseur syntaxique à base de règles produisant des
-dépendances syntaxiques fines. Pour une relation donnée $r$ et un lemme $x$, le
-modèle de langue indique quels sont les 100 premiers lemmes co-occurrant le
-plus fréquemment avec $x$ dans la relation $r$.  Avec le mot \textit{avion} et
-la relation de complément du nom, le mot \textit{billet} modifie le plus
-\textit{avion} : \textit{billet d'avion} est fréquent dans le corpus.
+\paragraph{Modèles de langues syntaxiques} Diverses extensions de ces modèles
+de langues à base de n-grammes existent, l'une d'entre elles étant le modèle de
+langue syntaxique \citep{lin1998automatic,goldberg2013dataset}. Dans ce modèle,
+on considère les mots présents ensemble dans une relation syntaxique donnée.
+Pour la relation complément du nom par exemple, on s'attend à ce que
+\textit{vélo} soit le complément du nom des mots \textit{pédale}, \textit{guidon},
+\textit{pneu}... Nous utilisons pour la traduction de WordNet
+(Chapitre~\ref{ch:wonef}) un tel modèle de langue syntaxique
+(\url{http://www.kalisteo.fr/demo/semanticmap/}).  Il a été entraîné sur un
+corpus extrait du web francophone \citep{grefenstette2007conquering}. Le corpus
+a ensuite été analysé par LIMA \citep{besancon2010lima}, une chaîne d'analyse
+linguistique désormais libre ici utilisée comme un analyseur syntaxique à base
+de règles produisant des dépendances syntaxiques fines. Pour une relation
+donnée $r$ et un lemme $x$, le modèle de langue indique quels sont les 100
+premiers lemmes co-occurrant le plus fréquemment avec $x$ dans la relation $r$.
+Avec le mot \textit{avion} et la relation de complément du nom, c'est le mot
+\textit{billet} qui modifie le plus \textit{avion} : \textit{billet d'avion}
+est fréquent dans le corpus.
 
-% TODO petite figure ici ?
 
-% TODO donner des raisons de l'efficacité, "exponentiel" tout ça
+\tikzstyle{block}=[draw, fill=blue!5, rectangle, minimum height=0.5cm, minimum width=3cm, text width=5cm]
 
-D'autres types de modèles de langue représentent les mots de manières
-distribuée en utilisant un vecteur de nombres réels. La manière la plus
-répandue pour faire cela est d'utiliser un réseau de neurones dont une des
-couches sera le vecteur représentant chaque mot. \cite{hinton1986learning} a
-d'abord proposé l'idée d'un réseau de neurones pour représenter des concepts à
-l'aide de vecteurs faisant partie du réseau,
+\begin{figure}[ht]
+  \centering
+  \begin{tikzpicture}[auto, node distance=2cm,>=latex']
+    % Inspired from http://www.texample.net/tikz/examples/control-system-principles/
+    \node [block, text width=10cm] (quillsynt1) {\Huge{billet}, \large{}pilote, vol, accident, \LARGE{détournement}, \large{}tour, \LARGE{collision}, \large{moteur}, \small{monde}, \LARGE{crash}, \large{}aile, bruit, \small{type}, \large{}carburant, attentat, \small{guerre}, \large{}chute, commande, \small{construction}, descente, \small{nombre}, \small{prix}, \small{achat}, \small{place}, \large{}réservation, passager, \small{programme}, \large{}bombe, \small{}peur, avion, \large{flotte}, \small{}transport \large{pilotage}, \LARGE{écrasement}, \small{}vitesse, utilisation, arrivée, \normalsize{}...};
+
+  \end{tikzpicture}
+  \caption{\textit{avion} est complément de ces noms d'après notre modèle de langue syntaxique.}
+\end{figure}
+
+\paragraph{Modèles de langues continus} D'autres types de modèles de langue
+représentent les mots de manière distribuée en utilisant un vecteur de nombres
+réels. LSA \citep{deerwester1990indexing}, par exemple, considère une matrice
+de termes et de documents, les termes étant en ligne, les document en colonne.
+Les éléments de cette matrice sont typiquement calculés avec TF-IDF. Cette
+matrice est ensuite réduite, ce qui permet de généraliser en rapprochant la
+similarité cosinus des mots qui apparaissent dans les mêmes documents. LSA fait
+partie d'une classe de méthodes où on considère une matrice de co-occurrence
+entre les mots et leurs contexte, une mesure d'association quelconque, une
+factorisation potentielle, et une mesure de la distance entre les éléments,
+l'objectif final étant de rapprocher les mots sémantiquement proches.
+
+\paragraph{Modèles de langues neuronaux} Depuis la diffusion de word2vec
+\citep{mikolov2013distributed} et de ses bons résultats obtenus dans un certain
+nombre de tâches, l'utilisation de représentations de mots à l'aide de réseaux
+de neurones est un champ actif de recherche\footnote{Les bons résultats obtenus
+notamment en vision par ordinateur par des réseaux de neurones profonds ont
+sûrement contribué à cet enthousiasme, il est donc important de rappeller que
+les réseaux de neurones concernés ici ne sont pas profonds.}.  La manière la
+plus répandue pour faire cela est d'utiliser un réseau de neurones peu profond
+dont une des couches sera le vecteur représentant chaque mot.
+\cite{hinton1986learning} a d'abord proposé l'idée d'un réseau de neurones pour
+représenter des concepts à l'aide de vecteurs faisant partie du réseau,
 \cite{bengio2001neural,bengio2003neural} ont présenté le modèle de langue
-neuronal tel qu'on le connaît aujourd'hui, et \cite{mikolov2013efficient} a
-optimisé un modèle de langue en supprimant notamment une couche cachée pour
-l'utiliser sur de plus gros corpus. Dans tous ces modèles, lors de la
-rétropropagation du gradient, la représentation des mots évolue, ce qui a pour
-effet de rapprocher la représentation des mots sémantiquement proches. Par
-exemple, \cite{mikolov2013distributed} montre que la distance entre le mot
-représentant un pays (par exemple \emph{Turkey}) et le mot représentant la
-capitale de ce pays (ici \emph{Ankara}) correspond au vecteur du mot
-\emph{capital}.  Ces représentations de mots peuvent être ensuite utilisées ou
+neuronal tel qu'on le connaît aujourd'hui, et \cite{mikolov2013distributed}
+(parmi d'autres) a optimisé un modèle de langue en supprimant notamment une
+couche cachée pour l'utiliser sur de plus gros corpus. Dans tous ces modèles,
+lors de la rétropropagation du gradient, la représentation des mots évolue, ce
+qui a pour effet de rapprocher la représentation des mots sémantiquement
+proches afin d'offrir une meilleure généralisation, comme le fait LSA en
+factorisant la matrice de co-occurrences.  Par exemple,
+\cite{mikolov2013distributed} montrent que la distance entre le mot
+représentant un pays (par exemple \textit{Turkey}) et le mot représentant la
+capitale de ce pays (ici \textit{Ankara}) correspond au vecteur du mot
+\textit{capital}.  Ces représentations de mots peuvent être ensuite utilisées ou
 apprises pour diverses tâches. Nous citerons ici l'extraction d'évènements
 \citep{boros2014etiquetage}, l'annotation en rôles sémantiques
 \citep{lechelle2014utilisation} et la traduction automatique
@@ -293,34 +386,39 @@ apprises pour diverses tâches. Nous citerons ici l'extraction d'évènements
 ou moins importantes) de telle représentations de mots où les mots
 sémantiquement proches sont proches dans la représentation choisie.  Ces
 réseaux de neurones sont encore difficiles à entraîner et à paramétrer
-\citep{do2014modeles}, mais représentent une alternative plus efficace que les
-modèles de langue simples à base de n-grammes \citep{baroni2014dont}.
+\citep{do2014modeles}, mais semblent représenter une alternative plus efficace
+que les modèles de langue simples à base de n-grammes \citep{baroni2014dont}.
 
-% TODO LSA fait une partie du chemin
+La compréhension des mécanismes derrières ces réseaux de neurones est un champ
+actif de recherche. \cite{levy2014neural} ont montré que la méthode recommandée
+par \cite{mikolov2013distributed} (\textit{negative sampling}) revient à
+factoriser la matrice d'information mutuelle (légèrement modifiée) entre les
+mots et les contextes en accordant plus d'importance aux termes fréquents, ce
+qui est très proche des méthodes couramment utilisées en sémantique
+distributionnelle et permet d'espérer une optimisation plus directe de
+l'objectif afin d'améliorer les résultats tout en comprenant les méthodes
+utilisées.
 
-Les réseaux de neurones ne sont qu'une façon d'obtenir de tels résultats. En
-particulier, \cite{levy2014linguistic} montrent qu'une nouvelle mesure de
-similarité permet d'obtenir des résultats similaires à
-\cite{mikolov2013efficient}, ce qui montre le besoin de continuer à étudier les
-réseaux de neurones pour mieux comprendre leur fonctionnement et savoir quand
-leur utilisation est pertinente.
+Bien que nous ne tirions pas profit des méthodes les plus récentes dans les
+travaux que nous avons choisi de présenter ici, ces progrès importants sont à
+considérer pour tout travail futur sur le sujet.
 
 \section{Traductions de ressources linguistiques}
 \label{sec:translation}
 
 \subsection{WordNet}
 
-WordNet reste une ressource extrêmement utile et reproduire ce travail pour
-d'autres langues serait coûteux et difficile à maintenir. Malgré quelques
-problèmes théoriques, traduire WordNet en gardant sa structure et ses synsets
-mène à des ressources linguistiques utiles
-\citep{fellbaum2007connecting,demelo2008utility}. Cependant, il n'existe encore
-que peu d'équivalents de même qualité dans d'autres langues
-\citep{bond2012survey}, et il est donc utile de s'atteler à la traduction de
-cette ressource.
+WordNet (section~\ref{presentation_wordnet}) est une ressource extrêmement
+utile pour l'anglais : reproduire ce travail pour d'autres langues serait
+coûteux et difficile à maintenir. Malgré quelques problèmes théoriques,
+traduire WordNet en gardant sa structure et ses synsets mène à des ressources
+linguistiques utiles \citep{fellbaum2007connecting,demelo2008utility}.
+Cependant, il n'existe encore que peu d'équivalents de même qualité dans
+d'autres langues \citep{bond2012survey}, et il est donc utile de s'atteler à la
+traduction de cette ressource.
 
 Les traductions automatiques de WordNet emploient une approche dite d'extension
-(\textit{extend approach}) : la structure de WordNet est préservée et seuls les
+(\textit{expand approach}) : la structure de WordNet est préservée et seuls les
 littéraux sont traduits. Trois techniques principales représentent cette
 approche dans la littérature. La plus simple utilise des dictionnaires
 bilingues pour faciliter le travail des lexicographes qui filtrent ensuite
@@ -332,12 +430,14 @@ l'utilisation de dictionnaires qui peuvent entraîner un biais lexicographique.
 \textit{back-translations} entre le norvégien et l'anglais, alors que
 \citep{sagot2008construction} combinent un lexique multilingue et les
 différents WordNets de BalkaNet comme autant de sources aidant à la
-désambiguïsation. Enfin, plus récemment, des ressources telles que Wikipédia ou
-le Wiktionnaire ont été explorées. Grâce aux nombreux liens entre les
-différentes langues de ces ressources, il est possible de créer de nouveaux
-wordnets \citep{demelo2009towards,navigli2010babelnet} ou d'améliorer des
-wordnets existants \citep{hanoka2012wordnet}.
-% TODO mettre à jour l'état de l'art avec GWC 2014 et LREC 2014 ?
+désambiguïsation. Troisièmement, plus récemment, des ressources telles que
+Wikipédia ou le Wiktionnaire ont été explorées. Grâce aux nombreux liens entre
+les différentes langues de ces ressources, il est possible de créer de nouveaux
+wordnets
+\citep{demelo2009towards,navigli2010babelnet,bond2013linking,aliabadi2014towards,oliver2014wn}
+ou d'améliorer des wordnets existants \citep{hanoka2012wordnet}. Enfin,
+\cite{fiser2014slowcrowd} montrent qu'il est possible de faire appel à la
+production participative (\textit{crowdsourcing}).
 
 Concernant le français, l'EuroWordNet \citep{vossen1998eurowordnet} est la
 première traduction française de WordNet. C'est une ressource d'une couverture
@@ -347,16 +447,19 @@ accessible. WOLF est une seconde traduction initialement construite à l'aide de
 corpus parallèles \citep{sagot2008construction} et étendue depuis avec
 différentes techniques \citep{apidianaki2012applying}. WOLF est distribué sous
 une licence libre compatible avec la LGPL et c'est aujourd'hui le WordNet
-français standard. Enfin, JAWS \citep{mouton2010jaws} est une traduction des
-noms de WordNet développée à l'aide de dictionnaires bilingues et d'un modèle
-de langue syntaxique.
+français standard. JAWS \citep{mouton2010jaws} est une traduction des noms de
+WordNet développée à l'aide de dictionnaires bilingues et d'un modèle de langue
+syntaxique. Enfin, \cite{gader2014lexicon} montrent qu'il est possible de
+convertir le Réseau Lexical du Français vers une représentation WordNet.
+
 
 \label{subsec:jaws_translation_process}
 
 Notre traduction de WordNet nommée WoNeF (Chapitre~\ref{ch:wonef}) est le
-successeur de JAWS \citep{mouton2010jaws,mouton2010phd} que nous présentons
-ici. Le Chapitre~\ref{ch:wonef} liste les différences avec JAWS : il est donc
-nécessaire d'avoir compris le fonctionnement de JAWS avant de le lire.
+successeur de JAWS \citep{mouton2010jaws,mouton2010phd}. Cette section présente
+JAWS. Le Chapitre~\ref{ch:wonef} liste lui seulement les différences avec JAWS
+: il est donc nécessaire d'avoir compris le fonctionnement de JAWS avant de le
+lire.
 
 JAWS repose sur un algorithme faiblement supervisé qui ne demande aucune donnée
 annotée manuellement. Pour traduire un wordnet source, JAWS s'appuie sur un
@@ -371,16 +474,13 @@ synset parmi l'ensemble du vocabulaire mais seulement parmi un petit nombre de
 candidats (9 en moyenne).  Le processus de traduction se fait en trois étapes :
 
 \begin{enumerate}
-    
     \item Créer un wordnet vide : la structure de WordNet est préservée, mais
         les synsets eux-mêmes n'ont pas de littéraux associés.
-
     \item Choisir les traductions les plus faciles parmi les candidats des
-    dictionnaires pour commencer à remplir JAWS.
-
+        dictionnaires pour commencer à remplir JAWS (sélecteurs initiaux).
     \item Étendre JAWS de manière incrémentale en utilisant le modèle de
-        langue, les relations entre synsets et le JAWS déjà existant.
-
+        langue, les relations entre synsets et le JAWS déjà existant (autres
+        sélecteurs).
 \end{enumerate}
 
 \paragraph{Sélecteurs initiaux} Quatre algorithmes que nous nommons sélecteurs
@@ -392,11 +492,11 @@ par les dictionnaires.
     \item Premièrement, les mots qui apparaissent dans un seul synset ne sont
         pas ambigus et il suffit d'ajouter toutes leurs traductions au WordNet
         français : c'est le sélecteur par monosémie. C'est le cas de
-        \textit{grumpy} : toutes ses traductions sont validées dans le synset
-        où il apparaît.
+        \textit{grumpy} : toutes ses traductions sont validées dans le seul
+        synset où il apparaît.
 
     \item Deuxièmement, le sélecteur par unicité identifie les mots n'ayant
-        qu'une seule traduction et la valident dans tous les synsets où cette
+        qu'une seule traduction et la valide dans tous les synsets où cette
         traduction est présente. Les cinq synsets contenant \textit{pill} en
         anglais sont ainsi complétés avec \textit{pilule}.
 
@@ -435,7 +535,7 @@ Prenons l'exemple de \textit{quill} qui peut se traduire par \textit{piquant}
 ou \textit{plume} (Figure \ref{meronymyexample}). Dans WordNet, \textit{quill}
 est méronyme de \textit{porcupine} qui a déjà été traduit par
 \textit{porc-épic} par un sélecteur initial. Dans le modèle de langue,
-\textit{piquant} fait partie des compléments du noms de \textit{porc-épic} mais
+\textit{piquant} fait partie des compléments du nom de \textit{porc-épic} mais
 ce n'est pas le cas de \textit{plume}. Ici, la relation de complément du nom
 implique la méronymie et c'est donc \textit{piquant} qu'il faut choisir comme
 la traduction correcte de \textit{quill}. Le modèle de langue a permis la
@@ -460,7 +560,7 @@ désambiguïsation parmi les deux traductions possibles.
     \draw [<-] (porcupinesynt1) -- node[below] {(modèle de langue)} (quillsynt1);
 
   \end{tikzpicture}
-  \caption{\protect\centering\label{meronymyexample}Traduction via la relation de méronymie de partie.}
+  \caption{\label{meronymyexample}Traduction via la relation de méronymie de partie.}
 \end{figure}
 
 Un problème potentiel avec cette approche est que la relation de complément du
@@ -499,64 +599,120 @@ d'hyponymie.
 
 \subsection{VerbNet}
 
-\cite{merlo2002multilingual} ont utilisé des similarités entres langues pour
-convertir 20 classes de Levin vers l'Italien. Des acquisitions automatiques ont
-aussi été menées en japonais \citep{suzuki2009classifying}, allemand
-\citep{im2006experiments} et espagnol \citep{ferrer2004towards}. Les seules
-traductions directes dont nous avons la connaissance sont le VerbNet estonien
-\citep{jentson2014verbnet} et le VerbNet portuguais brésilien
-\citep{scarton2012towards} qui utilise des mappings entre VerbNet et WordNet,
-et entre WordNet.Br et WordNet.
+Étant donné l'intérêt de la classification de verbes à la manière de VerbNet
+\citep{hartshorne2014verbcorner} et l'intérêt de la ressource en Traitement
+Automatique des Langues, VerbNet a été traduit ou recréé dans plusieurs
+langues.
+
+\paragraph{Acquisitions de VerbNets}
+
+Premièrement, même si ce n'est pas dans le cadre d'une traduction de VerbNet,
+un certain nombre de travaux cherchent à catégoriser automatiquement les verbes
+en classes sémantiques, notamment pour l'espagnol \citep{ferrer2004towards},
+l'allemand \citep{im2006experiments}, le japonais \citep{suzuki2009classifying}
+et l'anglais
+\citep{stevenson2003semi,lapata2004verb,vlachos2009unsupervised,lippincott2012learning,kawahara2014step},
+où l'évaluation se fait notamment sur les classes de Levin. Pour l'anglais,
+\citep{kawahara2014step} montrent qu'un corpus de plusieurs milliards de mot
+permet de considérer la polysémie. En particulier, un corpus de 20 milliards de
+mot améliore de manière conséquente l'état de l'art en considérant
+l'affectation de verbes à plusieurs classes (71.39~\% de F1 contre 61.97~\%
+pour LDA-frames \citep{materna2012lda}).
+
+\paragraph{Traductions de VerbNet}
+
+Concernant les traductions directes, \cite{merlo2002multilingual} ont utilisé
+des similarités entres langues pour convertir 20 classes de Levin vers
+l'Italien. Les seules traductions directes de VerbNet dont nous avons la
+connaissance sont le VerbNet estonien \citep{jentson2014verbnet} et le VerbNet
+portuguais brésilien \citep{scarton2012towards} qui utilise des mappings entre
+VerbNet et WordNet, et entre WordNet.Br et WordNet. \cite{scarton2014using}
+proposent la création d'un VerbNet en s'appuyant comme seul effort manuel sur
+la traduction manuelle des frames VerbNet vers la langue cible, puis de
+ressources lexicales déjà disponibles (WordNet, VerbNet et WordNet traduit dans
+la langue cible), le tout dans l'optique de créer des VerbNets pour les langues
+proches de l'anglais disposant déjà d'un WordNet.  La méthode a été testée pour
+le brésilien portuguais ; la comparaison des clusters de verbes de
+\citep{scarton2012towards} indique un F-score de 60~\%.  Comme l'indiquent les
+auteurs, la ressource obtenue ne peut pour l'instant que servir de base à une
+annotation linguistique.
+
+\paragraph{VerbNet en français}
 
 Pour le français, \cite{saintdizier1996constructing} a produit une ressource
-proche des classes de Levin. À notre connaissance, l'effort sur cette ressource
-s'est arrêté et le résultat n'est pas disponible. Des travaux se sont ensuite
-concentrés sur l'acquisition automatique de cadres de sous-catégorisation et
-sur le regroupement de verbes en se basant sur ces cadres et sur des
-similarités sémantiques. \cite{sun2010investigating} ont utilisé un large
-lexique de cadres de sous-catégorisation \citep{messiant2010acquisition} pour
-regrouper les verbes en clusters à l'aide de traits sémantiques (colocations et
-préférences lexicales des verbes) et syntaxiques (cadres de
-sous-catégorisation). L'évaluation sur une vérité-terrain créée manuellement a
-mené à une F-mesure de 55.1\%. \cite{falk2012classifying} appliquent un
-algorithme de clustering différent et utilisent des features différentes, ce
-qui améliore la F-mesure sur la même vérité-terrain mais simplifiée, ce qui
-donne une F-mesure de 70\%. Ces ressources mettent en valeur de nouvelles
-façons de séparer les verbes du Français, mais les erreurs qu'elles contiennent
-seront une nouvelle source d'erreur dans les applications : il est important de
-les corriger si possible.
-
+proche des classes de Levin dans l'objectif de s'en servir en Traitement
+Automatique de Langues, tout comme VerbNet dix ans plus tard. Chacun des 1700
+verbes est décrit par un certain nombre de «~contextes~» provenant de
+différentes sources : les classes de Levin, les tables du Lexique-Grammaire, de
+corpus et d'intuition linguistique. Cependant, à notre connaissance, l'effort
+sur cette ressource s'est arrêté et le résultat n'est pas
+disponible\footnote{Nous n'avons cependant pas contacté l'auteur de cette
+ressource pour en savoir plus.}. Des travaux se sont ensuite concentrés sur
+l'acquisition automatique de cadres de sous-catégorisation et sur le
+regroupement de verbes en se basant sur ces cadres et sur des similarités
+sémantiques. \cite{sun2010investigating} ont utilisé un large lexique de cadres
+de sous-catégorisation \citep{messiant2010acquisition} pour regrouper les
+verbes en clusters à l'aide de traits sémantiques (colocations et préférences
+lexicales des verbes) et syntaxiques (cadres de sous-catégorisation).
+L'évaluation sur une vérité-terrain créée manuellement a mené à une F-mesure de
+55.1\%.  \cite{falk2012classifying} appliquent un algorithme de clustering
+différent et utilisent des features différentes, ce qui améliore la F-mesure
+sur la même vérité-terrain mais simplifiée, ce qui donne une F-mesure de 70\%.
+Ces ressources mettent en valeur de nouvelles façons de séparer les verbes du
+Français, mais les erreurs qu'elles contiennent seront une nouvelle source
+d'erreur dans les applications : il est important de les corriger si possible,
+ce qui est la raison pour laquelle nous adoptons une approche différente qui
+sera présentée au Chapitre~\ref{ch:verbnet}.
 
 \section{Annotation en rôles sémantiques}
 \label{sec:srl}
 
-Nous étudions les différentes façons de définir les rôles sémantiques,
-examinons diverses ressources utiles pour la tâche d'annotation, et présentons
-les techniques principales pour réaliser l'annotation elle-même.
-
-% TODO définir frame ?
+Dans cette section, nous étudions les différentes façons de définir les rôles
+sémantiques, examinons diverses ressources utiles pour la tâche d'annotation,
+et présentons les techniques principales pour réaliser l'annotation elle-même.
 
 \subsection{Les rôles sémantiques}
 \label{subsec:roles_semantiques}
 
 Comment aller au-delà d'une analyse syntaxique pour représenter le sens d'une
-phrase ? La notion de rôle sémantique semble particulièrement adaptée aux
-approches statistiques que nous présentons ici. Ces rôles ont pour objectif de
-s'abstraire des alternances de diathèse présentes dans le langage naturel
-(Figure~\ref{fig:example_srl}). Différentes théories linguistiques proposent
-différentes représentations pour ces rôles ; nous nous intéresserons ici aux
-rôles VerbNet et à la théorie élaborée par \cite{fillmore1968case} qui établit
-que le cas grammatical exhibe des relations profondes et sémantiques. De
-nombreuses langues marquent ces relations au niveau morphologique ; l'élatif
+phrase ? La notion de rôle sémantique semble particulièrement adaptée à notre
+motivation et à nos objectifs (Chapitre~\ref{ch:intro}). Ces rôles ont pour
+objectif de s'abstraire des alternances de diathèse présentes dans le langage
+naturel (Figure~\ref{fig:exemple_srl}). Différentes théories linguistiques
+proposent différentes représentations pour ces rôles ; nous nous intéresserons
+ici aux rôles VerbNet et à la théorie élaborée par \cite{fillmore1968case} qui
+établit que le cas grammatical exhibe des relations profondes et sémantiques.
+De nombreuses langues marquent ces relations au niveau morphologique ; l'élatif
 est un exemple de cas grammatical qui exprime le lieu de l'intérieur duquel
 provient un mouvement et qui est marqué morphologiquement en finnois, hongrois
 et estonien. Il est alors sensé de prévoir un rôle sémantique pour ce cas
 grammatical, même s'il n'est pas marqué au niveau morphologique dans la langue
 étudiée.
-% TODO clarifier
+
+% TODO clarifier une fois que l'intro est refaite
+
+\begin{figure}[ht]
+    \centering
+    \begin{tabular}{ccc}
+        \toprule
+        Carol & crushed   & the ice \\
+        Agent & V         & Patient \\
+        \midrule
+        The ice & crushes & easily  \\
+        Patient & V       &         \\
+        \bottomrule
+    \end{tabular}
+
+    \caption{\label{fig:exemple_srl}Ces deux phrases annotées avec la classe
+    VerbNet \texttt{carve-21.2} montrent que la position des arguments ne
+détermine pas à elle seule les rôles sémantique. Ici, le sujet syntaxique est
+tour à tour Agent (pour \textit{Carol}) puis Patient (pour \textit{The ice}).}
+
+\end{figure}
 
 Il n'y a pas de réel consensus sur un inventaire de cas donnés. Parmi les rôles
-sémantiques généralement acceptés, on peut citer :
+sémantiques généralement acceptés \citep[p.~4]{palmer2010semantic}, on peut
+citer :
 
 \begin{itemize}
     \item l'\textbf{Agent} qui est à l'origine de l'action
@@ -566,27 +722,11 @@ sémantiques généralement acceptés, on peut citer :
 \end{itemize}
 
 \subsection{Lexiques et corpus}
+\label{ressources_non_utilisees}
 
-Il existe en anglais différentes ressources pour l'annotation en rôles
-sémantique : nous aborderons ici FrameNet, PropBank et NomBank, VerbNet ayant
-déjà été présenté plus longuement à la
-section~\ref{presentation_verbnet}. 
-
-\paragraph{FrameNet}
-\label{presentation_framenet}
-
-% TODO move out to introduction
-
-FrameNet \citep{baker1998berkeley} repose sur la théorie des \textit{Frame
-Semantics}, élaborée par Fillmore en modifiant sa théorie initiale. Ici, les
-rôles sémantiques \textit{frame elements} sont spécifiques à chaque situation
-(\textit{frame}) tout en se recoupant par endroits. On retrouve ainsi le rôle
-d'agent, mais aussi des rôles spécifiques comme \textbf{Food} dans
-\textbf{Apply\_heat} ou \textbf{Completeness} dans \textbf{Activity\_pause}.
-Les rôles sont classifiés selon leur importance dans la situation : centraux
-(nécessaires), périphériques (toujours liés à la situation mais optionnels) et
-circonstanciels (potentiellement présent dans toutes les situations, par
-exemple le lieu ou le temps).
+Il existe différentes ressources utiles dans le cadre de l'annotation en rôles
+sémantique. Toutes les ressources que nous utilisons directement dans nos
+travaux ont été présentées à la section~\ref{ressources_utilisees}.
 
 \paragraph{PropBank}
 
@@ -594,11 +734,11 @@ Malgré quelques critiques \citep{riemer2011conception}, l'interface
 syntaxe-sémantique nous permet d'utiliser les informations syntaxiques d'un
 verbe pour distinguer différents sens et identifer ses arguments sémantique.
 Par exemple, nous pouvons expliquer la différence entre deux sens majeurs du
-verbe « retenir » ainsi :
+verbe « retenir » syntaxiquement :
 
 \begin{enumerate}
-    \item se souvenir de quelque chose
-    \item empêcher quelqu'un de faire quelque chose
+    \item retenir quelque chose (se souvenir)
+    \item retenir quelqu'un de faire quelque chose (empêcher)
 \end{enumerate}
 
 PropBank \citep{palmer2005proposition} a décidé d'utiliser les annotations
@@ -626,11 +766,13 @@ les mêmes : dans « Il a acheté un arbre » et « l'achat d'un arbre »,
 \textit{ARG1} sera dans les deux cas l'arbre. D'autres catégories incluent les
 noms partitifs, relationnels et environnementaux.
 
-Pour une phrase telle que \emph{They gave the chefs a standing ovation}, les
-annotations PropBank et NomBank peuvent montrer les liens possibles entre ces
-deux ressources. Cette similarité volontaire a permis de lier ces ressources
-\citep{pustejovsky2005merging,verhagen2007combining}, mais des applications
-utilisant de telles ressources unifiées doivent encore voir le jour.
+Pour une phrase telle que \textit{They gave the chefs a standing ovation}, les
+annotations PropBank et NomBank proposent la même annotation, l'une étant basée
+sur le groupe nominal (\textit{a standing ovation}), l'autre sur la structure
+prédicat-argument autour du verbe \textit{gave}. Cette similarité volontaire a
+permis de lier ces ressources
+\citep{pustejovsky2005merging,verhagen2007combining}, mais nous ne connaissons
+pas d'applications tirant profit de ces deux ressources.
 
 \cite{gerber2010beyond} ont étendu NomBank aux arguments
 implicites, améliorant ainsi la couverture de NomBank de 65\%, c'est-à-dire en
@@ -639,8 +781,44 @@ n'est pas rare que les arguments soient implicites mais présent dans d'autres
 phrases. Les annotations étant limitées à la phrase actuelle, il n'est pas
 possible de référer à un argument présent dans une prase précédente.
 
-Enfin, PropBank a récemment décidé d'inclure d'autres parties du discours : les
-noms, les adjectifs, et les verbes support \citep{bonial2014propbank}.
+Enfin, PropBank lui-même a récemment décidé d'inclure d'autres parties du
+discours impliquant potentiellement des structures prédicat-argument en
+s'inspirant notamment de NomBank : les noms, les adjectifs, et les verbes
+support \citep{bonial2014propbank}.
+
+
+\paragraph{Groningen Meaning Bank (GMB)}
+
+Ce corpus \citep{basile2014developing} vise à fournir un large corpus annoté
+avec un nombre important de couches, le but étant de fournir un grand corpus
+pour la recherche en «~sémantique~». Sont notamment inclus parmi les couches :
+les lemmes, les parties du discours, la syntaxe (avec CCG). Il y a aussi les
+sens WordNet, les rôles thématiques VerbNet, des annotations sémantiques avec
+la DRT et des relations discours avec SDRT. C'est un corpus prometteur qui
+unifie un nombre important d'annotations complémentaires et jusque-là
+distinctes.
+
+L'annotation des rôles VerbNet est effectuée directement au niveau de la
+syntaxe, CCG donnant un moyen élégant d'associer les rôles au token prédicat
+\citep{bos2012annotating}. Quelques difficultés conséquentes subsistent avant
+de pouvoir s'en servir comme d'un corpus VerbNet:
+
+\begin{itemize}
+    \item Les classes VerbNet ne sont pas explicitement annotées, il faut les
+        retrouver à travers le sens WordNet.
+    \item Les frames VerbNet ne sont pas explicitement annotées, il faut les
+        reconstruire d'après les supertags CCG.
+    \item Il n'y a aucune garantie de cohérence avec VerbNet : si une frame est
+        manquante ou erronée dans VerbNet, les annotateurs utilisent le mode
+        \textit{open} et peuvent choisir n'importe quel rôle VerbNet.
+\end{itemize}
+
+\paragraph{Abstract Meaning Representation Bank (AMR Bank)}
+
+Ce corpus \citep{banarescu2013abstract} est un autre corpus à visée sémantique.
+Sa particularité est qu'il propose une forme d'interlingue permettant d'annoter
+des corpus parallèles sémantiquement. Les rôles sémantiques sont ceux de
+PropBank, ce qui permet d'envisager de s'en servir en tant que corpus VerbNet.
 
 \subsection{Approches d'annotation}
 
@@ -648,14 +826,15 @@ Les systèmes d'annotation en rôles sémantiques utilisent deux types de
 ressources :
 
 \begin{enumerate}
-    \item Les \textbf{inventaires} examinés à la section précédente permettent
-        de fournir un socle commun à différents systèmes. Ce sera par exemple
-        la définition des frames, des rôles, des cadre de sous-catégorisation
-        et des prédicats possibles.
-    \item Les \textbf{corpus annotés} par des humains qui utilisent un
-        inventaire donné pour réaliser la tâche qu'on essaie de faire apprendre
-        aux systèmes. FrameNet contient de nombreux exemples annotés en plus
-        des rôles sémantiques définis pour chacune des situations.
+    \item Les \textbf{inventaires} examinés aux
+        sections~\ref{ressources_utilisees} et \ref{ressources_non_utilisees}
+        permettent de fournir un socle commun à différents systèmes. Ce sera
+        par exemple la définition des frames, des rôles, des cadre de
+        sous-catégorisation et des prédicats possibles.
+    \item Les \textbf{corpus annotés} par des humains utilisent un inventaire
+        donné pour réaliser la tâche qu'on essaie de faire apprendre aux
+        systèmes. FrameNet contient de nombreux exemples annotés en plus des
+        rôles sémantiques définir pour chacune des situations.
 \end{enumerate}
 
 Ces ressources sont utilisées différemment suivant les méthodes, souvent
@@ -664,61 +843,80 @@ connaissance et non supervisées.
 
 \paragraph{Supervisées}
 
+% TODO où différencier Propbank/SRL Framenet/frame-parsing?
+
 Les méthodes supervisées
-\citep{gildea2002automatic,surdeanu2008conll,das2014frame,hermann2014semantic}
+\citep{gildea2002automatic,surdeanu2008conll,das2014frame,hermann2014semantic,lluis2014shortest}
 utilisent un corpus annoté, et adoptent donc l'inventaire associé. Des
 techniques classiques d'apprentissage automatique sont utilisées pour
 déterminer le sens correct de chaque occurrence d'un mot étant donné les
 informations obtenues à partir du contexte de cette occurrence.  L'annotation
-en rôles sémantiques supervisée est souvent divisée en plusieurs sous-tâches :
-l'identification des prédicats, puis des frames, l'identification des arguments
-qui établit les syntagmes jouant un rôle dans la phrase et la classification
-des rôles qui détermine le rôle effectif de chaque syntagme parmi ceux retenus
-à la phase précédente.
+en rôles sémantiques supervisée est souvent divisée en plusieurs sous-tâches,
+parfois regroupées en partie :
 
-Ces méthodes supervisées ont des difficultés pour couvrir un large éventail de
-phrases. FrameNet est un travail colossal qui est encore loin de couvrir un
-éventail complet du vocabulaire anglais \citep[p.~155]{marquez2008semantic}.
-% TODO check citation marquez
-% TODO citer différents FrameNets ? Copa 2014 Bresil FrameNet ?
-% TODO citer traduction mouton
-% TODO citer traduction apidianaki http://www.aclweb.org/anthology/C/C14/C14-1121.pdf
+\begin{itemize}
+    \item l'identification des prédicats,
+    \item l'identification des frames,
+    \item l'identification des arguments qui établit les syntagmes jouant un rôle dans la phrase,
+    \item et la classification des rôles qui détermine le rôle effectif de
+chaque syntagme parmi ceux retenus à la phase précédente.
+\end{itemize}
 
-% TODO citer méthodes basées sur word2vec : lechelle2014, kanerva2014 http://www.aclweb.org/anthology/W/W14/W14-1501.pdf
+Nous ne rentrons pas ici dans le détail des techniques utilisées par les
+méthodes supervisées. Elles s'adaptent en général efficacement à leur corpus
+annoté et possèdent donc les meilleurs résultats sur ces corpus, mais d'autres
+techniques sont souhaitables pour généraliser à d'autres domaines non couverts
+par ces corpus annotés.
 
-% TODO citer konstas2014incremental
-% TODO citer lluis2014shortest
-% TODO citer yang2014multi
-
-% TODO roth2014composition (word repr composition improves SRL)
-
+% Si on voulait faire un état de l'art, on pourrait citer des méthodes basées
+% sur des word reprs: lechelle2014, kanerva2014, roth2014composition
 
 \paragraph{Fondées sur la connaissance}
 
-Contrairement aux approches supervisées, ces approches n'utilisent pas de
-corpus annoté \citep{swier2005exploiting,pradet2013revisiting}. Les systèmes
-s'affranchissent alors de la petite taille inhérente à tout corpus annoté et
-peuvent utiliser un large corpus non annoté tel que le web. Un inventaire de
-sens est tout de même utilisé, et il faut toujours faire de la classification ;
-la difficulté principale étant ici d'obtenir des informations utiles à partir
-des exemples non annotés. Étant donné que ces méthodes continuent à utiliser un
-inventaire, il reste possible de comparer les résultats entre différents
-systèmes et de réaliser une évaluation sur une vérité-terrain. Il est toujours
-possible d'utiliser un corpus pour régler les paramètres à l'aide d'un
-échantillon de validation ou comme base pour annoter de nouveaux exemples ;
-mais des corpus plus conséquents sont toujours utilisés.
+Quelques approchent n'utilisent pas de corpus annoté mais se content de la
+ressource VerbNet
+\citep{swier2004unsupervised,swier2005exploiting,pradet2013revisiting}. Les
+systèmes s'affranchissent alors de la petite taille inhérente à tout corpus
+annoté et s'appuient sur les cadres de sous-catégorisation pour l'annotation.
+Un inventaire de sens est utilisé : il faut toujours aussi faire de la
+classification ; la difficulté principale étant ici d'obtenir des informations
+utiles sans exemples annotés. Étant donné que ces méthodes continuent à
+utiliser un inventaire, il reste possible de comparer les résultats entre
+différents systèmes et de réaliser une évaluation sur une vérité-terrain. La
+présentation de ces méthodes est l'objet du chapitre~\ref{ch:srl}.
+
+\paragraph{Semi-supervisées}
+
+\cite{vanderplas2014cross} annotent le corpus Europarl anglais avec un système
+automatique entrainé sur PropBank, puis utilisent les alignements du corpus
+pour obtenir un corpus français automatiquement annoté en rôles PropBank. C'est
+une piste intéressante pour obtenir des corpus annotés en rôles sémantiques
+pour le français. Diverses difficultés restent : les données PropBank anglaises
+ont été directement utilisées pour le français, et les scores nécessitent une
+correction manuelle du corpus. De manière similaire, \cite{exner2014using}
+proposent de développer automatiquement un nouveau PropBank du suédois en se
+basant sur le PropBank anglais et en utilisant Wikipédia comme un corpus
+parallèle. La précision des données obtenues est encore inconnue.
+
+% TODO pado2006optimal, furstenau2012semi, titov2013crosslingual
+
+D'autres méthodes transfèrent directement les modèles appris d'une langue vers
+d'autres. \citep{zeman2008cross} appliquent un modèle appris sur un corpus
+danois et l'appliquent à un corpus suédois, et montrent qu'il faut un corpus de
+1500 phrases annotées en suédois pour qu'un modèle entraîné directement sur le
+corpus suédois soit meilleur que leur système. \citep{kozhevnikov2013cross}
+montrent sur trois paires de langues (Anglais-Chinois, Anglais-Tchèque et
+Anglais-Français) que les résultats sont meilleurs en modifiant le modèle
+appris qu'en projetant l'annotation comme au paragraphe précédent.
 
 \paragraph{Non supervisées}
-
-% TODO Need ref
 
 Ces approches n'utilisent aucune connaissance \textit{a priori}, que ce soit un
 inventaire ou un corpus annoté. Une approche non supervisée doit nécessairement
 construire son propre inventaire. Cette construction peut se faire via du
 \textit{clustering} de sens à partir des occurrences de contextes trouvées dans
-le corpus, en considérant l'hypothèse distributionnelle (section
-\ref{subsec:modeles_de_langue}). Une fois que l'inventaire de sens est défini, il
-faut l'utiliser pour étiqueter le texte.
+le corpus
+\citep{lang2011unsupervised,garg2012unsupervised,titov2012bayesian,materna2013parameter}.
 
 Les avantages potentiels sont nombreux. Ces algorithmes ne nécessitent aucune
 ressource, et offrent de fait deux propriétés intéressantes :
@@ -739,18 +937,20 @@ Malheureusement, les systèmes utilisant une approche non supervisée sont
 difficiles à évaluer et à utiliser directement dans des systèmes plus
 importants. Par exemple, dans le cadre de la traduction automatique, distinguer
 les sens ne suffit pas ; il faut aussi savoir quelle traduction appliquer.
+Ainsi, bien que représentant une voie prometteuse, nous n'avons pas considéré
+ici ce type de méthode.
 
 \subsection{Adaptation au domaine}
 
 \cite{chen2008learning} entraînent un système de commentaires en utilisant des
 commentaires existants et des simulations de jeux de football, mais sans
 connaissance explicite sur la langue anglaise. Leur approche a entraîné des
-travaux sur le \emph{situated language understanding} (compréhension ancrée du
+travaux sur le \textit{situated language understanding} (compréhension ancrée du
 langage): \cite{bordes2010towards,richardson2012towards} ont proposé par la
 suite d'autres corpus pour cette tâche. Notre système
 (Chapitre~\ref{ch:domainsrl}) est similaire dans le sens où nous minimisons
 l'effort humain pour annoter de nouveaux domaines, mais nous nous concentrons
-sur l'annotation en rôles sémantiques \emph{à la FrameNet}.
+sur l'annotation en rôles sémantiques \textit{à la FrameNet}.
 
 Le système d'annotation en rôles sémantiques de \cite{gormley2014low} n'a pas
 besoin de syntaxe supervisée, mais nécessite un corpus annoté en rôles

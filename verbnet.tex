@@ -9,88 +9,110 @@ La ressource anglaise VerbNet (section~\ref{presentation_verbnet}) correspond à
 nos objectifs (section~\ref{objectifs_these}) mais n'existe qu'en anglais :
 c'est pourquoi nous présentons dans ce chapitre sa traduction vers le français,
 \verbenet{}\footnote{Le nom vient de la prononciation à la française qui
-"rajoute" un \emph{e}. Le $\ni$ est là pour bien marquer ce \emph{e} et ainsi
-essayer d'éviter la confusion avec VerbNet.}
+"rajoute" un \textit{e}. Le $\ni$ est là pour bien marquer ce \textit{e} et ainsi
+essayer d'éviter la confusion avec VerbNet.}. Une partie conséquente de ce
+chapitre provient d'articles déjà publiés
 \citep{danlos2014vers,pradet2014adapting}.
 
-La construction de cette ressource s'est faite en trois étapes. Nous avons
-d'abord traduit vers le français les membres des classes de premier niveau dans
-VerbNet en utilisant des ressources linguistiques qui encodent des informations
-syntaxiques et sémantiques sur les verbes du français (section~\ref{first}). La
-deuxième étape, toujours en cours, est l'adaptation des frames VerbNet vers le
-français et la réorganisation les classes de VerbNet en fonction de ces frames,
-ce qui pose divers problèmes que nous décrirons en partie ici
-(section~\ref{second}). La troisième étape sera l'occasion de valider les
-membres français de chaque classe (section~\ref{third}).
+La construction de cette ressource se fait en trois étapes.
+\begin{enumerate}
+    \item Nous avons d'abord traduit vers le français les membres de VerbNet en
+        utilisant deux ressources linguistiques qui encodent des informations
+        syntaxiques et sémantiques sur les verbes du français
+        (section~\ref{first}).
+    \item La deuxième étape (section~\ref{second}), toujours en cours, est
+        l'adaptation des frames VerbNet vers le français et la réorganisation
+        les classes VerbNet en fonction de ces frames, ce qui pose divers
+        problèmes que nous décrivons en partie ici (section~\ref{casebycase}).
+    \item La troisième étape (section~\ref{third}), aussi en cours de
+        réalisation, est la validation des verbes français de chaque classe.
+\end{enumerate}
 
-Notre traduction de VerbNet est liée aux deux ressources linguistiques que nous
+Grâce aux mise aux correspondance réalisées lors de la première étape, notre
+traduction de VerbNet est liée aux deux ressources linguistiques que nous
 utilisons, Les Verbes Français et le Lexique-Grammaire. La ressources est aussi
 ouverte : nous voulons encourager les contributions externes avec notre outil
-basé sur le web. Nous souhaitons aussi faciliter l'utilisation de la ressource
-en utilisant le même format XML que le VerbNet anglais.
+basé sur le web. Nous souhaitons enfin faciliter l'utilisation de la ressource
+en utilisant le même format XML que le VerbNet anglais et en rendant
+\verbenet{} librement réutilisable sous la licence TODO, qui autorise notamment
+les usages commerciaux.
 
-\section{Construction de \verbenet{}}
+\section{Étapes de constructions de \verbenet{}}
 
-% TODO zero-related to a noun = dénominal ?
 Notre principe de base est que la hiérarchie supérieure de VerbNet doit être
 aussi proche que possible de celle de VerbNet et ses 270 classes. Néanmoins,
-certaines classes peuvent disparaître. Ceci peut être dû à des raisons purement
-morphologiques. Une classe VerbNet ne contenant que des verbes dénominaux n'a
-pas d'équivalent en français. C'est le cas de \texttt{pit-10.7} avec des verbes
-tels que \emph{bark} et \emph{bone} ou \texttt{week-end-56} et ses verbes
-\emph{week-end} ou \emph{december}. Par contre, \texttt{debone-10.8} et ses
-verbes formés par le préfixe \emph{dé-} plus un nominal (\emph{debark, debone})
-a un équivalent français avec les préfixes \emph{dé-} ou \emph{é}
-(\emph{déveiner}, \emph{équeuter}).
+certaines classes peuvent disparaître dès lors que les critères utilisés pour
+l'anglais ne s'appliquent pas au français, ce qui est parfois le cas lorsque
+VerbNet emploit des critères morphologiques. Ainsi, une classe VerbNet ne
+contenant que des verbes dénominaux n'a pas d'équivalent en français. C'est le
+cas de :
+\begin{itemize}
+    \item {\color{blue}\texttt{pit-10.7}} formé avec des parties constitutives
+        d'animaux ou d'objets avec des verbes tels que :
+        \begin{itemize}
+            \item \textit{peel} : enlever la peau (\textit{peel}) de certains fruits
+                et légumes,
+            \item \textit{bark} : enlever l'écorce (\textit{bark}) d'un arbre ou
+                d'une buche,
+            \item ou \textit{bone} : enlever les os (\textit{bones}) d'un poisson,
+        \end{itemize}
+    \item ou {\color{blue}\texttt{weekend-56}} formé à partir de verbes issus
+        de noms décrivant une période de temps tels que :
+        \begin{itemize}
+            \item \textit{vacation} : \textit{Luc Leclerc vacationed with Zambito in
+                Mexico},
+            \item ou \textit{summer} : \textit{My family always summered at the seashore}.
+        \end{itemize}
+\end{itemize}
 
-Étant donné ce principe de base, la construction de \verbenet{} se fait en
-trois étapes.
+Par contre, {\color{blue}\texttt{debone-10.8}} et ses verbes formés par le
+préfixe \textit{dé-} plus un nominal (\textit{debark, debone}) a un équivalent
+français avec les préfixes \textit{dé-} ou \textit{é} (\textit{déveiner},
+\textit{équeuter}) : cette classe est donc conservée dans \verbenet{}
 
-\subsection{Première étape}\label{first}
+Pour les toues les classes conservées, la construction de \verbenet{} se fait
+en trois étapes.
+
+\subsection{Première étape : traduction des verbes}\label{first}
 
 La première étape pour construire \verbenet{} est de déterminer quels verbes
 français appartiennent à une des 270 classes de VerbNet. Ceci a été fait en
 trois étapes.
 
 \begin{enumerate}
-
     \item Pour une classe VerbNet donnée \Ce{}, nous assignons manuellement les
         classes LVF \Clvf{} et les classes LG \Clg{} qui correspondent à sa
-        définition sémantique : nous assignons par exemple {\color{red}L3b} et
-        {\color{green}38LD} à {\color{blue}put-9.1} et assignons
+        définition sémantique. Nous assignons par exemple {\color{red}L3b} et
+        {\color{green}38LD} à {\color{blue}\texttt{put-9.1}} et assignons
         {\color{red}M1a} et {\color{green}32CL ou 32R3 ou 32C} à
-        {\color{blue}body\_internal\_motion-49}.
-
+        {\color{blue}\texttt{body\_internal\_motion-49}}.
     \item Nous utilisons deux dictionnaires bilingues (SCI-FRAND-EURADIC et le
         Wiktionnaire) qui fournissent la liste \Ltrad{} des traductions
         françaises des verbes anglais appartenant à \Ce{} et ses sous-classes.
-
     \item Les verbes français de la classe \Ce{} sont alors simplement les
         verbes appartenant à la fois à \Ltrad{}, \Clvf{} et
         \Clg{}\footnote{Quand cette intersection est vide, c'est la liste
         non-vide (soit \Clvf{} soit \Clg{}) qui est choisie}. Par exemple,
-        \emph{mettre}, \emph{poser} et \emph{installer} sont des verbes
-        français de {\color{blue}put-9.1}).
-
+        \textit{mettre}, \textit{poser} et \textit{installer} sont des verbes
+        français de {\color{blue}\texttt{put-9.1}}).
 \end{enumerate}
 
 Cette étape a été exécutée rapidement et a donné des résultats encourageants :
 en ne gardant que les verbes à l'intersection de \Ltrad{}, \Clvf{} et \Clg{},
 les résulstats sont précis et cohérents d'un point de vue sémantique et
-syntaxique. Par exemple, la classe {\color{blue}scribble-25.2} contient 18
-verbes en anglais : elle est associée à la classe LVF {\color{red}R3a.1} et à
-la table LG {\color{green}32A}, ce qui conduit à une liste de 16 verbes
-français : \emph{composer}, \emph{couper}, \emph{donner}, \emph{exécuter},
-\emph{fabriquer}, \emph{faire}, \emph{forger}, \emph{former}, \emph{imprimer},
-\emph{lever}, \emph{produire}, \emph{reproduire}, \emph{sculpter},
-\emph{tailler}, \emph{tirer} et \emph{tracer}. Tous ces verbes sont valides
-pour cette classe.  Cette méthode produit un lexique de 4058 verbes (2128
-verbes distincts).
+syntaxique. Par exemple, la classe {\color{blue}\texttt{scribble-25.2}}
+contient 18 verbes en anglais : elle est associée à la classe LVF
+{\color{red}R3a.1} et à la table LG {\color{green}32A}, ce qui conduit à une
+liste de 16 verbes français : \textit{composer}, \textit{couper}, \textit{donner},
+\textit{exécuter}, \textit{fabriquer}, \textit{faire}, \textit{forger}, \textit{former},
+\textit{imprimer}, \textit{lever}, \textit{produire}, \textit{reproduire},
+\textit{sculpter}, \textit{tailler}, \textit{tirer} et \textit{tracer}. Tous ces verbes
+sont valides pour cette classe.  Cette méthode a produit un lexique de 4058
+verbes (2128 verbes distincts).
 
-% TODO An evaluation on 10 randomly chosen classes shows that XX.X\% of verbs are indeed valid.
+% TODO Noter quelque part que l'évaluation se fait manuellement
 
-
-\subsection{Deuxième étape}\label{second}
+\subsection{Deuxième étape : adaptation des \textit{frames}}\label{second}
 
 % TODO stats sur un VerbNet importé, pas sur VerbeNet à moitié fini
 La deuxième étape de la construction de \verbenet{} s'est avérée beaucoup plus
@@ -108,34 +130,182 @@ déterminons quand cela est possible :
 
 \end{itemize}
 
-Cette étape a demandé le développement d'un outil d'édition
-(section~\ref{toolquentin}) pour assister le travail lexicographique. Ensuite,
-il a fallu définir des principes de base sur les frames françaises quand elle
-diffèrent des frames anglaises (section~\ref{princp}). Finalement, une étude
-fine au cas par cas révèle des différences difficiles à traiter entre l'anglais
-et le français (section~\ref{subsubsec:casebycase}).
+Cette étape a demandé de définir des principes de base sur les frames
+françaises quand elles diffèrent des frames anglaises (section~\ref{princp}).
+Une étude fine au cas par cas révèle que certaines de ces différences entre les
+deux langues sont difficiles à traiter (section~\ref{casebycase}). Il a aussi
+fallu développer un outil d'édition (section~\ref{toolquentin}) pour assister
+le travail lexicographique. 
 
-\subsubsection{Outil d'édition de \verbenet{}}\label{toolquentin}
+\subsection{Troisième étape : validation manuelle des verbes}
+\label{third}
+
+La troisième étape est l'occasion de valider manuellement pour chaque classes
+les verbes proposés par correspondance de ressources en supprimant les verbes
+erronés et en rajoutant les verbes manquants afin que la ressource ait été
+entièrement validée manuellement. Quasiment aucun verbe n'est ajouté
+manuellement : les annotateurs cliquent directement sur les verbes inférés pour
+les valider ou les invalider.  Les traductions des dictionnaires étant très
+productives, les verbes souhaités sont systématiquement dans les traductions
+proposées, même s'ils peuvent être absent des correspondances LADL, LVF ou les
+deux. Dans les rares cas où un verbe souhaité n'est pas trouvé, c'est une
+occasion de contribuer au Wiktionnaire pour le rajouter.
+
+\section{Adaptation pas à pas d'une classe d'exemple}
+
+Cette section est l'occasion de présenter un exemple concret d'adaptation d'une
+classe VerbNet à la fois pour mettre en avant les facilités et difficultés du
+processus mais aussi pour rendre plus concrètes les discussions de ce chapitres
+aux lecteurs ne connaissant pas VerbNet.
+
+\section{Principes adoptés pendant l'adaptation}
+
+\subsection{Principes sur les frames}\label{princp}
+
+Nous avons jusqu'ici identifié deux différences principales entre le codage des
+frames anglaises et françaises.
+
+La première différence concerne les sous-structures, c'est-à-dire les frames
+avec un complément manquant tel que \textit{NP V} (Luc gravait) dans
+{\color{blue}\texttt{image-impression-25.1}}. C'est en effet ici une
+sous-structure de \textit{NP V NP.Destination} (Luc gravait les anneaux). Le
+codage de telles sous-structures est difficile à justifier quand il est basé
+sur l'introspection linguistique et nécessite une étude de corpus. Nous ne
+savons pas comment ce codage a été fait dans VerbNet et n'avons pas à notre
+disposition de corpus français permettant de répondre à la question. Nous avons
+donc décidé pour le moment de supprimer toutes les sous-structures de
+\verbenet{}. Par exemple, dans la classe {\color{blue}\texttt{remove-10.1}},
+VerbNet encode non seulement NP V NP PP.Source PP.Destination (\textit{Doug
+removed the smudges from the tabletop}) mais aussi NP V NP (\textit{Doug removed
+the smudges}). \verbenet{} n'inclut que la première frame, il est implicite que
+la seconde existe : une application doit donc l'inférer automatiquement à
+partir de la première sans intervention manuelle\footnote{Cependant, ce
+    principe ne s'applique pas aux verbes acceptant un seul complément locatif
+    double «~from here to there (un seul complément PP.Source PP.Destination)~»
+    sans accepter un seul complément source (PP.Source), tout en acceptant un
+    seul complément destination (PP.Destination) : \textit{Fred a transferré le
+        vin de la cruche en pierre vers la cruche en terre cuite, *Fred a
+        transferré le vin de la cruche en pierre, Fred a transferré le vin vers
+        la cruche en terre cuite}. Dans ce cas exceptionnel, les
+    sous-structures sont codées explicitement.}.
+
+La deuxième différence concerne l'ordre des compléments. VerbNet encode parfois
+des frames qui ne diffèrent que par l'ordre des compléments, par exemple dans
+{\color{blue}\texttt{bring-11.3}} les frames NP V NP PP.Destination NP
+(\textit{Nora brought to lunch the book}) et NP V NP PP.Destination (\textit{Nora
+brought the book to the meeting}). En français, l'ordre des compléments dépend
+d'un certain nombre de facteurs syntaxiques et sémantiques
+\citep{thuilier2012contraintes}, mais ne dépend pas a priori d'un facteur
+lexical : il ne dépend pas du verbe qui gouverne les compléments. C'est pour
+cette raison que \verbenet{} n'encode qu'un frame dans ces cas, ici seulement
+\textit{NP V NP PP.Destination} (\textit{Nora a apporté le livre au meeting}) avec
+l'objet direct avant le syntagme prépositionnel. C'est à l'utilisateur de la
+ressource de considérer que l'autre option (\textit{NP V PP.Destination NP},
+\textit{Nora a apporté au meeting le livre}) est tout aussi valable.
+
+\subsection{Travail au cas par cas}\label{casebycase}
+
+Dans certains cas, cette deuxième étape pose des difficultés, et ce pour deux
+raisons principales. Premièrement, certaines différences sémantiques entre
+verbes communes à l'anglais et au français sont prises en comptes par VerbNet
+mais ni par LVF ni par le LG. Par exemple, dans les verbes de \textit{Sendying
+and Carrying} (la super-classe 11), les verbes dans les classes
+{\color{blue}\texttt{bring-11.3}}, {\color{blue}\texttt{carry-11.4}} et
+{\color{blue}\texttt{drive-11.5}}
+décrivent un mouvement accompagné (non seulement le Theme mais aussi l'Agent
+changent de location comme dans \textit{Pamela drove packages to NY}). Au
+contraire, les autres classes ({\color{blue}\texttt{send-11.1}} et
+{\color{blue}\texttt{slide-11.2}}) décrivent un mouvement non accompagné (seul le Thème
+se déplace comme dans \textit{Pamela sent packages to NY}). Dans les ressources
+françaises, des classes existent pour des verbes avec un changement de location
+pour un Thème causé par un Agent, mais rien n'est codé pour le mouvement de
+l'Agent. Face à cette difficulté, deux solutions se présentent.
+
+\begin{itemize}
+    \item soit réaliser une étude complète des verbes français de \textit{Sending
+        and Carrying} pour distinguer les mouvements accompagnés et
+        non-accompagnés,
+    \item soit ignorer purement et simplement cette différence sémantique.
+\end{itemize}
+
+Dans ce cas, nous avons opté pour la seconde solution étant donné que cette
+information n'est pas directement utile pour l'annotation en rôles
+sémantiques\footnote{Il semble par ailleurs que pour certains verbes anglais,
+    l'Agent peut être ou non en mouvement : voir la différence entre les
+classes VerbNet {\color{blue}\texttt{carry-11.4}} et {\color{blue}\texttt{carry-11.4-1}}.}.
+C'est un choix discutable : si pour notre application la position de l'Agent
+avait eu un intérêt, comme ce pourrait être le cas en implication textuelle,
+une étude plus complète aurait été souhaitable. Nous préférons nous concentrer
+sur la sortie d'une première version de VerbNet, quitte à revenir sur certains
+choix par la suite.
+
+Le fait d'ignorer cette différence nous mène à adopter dans \verbenet{} une
+hiérarchie différente de VerbNet pour la super-classe 11 : il n'y a pas
+d'équivalent dans \verbenet{} de la classe {\color{blue}\texttt{carry-11.4}}, les verbes
+de cette classe devant être placés dans les classes {\color{blue}\texttt{send-11.1}} et
+{\color{blue}\texttt{slide-11.2}}. Par ailleurs, il n'y a pas d'équivalent en français
+de la classe {\color{blue}\texttt{bring-11.3}} qui contient uniquement les deux verbes
+\textit{bring} et \textit{take} avec une direction spécifiée déictiquement
+\citep[page 135]{levin1993english} parce que les déictifs locatifs français
+\textit{ici} et \textit{là} n'ont pas le fonctionnement de \textit{here} et
+\textit{there} en anglais\footnote{En français, \textit{Je suis là} peut signifier
+\textit{Je suis ici}.}.
+
+La seconde source principale de difficultés provient de différences cruciales
+entre le français et l'anglais. Il existe des problèmes de traductions entre
+ces deux langues qui sont bien connus et documentés, comme la traduction des
+verbes de mouvement (par exemple \textit{John swam across the river}
+$\rightarrow$ \textit{Jean a traversé la rivière à la nage}). Sans traiter ces
+cas connus, nous discutons ici de situations plus subtiles, comme par exemple
+avec les verbes de changement de possession. Dans VerbNet, dix classes sont
+dédiées à ces verbes. Une telle hiérarchie est impossible en français. Sans
+tout détailler, insistons sur ces quelques points :
+
+\begin{itemize}
+    \item L'absence d'alternances datif et bénéfactif en français implique que
+        les classes VerbNet {\color{blue}\texttt{give-13.1}} et
+        {\color{blue}\texttt{contribute-13.2}} doivent probablement être fusionnées en
+        français.
+    \item La différence sémantique entre {\color{blue}\texttt{give-13.1}} et
+        {\color{blue}\texttt{future\_having-13.3}} (HAS-POSSESSION vs. FUTURE-POSESSION)
+        est peut-être trop subtile et pourrait être ignorée.
+    \item La préposition \textit{with} dans la frame correspondant à \textit{Agent
+        V Recipient \{with\} Theme} utilisée en
+        {\color{blue}\texttt{fulfilling-13.4-1}} et
+        {\color{blue}\texttt{fulfilling-13.4-2}} doit être remplacée par
+        \textit{en} et/ou \textit{de} suivant le verbe (e.g. \textit{Luc livre Max
+        en/*de lait}, \textit{Luc équipe Max en/de téléviseurs}, \textit{Luc dote
+        Max *en/de téléviseurs}), ce qui nécessite une réorganisation en
+        sous-classes pour distinguer ces verbes.
+\end{itemize}
+
+En conclusion, il s'avère que rentrer dans le détail des frames lors de cette
+deuxième étape nous a mené a faire évoluer la hiérarchie de \verbenet{}.
+Cependant, nous essayons de limiter les modifications quand il est impossible
+de faire autrement afin de profiter au maximum de VerbNet et pour pouvoir
+profiter du lien entre les deux ressources.
+
+\section{Outil d'édition de \verbenet{}}\label{toolquentin}
 
 Nous avons du développer un outil permettant d'éditer collaborativement
-VerbNet\footnote{Cet outil est disponible sur GitHub :
+\verbenet{}\footnote{Cet outil est libre et disponible sur GitHub :
 \url{https://github.com/aymara/verbenet-editor}.}. Cet outil est en fait un
-site web présentant VerbNet : ses classes, ses frames, ses verbes, etc.  Tous
-les éléments sont modifiables, ce qui permet aux lexicographes de se concentrer
-sur les problèmes lexicographiques sans avoir à se préoccuper de la
+site web présentant \verbenet{}: ses classes, ses frames, ses verbes, etc.
+Tous les éléments sont modifiables, ce qui permet aux lexicographes de se
+concentrer sur les problèmes lexicographiques sans avoir à se préoccuper de la
 représentation des données. Le site web est réalisé avec Django, un framework
-web Python. VerbNet est stocké dans une base de donnée PostgreSQL. Avant de
+web Python. \verbenet{} est stocké dans une base de donnée PostgreSQL. Avant de
 commencer l'édition, nous avons commencé par charger VerbNet et les mappings
 réalisés lors de la première étape. L'édition elle-même se fait classe de Levin
 par classe de Levin. Par exemple, nous avons traité ensemble les classes
-{\color{blue}throw-17.1} et {\color{blue}pelt-17.2} parce qu'elles font toutes
-les deux partie de la «~super-classe~» 17 : Throwing. Plusieurs classes faisant
-partie d'une même super-classe sont souvent liées et il faut les comprendre
-dans leur ensemble avant de commencer l'édition. Pour chaque classe, nous
-pouvons éditer ses frames, ajouter ou supprimer des sous-classes ou des frames.
-Par exemple, pour la suppression, toutes les frames impliquant un conatif, un
-datif ou une alternance bénéfactive peuvent être systématiquement supprimées :
-ces alternances n'existent pas en français.
+{\color{blue}\texttt{throw-17.1}} et {\color{blue}\texttt{pelt-17.2}} parce
+qu'elles font toutes les deux partie de la «~super-classe~» 17 : Throwing.
+Plusieurs classes faisant partie d'une même super-classe sont souvent liées et
+il faut les comprendre dans leur ensemble avant de commencer l'édition. Pour
+chaque classe, nous pouvons éditer ses frames, ajouter ou supprimer des
+sous-classes ou des frames.  Par exemple, pour la suppression, toutes les
+frames impliquant un conatif, un datif ou une alternance bénéfactive peuvent
+être systématiquement supprimées : ces alternances n'existent pas en français.
 
 \begin{figure}
 
@@ -147,7 +317,7 @@ ces alternances n'existent pas en français.
         de \Clvf{}, \Clg{} et \Ltrad{} (section~\ref{first}), les traductions
         en rouge (respectivement en vert) uniquement à \Clvf{} et \Ltrad
         (respectivement uniquement à \Clg{} et \Ltrad{}). La description de
-        {\color{blue}break-45.1} est en cours de modification : en cliquant sur
+        {\color{blue}\texttt{break-45.1}} est en cours de modification : en cliquant sur
         'Confirmer', la modification sera prise en compte rapidement sans avoir
     à recharger la page pour éviter d'interrompre le travail lexicographique.}
 
@@ -155,145 +325,12 @@ ces alternances n'existent pas en français.
 
 Avec l'aide de cet outil (illustré à la Figure~\ref{tool}), la deuxième étape
 peut s'avérer très simple. Par exemple, les quatre sous-classes de
-{\color{blue}image-creation-25} ont des classes directement équivalentes en
+{\color{blue}\texttt{image-creation-25}} ont des classes directement équivalentes en
 français, donc les seules choses à faire sont de traduire les exemples en
 français avec les bonnes prépositions. Par exemple, dans la classe
-{\color{blue}illustrate-25.3}, il a fallu remplacer \emph{with} par la
-combinaison de \emph{de} et \emph{avec}.
+{\color{blue}\texttt{illustrate-25.3}}, il a fallu remplacer \textit{with} par la
+combinaison de \textit{de} et \textit{avec}.
 
-\subsubsection{Principes sur les frames}\label{princp}
-
-Nous avons jusqu'ici identifié deux différences principales entre le codage des
-frames anglaises et françaises.
-
-La première différence concerne les sous-structures, c'est-à-dire les frames
-avec un complément manquant tel que \emph{NP V} (Luc gravait) dans
-{\color{blue}image-impression-25.1}. C'est en effet ici une sous-structure de
-\emph{NP V NP.Destination} (Luc gravait les anneaux). Le codage de telles
-sous-structures est difficile à justifier quand il est basé sur l'introspection
-linguistique et nécessite une étude de corpus. Nous ne savons pas comment ce
-codage a été fait dans VerbNet et n'avons pas à notre disposition de corpus
-français permettant de répondre à la question. Nous avons donc décidé pour le
-moment de supprimer toutes les sous-structures de \verbenet{}. Par exemple,
-dans la classe {\color{blue}remove-10.1}, VerbNet encode non seulement NP V NP
-PP.Source PP.Destination (\emph{Doug removed the smudges from the tabletop})
-mais aussi NP V NP (\emph{Doug removed the smudges}). \verbenet{} n'inclut que
-la première frame, il est implicite que la seconde existe : une application
-doit donc l'inférer automatiquement à partir de la première sans intervention
-manuelle\footnote{Cependant, ce principe ne s'applique pas aux verbes acceptant
-un seul complément locatif double «~from here to there (un seul
-complément PP.Source PP.Destination)~» sans accepter un seul complément source
-(PP.Source), tout en acceptant un seul complément destination
-(PP.Destination) : \emph{Fred a transferré le vin de la cruche en pierre vers
-la cruche en terre cuite, *Fred a transferré le vin de la cruche en pierre,
-Fred a transferré le vin vers la cruche en terre cuite}. Dans ce cas
-exceptionnel, les sous-structures sont codées explicitement.}.
-
-La deuxième différence concerne l'ordre des compléments. VerbNet encode parfois
-des frames qui ne diffèrent que par l'ordre des compléments, par exemple dans
-{\color{blue}bring-11.3} les frames NP V NP PP.Destination NP (\emph{Nora
-brought to lunch the book}) et NP V NP PP.Destination (\emph{Nora brought the
-book to the meeting}). En français, l'ordre des compléments dépend d'un certain
-nombre de facteurs syntaxiques et sémantiques \citep{thuilier2012contraintes},
-mais ne dépend pas a priori d'un facteur lexical : il ne dépend pas du verbe
-qui gouverne les compléments. C'est pour cette raison que \verbenet{} n'encode
-qu'un frame dans ces cas, ici seulement \emph{NP V NP PP.Destination}
-(\emph{Nora a apporté le livre au meeting}) avec l'objet direct avant le
-syntagme prépositionnel. C'est à l'utilisateur de la ressource de considérer
-que l'autre option (\emph{NP V PP.Destination NP}, \emph{Nora a apporté au meeting
-le livre}) est tout aussi valable.
-
-\subsubsection{Travail au cas par cas}\label{subsubsec:casebycase}
-
-Dans certains cas, cette deuxième étape pose des difficultés, et ce pour deux
-raisons principales. Premièrement, certaines différences sémantiques entre
-verbes communes à l'anglais et au français sont prises en comptes par VerbNet
-mais ni par LVF ni par le LG. Par exemple, dans les verbes de \emph{Sendying
-and Carrying} (la super-classe 11), les verbes dans les classes
-{\color{blue}bring-11.3}, {\color{blue}carry-11.4} et {\color{blue}drive-11.5}
-décrivent un mouvement accompagné (non seulement le Theme mais aussi l'Agent
-changent de location comme dans \emph{Pamela drove packages to NY}). Au
-contraire, les autres classes ({\color{blue}send-11.1} et
-{\color{blue}slide-11.2}) décrivent un mouvement non accompagné (seul le Thème
-se déplace comme dans \emph{Pamela sent packages to NY}). Dans les ressources
-françaises, des classes existent pour des verbes avec un changement de location
-pour un Thème causé par un Agent, mais rien n'est codé pour le mouvement de
-l'Agent. Face à cette difficulté, deux solutions se présentent.
-
-\begin{itemize}
-    \item soit réaliser une étude complète des verbes français de \emph{Sending
-        and Carrying} pour distinguer les mouvements accompagnés et
-        non-accompagnés,
-    \item soit ignorer purement et simplement cette différence sémantique.
-\end{itemize}
-
-Dans ce cas, nous avons opté pour la seconde solution étant donné que cette
-information n'est pas directement utile pour l'annotation en rôles
-sémantiques\footnote{Il semble par ailleurs que pour certains verbes anglais,
-    l'Agent peut être ou non en mouvement : voir la différence entre les
-classes VerbNet {\color{blue}carry-11.4} et {\color{blue}carry-11.4-1}.}.
-C'est un choix discutable : si pour notre application la position de l'Agent
-avait eu un intérêt, comme ce pourrait être le cas en implication textuelle,
-une étude plus complète aurait été souhaitable. Nous préférons nous concentrer
-sur la sortie d'une première version de VerbNet, quitte à revenir sur certains
-choix par la suite.
-
-Le fait d'ignorer cette différence nous mène à adopter dans \verbenet{} une
-hiérarchie différente de VerbNet pour la super-classe 11 : il n'y a pas
-d'équivalent dans \verbenet{} de la classe {\color{blue}carry-11.4}, les verbes
-de cette classe devant être placés dans les classes {\color{blue}send-11.1} et
-{\color{blue}slide-11.2}. Par ailleurs, il n'y a pas d'équivalent en français
-de la classe {\color{blue}bring-11.3} qui contient uniquement les deux verbes
-\emph{bring} et \emph{take} avec une direction spécifiée déictiquement
-\citep[page 135]{levin1993english} parce que les déictifs locatifs français
-\emph{ici} et \emph{là} n'ont pas le fonctionnement de \emph{here} et
-\emph{there} en anglais\footnote{En français, \emph{Je suis là} peut signifier
-\emph{Je suis ici}.}.
-
-La seconde source principale de difficultés provient de différences cruciales
-entre le français et l'anglais. Il existe des problèmes de traductions entre
-ces deux langues qui sont bien connus et documentés, comme la traduction des
-verbes de mouvement (par exemple \emph{John swam across the river}
-$\rightarrow$ \emph{Jean a traversé la rivière à la nage}). Sans traiter ces
-cas connus, nous discutons ici de situations plus subtiles, comme par exemple
-avec les verbes de changement de possession. Dans VerbNet, dix classes sont
-dédiées à ces verbes. Une telle hiérarchie est impossible en français. Sans
-tout détailler, insistons sur ces quelques points :
-
-\begin{itemize}
-
-    \item L'absence d'alternances datif et bénéfactif en français implique que
-        les classes VerbNet {\color{blue}give-13.1} et
-        {\color{blue}contribute-13.2} doivent probablement être fusionnées en
-        français.
-
-    \item La différence sémantique entre {\color{blue}give-13.1} et
-        {\color{blue}future\_having-13.3} (HAS-POSSESSION vs. FUTURE-POSESSION)
-        est peut-être trop subtile et pourrait être ignorée.
-
-    \item La préposition \emph{with} dans la frame correspondant à \emph{Agent
-        V Recipient \{with\} Theme} utilisée en {\color{blue}fulfilling-13.4-1}
-        et {\color{blue}fulfilling-13.4-2} doit être remplacée par \emph{en}
-        et/ou \emph{de} suivant le verbe (e.g. \emph{Luc livre Max en/*de
-        lait}, \emph{Luc équipe Max en/de téléviseurs}, \emph{Luc dote Max
-        *en/de téléviseurs}), ce qui nécessite une réorganisation en
-        sous-classes pour distinguer ces verbes.
-
-\end{itemize}
-
-En conclusion, il s'avère que rentrer dans le détail des frames lors de cette
-deuxième étape nous a mené a faire évoluer la hiérarchie de \verbenet{}.
-Cependant, nous essayons de limiter les modifications quand il est impossible
-de faire autrement afin de profiter au maximum de VerbNet et pour pouvoir
-profiter du lien entre les deux ressources.
-
-\subsection{Troisième étape}
-\label{third}
-
-La troisième étape, qui n'a pas encore commencé, est de valider manuellement
-pour chaque classes les verbes proposés par correspondance de ressources en
-supprimant les verbes erronés et en rajoutant les verbes manquants afin que la
-ressource ait été entièrement validée manuellement.
 
 \section{Conclusion}
 
@@ -305,4 +342,4 @@ point où cette ressource est validée et le travail systématique sur chaque
 classe est en cours. Nous reconnaissons les différences qui existent entre les
 langues : la structure de \verbenet{} n'est pas exactement celle de VerbNet.
 
-% TODO libérer !
+% TODO exporter dans un format libre et mettre quelque part !
