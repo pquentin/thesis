@@ -541,20 +541,21 @@ implique la méronymie et c'est donc \textit{piquant} qu'il faut choisir comme
 la traduction correcte de \textit{quill}. Le modèle de langue a permis la
 désambiguïsation parmi les deux traductions possibles.
 
-\tikzstyle{block}=[draw, fill=blue!5, rectangle, minimum height=0.5cm, minimum width=3cm, text width=5cm]
+\tikzstyle{block}=[draw, fill=blue!5, rectangle, minimum height=0.5cm, minimum
+width=3cm, text width=5.1cm]
 
 \begin{figure}[ht]
   \centering
   \begin{tikzpicture}[auto, node distance=2cm,>=latex']
     % Inspired from http://www.texample.net/tikz/examples/control-system-principles/
     % first place and connect the outer blocks that represent synsets
-      \node [block, text width=5cm] (quill) {~\\\textbf{Synset S1} \\ - Anglais : quill \\ - Français : piquant? plume? \\ (a stiff hollow protective spine on a porcupine) \\ ~ };
-      \node [block, text width=4.0cm, right of=quill, node distance=9cm] (porcupine) {\textbf{Synset S2} \\ - Anglais : porcupine, hedgehog \\ - Français : porc-épic \\ (rodents with sharp erectile bristles mingled with the fur)};
+      \node [block] (quill) {~\\\textbf{Synset S1} \\ - Anglais : quill \\ - Français : piquant? plume? \\ (a stiff hollow protective spine on a porcupine) \\ ~ };
+      \node [block, text width=3.7cm, right of=quill, node distance=9cm] (porcupine) {\textbf{Synset S2} \\ - Anglais : porcupine, hedgehog \\ - Français : porc-épic \\ (rodents with sharp erectile bristles mingled with the fur)};
     \draw [<-] (porcupine) -- node[above] {méronyme de} (quill);
     \draw [<-] (porcupine) -- node[below] {(relation WordNet)} (quill);
 
     % then the syntactic model relations
-    \node [block, below of=porcupine, text width=4.0cm, node distance=3cm] (porcupinesynt1) {porc-épic};
+    \node [block, below of=porcupine, text width=3.7cm, node distance=3cm] (porcupinesynt1) {porc-épic};
     \node [block, below of=quill, node distance=3cm] (quillsynt1) {\Large{mémoire}, \Large{piquant}, \large{poil}, \large{épine}, yéti, ragoût, grotte, \small{tactique}, \small{pelage}, \small{dextre}, \small{aiguille}, ...};
     \draw [<-] (porcupinesynt1) -- node[above] {complément du nom de} (quillsynt1);
     \draw [<-] (porcupinesynt1) -- node[below] {(modèle de langue)} (quillsynt1);
