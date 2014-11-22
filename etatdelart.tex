@@ -990,8 +990,11 @@ de football, mais sans connaissance explicite sur la langue anglaise.  Leur
 approche a entraîné des travaux sur le \textit{situated language understanding}
 (compréhension ancrée du langage):
 \cite{bordes2010towards,richardson2012towards} ont proposé par la suite
-d'autres corpus pour cette tâche. Notre système (Chapitre~\ref{ch:domainsrl})
-est similaire dans le sens où nous minimisons l'effort humain pour annoter de
+d'autres corpus pour cette tâche. \cite{chang2014learning} génèrent eux des
+scènes 3D à partir de textes tels que "Il y a une pièce avec une chaise et un
+ordinateur" en essayant d'inférer les contraintes implicites telles que la
+présence d'un bureau. Notre système (Chapitre~\ref{ch:domainsrl}) est similaire
+à ces systèmes dans le sens où nous minimisons l'effort humain pour annoter de
 nouveaux domaines, mais nous nous concentrons sur l'annotation en rôles
 sémantiques \textit{à la FrameNet}.
 
@@ -1007,6 +1010,10 @@ approches :
     \item en apprenant un système supervisé en utilisant divers traits issus de
         la littérature.
 \end{itemize}
+
+Même si nous utilisons le même corpus, nos travaux vont dans la direction
+opposée : nous souhaitons annoter un grand nombre de phrases provenant de
+divers domaines sans utiliser de corpus annoté.
 
 Ce travail conclut en indiquant que pour obtenir de meilleurs résultats sur
 plus de rôles et de prédicats, il faut plus d'exemples d'entraînement. Notre

@@ -23,10 +23,9 @@ notre système est, suivant le point de vue :
     \item une \textit{baseline} forte,
     \item une première étape pour annoter un nouveau domaine avec peu d'efforts,
     \item un système complet d'annotation en rôles sémantiques une fois que
-        VerbNet a été mis à jour par rapport au domaine considéré.
+        VerbNet a été mis à jour par rapport au domaine considéré,
+    \item ou un moyen d'identifier des manquements dans VerbNet.
 \end{itemize}
-
-De plus, cette méthode peut identifier des manquements dans VerbNet.
 
 La définition du terme 'domaine' reste assez vague dans le sens où il est
 difficile de proposer une catégorisation de la connaissance en un ensemble de
@@ -50,64 +49,20 @@ supposons que dans deux domaines différents plus que dans deux genres
 différents, les changements vont résider dans les verbes utilisés, leur sens et
 la façon de les utiliser. C'est ce que nous souhaitons prendre en compte ici.
 
-\section{Travaux existants}
-
-SEMAFOR \citep{das2014frame} est le système supervisé le plus proche de notre
-système. En utilisant le corpus FrameNet, il commence par identifier les
-prédicats, identifie la frame correcte évoquée par ces prédicats, puis
-identifie les groupes de mots qui jouent un rôle pour ce prédicat donné.
-
-Une autre tâche proche de l'annotation en rôles sémantiques est celle de la
-compréhension située (\textit{situated understanding} en anglais). L'objectif est
-de comprendre un texte écrit en langage naturel dans un certain contexte
-spatial bien délimité, par exemple un terrain de football pendant un match, ou
-la pièce d'une maison. Dans le domaine du football, \cite{chen2008learning}
-entraînent un système de commentaires à partir de commentaires existants et
-d'états de simulations de parties de football, mais sans connaissance explicite
-de l'anglais. Leur approche a inspiré d'autres travaux sur la compréhension
-située : \citep{bordes2010towards} et \cite{richardson2012towards} ont proposé
-par la suite d'autres corpus pour entraîner de tels systèmes.
-\cite{chang2014learning} génèrent eux des scènes 3D à partir de textes tels que
-"Il y a une pièce avec une chaise et un ordinateur" en essayant d'inférer les
-contraintes implicites telles que la présence d'un bureau. Notre système est
-similaire à ces systèmes dans le sens où nous minimisons l'effort humain pour
-annoter automatiquement de nouveaux domaines, mais nous nous concentrons sur la
-tâche de l'annotation en rôles sémantiques sur des corpus de type FrameNet.
-
-Le système d'annotation en rôles sémantiques de \cite{gormley2014low} ne
-demande certes pas de syntaxe supervisée, mais nécessite tout de même un corpus
-annoté en rôles sémantiques. \cite{hadouche2011annotation} réalise de
-l'annotation en rôles sémantiques sur un de nos corpus en domaine spécifique
-avec deux approches différentes :
-
-\begin{itemize}
-
-    \item en appliquant des règles définies manuellement à la sortie d'un
-        analyseur syntaxique
-
-    \item en apprenant un système supervisé avec différents traits issus de la
-        littérature
-
-\end{itemize}
-
-Même si nous utilisons le même corpus, nos travaux vont dans la direction
-opposée : nous souhaitons annoter un grand nombre de phrases provenant de
-divers domaines sans utiliser de corpus annoté.
-
 \section{Approche}
 \label{sec:domainsrl_approche}
 
 % TODO n'indiquer que les différences par rapport à ch:srl
 
 Nous laissons ici l'identification des arguments à un travail futur, et
-utilisons ici les arguments issus de la vérité-terrain : on sait que ces
-arguments jouent un rôle, mais on ne sait pas lequel. La raison est que nous
-voulons nous concentrer pour le moment sur la couverture syntaxique de VerbNet
-sans avoir à analyser syntaxiquement nos corpus : les erreurs d'annotation
-représenteraient une difficulté supplémentaire. Cela signifie aussi que notre
-système n'a pas besoin de distinguer les arguments jouant un rôle (\textit{core}
-dans FrameNet) des autres (\textit{non-core}), ce qui est une part importante de
-tout système complet d'annotation en rôles sémantiques.
+utilisons les arguments issus de la vérité-terrain : on sait que ces arguments
+jouent un rôle, mais on ne sait pas lequel. La raison est que nous voulons nous
+concentrer pour le moment sur la couverture syntaxique de VerbNet sans avoir à
+analyser syntaxiquement nos corpus : les erreurs d'annotation représenteraient
+une difficulté supplémentaire. Cela signifie aussi que notre système n'a pas
+besoin de distinguer les arguments jouant un rôle (\textit{core} dans FrameNet)
+des autres (\textit{non-core}), ce qui est une part importante de tout système
+complet d'annotation en rôles sémantiques.
 
 Pour annoter une phrase donnée avec des remplisseurs de rôle déjà identifiés
 (mais sans connaître pas la classe VerbNet ni les rôles corrects), nous listons
