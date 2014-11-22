@@ -14,8 +14,9 @@ correct d'un mot utilisé en contexte. WordNet \citep{fellbaum1998wordnet}
 regroupe les mots en ensembles de synonymes (\textit{synonym sets} ou
 \textit{synsets}) et lie ces synsets entre eux par différentes relations
 sémantiques comme par exemple l'antonymie, l'hyperonymie, l'hyponymie ou encore
-la méronymie (section~\ref{subsec:ressources_lexicales}). Une partie
-conséquente de ce chapitre provient d'articles déjà publiés
+la méronymie (section~\ref{subsec:ressources_lexicales}). Nous présentons ici
+une traduction de WordNet vers le français. Une partie conséquente de ce
+chapitre provient d'articles déjà publiés
 \citep{pradet2013wonef,pradet2014wonef}.
 
 Nos travaux sont la suite de JAWS, dont le fonctionnement est détaillé à la
@@ -29,9 +30,9 @@ Nous étendons et améliorons les techniques utilisées dans JAWS et l'évaluons
 l'aide d'une vérité-terrain obtenue par adjudication de deux annotateurs. WoNeF
 se décline en trois versions pour répondre à différents besoins. Le WoNeF
 principal a un F-score de 70.9~\%, une autre version a une précision de
-93.3~\%, et une dernière contient 109~447 paires (littéral, synset).
+93.3~\%, et une dernière contient un plus grand nombre de paires (littéral, synset).
 
-\section{WoNeF: un JAWS étendu aux verbes, adjectifs et adverbes}
+\section{WoNeF: un JAWS amélioré et étendu}
 \label{sec:improving_jaws}
 
 \subsection{Limites de JAWS}
@@ -59,15 +60,15 @@ ne correspond pas à tous les besoins.
 % nous c'est 70.7 / 69.6 basé sur la section susbec:pos_results
 
 À notre connaissance, les traductions automatiques de WordNet actuelles
-n'existent qu'en une seule version, soit où les auteurs décident eux-mêmes
-quelle métrique optimiser, soit où il faut choisir un seuil de confiance pour
-ne garder que les traductions les plus sûres. Nous fournissons aussi une telle
-version, mais ajoutons aussi deux ressources qui peuvent servir des besoins
-différents. Même si notre WoNeF à haute précision est petit, il peut être
-utilisé comme une annotation de référence et servir pour entraîner un système
-d'apprentissage. Une ressource à haute couverture peut servir de base à une
-correction manuelle ou servir pour une intersection avec d'autres ressources,
-ce qui est la raison pour laquelle nous en fournissons une aussi.
+n'existent qu'en une seule version. Soit les auteurs décident eux-mêmes quelle
+métrique optimiser, soit il faut choisir un seuil de confiance pour ne garder
+que les traductions les plus sûres. Nous fournissons aussi une telle version,
+mais ajoutons aussi deux ressources qui peuvent servir des besoins différents.
+Même si notre WoNeF à haute précision est petit, il peut être utilisé comme une
+annotation de référence et servir pour entraîner un système d'apprentissage.
+Une ressource à haute couverture peut servir de base à une correction manuelle
+ou servir pour une intersection avec d'autres ressources, ce qui est la raison
+pour laquelle nous en fournissons une aussi.
 
 
 Cette section présente les trois améliorations essentielles qui ont étés
@@ -102,18 +103,18 @@ Troisièmement, le sélecteur de la distance de Levenshtein a été amélioré. 
 du vocabulaire anglais est d'origine française \citep{finkenstaedt1973ordered},
 et l'anglicisation a produit des transformations prévisibles. Il est possible
 d'appliquer ces mêmes transformations aux littéraux candidats français, et
-seulement alors d'appliquer la distance de Levenshtein. Nous commençons par
-supprimer les accents, puis appliquons différentes opérations
+seulement alors d'appliquer la distance de Levenshtein\footnote{La distance de
+    Damerau-Levenshtein qui prend en compte les inversions n'importe-où dans un
+mot \citep{damerau1964technique} a donné de moins bons résultats.}. Nous
+commençons par supprimer les accents, puis appliquons différentes opérations
 (Table~\ref{table:levenshteinrules}. Par exemple, l'inversion des lettres "r"
 et "e" prend en compte (\textit{order}/\textit{ordre}) et
-(\textit{tiger}/\textit{tigre})\footnote{La distance de Damerau-Levenshtein qui
-prend en compte les inversions n'importe-où dans un mot
-\citep{damerau1964technique} a donné de moins bons résultats.}.  Toutes les
-transformations ne s'appliquent qu'à la fin des mots : \textit{-que} est
-transformé en \textit{-k} ou \textit{-c} (\textit{marque} devient
-\textit{mark}), \textit{-té} vers \textit{-ty} (\textit{extremité} devient
-\textit{extremity}), etc. Les faux-amis ne peuvent pas être pris en compte en
-compte par cette méthode qui est purement orthographique..
+(\textit{tiger}/\textit{tigre}).  Toutes les transformations ne s'appliquent
+qu'à la fin des mots : \textit{-que} est transformé en \textit{-k} ou
+\textit{-c} (\textit{marque} devient \textit{mark}), \textit{-té} vers
+\textit{-ty} (\textit{extremité} devient \textit{extremity}), etc. Les
+faux-amis ne peuvent pas être détectés puis exclus compte par cette méthode qui
+est purement orthographique.
 
 \begin{table}[ht]
 \centering
@@ -172,7 +173,7 @@ candidats au-dessus du nouveau seuil, ce qui a deux effets positifs :
 
     \item des candidats valides ne sont plus rejetés simplement parce qu'un
         meilleur candidat est aussi sélectionné, ce qui améliore à la fois le
-        rappel et la couverture.
+        rappel et la couverture~;
 
     \item les candidats invalides qui étaient jusque-là acceptés sont
         maintenant rejetés grâce au seuil plus strict : la précision s'en
@@ -186,22 +187,22 @@ candidats au-dessus du nouveau seuil, ce qui a deux effets positifs :
 Après l'application des différents sélecteurs, notre WordNet est large mais
 contient des synsets bruités. Comme toutes les traductions automatiques de
 WordNet, WoNeF doit alors être nettoyé \citep{sagot2012cleaning}. Dans WoNeF,
-le bruit provient de différents facteurs :
+le bruit provient de différents facteurs.
 
 \begin{itemize}
 
-    \item les sélecteurs essaient d'inférer des informations sémantiques à
+    \item Les sélecteurs essaient d'inférer des informations sémantiques à
         partir d'une analyse syntaxique sans prendre en compte toute la
-        complexité de l'interface syntaxe-sémantique,
+        complexité de l'interface syntaxe-sémantique.
 
-    \item l'analyseur syntaxique produit lui-même des résultats bruités,
+    \item L'analyseur syntaxique produit lui-même des résultats bruités.
 
-    \item le modèle de langue syntaxique est produit à partir d'un corpus
+    \item Le modèle de langue syntaxique est produit à partir d'un corpus
         extrait du web lui-même bruité (texte mal écrit, contenu non textuel,
         phrases non françaises) et n'est pas une «~distribution idéale~»
-        \citep{copestake2013lexicalised},
+        \citep{copestake2013lexicalised}.
 
-    \item les traductions déjà choisies sont considérées comme valides dans les
+    \item Les traductions déjà choisies sont considérées comme valides dans les
         étapes suivantes alors que ce n'est pas toujours le cas.
 
 \end{itemize}
@@ -295,7 +296,8 @@ tel synset : le synset résultant contiendra soit trop soit trop peu de
 traductions. Nous avons décidé de ne pas traduire ces synsets dans notre
 annotation manuelle. Ces problèmes de granularité concernent 3~\% des synsets
 nominaux, 8~\% des synsets verbaux et 6~\% des synsets adjectivaux.
-Actuellement, WoNeF ne détecte pas de tels synsets.
+Actuellement, WoNeF n'essaie pas de détecter de tels synsets et les traduit
+donc comme tous les autres.
 
 L'autre difficulté principale découle de traductions manquantes, ce qui peut
 être considéré comme un défaut de nos dictionnaires. Les sens rares d'un mot
@@ -320,14 +322,14 @@ que le sens d'un synset doit être conservé par la traduction.
 Malgré les difficultés mentionnées ci-dessus, l'annotation résultante a été
 validée par la mesure de l'accord inter-annotateurs, qui montre que l'approche
 par extension pour la création de nouveaux wordnets est valide et peut produire
-des ressources utiles. Trois annotateurs humains, soit linguiste informaticien
-soit informaticien linguiste, ont annoté de façon indépendante les mêmes
-synsets choisis au hasard pour chaque partie du discours. Ils ont utilisé
-WordNet pour examiner les synsets voisins, le dictionnaire Merriam-Webster, le
-TLFi \citep{TLFi} et des moteurs de recherche pour attester l'utilisation des
-divers sens des mots considérés. Après adjudication faite par ces deux
-annotateurs en confrontant leurs opinions en cas de désaccord, l'annotation de
-référence a été formée.
+des ressources utiles. Trois annotateurs humains (deux par partie du discours),
+soit linguiste informaticien soit informaticien linguiste, ont annoté de façon
+indépendante les mêmes synsets choisis au hasard pour chaque partie du
+discours. Ils ont utilisé WordNet pour examiner les synsets voisins, le
+dictionnaire Merriam-Webster, le TLFi \citep{TLFi} et des moteurs de recherche
+pour attester l'utilisation des divers sens des mots considérés. Après
+adjudication faite par ces deux annotateurs en confrontant leurs opinions en
+cas de désaccord, l'annotation de référence a été formée.
 
 \begin{table}[ht]
 \centering
@@ -452,12 +454,11 @@ de qualité. Pour l'évaluer, nous utilisons la liste des synsets \textbf{BCS}
 (Basic Concept Set) fournie par le projet BalkaNet \citep{tufis2004balkanet}.
 Cette liste contient les 8~516 synsets lexicalisés dans six traductions
 différentes de WordNet, et représente les synsets les plus fréquents et ceux
-qui comportent le plus de mots polysémiques. Les résultats montrent le nombre
-de synsets BCS pour les ressources à haut F-score et haute couverture. Alors
-que les ressources à haut F-score et à haute couverture perdent en précision
-pour les synsets BCS, ce n'est pas le cas pour la ressource à haute précision.
-En effet, le mécanisme de vote rend la ressource haute-précision très robuste,
-et ce même pour les synsets BCS.
+qui comportent le plus de mots polysémiques. Alors que les ressources à haut
+F-score et à haute couverture perdent en précision pour les synsets BCS, ce
+n'est pas le cas pour la ressource à haute précision.  En effet, le mécanisme
+de vote rend la ressource haute-précision très robuste, et ce même pour les
+synsets BCS.
 
 
 \subsection{Résultats par partie du discours}

@@ -22,7 +22,7 @@ La construction de cette ressource se fait en trois étapes.
         (section~\ref{first}).
     \item La deuxième étape (section~\ref{second}), toujours en cours, est
         l'adaptation des frames VerbNet vers le français et la réorganisation
-        les classes VerbNet en fonction de ces frames, ce qui pose divers
+        des classes VerbNet en fonction de ces frames, ce qui pose divers
         problèmes que nous décrivons en partie ici (section~\ref{casebycase}).
     \item La troisième étape (section~\ref{third}), aussi en cours de
         réalisation, est la validation des verbes français de chaque classe.
@@ -39,13 +39,14 @@ les usages commerciaux.
 
 \section{Étapes de constructions de \verbenet{}}
 
-Notre principe de base est que la hiérarchie supérieure de VerbNet doit être
-aussi proche que possible de celle de VerbNet et ses 270 classes. Néanmoins,
-certaines classes peuvent disparaître dès lors que les critères utilisés pour
-l'anglais ne s'appliquent pas au français, ce qui est parfois le cas lorsque
-VerbNet emploit des critères morphologiques. Ainsi, une classe VerbNet ne
-contenant que des verbes dénominaux n'a pas d'équivalent en français. C'est le
-cas de :
+Notre principe de base est que la hiérarchie supérieure de \verbenet{} doit
+être aussi proche que possible de celle de VerbNet et ses 270 classes.
+Néanmoins, certaines classes peuvent disparaître dès lors que les critères
+utilisés pour l'anglais ne s'appliquent pas au français, ce qui est parfois le
+cas lorsque VerbNet emploit des critères morphologiques. Ainsi, une classe
+VerbNet ne contenant que des verbes dénominaux n'a pas d'équivalent en
+français. C'est le cas de :
+
 \begin{itemize}
     \item {\color{blue}\texttt{pit-10.7}} formé avec des parties constitutives
         d'animaux ou d'objets avec des verbes tels que :
@@ -81,8 +82,9 @@ trois étapes.
 
 \begin{enumerate}
     \item Pour une classe VerbNet donnée \Ce{}, nous assignons manuellement les
-        classes LVF \Clvf{} et les classes LG \Clg{} qui correspondent à sa
-        définition sémantique. Nous assignons par exemple {\color{red}L3b} et
+        classes LVF (section~\ref{sec:lvflg}) \Clvf{} et les classes LG
+        (section~\ref{sec:lvflg}) \Clg{} qui correspondent à sa définition
+        sémantique. Nous assignons par exemple {\color{red}L3b} et
         {\color{green}38LD} à {\color{blue}\texttt{put-9.1}} et assignons
         {\color{red}M1a} et {\color{green}32CL ou 32R3 ou 32C} à
         {\color{blue}\texttt{body\_internal\_motion-49}}.
@@ -140,7 +142,7 @@ le travail lexicographique.
 \subsection{Troisième étape : validation manuelle des verbes}
 \label{third}
 
-La troisième étape est l'occasion de valider manuellement pour chaque classes
+La troisième étape est l'occasion de valider manuellement pour chaque classe
 les verbes proposés par correspondance de ressources en supprimant les verbes
 erronés et en rajoutant les verbes manquants afin que la ressource ait été
 entièrement validée manuellement. Quasiment aucun verbe n'est ajouté
@@ -195,7 +197,7 @@ des frames qui ne diffèrent que par l'ordre des compléments, par exemple dans
 (\textit{Nora brought to lunch the book}) et NP V NP PP.Destination (\textit{Nora
 brought the book to the meeting}). En français, l'ordre des compléments dépend
 d'un certain nombre de facteurs syntaxiques et sémantiques
-\citep{thuilier2012contraintes}, mais ne dépend pas a priori d'un facteur
+\citep{thuilier2012contraintes}, mais ne dépend pas à priori d'un facteur
 lexical : il ne dépend pas du verbe qui gouverne les compléments. C'est pour
 cette raison que \verbenet{} n'encode qu'un frame dans ces cas, ici seulement
 \textit{NP V NP PP.Destination} (\textit{Nora a apporté le livre au meeting}) avec
@@ -232,12 +234,12 @@ Dans ce cas, nous avons opté pour la seconde solution étant donné que cette
 information n'est pas directement utile pour l'annotation en rôles
 sémantiques\footnote{Il semble par ailleurs que pour certains verbes anglais,
     l'Agent peut être ou non en mouvement : voir la différence entre les
-classes VerbNet {\color{blue}\texttt{carry-11.4}} et {\color{blue}\texttt{carry-11.4-1}}.}.
-C'est un choix discutable : si pour notre application la position de l'Agent
-avait eu un intérêt, comme ce pourrait être le cas en implication textuelle,
-une étude plus complète aurait été souhaitable. Nous préférons nous concentrer
-sur la sortie d'une première version de VerbNet, quitte à revenir sur certains
-choix par la suite.
+classes VerbNet {\color{blue}\texttt{carry-11.4}} et
+{\color{blue}\texttt{carry-11.4-1}}.}.  C'est un choix discutable : si pour
+notre application la position de l'Agent avait eu un intérêt, comme ce pourrait
+être le cas en implication textuelle, une étude plus complète aurait été
+souhaitable. Nous préférons nous concentrer sur la finalisation d'une première
+version de VerbNet, quitte à revenir sur certains choix par la suite.
 
 Le fait d'ignorer cette différence nous mène à adopter dans \verbenet{} une
 hiérarchie différente de VerbNet pour la super-classe 11 : il n'y a pas
@@ -260,6 +262,8 @@ cas connus, nous discutons ici de situations plus subtiles, comme par exemple
 avec les verbes de changement de possession. Dans VerbNet, dix classes sont
 dédiées à ces verbes. Une telle hiérarchie est impossible en français. Sans
 tout détailler, insistons sur ces quelques points :
+
+% TODO "Sans tout détailler" maladroit pour une thèse ?
 
 \begin{itemize}
     \item L'absence d'alternances datif et bénéfactif en français implique que
@@ -332,7 +336,7 @@ français avec les bonnes prépositions. Par exemple, dans la classe
 combinaison de \textit{de} et \textit{avec}.
 
 
-\section{Conclusion}
+\section*{Conclusion}
 
 Nous avons présenté une méthode pour adapter la ressource syntaxico-sémantique
 VerbNet vers une nouvelle langue. Cette méthode combine l'automatisation du
@@ -343,3 +347,5 @@ classe est en cours. Nous reconnaissons les différences qui existent entre les
 langues : la structure de \verbenet{} n'est pas exactement celle de VerbNet.
 
 % TODO exporter dans un format libre et mettre quelque part !
+
+% TODO on doit connaître l'état de la ressource et le travail restant

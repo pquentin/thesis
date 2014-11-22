@@ -75,15 +75,15 @@ classique relèvent du «~domaine général~», et que les sens qui apparaissent
 dans d'autres domaines sont des sens «~de spécialité~». Par exemple, le
 dictionnaire DicoInfo \citep{corpusolst} spécialisé dans les domaines de
 l'Informatique et d'Internet mentionne un sens spécifique pour le nom
-\textit{compilation} : \textit{action effectuée par un compilateur qui consiste à
-    transformer du code créé au moyen d'un langage de programmation évolué en
-un langage compréhensible par l'ordinateur}. Ce sens est par exemple absent du
+\textit{compilation} : \textit{action effectuée par un compilateur qui consiste
+    à transformer du code créé au moyen d'un langage de programmation évolué en
+un langage compréhensible par l'ordinateur}. Ce sens est notamment absent du
 TLFi \citep{TLFi} parce qu'il ne faisait pas partie des sens du mot dans le
 corpus utilisé pour établir les définitions. Le lexique \textit{Les Verbes
 Français} (section~\ref{sec:lvflg}) contient bien le sens informatique du verbe
-\textit{compiler} mais le domaine (Informatique) et le niveau de lexique (5, soit
-«~grands dictionnaires de langue ou encyclopédiques, lexiques spécialisés~»)
-indiquent bien que c'est un sens de spécialité.
+\textit{compiler} mais le domaine (Informatique) et le niveau de lexique (5,
+soit «~grands dictionnaires de langue ou encyclopédiques, lexiques
+spécialisés~») indiquent bien que c'est un sens de spécialité.
 
 \subsection{Ressources lexicales actuelles}
 \label{subsec:ressources_lexicales}
@@ -187,7 +187,7 @@ prise en compte du changement des sens suivant les domaines.
 \cite{agirre2010semeval17} ont proposé une campagne d'évaluation sur le domaine
 environnemental en anglais, chinois, néerlandais et italien. Pour chacune des
 langues, au moins un système a battu la baseline du sens le plus fréquent, et
-les systèmes fondés sur la connaissance ont pu s'adapter au domaine plus
+les systèmes fondés sur connaissance ont pu s'adapter au domaine plus
 facilement que les systèmes supervisés. Les scores maximaux, entre 52~\% et
 57~\%, restent loin de l'accord inter-annotateur, compris entre 72~\% et 96~\%.
 En fouille d'opinion, \cite{marchand2014influence} évaluent eux l'apport de la
@@ -202,7 +202,7 @@ et un défaut pour de l'électroménager.
 Contrairement aux systèmes généraux de désambiguïsation lexicale qui cherchent
 à choisir un sens parmi un ensemble donné de sens, \cite{marchand2014influence}
 ne s'intéressent qu'aux changements de sens utiles pour l'application, ce qui
-rend le système plus robuste. Différentes tâches bénéficiant soit de tels
+rend le système plus robuste. Différentes tâches bénéficiant de tels
 «~inventaires~» spécifiques ont ainsi étés proposées lors de campagnes
 d'évaluation, en particulier SemEval. Par exemple :
 
@@ -317,13 +317,13 @@ de langues à base de n-grammes existent, l'une d'entre elles étant le modèle 
 langue syntaxique \citep{lin1998automatic,goldberg2013dataset}. Dans ce modèle,
 on considère les mots présents ensemble dans une relation syntaxique donnée.
 Pour la relation complément du nom par exemple, on s'attend à ce que
-\textit{vélo} soit le complément du nom des mots \textit{pédale}, \textit{guidon},
-\textit{pneu}... Nous utilisons pour la traduction de WordNet
+\textit{vélo} soit le complément du nom des mots \textit{pédale},
+\textit{guidon}, \textit{pneu}... Nous utilisons pour la traduction de WordNet
 (Chapitre~\ref{ch:wonef}) un tel modèle de langue syntaxique
 (\url{http://www.kalisteo.fr/demo/semanticmap/}).  Il a été entraîné sur un
 corpus extrait du web francophone \citep{grefenstette2007conquering}. Le corpus
 a ensuite été analysé par LIMA \citep{besancon2010lima}, une chaîne d'analyse
-linguistique désormais libre ici utilisée comme un analyseur syntaxique à base
+linguistique désormais libre utilisée ici comme un analyseur syntaxique à base
 de règles produisant des dépendances syntaxiques fines. Pour une relation
 donnée $r$ et un lemme $x$, le modèle de langue indique quels sont les 100
 premiers lemmes co-occurrant le plus fréquemment avec $x$ dans la relation $r$.
@@ -341,7 +341,8 @@ est fréquent dans le corpus.
     \node [block, text width=10cm] (quillsynt1) {\Huge{billet}, \large{}pilote, vol, accident, \LARGE{détournement}, \large{}tour, \LARGE{collision}, \large{moteur}, \small{monde}, \LARGE{crash}, \large{}aile, bruit, \small{type}, \large{}carburant, attentat, \small{guerre}, \large{}chute, commande, \small{construction}, descente, \small{nombre}, \small{prix}, \small{achat}, \small{place}, \large{}réservation, passager, \small{programme}, \large{}bombe, \small{}peur, avion, \large{flotte}, \small{}transport \large{pilotage}, \LARGE{écrasement}, \small{}vitesse, utilisation, arrivée, \normalsize{}...};
 
   \end{tikzpicture}
-  \caption{\textit{avion} est complément de ces noms d'après notre modèle de langue syntaxique.}
+  \caption{\textit{avion} est complément de ces noms d'après notre modèle de
+  langue syntaxique. La taille des mots reflète la force de l'association.}
 \end{figure}
 
 \paragraph{Modèles de langues continus} D'autres types de modèles de langue
@@ -566,14 +567,15 @@ width=3cm, text width=5.1cm]
 
 Un problème potentiel avec cette approche est que la relation de complément du
 nom n'est pas limitée à la méronymie. Par exemple, le mot \textit{mémoire} qui
-apparaît dans le modèle de langue vient d'un livre intitulé \textit{Mémoires
-d'un porc-épic}. Heureusement, \textit{mémoire} n'est pas dans les candidats de
-\textit{quill} et ne peut pas être choisi comme une traduction. Paradoxalement,
-le modèle de langue ne peut pas choisir entre deux mots très différents, mais
-est capable de faire le bon choix parmi les différentes traductions d'un mot
-polysémique. Alors que traduire WordNet automatiquement avec un dictionnaire ou
-un modèle de langue syntaxique est impossible, combiner les deux sources
-d'information permet de résoudre le problème.
+est lui aussi associé à \textit{porc-épic} dans le modèle de langue vient d'un
+livre intitulé \textit{Mémoires d'un porc-épic}. Heureusement, \textit{mémoire}
+n'est pas dans les candidats de \textit{quill} et ne peut pas être choisi comme
+une traduction. Paradoxalement, le modèle de langue ne peut pas choisir entre
+deux mots très différents, mais est capable de faire le bon choix parmi les
+différentes traductions d'un mot polysémique. Alors que traduire WordNet
+automatiquement avec un dictionnaire ou un modèle de langue syntaxique est
+impossible, combiner les deux sources d'information permet de résoudre le
+problème.
 
 Chaque sélecteur suit le même principe que le sélecteur par méronymie de partie
 et traduit de nouveaux synsets en identifiant les relations entre lexèmes via
@@ -626,8 +628,8 @@ Concernant les traductions directes, \cite{merlo2002multilingual} ont utilisé
 des similarités entres langues pour convertir 20 classes de Levin vers
 l'Italien. Les seules traductions directes de VerbNet dont nous avons la
 connaissance sont le VerbNet estonien \citep{jentson2014verbnet} et le VerbNet
-portuguais brésilien \citep{scarton2012towards} qui utilise des mappings entre
-VerbNet et WordNet, et entre WordNet.Br et WordNet. \cite{scarton2014using}
+portuguais brésilien \citep{scarton2012towards} (qui utilise des mappings entre
+VerbNet et WordNet, et entre WordNet.Br et WordNet). \cite{scarton2014using}
 proposent la création d'un VerbNet en s'appuyant comme seul effort manuel sur
 la traduction manuelle des frames VerbNet vers la langue cible, puis de
 ressources lexicales déjà disponibles (WordNet, VerbNet et WordNet traduit dans
@@ -646,24 +648,67 @@ Automatique de Langues, tout comme VerbNet dix ans plus tard. Chacun des 1700
 verbes est décrit par un certain nombre de «~contextes~» provenant de
 différentes sources : les classes de Levin, les tables du Lexique-Grammaire, de
 corpus et d'intuition linguistique. Cependant, à notre connaissance, l'effort
-sur cette ressource s'est arrêté et le résultat n'est pas
-disponible\footnote{Nous n'avons cependant pas contacté l'auteur de cette
-ressource pour en savoir plus.}. Des travaux se sont ensuite concentrés sur
-l'acquisition automatique de cadres de sous-catégorisation et sur le
-regroupement de verbes en se basant sur ces cadres et sur des similarités
-sémantiques. \cite{sun2010investigating} ont utilisé un large lexique de cadres
-de sous-catégorisation \citep{messiant2010acquisition} pour regrouper les
-verbes en clusters à l'aide de traits sémantiques (colocations et préférences
-lexicales des verbes) et syntaxiques (cadres de sous-catégorisation).
-L'évaluation sur une vérité-terrain créée manuellement a mené à une F-mesure de
-55.1\%.  \cite{falk2012classifying} appliquent un algorithme de clustering
-différent et utilisent des features différentes, ce qui améliore la F-mesure
-sur la même vérité-terrain mais simplifiée, ce qui donne une F-mesure de 70\%.
-Ces ressources mettent en valeur de nouvelles façons de séparer les verbes du
+sur cette ressource s'est arrêté et le résultat n'est pas disponible. Des
+travaux se sont ensuite concentrés sur l'acquisition automatique de cadres de
+sous-catégorisation et sur le regroupement de verbes en se basant sur ces
+cadres et sur des similarités sémantiques. \cite{sun2010investigating} ont
+utilisé un large lexique de cadres de sous-catégorisation
+\citep{messiant2010acquisition} pour regrouper les verbes en clusters à l'aide
+de traits sémantiques (colocations et préférences lexicales des verbes) et
+syntaxiques (cadres de sous-catégorisation).  L'évaluation sur une
+vérité-terrain créée manuellement a mené à une F-mesure de 55.1\%.
+\cite{falk2012classifying} appliquent un algorithme de clustering différent et
+utilisent des features différentes, ce qui améliore la F-mesure sur la même
+vérité-terrain mais simplifiée, ce qui donne une F-mesure de 70\%.  Ces
+ressources mettent en valeur de nouvelles façons de séparer les verbes du
 Français, mais les erreurs qu'elles contiennent seront une nouvelle source
 d'erreur dans les applications : il est important de les corriger si possible,
 ce qui est la raison pour laquelle nous adoptons une approche différente qui
 sera présentée au Chapitre~\ref{ch:verbnet}.
+
+\subsection{FrameNet}
+\label{presentation_framenet}
+
+FrameNet \citep{baker1998berkeley} repose sur la théorie des \textit{Frame
+Semantics}, élaborée par \cite{fillmore1982frame} en modifiant sa théorie des
+cas \citep{fillmore1968case}. Ici, les rôles sémantiques sont spécifiques à
+chaque situation. Par exemple, la situation \textit{Infecting} définit les rôles
+sémantiques \textit{Infected\_entity}, \textit{Infection} et
+\textit{Infection\_cause}, alors que la situation \textit{Commerce\_buy} définit les
+rôles sémantiques \textit{Buyer}, \textit{Seller} et \textit{Goods}. Les rôles sont
+classifiés selon leur importance dans la situation : centraux (nécessaires),
+périphériques (toujours liés à la situation mais optionnels) et circonstanciels
+(pas spécifiques donc potentiellement présent dans toutes les situations, par
+exemple le lieu ou le temps).
+
+% TODO paragraphe sur ASFALDA !
+
+La théorie de FrameNet peut être utilisées dans d'autres domaines et d'autres
+langues \citep{boas2009multilingual}. Il existe ainsi notamment des FrameNet en
+espagnol \citep{subirats2003surprise}, japonais \citep{ohara2004japanese},
+suédois \citep{heppin2012rocky} ou encore français avec le projet ANR ASFALDA
+\citep{candito2014developing}. Certaines méthodes automatiques utilisent le
+Wiktionnaire pour traduire le lexique FrameNet, mais pas son corpus
+\citep{mouton2010framenet,hartmann2013framenet}, ce qui n'est pas directement
+utile. Le Kicktionary \citep{schmidt2009kicktionary} est lui spécifique au
+football et annote en trois langues (français, anglais, allemand) des dépêches
+de presses de l'UEFA.  \cite{venturi2009towards} proposent un FrameNet italien
+centré sur le domaine du droit. Enfin, il existe plusieurs FrameNets
+spécialisés en portugais brésilien : un dans le domaine du droit
+\citep{bertoldi2012frame} et l'autre pour la coupe du monde 2014
+\citep{torrent2014copa}.
+
+FrameNet est donc une ressource très riche qui peut s'adapter à de nombreux
+domaines et à de nombreuses langues. Malheureusement, nous considérons que le
+coût pour développer une telle ressource pour un nouveau domaine est prohibitif
+et n'utilisons cette ressource que pour l'évaluation. Le projet FrameNet est
+encore loin de couvrir un éventail complet du vocabulaire anglais
+\citep[§5.4]{marquez2008semantic}, nécessitant de trouver d'autres moyens pour
+étendre la ressource, notamment avec la myriadisation (\textit{crowdsourcing})
+\citep{fossati2013outsourcing,baker2014framenet}.
+
+% TODO expliciter la différence entre frame-semantic parsing et semantic role
+% labeling
 
 \section{Annotation en rôles sémantiques}
 \label{sec:srl}
@@ -731,28 +776,21 @@ travaux ont été présentées à la section~\ref{ressources_utilisees}.
 
 \paragraph{PropBank}
 
-Malgré quelques critiques \citep{riemer2011conception}, l'interface
-syntaxe-sémantique nous permet d'utiliser les informations syntaxiques d'un
-verbe pour distinguer différents sens et identifer ses arguments sémantique.
-Par exemple, nous pouvons expliquer la différence entre deux sens majeurs du
-verbe « retenir » syntaxiquement :
-
-\begin{enumerate}
-    \item retenir quelque chose (se souvenir)
-    \item retenir quelqu'un de faire quelque chose (empêcher)
-\end{enumerate}
-
 PropBank \citep{palmer2005proposition} a décidé d'utiliser les annotations
 syntaxiques du Penn TreeBank \citep{marcus1993building} pour annoter en rôles
 sémantiques les phrases incluant un des 5000 verbes les plus fréquents du
-corpus. Pour chaque phrase, les annotateurs ont identifié les syntagmes jouant
-un rôle sémantique. L'objectif principal de PropBank est de permettre
-d'utiliser l'apprentissage automatique pour l'annotation en rôles sémantiques.
-C'est pour cette raison que les étiquettes disponibles sont très générales.
-Ainsi, il est fréquent que \textit{ARG0} désigne l'agent, \textit{ARG1} le
-patient. D'autres arguments sont disponibles pour étiqueter des rôles plus
-spécifiques (\textit{ARG2}, \textit{ARG3}, etc.) ainsi que des rôles
-secondaires (\textit{Location}, \textit{Extent}, \textit{Manner}, etc.)
+corpus. Le principe est le même qu'avec les classes de Levin et VerbNet : la
+syntaxe joue un rôle important pour la désambiguïsation des sens et
+l'attribution des rôles sémantiques. Contrairement à VerbNet, PropBank se base
+sur un corpus pour identifier les différentes constructions syntaxiques, les
+sens des verbes et le sens à apporter aux rôles sémantiques. L'objectif
+principal de PropBank est de permettre d'utiliser l'apprentissage automatique
+pour l'annotation en rôles sémantiques. C'est pour cette raison que les
+étiquettes disponibles sont très générales. Ainsi, il est fréquent que
+\textit{ARG0} désigne l'agent, \textit{ARG1} le patient. D'autres arguments
+sont disponibles pour étiqueter des rôles plus spécifiques (\textit{ARG2},
+\textit{ARG3}, etc.) ainsi que des rôles secondaires (\textit{Location},
+\textit{Extent}, \textit{Manner}, etc.)
 
 \paragraph{NomBank}
 
@@ -775,12 +813,12 @@ permis de lier ces ressources
 \citep{pustejovsky2005merging,verhagen2007combining}, mais nous ne connaissons
 pas d'applications tirant profit de ces deux ressources.
 
-\cite{gerber2010beyond} ont étendu NomBank aux arguments
-implicites, améliorant ainsi la couverture de NomBank de 65\%, c'est-à-dire en
-augmentant le nombre moyen de rôles remplis dans chaque exemple annoté. Il
-n'est pas rare que les arguments soient implicites mais présent dans d'autres
-phrases. Les annotations étant limitées à la phrase actuelle, il n'est pas
-possible de référer à un argument présent dans une prase précédente.
+\cite{gerber2010beyond} ont étendu NomBank aux arguments implicites, améliorant
+ainsi la couverture de NomBank de 65\%, c'est-à-dire en augmentant le nombre
+moyen de rôles remplis dans chaque exemple annoté. Il n'est pas rare que les
+arguments soient implicites mais présents dans d'autres phrases. En effet, les
+annotations étant volontairement limitées à la phrase, il n'est pas possible de
+référer à un argument présent dans une phrase précédente.
 
 Enfin, PropBank lui-même a récemment décidé d'inclure d'autres parties du
 discours impliquant potentiellement des structures prédicat-argument en
@@ -790,14 +828,14 @@ support \citep{bonial2014propbank}.
 
 \paragraph{Groningen Meaning Bank (GMB)}
 
-Ce corpus \citep{basile2014developing} vise à fournir un large corpus annoté
-avec un nombre important de couches, le but étant de fournir un grand corpus
-pour la recherche en «~sémantique~». Sont notamment inclus parmi les couches :
-les lemmes, les parties du discours, la syntaxe (avec CCG). Il y a aussi les
-sens WordNet, les rôles thématiques VerbNet, des annotations sémantiques avec
-la DRT et des relations discours avec SDRT. C'est un corpus prometteur qui
-unifie un nombre important d'annotations complémentaires et jusque-là
-distinctes.
+Ce projet \citep{basile2014developing} vise à fournir un large corpus annoté de
+l'anglais avec un nombre important de couches, le but étant de fournir un grand
+corpus pour la recherche en «~sémantique~». Sont notamment inclus parmi les
+couches : les lemmes, les parties du discours, la syntaxe (avec CCG). Il y a
+aussi les sens WordNet, les rôles thématiques VerbNet, des annotations
+sémantiques avec la DRT et des relations discours avec SDRT. C'est un corpus
+prometteur qui unifie un nombre important d'annotations complémentaires et
+jusque-là distinctes.
 
 L'annotation des rôles VerbNet est effectuée directement au niveau de la
 syntaxe, CCG donnant un moyen élégant d'associer les rôles au token prédicat
@@ -816,10 +854,11 @@ de pouvoir s'en servir comme d'un corpus VerbNet:
 
 \paragraph{Abstract Meaning Representation Bank (AMR Bank)}
 
-Ce corpus \citep{banarescu2013abstract} est un autre corpus à visée sémantique.
-Sa particularité est qu'il propose une forme d'interlingue permettant d'annoter
-des corpus parallèles sémantiquement. Les rôles sémantiques sont ceux de
-PropBank, ce qui permet d'envisager de s'en servir en tant que corpus VerbNet.
+Ce projet \citep{banarescu2013abstract} est un autre corpus à visée sémantique
+pour l'anglais. Sa particularité est qu'il propose une forme d'interlingue
+permettant d'annoter sémantiquement des corpus parallèles. Les rôles
+sémantiques sont ceux de PropBank, ce qui permet d'envisager de s'en servir en
+tant que corpus VerbNet.
 
 \subsection{Approches d'annotation}
 
@@ -835,7 +874,7 @@ ressources :
     \item Les \textbf{corpus annotés} par des humains utilisent un inventaire
         donné pour réaliser la tâche qu'on essaie de faire apprendre aux
         systèmes. FrameNet contient de nombreux exemples annotés en plus des
-        rôles sémantiques définir pour chacune des situations.
+        rôles sémantiques définis pour chacune des situations.
 \end{enumerate}
 
 Ces ressources sont utilisées différemment suivant les méthodes, souvent
@@ -853,7 +892,7 @@ techniques classiques d'apprentissage automatique sont utilisées pour
 déterminer le sens correct de chaque occurrence d'un mot étant donné les
 informations obtenues à partir du contexte de cette occurrence.  L'annotation
 en rôles sémantiques supervisée est souvent divisée en plusieurs sous-tâches,
-parfois regroupées en partie :
+parfois partiellement regroupées :
 
 \begin{itemize}
     \item l'identification des prédicats,
@@ -883,8 +922,9 @@ Un inventaire de sens est utilisé : il faut toujours aussi faire de la
 classification ; la difficulté principale étant ici d'obtenir des informations
 utiles sans exemples annotés. Étant donné que ces méthodes continuent à
 utiliser un inventaire, il reste possible de comparer les résultats entre
-différents systèmes et de réaliser une évaluation sur une vérité-terrain. La
-présentation de ces méthodes est l'objet du chapitre~\ref{ch:srl}.
+différents systèmes et de réaliser une évaluation sur une vérité-terrain. C'est
+l'approche pour laquelle nous optons ici : nos apports sont décrits au
+chapitre~\ref{ch:srl}.
 
 \paragraph{Semi-supervisées}
 
@@ -893,11 +933,12 @@ automatique entrainé sur PropBank, puis utilisent les alignements du corpus
 pour obtenir un corpus français automatiquement annoté en rôles PropBank. C'est
 une piste intéressante pour obtenir des corpus annotés en rôles sémantiques
 pour le français. Diverses difficultés restent : les données PropBank anglaises
-ont été directement utilisées pour le français, et les scores nécessitent une
-correction manuelle du corpus. De manière similaire, \cite{exner2014using}
-proposent de développer automatiquement un nouveau PropBank du suédois en se
-basant sur le PropBank anglais et en utilisant Wikipédia comme un corpus
-parallèle. La précision des données obtenues est encore inconnue.
+ont été directement utilisées pour le français, et les scores encore trop
+faibles nécessitent une correction manuelle du corpus. De manière similaire,
+\cite{exner2014using} proposent de développer automatiquement un nouveau
+PropBank du suédois en se basant sur le PropBank anglais et en utilisant
+Wikipédia comme un corpus parallèle. La précision des données obtenues est
+encore inconnue.
 
 % TODO pado2006optimal, furstenau2012semi, titov2013crosslingual
 
@@ -943,18 +984,19 @@ ici ce type de méthode.
 
 \subsection{Adaptation au domaine}
 
-\cite{chen2008learning} entraînent un système de commentaires en utilisant des
-commentaires existants et des simulations de jeux de football, mais sans
-connaissance explicite sur la langue anglaise. Leur approche a entraîné des
-travaux sur le \textit{situated language understanding} (compréhension ancrée du
-langage): \cite{bordes2010towards,richardson2012towards} ont proposé par la
-suite d'autres corpus pour cette tâche. Notre système
-(Chapitre~\ref{ch:domainsrl}) est similaire dans le sens où nous minimisons
-l'effort humain pour annoter de nouveaux domaines, mais nous nous concentrons
-sur l'annotation en rôles sémantiques \textit{à la FrameNet}.
+\cite{chen2008learning} entraînent un système qui apprend à commenter un match
+de football en utilisant des commentaires existants et des simulations de jeux
+de football, mais sans connaissance explicite sur la langue anglaise.  Leur
+approche a entraîné des travaux sur le \textit{situated language understanding}
+(compréhension ancrée du langage):
+\cite{bordes2010towards,richardson2012towards} ont proposé par la suite
+d'autres corpus pour cette tâche. Notre système (Chapitre~\ref{ch:domainsrl})
+est similaire dans le sens où nous minimisons l'effort humain pour annoter de
+nouveaux domaines, mais nous nous concentrons sur l'annotation en rôles
+sémantiques \textit{à la FrameNet}.
 
 Le système d'annotation en rôles sémantiques de \cite{gormley2014low} n'a pas
-besoin de syntaxe supervisée, mais nécessite un corpus annoté en rôles
+besoin de corpus annoté en syntaxe, mais nécessite un corpus annoté en rôles
 sémantiques. \cite{hadouche2011annotation} effectue une annotation en rôles
 sémantiques sur le corpus DicoInfo \citep{corpusolst} à l'aide de deux
 approches :
@@ -970,3 +1012,9 @@ Ce travail conclut en indiquant que pour obtenir de meilleurs résultats sur
 plus de rôles et de prédicats, il faut plus d'exemples d'entraînement. Notre
 travail prend une autre direction : nous étudions l'utilisation de moins de
 données créées manuellement pour couvrir plus de phrases dans divers domaines.
+
+En conclusion, les approches pour annoter un texte en rôles sémantiques sont
+nombreuses mais les difficultés restant à franchir pour annoter un texte
+français en cadre ouvert restent nombreuses. La partie suivante décrit les
+efforts réalisés pour adapter au français des ressources qui ont prouvé leur
+utilité en anglais.

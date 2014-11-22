@@ -9,7 +9,7 @@
 % TODO citer AIAMA plutôt
 En Intelligence Artificielle et Traitement Automatique des Langues, les années
 50 et 60 étaient pleines d'optimisme. D'après \citep{russell2010artificial},
-Simon Herbert annonçait un 1957 :
+Simon Herbert annonçait en 1957 :
 
 \begin{quote}
     Mon intention n'est pas de vous surprendre ou de vous choquer, mais la
@@ -56,13 +56,13 @@ citerons ici deux de ces sous-tâches.
         \citep{manning2011part}.
     \item \textbf{Analyse syntaxique} Au début des années 1990, le corpus du
         Penn Treebank \citep{marcus1993building} a permis d'avancer la
-        recherche en analyse syntaxique ; différents chercheurs ont introduit
-        un certain nombre d'algorithmes ayant chacun leurs avantages et leurs
-        défauts, la représentation en dépendances a été largement adoptée.
-        Depuis le début des années 2010, et de la même manière que pour
-        l'annotation des parties du discours, un plateau a été atteint autour
-        de 90~\% d'exactitude, et ceci que la méthode soit statistique ou plus
-        symbolique \citep{clergerie2014improving}.
+        recherche en analyse syntaxique. Différents chercheurs ont introduit un
+        certain nombre d'algorithmes ayant chacun leurs avantages et leurs
+        défauts, la représentation en dépendances semble avoir été largement
+        adoptée. Depuis le début des années 2010, et de la même manière que
+        pour l'annotation des parties du discours, un plateau a été atteint
+        autour de 90~\% d'exactitude, et ceci que la méthode soit statistique
+        ou plus symbolique \citep{clergerie2014improving}.
 \end{itemize}
 
 Pour un certain nombre de chercheurs
@@ -124,7 +124,7 @@ syntaxe ne suffit alors pas à désambiguïser entre le sens informatique de
 (exclure un individu de quelque part). Ici, des informations sémantiques
 peuvent nous aider. Dans le cas informatique, l'objet n'est pas animé, alors
 que dans le second il l'est. Si on sait que \textit{the machine} n'est pas
-animé, il devient alors possible :
+animé. Il devient alors possible :
 
 \begin{enumerate}
     \item d'exclure le sens géographique du verbe,
@@ -149,9 +149,9 @@ rôles sémantiques.
 L'annotation en rôles sémantiques répond à la question « Qui a fait Quoi à Qui,
 Comment, Où et Quand ? ». Prenons pour exemple la phrase \textit{Mrs. Aouda
 essaya vainement de retenir Mr. Fogg} (extrait du \textit{Tour du monde en
-quatre-vingts jours} de Jules Verne).  En considérant pour exemple le cadre de
+quatre-vingts jours} de Jules Verne). En considérant pour exemple le cadre de
 FrameNet (section~\ref{presentation_framenet}), une annotation en rôles
-sémantique du prédicat \textit{essayer} déterminera que cette utilisation du
+sémantiques du prédicat \textit{essayer} déterminera que cette utilisation du
 verbe correspond à une situation de Tentative, puis identifiera parmi les
 syntagmes liés aux verbes quel est l'Agent, l'Activité tentée, et le Résultat.
 Ainsi, le résultat de l'annotation serait :
@@ -174,10 +174,10 @@ Différentes informations sont disponibles après l'annotation en rôles
 sémantiques :
 
 \begin{itemize}
-    \item Le prédicat ayant déclenché la frame est identifié. Dans la
-        figure~\ref{fig:introsrl}, c'est un verbe. D'autres parties du
-        discours peuvent déclencher une frame, mais nous nous concentrons dans
-        ce travail essentiellement sur les verbes.
+    \item Le prédicat ayant déclenché la situation est identifié. Dans la
+        figure~\ref{fig:introsrl}, c'est un verbe. D'autres parties du discours
+        peuvent déclencher une frame, mais nous nous concentrons dans ce
+        travail essentiellement sur les verbes.
     \item La frame est identifiée, ici \textit{Tentative}.
     \item Enfin, les rôles exprimés sont annotés. Par exemple, \textit{Mrs.
         Aouda} est l'Agent.
@@ -194,7 +194,7 @@ système d'extraction d'information dans un domaine différent, il est nécessai
 de redéfinir les différents patrons sémantiques et d'entraîner un nouveau
 système sur de nouvelles données, et l'annotation en rôles sémantiques est vue
 comme une solution à ce problème. C'est dans cette optique que
-\cite{gildea2002automatic} s'appuient sur le corpus FrameNet et présentent le
+\citeauthor{gildea2002automatic} s'appuient sur le corpus FrameNet et présentent le
 premier système d'annotation en rôles sémantiques.
 
 Aujourd'hui, les systèmes d'annotation en rôles sémantiques n'ont pas remplacé
@@ -213,8 +213,8 @@ difficultés sont différentes \citep{boros2014etiquetage} :
 
 L'annotation en rôles sémantiques a, par contre, été utilisée dans un grand
 nombre d'autres applications, notamment les systèmes de questions-réponses
-\citep{shen2007using}, l'extraction d'évènements \citep{exner2011using},
-l'analyse d'opinions \citep{das2012structure} ou la traduction automatique
+\citep{shen2007using}, l'extraction d'évènements \citep{exner2011using}, la
+fouille d'opinion \citep{das2012structure} ou la traduction automatique
 \citep{bazrafshan2013semantic,bazrafshan2014comparing}. Un des intérêts de la
 généralité de l'annotation en rôles sémantiques est de s'adapter facilement à
 de nouvelles tâches. Ainsi, l'annotation en rôles sémantiques à aussi été
@@ -239,21 +239,23 @@ prérequis.
 fermé n'est pas satisfaisant. Les inventaires de sens utilisés doivent couvrir
 au maximum les différents sens des mots d'une langue.
 
-\paragraph{Langue française} Le français dispose d'un nombre limité de
-ressources sémantiques en cadre ouvert. Il n'existe pas aujourd'hui de VerbNet
-(section~\ref{presentation_verbnet}), WordNet
-(section~\ref{presentation_wordnet}) ou de FrameNet
-(section~\ref{presentation_framenet}) du français avec une couverture et une
-qualité proches de leurs équivalents respectifs en langue anglaise. Ne
-disposant pas des moyens pour créer de telles ressources entièrement
-manuellement, le système présenté doit pouvoir se contenter de transpositions
-automatiques de ces ressources vers le français.\footnote{L'exception ici est
-VerbNet, ressource traduite «~semi-manuellement~» vers le français
-(Chapitre~\ref{ch:verbnet}) mais qui n'est encore ni finalisée ni
-homogénéisée.}. Avec cette approche de mutualisation des ressources au niveau de
-la langue, chaque nouvelle utilisation d'une de nos ressources est l'occasion
-de l'améliorer à la fois pour utilisation immédiate mais aussi pour les
-utilisations futures.
+\paragraph{Langue française} Le français dispose encore d'un nombre limité de
+ressources sémantiques en cadre ouvert, même si cet écart est en train de se
+combler rapidement. En effet, au-delà des ressources développées dans les
+années 1970 que nous présenterons à la section~\ref{sec:lvflg}, des progrès
+récents laissent entrevoir un futur brillant. Le projet ANR ASFALDA
+\citep{candito2014developing} produit un FrameNet annoté du français de grande
+qualité mais avec une couverture encore limitée, et WOLF \citep{citewolf} est
+une traduction automatique de WordNet \citep{fellbaum1998wordnet} qui a
+progressé à la fois en précision et en couverture au fil des ans. Pour rester
+dans un cadre ouvert, le système présenté doit pouvoir se contenter de
+transpositions automatiques de ces ressources vers le
+français.\footnote{L'exception ici est VerbNet, ressource traduite
+    «~semi-manuellement~» vers le français (Chapitre~\ref{ch:verbnet}) mais qui
+n'est encore ni finalisée ni homogénéisée.}. Avec cette approche de
+mutualisation des ressources au niveau de la langue, chaque nouvelle
+utilisation d'une de nos ressources est l'occasion de l'améliorer à la fois
+pour utilisation immédiate mais aussi pour les utilisations futures.
 
 \paragraph{Simplicité} Nous voulons que notre système soit très simple à mettre
 en place et qu'il soit tout aussi facile de corriger quelques erreurs
@@ -269,7 +271,7 @@ classification automatique et certains systèmes ont des temps d'entraînement e
 d'exécution trop longs pour l'utilisation que nous voulons en faire ici.
 
 \paragraph{Libre diffusion} Enfin, il est important que les outils et
-ressources soient au maximum libre d'accès afin que d'autres puissent les
+ressources soient au maximums libre d'accès afin que d'autres puissent les
 utiliser et les étudier. Pour cette raison, la grande majorité du code source
 écrit pendant cette thèse est disponible sur GitHub : en particulier, le
 système d'annotation en rôles sémantiques est disponible sur
@@ -350,15 +352,17 @@ VerbNet d'au moins deux façons.
 % mais ne demande qu'à exister étant donné le potentiel \textit{cross-lingual}
 % de VerbNet. Il y a souvent des ressources proches, moins utiles, plus
 % linguistiques, existent.
-Cependant, un VerbNet et un WordNet de qualité n'existent pour le moment que
-pour l'anglais. De telles ressources seraient pourtant encore plus utiles pour
-les langues moins dotées où les corpus annotés en rôles sémantiques n'existent
-pas. VerbNet a un potentiel inter-linguistique, visible notamment avec le
-portuguais \citep[section 2.2.2]{kipperschuler2005verbnet}. Adapter VerbNet
-vers une nouvelle langue suffisamment proche de l'anglais permet de conserver
-sa structure, ainsi que l'information sémantique et les rôles thématiques, ce
-qui donne la possibilité de produire un lexique utile sans des années de
-travail manuel.
+Cependant, un VerbNet et un WordNet validés manuellement et à large couverture
+n'existent pour le moment que pour l'anglais\footnote{L'exception est plWordnet
+\citep{maziarz2012approaching}, un wordnet du polonais de grande taille validé
+manuellement et toujours développé activement}. De telles ressources seraient
+pourtant encore plus utiles pour les langues moins dotées où les corpus annotés
+en rôles sémantiques n'existent pas.  VerbNet a un potentiel
+inter-linguistique, visible notamment avec le portuguais \citep[section
+2.2.2]{kipperschuler2005verbnet}. Adapter VerbNet vers une nouvelle langue
+suffisamment proche de l'anglais permet de conserver sa structure, ainsi que
+l'information sémantique et les rôles thématiques, ce qui donne la possibilité
+de produire un lexique utile en économisant beaucoup de travail manuel.
 
 Une fois que ces ressources ont été traduites vers le français, il faut les
 utiliser pour réaliser la tâche d'annotation en rôles sémantiques. Cette thèse
@@ -556,48 +560,6 @@ notamment pour l'annotation en rôles sémantiques
 pas être restreint à un domaine spécifique tout en couvrant une large partie
 des occurrences des verbes anglais dans un texte donné.
 
-\subsection{FrameNet}
-\label{presentation_framenet}
-
-FrameNet \citep{baker1998berkeley} repose sur la théorie des \textit{Frame
-Semantics}, élaborée par \cite{fillmore1982frame} en modifiant sa théorie des
-cas \citep{fillmore1968case}. Ici, les rôles sémantiques sont spécifiques à
-chaque situation. Par exemple, la situation \textit{Infecting} définit les rôles
-sémantiques \textit{Infected\_entity}, \textit{Infection} et
-\textit{Infection\_cause}, alors que la situation \textit{Commerce\_buy} définit les
-rôles sémantiques \textit{Buyer}, \textit{Seller} et \textit{Goods}. Les rôles sont
-classifiés selon leur importance dans la situation : centraux (nécessaires),
-périphériques (toujours liés à la situation mais optionnels) et circonstanciels
-(pas spécifiques donc potentiellement présent dans toutes les situations, par
-exemple le lieu ou le temps).
-
-La théorie de FrameNet peut être utilisées dans d'autres domaines et d'autres
-langues \citep{boas2009multilingual}. Il existe ainsi notamment des FrameNet en
-espagnol \citep{subirats2003surprise}, japonais \citep{ohara2004japanese},
-suédois \citep{heppin2012rocky} ou encore français avec le projet ANR ASFALDA
-\citep{candito2014developing}. Certaines méthodes automatiques utilisent le
-Wiktionnaire pour traduire le lexique FrameNet, mais pas son corpus
-\citep{mouton2010framenet,hartmann2013framenet}, ce qui n'est pas directement
-utile. Le Kicktionary \citep{schmidt2009kicktionary} est lui spécifique au
-football et annote en trois langues (français, anglais, allemand) des dépêches
-de presses de l'UEFA.  \cite{venturi2009towards} proposent un FrameNet italien
-centré sur le domaine du droit. Enfin, il existe plusieurs FrameNets
-spécialisés en portugais brésilien : un dans le domaine du droit
-\citep{bertoldi2012frame} et l'autre pour la coupe du monde 2014
-\citep{torrent2014copa}.
-
-FrameNet est donc une ressource très riche qui peut s'adapter à de nombreux
-domaines et à de nombreuses langues. Malheureusement, nous considérons que le
-coût pour développer une telle ressource pour un nouveau domaine est prohibitif
-et n'utilisons cette ressource que pour l'évaluation. Le projet FrameNet est
-encore loin de couvrir un éventail complet du vocabulaire anglais
-\citep[§5.4]{marquez2008semantic}, nécessitant de trouver d'autres moyens pour
-étendre la ressource, notamment avec la production participative
-(\textit{crowdsourcing}) \citep{fossati2013outsourcing,baker2014framenet}.
-
-
-% TODO expliciter la différence entre frame-semantic parsing et semantic role
-% labeling
 
 \subsection{Les Verbes Français et Lexique-Grammaire}
 \label{sec:lvflg}
