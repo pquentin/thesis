@@ -117,33 +117,45 @@ Doctorat d'Informatique \\
 % TODO Expliquer depuis le résumé ce qu'est le SRL du fr en domaines.
 
 Cette thèse a pour objectif l'annotation en rôles sémantiques du français en
-domaine spécifique. Nous considérons ici trois domaines : le réchauffement
-climatique, Informatique et Internet, et le football. Nous montrons que les
+domaine spécifique. Cette tâche consiste à la fois à désambiguïser le sens des
+verbes d'un texte et à annoter les sujets et objets syntaxiques avec des rôles
+sémantiques tels qu'agent, patient, ou destination. Nous considérons ici trois
+domaines disposant de corpus annotés en rôles sémantiques : le réchauffement
+climatique, Informatique/Internet, et le football. Nous montrons que nos
 traductions de WordNet et de VerbNet donnent la possibilité d'annoter en rôles
 sémantiques des textes aussi bien en domaine général qu'en domaine spécifique.
 
-Nous commençons par expliquer le contexte et les objectifs de nos travaux,
-avant de dresser un état de l'art autour de la représentation des mots, de la
-traduction de ressources et de l'annotation en rôles sémantiques.
+Nos travaux portent sur deux grands axes : les ressources servant à
+l'annotation en rôles sémantiques d'une part, et les méthodes d'annotation en
+rôles sémantiques elles-même d'autre part.
 
-Nous montrons ensuite comment nous avons traduit automatiquement la ressource
-WordNet vers le français en utilisant un large modèle de langue syntaxique du
-français. Nous présentons ensuite la traduction de la ressource VerbNet, elle
-réalisée avec plus de travail manuel tout en maximisant le travail pouvant être
-automatisé en réutilisant deux ressources linguistiques françaises existantes,
-le Lexique-Grammaire et Les Verbes Français. Ces deux ressources sont librement
-distribuées et sont une contribution majeure de cette thèse.
+Concernant les ressources, nous avons commencé par traduire la ressource
+WordNet vers le français à l'aide d'un modèle de langue syntaxique issu du web.
+Cette ressource, nommée WoNeF, est disponible en trois versions : une à haute
+précision (93,3~\%), une à haut F-score (70,9~\%), et l'autre à haute
+couverture, qui contient un plus grand nombre de traductions. La seconde
+ressource à traduire est VerbNet, un lexique dans lesquel les verbes sont
+regroupées en classes partageant les mêmes crtières syntaxiques, morphologiques
+et sémantiques. Contrairement à WordNet, la traduction de cette ressource s'est
+faite à la fois avec un travail manuel important pour contrôler au mieux le
+contenu des classes mais aussi avec une réutilisation maximale des lexiques
+verbaux du français, ici le Lexique-Grammaire et Les Verbes Français.
 
-Ensuite, nous montrons comment VerbNet peut être utilisé pour une annotation en
-rôles sémantiques qui n'utilise pas de corpus annoté. Nous expliquons comment
-WordNet peut complémenter VerbNet pour mieux désambiguïser les annotations
-effectuées.
+Concernant les méthodes, nous commençons par évaluer notre méthode basée sur
+VerbNet sur le corpus annoté FrameNet, en suivant les travaux de
+\cite{swier2005exploiting}.  Nous montrons que des améliorations conséquentes
+peuvent être obtenues à la fois d'un point de vue syntaxique avec la prise en
+compte de la voix passive et d'un point de vue sémantique en utilisant WordNet
+pour filtrer les syntagmes ne correspondant pas aux restrictions de sélection
+(de type humain, organisation, etc.) indiquées dans VerbNet.
 
 Enfin, une fois que toutes les autres briques ont été mises en place, nous
 traitons l'annotation en rôles sémantiques du français dans nos trois domaines
-spécifiques, avant de dresser un bilan et des perspectives pour le futur.
+spécifiques. Nous montrons d'abord quelles sont les difficultés d'utiliser
+VerbNet dans ces domaines plus spécifiques puis expliquons que la grande
+majorité des manques de VerbNet découverts lors de l'annotation de ces corpus
+en domaines améliore VerbNet dans tous les autres domaines.
 
-% TODO translate french abstract at some point
 %\chapter{Abstract}
 %A one-page abstract.
 
