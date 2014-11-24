@@ -316,27 +316,51 @@ profiter du lien entre les deux ressources.
 
 \section{Outil d'édition de \verbenet{}}\label{toolquentin}
 
-Nous avons du développer un outil permettant d'éditer collaborativement
+Nous avons développé un outil (Figure~\ref{tool}) permettant d'éditer collaborativement
 \verbenet{}\footnote{Cet outil est libre et disponible sur GitHub :
 \url{https://github.com/aymara/verbenet-editor}.}. Cet outil est en fait un
 site web présentant \verbenet{}: ses classes, ses frames, ses verbes, etc.
 Tous les éléments sont modifiables, ce qui permet aux lexicographes de se
 concentrer sur les problèmes lexicographiques sans avoir à se préoccuper de la
-représentation des données. Le site web est réalisé avec Django, un framework
-web Python. \verbenet{} est stocké dans une base de donnée PostgreSQL. Avant de
-commencer l'édition, nous avons commencé par charger VerbNet et les mappings
-réalisés lors de la première étape. L'édition elle-même se fait classe de Levin
-par classe de Levin. Par exemple, nous avons traité ensemble les classes
-{\color{blue}\texttt{throw-17.1}} et {\color{blue}\texttt{pelt-17.2}} parce
-qu'elles font toutes les deux partie de la «~super-classe~» 17 : Throwing.
-Plusieurs classes faisant partie d'une même super-classe sont souvent liées et
-il faut les comprendre dans leur ensemble avant de commencer l'édition. Pour
-chaque classe, nous pouvons éditer ses frames, ajouter ou supprimer des
-sous-classes ou des frames.  Par exemple, pour la suppression, toutes les
+représentation des données.
+
+Le site web est réalisé avec Django, un framework web Python. \verbenet{} est
+stocké dans une base de donnée PostgreSQL. La hiérarchie des classes est
+stockée par représentation intervallaire et le nombre de requêtes SQL
+effectuées par l'ORM Django est minimisé. Le but de ces optimisations est que
+les opérations durent moins d'une seconde, de manière à ne pas interrompre la
+réflexion lexicographique \citep{nielsen1994response}. Pour la même raison, les
+erreurs sont évitées au maximum grâce aux tests unitaires : les erreurs érodent
+la confiance des lexicographes en l'outil qui ne devraient pas avoir à se
+préoccuper de la possibilité de perdre leur travail. Enfin, toutes les
+modifications du schéma de la base de données mais aussi des données sont
+versionnées automatiquement, afin de rendre impossible toute perte de données.
+
+Avant de commencer l'édition, nous avons commencé par charger VerbNet et les
+mappings réalisés lors de la première étape. L'édition elle-même se fait classe
+de Levin par classe de Levin. Par exemple, nous avons traité ensemble les
+classes {\color{blue}\texttt{throw-17.1}} et {\color{blue}\texttt{pelt-17.2}}
+parce qu'elles font toutes les deux partie de la «~super-classe~» 17 :
+Throwing.  Plusieurs classes faisant partie d'une même super-classe sont
+souvent liées et il faut les comprendre dans leur ensemble avant de commencer
+l'édition.
+
+Pour chaque classe, nous pouvons éditer ses frames, ajouter ou supprimer des
+sous-classes ou des frames. Par exemple, pour la suppression, toutes les
 frames impliquant un conatif, un datif ou une alternance bénéfactive peuvent
 être systématiquement supprimées : ces alternances n'existent pas en français.
 
-\begin{figure}
+Avec l'aide de cet outil, la deuxième étape peut s'avérer très simple. Par
+exemple, les quatre sous-classes de {\color{blue}\texttt{image-creation-25}}
+ont des classes directement équivalentes en français, donc les seules choses à
+faire sont de traduire les exemples en français avec les bonnes prépositions.
+Par exemple, dans la classe {\color{blue}\texttt{illustrate-25.3}}, il a fallu
+remplacer \textit{with} par la combinaison de \textit{de} et \textit{avec}.
+
+Différents mécanismes ont été rajoutés au site web au fil de l'annotation afin
+de faciliter l'annotation. Nous en présentons quelques-uns ici.
+
+\begin{figure}[p]
 
     \includegraphics[width=\textwidth]{fig/tool_screenshot_2014-09-12.png}
 
@@ -349,17 +373,102 @@ frames impliquant un conatif, un datif ou une alternance bénéfactive peuvent
         {\color{blue}\texttt{break-45.1}} est en cours de modification : en cliquant sur
         'Confirmer', la modification sera prise en compte rapidement sans avoir
     à recharger la page pour éviter d'interrompre le travail lexicographique.}
-
 \end{figure}
 
-Avec l'aide de cet outil (illustré à la Figure~\ref{tool}), la deuxième étape
-peut s'avérer très simple. Par exemple, les quatre sous-classes de
-{\color{blue}\texttt{image-creation-25}} ont des classes directement équivalentes en
-français, donc les seules choses à faire sont de traduire les exemples en
-français avec les bonnes prépositions. Par exemple, dans la classe
-{\color{blue}\texttt{illustrate-25.3}}, il a fallu remplacer \textit{with} par la
-combinaison de \textit{de} et \textit{avec}.
 
+\subsection{Édition des correspondances}
+
+Il est fréquent que les correspondances soient amenées à évoluer, et ce pour
+trois raisons principales : la compréhension des classes anglaises peut
+évoluer, la réorganisation peut demander des correspondances différentes, et il
+peut être souhaitable d'affiner la correspondance en spécifiant certains
+attributs de la classe française.
+
+Il est donc possible de préciser qu'une colonne donnée doive être positive ou
+négative. Deux exemples :
+\begin{itemize}
+    \item R3i.1[+T1308 et +P3000] ou R3i.1[+T1306 et +P3000] sélectionne tous
+        les verbes de R3i.1 acceptant une construction pronominale (P3000) et
+        une construction transitive direct à sujet humain, à objet non animé
+        et a circonstant de modalité (T1306) ou instrumental, moyen (T1308).
+    \item 4[+N1 se V de ce Qu P] sélectionne tous les verbes de la classe 
+        4 ayant la valeur '+' à la colonne 'N1 se V de ce Qu P', ce qui
+        signifie qu'ils acceptent cette forme.
+\end{itemize}
+
+Toutes ces correspondances sont validées avant d'être acceptées par le système,
+ce qui est important pour éviter les erreurs, mais aussi pour s'assurer que le
+traduction automatique des verbes fonctionne.
+
+\subsection{Traduction des verbes en temps réel}
+
+La première étape a permis de proposer des verbes français pour chacune des
+classes du VerbNet anglais. Ces verbes français sont en fait maintenues en
+temps réel par le système : à chaque modification des correspondances, les
+verbes sont mis à jour : certains disparaissent, d'autres sont rajoutés. Cela
+permet de vérifier instantanément la validité d'une correspondance du point de
+vue des verbes français.
+
+\subsection{Validation des verbes français}
+
+La troisième étape, en cours parallèlement avec la deuxième, concerne la
+validation des verbes. En cliquant sur un verbe français proposé à partir des
+correspondances, ce verbe est soit validé, soit invalidé, soit remis à l'état
+de simple proposition. Contrairement aux verbes proposés par correspondances,
+les verbes validés ou invalidés ne sont jamais supprimés, même lorsque que la
+correspondance change.
+
+\subsection{Vérifications automatiques de la cohérence}
+
+Petit à petit, différents outils sont ajoutés pour aider les lexicographes à
+vérifier la cohérence de leur travail. Deux existent aujourd'hui.
+
+Le premier identifie les verbes dupliqués au sein de la même super-classe de
+Levin. En effet, bien qu'il soit naturel que le même lemme verbal soit présent
+à plusieurs endroit de \verbenet{} pour des raisons de polysémie, les classes
+de Levin regroupent des verbes sémantiquement proches : un verbe donné ne doit
+être que dans une seule classe. Par ailleurs, quand un verbe peut exister à
+différents endroits, c'est la classe la plus générale, souvent la première
+qu'il faut choisir. Les utilisateurs connectés voient donc un encadré au début
+de chaque classe de Levin leur indiquant quels verbes sont présents à plusieurs
+endroit : il devient alors facile de valider/dévalider les verbes concernés.
+
+Le second outil est l'index LADL (\url{http://verbenet.pradet.me/ladlindex/}).
+L'objectif est de s'assurer qu'aucune classe des tables du LADL
+(Lexique-Grammaire) majeure n'a été oubliée, et donc que le lexique couvre bien
+l'ensemble des verbes du français. C'est en effet le cas : les seules classes
+sans correspondance avec une classe \verbenet{} sont des classes résiduelles.
+Cela réconforte l'idée selon laquelle \verbenet{} peut être vue comme une
+réorganisation des tables du Lexique-Grammaire.
+
+\subsection{Gestion des classes supprimées en anglais}
+
+Lors d'une réorganisation, il est fréquent de ne plus avoir besoin d'une classe
+en anglais. Nous traitons actuellement deux cas de figures possibles pour le
+moment.
+
+Premièrement, lorsqu'une sous-classe est supprimée, tous ses verbes anglais sont
+automatiquement migrée vers sa classe mère, et les traductions des verbes
+français sont mises à jour en fonction. C'est essentiel, étant donné que les
+verbes les plus importants sont les plus polysémique et ceux acceptant le plus
+de constructions : ils sont donc souvent dans les sous-classes.
+
+Deuxièmement, lorsqu'une classe est simplement supprimée sans classe mère, ses
+verbes sont théoriquement "perdus". Il est possible de transférer ces verbes
+vers une autre classe plus appropriée, tout en gardant l'origine des verbes
+anglais, au cas où cette opération devait être annulée. Ici aussi, les verbes
+français sont ensuite mis à jour.
+
+Un autre mécanisme sera nécessaire pour compléter l'ensemble de la
+ressource : le mécanisme de répartition. En effet, une classe anglais est
+parfois découpée en plusieurs classes français. Il faut alors, suivant les
+correspondances vers les ressources français, placer les traductions
+françaises vers l'une de ces classes. Plus généralement, il faut parfois
+complètement réorganiser une classe, ce qui est le cas des verbes de changement
+de possession ou des verbes de combinaison et de liaison. Dans ce cas, il faut
+recréer entièrement la hiérarchie pour le français, puis il faut considérer
+globalement les traductions de tous les verbes anglais, et placer chaque
+traduction dans la sous-classe la plus appropriée.
 
 \section*{Conclusion}
 
