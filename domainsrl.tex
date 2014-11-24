@@ -62,60 +62,36 @@ besoin de distinguer les arguments jouant un rôle (\textit{core} dans FrameNet)
 des autres (\textit{non-core}), ce qui est une part importante de tout système
 complet d'annotation en rôles sémantiques.
 
-Pour annoter une phrase donnée avec des remplisseurs de rôle déjà identifiés
-(mais sans connaître pas la classe VerbNet ni les rôles corrects), nous listons
-d'abord toutes les classes qui peuvent être déclenchées par un verbe donné. Par
-exemple, étant donné la phrase \textit{The online judge allocates the same amount
-of memory to both chess engines}, la seule classe possible pour le verbe
-\textit{allocate} est \texttt{future\_having-13.3}. Dans d'autres cas, le choix
-pourrait être ambigu. C'est le cas notamment de \textit{The ocean circulation
-transports warm water to the North Atlantic} : les deux classes
-\texttt{amuse-31.1} et \texttt{send-11.1} sont possibles pour le verbe
-\textit{transport}.
+La méthode est très proche de celle présentée au Chapitre~\ref{srl}, et
+implémentée dans le dossier \texttt{src/domain} de
+\url{https://github.com/aymara/knowledgesrl}.
 
-Maintenant qu'une liste de classes a été établie, la phrase est représentée
-avec la notation VerbNet, qui est par exemple \texttt{NP} \texttt{V}
-\texttt{NP} \texttt{\{to\}} \texttt{PP} pour nos deux phrases d'exemples.
-
-Ensuite, de simples transformations permettent de gérer l'encodage spécifique
-de frames dans DiCoInfo et DiCoEnviro pour l'adapter à VerbNet. Premièrement,
-des rôles répétés sont supprimés : \texttt{NP.Agent} \texttt{V}
-\texttt{NP.Theme} \texttt{NP.Theme} devient \texttt{NP.Agent} \texttt{V}
-\texttt{NP.Theme}. En effet, DiCoInfo et DiCoEnviro répètent le même rôle deux
-fois quand deux syntagmes nominaux liés par exemple avec la conjonction «~et~»
-partagent le même rôle dans la même frame. Deuxièmement, au moment de
-rencontrer une forme \texttt{V} \texttt{NP.Theme}, le syntagme devant le verbe
-est aussi supprimé dans VerbNet avant comparaison. Ces formes sont en général
-des verbes à l'impératif où le sujet n'est pas exprimé, et doivent dont êtres
-transformées avant traitement par VerbNet, VerbNet ne décrivant les frames qu'à
-l'indicatif.
-% TODO linguistique de collège ?
+De simples transformations permettent de gérer l'encodage spécifique de frames
+dans DiCoInfo et DiCoEnviro pour l'adapter à VerbNet. Premièrement, des rôles
+répétés sont supprimés : \texttt{NP.Agent} \texttt{V} \texttt{NP.Theme}
+\texttt{NP.Theme} devient \texttt{NP.Agent} \texttt{V} \texttt{NP.Theme}. En
+effet, DiCoInfo et DiCoEnviro répètent le même rôle deux fois quand deux
+syntagmes nominaux liés par exemple avec la conjonction «~et~» partagent le
+même rôle dans la même frame. Deuxièmement, au moment de rencontrer une forme
+\texttt{V} \texttt{NP.Theme}, le syntagme devant le verbe est aussi supprimé
+dans VerbNet avant comparaison. Ces formes sont en général des verbes à
+l'impératif où le sujet n'est pas exprimé, et doivent dont êtres transformées
+avant traitement par VerbNet, VerbNet ne décrivant les frames qu'à l'indicatif.
 
 La phrase transformée est ensuite comparée aux frames VerbNet possibles dans
-les classes candidates. Pour la première phrase, la seule option possible est
-\texttt{NP.Agent} \texttt{V} \texttt{NP.Theme} \texttt{\{to\}} \texttt{PP.Goal}
-(\textit{We offered our paycheck to her}) de la classe
-\texttt{future\_having-13.3}. Pour la deuxième phrase, la seule option possible
-est \texttt{NP.Agent} \texttt{V} \texttt{NP.Theme} \texttt{\{to\}}
-\texttt{PP.Destination} dans la classe \texttt{send-11.1}. La prise en compte
-des cadres de sous-catégorisation des frames VerbNet permet non seulement
-d'identifier la classe correcte mais aussi d'assigner des rôles sémantiques aux
-remplisseurs de rôle.
-
-Le résultat de notre algorithme est que chaque prédicat est potentiellement
-associé à une classe VerbNet, et chaque argument issu de la vérité-terrain est
-potentiellement associé à un rôle sémantique.
+les classes candidates à la manière la correspondance exacte
+(section~\ref{correspondance_exacte}). Le résultat de notre algorithme est que
+chaque prédicat est potentiellement associé à une classe VerbNet, et chaque
+argument issu de la vérité-terrain est potentiellement associé à un rôle
+sémantique.
 
 Deux difficultés peuvent se poser au moment de réaliser cette correspondance :
 \begin{itemize}
-
     \item la frame n'est présente dans aucune classe VerbNet : c'est un
-        manquement dans VerbNet
-
+        manquement dans VerbNet.
     \item la frame seule ne permet pas de désambiguïser entre différentes
         classes et donc différents rôles, le sens du rôle dépendant de la
-        classe
-
+        classe.
 \end{itemize}
         
 Notre approche est trop simple pour gérer la deuxième difficulté, mais elle
@@ -262,7 +238,8 @@ textes proches entre eux, ils sont issus de sources différentes et ont étés
 exemple, DEBIAN2 et DEBIAN3 dans le corpus Informatique \& Internet de l'OLST
 deviennent DEBIAN) et utilisons cette information pour faire le découpage : une
 source spécifique ne peut être présente que dans un ensemble. Le découpage
-résultant est disponible avec le code source associé à ce chapitre.
+résultant est disponible au format JSON avec le code source associé à ce
+chapitre.
 
 \subsection{Mappings de rôles}
 
@@ -364,19 +341,15 @@ classes VerbNet différentes.
 
 \section{Méthode d'évaluation}
 
-Il nous suffit donc d'utiliser l'association que nous avons produit entre les
-rôles considérés par ces ressources et les rôles VerbNet avant d'évaluer la
+Il nous suffit d'utiliser l'association que nous avons produit entre les rôles
+considérés par ces ressources et les rôles VerbNet avant d'évaluer la
 performance de l'algorithme basé sur la connaissance d'annotation en rôles
 sémantiques présenté à la section~\ref{sec:domainsrl_approche}.
 
-% TODO mapping vs. association
 L'association est utilisée uniquement à des fins d'évaluation, et l'effort
 nécessaire pour la créer n'est donc pas à prendre en compte pour calculer
 l'effort global nécessaire pour notre approche.
 
-TODO ?
-
-% TODO se comparer avec hadouche2011annotation
 \section{Résultats}
 \label{sec:domainsrlresults}
 
