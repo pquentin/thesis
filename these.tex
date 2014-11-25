@@ -330,62 +330,48 @@ relations sont alors entre les têtes des syntagmes correspondants).
 
 \section{Sélecteurs employés pour produire WoNeF}
 
-\if false
-
-nouns : 1 SimSyn, 2 HyperHypo(COMPDUNOM, HYPER), 3 MeroHoloLikeHyper, 4 MeroHolo, 6 HyperHypo(SUJ\_V, HYPER), 7 HyperHypo(COMPDUNOM, HYPO), 8 HyperHypo(COD\_V, HYPER), 9 HyperHypo(window10, HYPER)
-
-verb :  1 LastChance, 2 SimSyn, 3 HyperHypo(SUJ\_V\_RELG, HYPER), 4 HyperHypo(COD\_V.reverse, HYPER), 6 HyperHypo(CPL\_V.reverse, HYPER), 6 HyperHypo(ATB\_S.reverse, HYPER), 7 HyperHypo(SUJ\_V.reverse, HYPER), 8(CPLV\_V.reverse, HYPER)
-
-adj : 1 LastChance 2 SimSyn
-
-adv : 1 SimSyn
-
-\fi
-
 \subsection{Combinaisons de sélecteurs initiaux}
 
 \begin{table}[ht]
     \centering
     \begin{tabular}{lll}
         \toprule
-        noun &  precision &  monosemous uniq levenshtein \\
-        noun &  fscore    &  monosemous uniq levenshtein multiplesource \\
-        noun &  coverage  &  monosemous uniq levenshtein multiplesource \\
+        Noms &  haute précision &  monosémie, unicité, Levenshtein \\
+        Noms &  haut F-score    &  monosémie, unicité, sources multiples, Levenshtein \\
+        Noms &  haute couverture  &  monosémie, unicité, sources multiples, Levenshtein \\
         \midrule
-        verb &  precision &  uniq \\
-        verb &  fscore    &  uniq monosemous \\
-        verb &  coverage  &  monosemous uniq multiplesource \\
+        Verbes &  haute précision &  unicité \\
+        Verbes &  haut F-score    &  unicité, monosémie \\
+        Verbes &  haute couverture  &  monosémie, unicité, sources multiples \\
         \midrule
-        adj  &  precision &  monosemous uniq levenshtein \\
-        adj  &  fscore    &  monosemous unique multiplesource levenshtein \\
-        adj  &  coverage  &  monosemous unique multiplesource levenshtein \\
+        Adjectifs  &  haute précision &  monosémie, unicité, Levenshtein \\
+        Adjectifs  &  haut F-score    &  monosémie, unicité, sources multiples, Levenshtein \\
+        Adjectifs  &  haute couverture  &  monosémie, unicité, sources multiples, Levenshtein \\
         \midrule
-        adv  &  precision &  monosemous unique multiplesource levenshtein \\
-        adv  &  fscore    &  monosemous unique multiplesource levenshtein \\
-        adv  &  coverage  &  monosemous unique multiplesource levenshtein \\
+        Adverbes  &  haute précision &  monosémie, unicité, sources multiples, Levenshtein \\
+        Adverbes  &  haut F-score    &  monosémie, unicité, sources multiples, Levenshtein \\
+        Adverbes  &  haute couverture  &  monosémie, unicité, sources multiples, Levenshtein \\
         \bottomrule
     \end{tabular}
-    \caption{TODO}
+    \caption{Combinaison de sélecteurs initiaux utilisée pour chaque couple
+    (partie du discours, version de WoNeF). Ces sélecteurs sont décrits aux
+sections~\ref{jaws_extraction_heuristics} et
+\ref{subsec:revisiting_extraction_heuristics}.}
 \end{table}
 
 \subsection{Combinaisons de sélecteurs syntaxiques}
 
-noun precision 3 4
-adj precision 2
-verb precision 2
-adv precision 2
+Le seul sélecteur syntaxique utilisé pour les verbes, adjectifs et adverbes est
+le sélecteur SimSyn.
 
-noun fscore 3 4 8
-adj fscore 2
-verb fscore 2
-adv fscore 2
+Concernant les noms, la configuration change suivant la version de WoNeF. La
+version haute précision utilise les sélecteurs MeroHoloLikeHyper et MeroHolo.
+La version à haut F-score rajoute le sélecteur HyperHypo(COD\_V, HYPER). La
+version à haute couverture rajoute elle les sélecteurs SimSyn,
+HyperHypo(COMPDUNOM, HYPER), HyperHypo(SUJ\_V, HYPER) et HyperHypo(COMPDUNOM,
+HYPO).
 
-noun coverage 3 4 8 1 2 6 7
-adj coverage 2
-verb coverage 2
-adv coverage 2
-
-\section{Règle d'identification des arguments}
+\section{Règles d'identification des arguments}
 \label{argument_identification}
 
 Les symboles $\uparrow$ et $\downarrow$ indiquent la direction de la
