@@ -448,7 +448,8 @@ possible :
 Ainsi, pour chaque groupe de verbes, différents critères précis permettent de
 distinguer ces verbes d'autres qui n'ont pas les mêmes propriétés.
 
-Cette classification a trois intérêts pour l'annotation en rôles sémantiques :
+Malgré quelques critiques \citep{riemer2011conception} sur le principe, cette
+classification est très pertinente pour l'annotation en rôles sémantiques :
 
 \begin{itemize}
 
@@ -561,9 +562,23 @@ pas être restreint à un domaine spécifique tout en couvrant une large partie
 des occurrences des verbes anglais dans un texte donné.
 
 \subsection{FrameNet}
+\label{presentation_framenet}
 
-TODO : remettre l'introduction à FrameNet ici, et ne parler que de traductions
-dans etatdelart.tex
+FrameNet \citep{baker1998berkeley} repose sur la théorie des \textit{Frame
+Semantics}, élaborée par \cite{fillmore1982frame} en modifiant sa théorie des
+cas \citep{fillmore1968case}. Ici, les rôles sémantiques sont spécifiques à
+chaque situation. Par exemple, la situation \textit{Infecting} définit les rôles
+sémantiques \textit{Infected\_entity}, \textit{Infection} et
+\textit{Infection\_cause}, alors que la situation \textit{Commerce\_buy} définit les
+rôles sémantiques \textit{Buyer}, \textit{Seller} et \textit{Goods}. Les rôles sont
+classifiés selon leur importance dans la situation : centraux (nécessaires),
+périphériques (toujours liés à la situation mais optionnels) et circonstanciels
+(pas spécifiques donc potentiellement présent dans toutes les situations, par
+exemple le lieu ou le temps).
+
+FrameNet peut s'appliquer à d'autres domaines et langues
+(section~\ref{traduction_framenet}). En particulier, le projet ANR ASFALDA
+produit un FrameNet du français.
 
 \subsection{Différences de vocabulaire entre VerbNet et FrameNet}
 \label{vocverbnetframenet}
