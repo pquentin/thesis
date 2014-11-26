@@ -484,6 +484,7 @@ candidats (9 en moyenne).  Le processus de traduction se fait en trois étapes :
         sélecteurs).
 \end{enumerate}
 
+\label{jaws_extraction_heuristics}
 \paragraph{Sélecteurs initiaux} Quatre algorithmes que nous nommons sélecteurs
 initiaux choisissent des traductions correctes parmi celles qui sont proposées
 par les dictionnaires.
@@ -637,20 +638,22 @@ la langue cible), le tout dans l'optique de créer des VerbNets pour les langues
 proches de l'anglais disposant déjà d'un WordNet.  La méthode a été testée pour
 le brésilien portuguais ; la comparaison des clusters de verbes de
 \citep{scarton2012towards} indique un F-score de 60~\%.  Comme l'indiquent les
-auteurs, la ressource obtenue ne peut pour l'instant que servir de base à une
-annotation linguistique.
+auteurs, même si l'effort pour créer un nouveau VerbNet est réduit, le lexique
+obtenu a encore besoin d'être corrigée manuellement.
 
 \paragraph{VerbNet en français}
 
 Pour le français, \cite{saintdizier1996constructing} a produit une ressource
 proche des classes de Levin dans l'objectif de s'en servir en Traitement
 Automatique de Langues, tout comme VerbNet dix ans plus tard. Chacun des 1700
-verbes est décrit par un certain nombre de «~contextes~» provenant de
+verbes est décrit par un certain nombre de «~contextes~» plus proches des
+alternances de Levin que des frames VerbNet. Ces contextes proviennent de
 différentes sources : les classes de Levin, les tables du Lexique-Grammaire, de
-corpus et d'intuition linguistique. Cependant, à notre connaissance, l'effort
-sur cette ressource s'est arrêté et le résultat n'est pas disponible. Des
-travaux se sont ensuite concentrés sur l'acquisition automatique de cadres de
-sous-catégorisation et sur le regroupement de verbes en se basant sur ces
+corpus et d'intuition linguistique. Cependant, l'effort sur cette ressource
+s'est arrêté et le résultat n'est disponible que sur demande à l'auteur.
+
+Des travaux se sont ensuite concentrés sur l'acquisition automatique de cadres
+de sous-catégorisation et sur le regroupement de verbes en se basant sur ces
 cadres et sur des similarités sémantiques. \cite{sun2010investigating} ont
 utilisé un large lexique de cadres de sous-catégorisation
 \citep{messiant2010acquisition} pour regrouper les verbes en clusters à l'aide
@@ -667,21 +670,7 @@ ce qui est la raison pour laquelle nous adoptons une approche différente qui
 sera présentée au Chapitre~\ref{ch:verbnet}.
 
 \subsection{FrameNet}
-\label{presentation_framenet}
-
-FrameNet \citep{baker1998berkeley} repose sur la théorie des \textit{Frame
-Semantics}, élaborée par \cite{fillmore1982frame} en modifiant sa théorie des
-cas \citep{fillmore1968case}. Ici, les rôles sémantiques sont spécifiques à
-chaque situation. Par exemple, la situation \textit{Infecting} définit les rôles
-sémantiques \textit{Infected\_entity}, \textit{Infection} et
-\textit{Infection\_cause}, alors que la situation \textit{Commerce\_buy} définit les
-rôles sémantiques \textit{Buyer}, \textit{Seller} et \textit{Goods}. Les rôles sont
-classifiés selon leur importance dans la situation : centraux (nécessaires),
-périphériques (toujours liés à la situation mais optionnels) et circonstanciels
-(pas spécifiques donc potentiellement présent dans toutes les situations, par
-exemple le lieu ou le temps).
-
-% TODO paragraphe sur ASFALDA !
+\label{traduction_framenet}
 
 La théorie de FrameNet peut être utilisées dans d'autres domaines et d'autres
 langues \citep{boas2009multilingual}. Il existe ainsi notamment des FrameNet en

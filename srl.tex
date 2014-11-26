@@ -17,23 +17,24 @@ Les approches fondées sur la connaissance, elles, ne se basent pas sur des
 corpus annotés mais sur des ressources lexicales existantes. Ce type d'approche
 a été négligé malgré leur complémentarité par rapport aux autres approches.
 
-En nous inspirant de \citep{swier2004unsupervised,swier2005exploiting}, nous
+En nous inspirant de \cite{swier2004unsupervised,swier2005exploiting}, nous
 présentons dans ce chapitre un système d'annotation en rôles sémantiques fondé
 sur la connaissance qui se veut simple à mettre en place et facile à
 reproduire. La prise en compte de divers phénomènes linguistiques doit
-permettre d'améliorer les performances par rapport à un état donné. Par
-exemple, la prise en compte de la voix passive a réduit le taux d'erreur de
-15,7~\%, ce qui montre la marge de progrès existante. Malgré des performances
-moindres par rapport aux approches supervisées quand des données d'entraînement
-existent, l'approche facilite l'analyse des erreurs, n'a pas besoin d'un corpus
-annoté manuellement et est \textit{a priori} indépendante du domaine considéré.
+permettre d'améliorer les performances. Par exemple, la prise en compte de la
+voix passive a réduit le taux d'erreur de 15,7~\%, ce qui montre la marge de
+progrès existante. Malgré des performances moindres par rapport aux approches
+supervisées quand des données d'entraînement existent, l'approche facilite
+l'analyse des erreurs, n'a pas besoin d'un corpus annoté manuellement et est
+\textit{a priori} indépendante du domaine considéré, étant donné qu'elle
+utilise le lexique VerbNet.
 
 Ce chapitre se concentre sur notre système d'annotation en rôles sémantiques
 dans un cadre général en l'utilisant sur le corpus FrameNet anglais (qui a été
-présenté à la section~\ref{presentation_framenet}). Le chapitre suivant
-montrera la versatilité de ce système dans des contextes différents : en
-domaine spécifique avec les domaines du football, du réchauffement climatique
-et de l'informatique en anglais et en français (Chapitre~\ref{ch:domainsrl}).
+présenté à la section~\ref{presentation_framenet}). Le
+chapitre~\ref{ch:domainsrl} montrera la versatilité de ce système dans des
+contextes différents : en domaine spécifique avec les domaines du football, du
+réchauffement climatique et de l'informatique en anglais et en français.
 
 Le travail présenté dans ce chapitre a été réalisé en collaboration avec
 Guilhem Pujol. Ce chapitre est une réécriture complète de travaux déjà publiés
@@ -52,7 +53,7 @@ phrase, des syntagmes vont remplir un des rôles prévus par la frame dans
 FrameNet. Ces syntagmes sont nommés «~remplisseurs de rôle~» (\textit{role
 filler} en anglais).
 
-\begin{figure}[ht]
+\begin{figure}[t]
     La phrase à annoter est :
 
     \begin{quote}
@@ -75,7 +76,10 @@ filler} en anglais).
             \item Source: \textit{non instancié}
         \end{itemize}
     \end{itemize}
-    \caption{\label{fig:srlrussia}Exemple d'annotation en rôles sémantiques}
+    \caption{\label{fig:srlrussia}Exemple d'annotation en rôles sémantiques. Le
+    vocabulaire FrameNet est ici utilisé (voir la
+section~\ref{vocverbnetframenet}).}
+
 \end{figure}
 
 Toute interprétation supplémentaire non présente dans la
@@ -89,7 +93,7 @@ Russia possess tactical nuclear weapons?} L'annotation de la
 figure~\ref{fig:srlrussia} est une information utile, mais elle ne serait pas
 suffisante pour répondre à la question : il faut aussi comprendre la question,
 annoter les coréférences (\textit{it} fait référence à \textit{Russia}), comprendre
-la sémantique \textit{Removing}, établir la crédibilité du \textit{Speaker},
+la sémantique de \textit{Removing}, établir la crédibilité du \textit{Speaker},
 s'intéresser à d'autres phrases potentiellement contradictoires, etc.
 
 \section{Système}
@@ -114,20 +118,19 @@ sont l'entrée de notre système, la sortie étant l'annotation en rôles
 sémantiques montrée dans la figure~\ref{fig:srlrussia}.
 
 Ensuite, nous utilisons les informations de VerbNet (présenté à la
-section~\ref{presentation_verbnet}) sur l'interface entre la syntaxe
-et la sémantique. Dans VerbNet, chaque classe regroupe un certain nombre de
-verbes acceptant tous les mêmes constructions syntaxiques. Les syntagmes
-participant à ces constructions sont associés à des rôles sémantiques à
-interpréter dans le contexte de la classe. Ces \textit{frames} sont notées de
-cette façon : NP.Agent V NP.Theme. Ici, dans cette construction transitive
-(NP V NP, e.g. \textit{Sally pushed the chair}), le premier syntagme nominal
-(\textit{Sally}) est Agent alors que le second (\textit{the chair}) est Theme.
-Bien que des règles précises régissent leur attributions, l'interprétation
-complète des rôles (ici Theme et Agent) dépend de la classe VerbNet
-considérée. Par exemple, la classe \texttt{resign-10.11} contient notamment
-NP.Agent V PP.Source (\textit{I resigned from the military}). Dans cette
-classe, l'Agent est la personne qui démissionne et la Source est le poste qui
-a été quitté.
+section~\ref{presentation_verbnet}) sur l'interface entre la syntaxe et la
+sémantique. Dans VerbNet, chaque classe regroupe un certain nombre de verbes
+acceptant tous les mêmes constructions syntaxiques. Les syntagmes participant à
+ces constructions sont associés à des rôles sémantiques à interpréter dans le
+contexte de la classe. Ces \textit{frames} sont notées de cette façon :
+NP.Agent V NP.Theme. Ici, dans cette construction transitive (NP V NP, e.g.
+\textit{Sally pushed the chair}), le premier syntagme nominal (\textit{Sally})
+est Agent alors que le second (\textit{the chair}) est Theme.  Bien que des
+règles précises régissent leur attributions, l'interprétation complète des
+rôles (ici Theme et Agent) dépend de la classe VerbNet considérée. Par exemple,
+la classe \texttt{resign-10.11} contient la frame NP.Agent V PP.Source
+(\textit{I resigned from the military}). Dans cette classe, l'Agent est la
+personne qui démissionne et la Source est le poste qui a été quitté.
 
 Pour une phrase donnée, le système commence par identifier les verbes de cette
 phrase. Pour chacun de ces verbes, un ensemble de classes VerbNet est
@@ -146,7 +149,9 @@ NP.Theme. Ainsi, si un des verbes de cette classe, tel que \textit{present} :
     \item et est utilisé avec un sujet syntagme nominal et un objet syntagme
         nominal,
 \end{itemize}
-alors le sujet du verbe est l'Agent et l'objet est le Theme.
+alors le sujet du verbe est l'Agent et l'objet est le Theme, ce que des
+applications pourront interpréter dans le contexte de la classe VerbNet
+\texttt{reflexive\_appearance-48.1.1}.
 
 La phrase d'exemple de la figure~\ref{fig:srlrussia} ne correspond pas à NP V
 NP mais à NP V that S (\textit{that S} étant la notation VerbNet pour les
@@ -194,18 +199,18 @@ Chaque phrase peut contenir un ou plusieurs prédicats : nous nous contentons
 ici de retenir tous les verbes présents dans VerbNet. Les autres prédicats
 potentiels, c'est-à-dire ceux qui ne sont pas dans VerbNet et ne sont pas des
 verbes, sont ignorés. Les parties du discours acceptées sont toutes celles
-concernant des verbes : md, MD, VB, VBD, VBG, VBN, VBP, VBZ, VV, VVD, VVG, VVN,
-VVP, VVZ, VH, VHD, VHG, VHN, VHP et VHZ.
-% TODO la liste est différente dans argguesser.py/argheuristic.py
-% TODO en annexe !
+concernant des verbes simples : MD, VB, VBD, VBG, VBN, VBP, VBZ. Les autres
+formes ou le verbe est composé de plusieurs mots (par exemple \textit{He has
+suffered from loneliness} ne sont pas actuellement prises en compte.
 
 \subsection{Identification des arguments}
-
-% TODO 80% Das + http://www.aclweb.org/anthology/I/I13/I13-1094.pdf ?
+\label{argid}
 
 % TODO tagset syntaxique WSJ
 Cette étape identifie les syntagmes amenés à jouer un rôle sémantique lors de
-l'annotation. Nous suivons ici \cite{lang2011unsupervised} qui propose huit
+l'annotation. C'est un problème difficile ; la première raison est que seuls
+78~\% des arguments du corpus FrameNet sont effectivement des sous-arbres issus
+de l'analyse syntaxique. Nous suivons ici \cite{lang2011unsupervised} qui propose huit
 règles\footnote{La septième règle n'est pas utilisée.} basées sur l'analyse
 syntaxique de la phrase. Initialement, tous les mots sont candidats. Puis
 chacune de ces règles sélectionne ou écarte des mots candidats. Dans la
@@ -242,6 +247,7 @@ sémantiques \citep{das2010probabilistic}, ne fait pas partie de nos
 contributions.
 
 \subsection{Correspondance exacte des frames}
+\label{correspondance_exacte}
 
 Cette étape associe zéro, un ou plusieurs rôles sémantiques à chaque syntagme
 candidat identifié lors de l'étape précédente. Elle correspond au \textit{frame
@@ -305,6 +311,11 @@ problème de couverture empêche d'assigner la classe VerbNet qui convient. Par
 conséquent, même si on sait que quelle que soit la classe, le sujet serait
 Agent et le premier objet Theme, cette information est difficilement
 interprétable dans une application.
+
+Dans les cas où différentes frames VerbNet sont possibles, le calcul de scores
+de correspondances présentés par \cite{swier2004unsupervised} peut aider à
+désambiguïser, mais de nombreux arguments restent ambigus, ce qui est l'objet
+des sections~\ref{subsec:probability} et ~\ref{restrictions_selection}.
 
 % TODO différents algorithmes de match
 % TODO nouvel algorithme : oublier complètement l'ordre
@@ -373,13 +384,16 @@ précision pour ce modèle est forte, mais il n'assigne des rôles que pour 40~\
 des arguments : dans les autres cas, nous ne disposons pas d'informations pour
 cette paire (prédicat, fonction grammaticale).
 
+Une procédure de \textit{bootstrap} reposant sur les mêmes principes a aussi
+été implémentée en suivant \cite{swier2004unsupervised}.
+
 \subsection{Mapping VerbNet - FrameNet}
 \label{subsec:mapping}
 
 Le projet SemLink a développé un mapping entre VerbNet et FrameNet. Pour chaque
-frame VerbNet, zéro, une ou plusieurs classes FrameNet ont été choisies.
-Ensuite, pour chaque paire (VerbNet, FrameNet), les rôles des deux ressources
-sont associés.
+frame FrameNet, zéro, une ou plusieurs correspondances vers des classes VerbNet
+sont proposées. Ensuite, pour chaque paire (VerbNet, FrameNet), les rôles des
+deux ressources sont associés.
 % TODO et le second fichier qui traite des verbes ?
 
 \begin{figure}[ht]
@@ -416,10 +430,9 @@ de granularité du à la construction différente des deux ressources
 \citep{palmer2009semlink}. Cela implique qu'il est difficile d'utiliser un tel
 mapping pour convertir entre annotations VerbNet et FrameNet, et c'est une des
 limites de notre évaluation.  Celà dit, les difficultés à appliquer un tel
-mapping sont réduites sur le corpus FrameNet : alors qu'en général seul 50~\%
-des rôles sont mis en correspondance, pour le corpus FrameNet en particulier,
-plus de 95~\% des occurrences sont mis en correspondance.
-% TODO expliciter que la conversion est FrameNet -> VerbNet
+mapping sont réduites sur le corpus FrameNet : alors que seuls 50~\% de tous
+les rôles sont mis en correspondance, pour le corpus FrameNet en particulier,
+plus de 95~\% des occurrences de rôles sont mis en correspondance.
 
 Nous avons modifié ce mapping pour ajouter des correspondances manquantes : en
 attendant que ces modifications soient prises en compte par SemLink, le mapping
@@ -496,7 +509,7 @@ utilité en annotation en rôles sémantiques supervisée. Citons :
 \begin{itemize}
     \item la présence de relations WordNet entre mots des prédicats pour
         l'identification des prédicats \citep{das2010probabilistic},
-    \item etl'apport de la représentation de mots pour une meilleure
+    \item et l'apport de la représentation de mots pour une meilleure
         généralisation \citep{lechelle2014utilisation}
 \end{itemize}
 
@@ -534,9 +547,9 @@ De plus, pour TODO\% des arguments de notre corpus FrameNet, la syntaxe ne
 permet pas d'identifier le rôle correct, mais seulement de le limiter à
 quelques rôles possibles. Cette délimitation est très précise : quand VerbNet
 aboutit à plusieurs rôles possibles, la probabilité pour que le rôle correct
-soit présent dans la liste est supérieure à TODO\%. Nous posons alors la
-question suivante : comment tirer profit de cette courte liste de rôles
-possibles à l'aide de la sémantique ?
+soit présent dans la liste est supérieure à 90~\% pour des arguments gold. Nous
+posons alors la question suivante : comment tirer profit de cette courte liste
+de rôles possibles à l'aide de la sémantique ?
 
 La piste que nous explorons dans cette section est l'utilisation des
 restrictions de sélections présentes dans VerbNet. Ces restrictions sont
@@ -663,44 +676,44 @@ utilisé en apprentissage automatique. En effet, aucun modèle n'a été appris 
 ce corpus, mais c'est celui sur lequel nous examiné manuellement les erreurs de
 notre système.
 
-Enfin, différents modèles sont appliqués :
-
-\begin{itemize}
-
-    \item \textit{passif} indique que la voix passive a été prise en compte
-    (section~\ref{sec:passif}).
-
-    \item \textit{prédicat-fonction} indique que le modèle de probabilité
-    \textit{prédicat-fonction} a été appliqué (section~\ref{subsec:probability}).
-
-\end{itemize}
-
 \section{Résultats}
 
 \subsection{Analyse des résultats}
+\label{resultats_srl}
 
-% TODO keep up to date when score changes
-% TODO include passive in argid once fixed
 \begin{table*}[ht]
     \centering
     \begin{tabular}{lcccc}
         \toprule
-        Task                                                  & F1        & Accuracy \\
+        Task                                                       & F1 (\%) & Exactitude (\%)\\
+        \midrule                                                   
+        Correspondance exacte                                      & 71.11  & 54.66 \\
+        Correspondance exacte + passif                             & 73.52  & 57.20 \\
+        Correspondance exacte + restrictions                       & 75.80  & 68.31 \\
+        Correspondance exacte + passif + restrictions              & 78.29  & 70.99 \\
+        Correspondance exacte + probabiliste                       & 71.84  & 58.57 \\
+        Correspondance exacte + bootstrap                          & 73.63  & 69.41 \\
+        Correspondance exacte + bootstrap + passif + restrictions  & 79.41  & 75.24 \\
         \midrule
-        Correspondance exacte                                 & 71.13\%   & 54.73\%  \\
-        Correspondance exacte + passif                        & 73.54\%   & 57.27\%  \\
-        Correspondance exacte + probabiliste                  & 71.86\%   & 58.64\%  \\
-        Correspondance exacte + probabiliste + passif         & 74.07\%   & 60.56\%  \\
-        Correspondance exacte + bootstrap                     & 73.63\%   & 69.41\%  \\
-        Correspondance exacte + bootstrap + passif            & 76.08\%   & 72.09\%  \\
-        \midrule
-        Identification + Correspondance exacte                & 48.52\%   & 33.17\%  \\
-        Identification + Correspondance exacte + probabiliste & 48.74\%   & 34.96\%  \\
-        Identification + Correspondance exacte + bootstrap    & 49.61\%   & 41.41\%  \\
+        Identification + Correspondance exacte                          & 42.92  & 29.95 \\
+        Identification + Correspondance exacte + passif                 & 44.28  & 30.98 \\
+        Identification + Correspondance exacte + restrictions           & 43.81  & 35.71 \\
+        Identification + Correspondance exacte + restrictions + passif  & 45.13  & 36.95 \\
+        Identification + Correspondance exacte + probabiliste           & 43.25  & 31.52 \\
+        Identification + Correspondance exacte + bootstrap + passif + restrictions   & 46.00 & 39.29 \\
         \bottomrule
     \end{tabular}
 
-    \caption{\label{table:results}Résultats pour différentes tâches. \textit{probabiliste} indique la correspondance probabiliste. \textit{passif} indique la détection de la voix passive. \textit{Identification} est l'identification des arguments.}
+    \caption{\label{table:results}Résultats pour différentes tâches. La
+        correspondance exacte est décrite à la
+        section~\ref{correspondance_exacte}, \textit{probabiliste} et
+        \textit{bootstrap} indiquent la correspondance probabiliste
+        (section~\ref{subsec:probability}), \textit{passif} indique la
+        détection de la voix passive (section~\ref{sec:passif}), et
+        \textit{restrictions} indique la prise en compte des restrictions de
+        sélection avec WordNet (section~\ref{restrictions_selection}).
+        \textit{Identification} est l'identification des arguments
+    (section~\ref{argid}).}
 
 \end{table*}
 
@@ -714,14 +727,16 @@ phrase brute : il faut l'analyser syntaxiquement, identifier les arguments,
 puis réaliser la correspondance exacte à proprement parler.
 
 Premièrement, l'identification des arguments doit être améliorée de manière
-significative car elle pénalise les étapes ultérieures. La première raison est
+significative car elle pénalise fortement les étapes ultérieures : les
+différentes améliorations ont un impact très faible, ce qui montre que
+l'identification des arguments est un problème à régler : c'est un travail
+futur capital pour utiliser ce système en autonomie. La première difficulté est
 que seulement 76~\% des syntagmes jouant un rôle sont effectivement des
-sous-arbres de l'analyse syntaxique.
-% TODO inclure les mots seuls ? Vérifier la citation de SEMAFOR
-La seconde raison provient des heuristiques utilisées pour l'identification
-elle-même : une analyse plus poussée permettrait de mieux comprendre les
-erreurs qu'elles causent. Des alternatives existent, supervisées ou non
-supervisées \citep{abend2009unsupervised}.
+sous-arbres de l'analyse syntaxique.  La seconde raison provient des
+heuristiques utilisées pour l'identification elle-même : une analyse plus
+poussée permettrait de mieux comprendre les erreurs qu'elles causent. Des
+alternatives existent, supervisées ou non supervisées
+\citep{abend2009unsupervised}.
 
 \begin{figure}[t]
     \centering
@@ -787,13 +802,18 @@ sont à identifier pour les domaines où de tels corpus ne sont pas disponibles.
 Nous avons appliqué ce travail à des domaines spécifiques et variés : football,
 réchauffement climatique et informatique (Chapitre~\ref{ch:domainsrl}).
 
-% TODO qu'est-ce qui a déjà été fait ici ?
+Le problème principal est la faible performance de l'identification des
+arguments : ce n'était pas là-dessus que nous voulions porter nos efforts, mais
+il devient clair que c'est un problème conséquent à attaquer en suivant
+(section~\ref{resultats_srl}).
+
 Nous pensons aussi prendre en compte la similarité entre les remplisseurs déjà
 identifiés et les remplisseurs pour lesquels un rôle reste encore à identifier
 afin d'améliorer nos modèles de probabilité. En effet, l'information des cadres
 de sous-catégorisation est cruciale pour identifier les arguments, mais
 l'information sémantique concernant le contenu des remplisseurs est aussi utile
-pour déterminer le rôle correct.
+pour déterminer le rôle correct, comme nous l'avons vu à la
+section~\ref{restrictions_selection}.
 
 Enfin, de la même manière que la prise en compte de la voix passive a amélioré
 les résultats, d'autres phénomènes de syntaxe profonde doivent être pris en
