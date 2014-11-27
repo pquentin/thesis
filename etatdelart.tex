@@ -971,6 +971,47 @@ les sens ne suffit pas ; il faut aussi savoir quelle traduction appliquer.
 Ainsi, bien que représentant une voie prometteuse, nous n'avons pas considéré
 ici ce type de méthode.
 
+\subsection{Terminologie}
+
+En français, le terme «~annotation en rôles sémantiques~» n'est pas encore
+stabilisé. En effet, de nombreux termes coexistent encore aujourd'hui :
+
+\begin{itemize}
+    \item \textit{Annotation syntaxico-sémantique des actants}
+        \citep{hadouche2011annotation},
+    \item \textit{étiquetage en rôles sémantiques} \citep{boros2014etiquetage},
+    \item \textit{étiquetage de rôles sémantiques}
+        \citep{lechelle2014utilisation},
+    \item ou encore \textit{prédiction de la structure sémantique}
+        \citep{michalon2014modelisation}.
+\end{itemize}
+
+Tous ces travaux traitent de ressources proches de FrameNet. Ce n'est pas le
+cas en anglais, où la littérature utilise aujourd'hui deux termes différents
+pour distinguer l'annotation en rôles sémantiques de type PropBank
+(\textit{Semantic Role Labeling}) et l'annotation en rôles sémantiques de type
+FrameNet (\textit{Frame-semantic parsing}). En effet, ce sont deux tâches
+relativement différentes.
+
+\begin{itemize}
+    \item Pour PropBank, il s'agit d'identifier les arguments de chaque sens de
+        verbe (ARG0, ARG1, etc.) sans avoir besoin de deśambiguïser le sens du
+        verbe \citep{carreras2005introduction}.
+    \item Pour FrameNet, il faut identifier les prédicats (verbes mais aussi
+        noms, adjectifs et adverbes), identifier la frame correspondante (tâche
+        proche de la désambiguïsation lexicale), et ensuite, à la manière de
+        PropBank, identifier les arguments et leurs rôles sémantiques. Pour
+        montrer la différence avec le \textit{semantic role labeling}, le terme
+        \textit{frame-semantic parsing} a été choisi
+        \citep{das2010probabilistic}.
+\end{itemize}
+
+Dans ce sens, nos travaux sont effectivement du \textit{frame-semantic
+parsing}, même si nous ne traitons que des verbes. En effet, la
+désambiguïsation entre classes VerbNet joue un rôle important dans notre
+système (Chapitre~\ref{ch:srl}).
+
+
 \subsection{Adaptation au domaine}
 
 \cite{chen2008learning} entraînent un système qui apprend à commenter un match
