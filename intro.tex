@@ -585,8 +585,28 @@ produit un FrameNet du français.
 
 FrameNet et VerbNet utilisent un vocabulaire différent, ce qui pose des
 problèmes d'ambiguïté : une frame FrameNet n'a aucun lien avec une frame
-VerbNet.
+VerbNet. La table~\ref{fnvsvn} liste les différences.
 
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{lll}
+        \toprule
+        VerbNet & FrameNet \\
+        \midrule
+        Classe (get-13.5.1) & Frame (Commerce\_buy) \\
+        Rôle thématique (Agent) & Rôle sémantique (Buyer) \\
+        Frame (NP.Agent V NP.Theme) & - \\
+        Membre, verbe (buy) & Unité lexicale (buy, purchase) \\
+        \bottomrule
+    \end{tabular}
+    \caption{\label{fnvsvn}Comparaison des terminologies FrameNet et VerbNet}
+\end{table}
+
+Nous ne traduisons pas le terme \textit{frame}, \textit{cadre} étant
+suffisamment ambigu en français. En dehors de tout contexte, nous utilisons
+généralement la terminologie VerbNet. Les ambiguïtés sont résolues en précisant
+la ressource considérée quand c'est nécessaire, par exemple \textit{la frame
+FrameNet}.
 
 \subsection{Les Verbes Français et Lexique-Grammaire}
 \label{sec:lvflg}
