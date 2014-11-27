@@ -237,6 +237,8 @@ jouent pas de rôle : notre système devra par la suite pouvoir écarter ces
 candidats tout en assignant les rôles corrects aux candidats qui jouent bien un
 rôle.
 
+\subsection{Utilisation des arguments de la vérité-terrain}
+
 Cette étape d'identification des arguments est facultative : afin de mieux
 comprendre les performances des étapes suivantes, ce seront parfois les
 arguments parfaits de la vérité-terrain qui seront utilisés lors de
@@ -245,6 +247,27 @@ de l'annotation en rôles sémantiques, et l'identification des arguments, bien
 qu'une partie intégrante de tout système complet d'annotation en rôles
 sémantiques \citep{das2010probabilistic}, ne fait pas partie de nos
 contributions.
+
+Pour convertir les arguments de la vérité-terrain vers une frame VerbNet, nous
+utilisons simplement la position de ces arguments dans la phrase. Par exemple,
+si un syntagme nominal apparaît avant le verbe et un syntagme prépositionnel
+apparaît après le verbe, la frame VerbNet devient NP V PP. Bien que cela
+corresponde en général au véritable cadre de sous-catégorisation de la phrase,
+ce n'est pas toujours le cas. Montrons-le avec deux exemples.
+
+\begin{itemize}
+    \item Pour \textit{Les déchets éliminés polluent} et le verbe
+        \textit{éliminé}, la frame est NP V, alors qu'il aurait fallu V NP.
+    \item \textit{Il dégage le ballon} et \textit{Il le dégage} produisent
+        respectivement les cadres NP V NP et NP NP V. Cependant, \textit{le
+        ballon} et \textit{le} doivent tous les deux être considérés comme un
+        syntagme nominal rattaché au verbe avant de comparer le cadre de
+        sous-catégorisation de la phrase à VerbNet.
+\end{itemize}
+
+Ainsi, même lorsque les arguments de la vérité-terrain sont utilisés, l'absence
+de prise en compte de la syntaxe est pénalisant, ce qu'il faudra traiter lors
+de futurs travaux.
 
 \subsection{Correspondance exacte des frames}
 \label{correspondance_exacte}
