@@ -269,6 +269,7 @@ un des systèmes présentés dans ces travaux.
 
 \section{Relations syntaxiques identifiées par LIMA présentes dans notre modèle
 de langue syntaxique}
+\label{relations_modele_langue}
 
 Cette table décrit les identifiants des relations syntaxiques utilisés dans
 LIMA et donc présents dans le modèle de langue syntaxique que nous utilisons
@@ -361,15 +362,37 @@ sections~\ref{jaws_extraction_heuristics} et
 
 \subsection{Combinaisons de sélecteurs syntaxiques}
 
-Le seul sélecteur syntaxique utilisé pour les verbes, adjectifs et adverbes est
-le sélecteur SimSyn.
+\cite[section 3.1.1.3]{mouton2010phd} décrit les sélecteurs syntaxiques
+utilisés dans WoNeF. Les relations utilisées sont décrites à la
+section~\ref{relations_modele_langue}.
 
-Concernant les noms, la configuration change suivant la version de WoNeF. La
-version haute précision utilise les sélecteurs MeroHoloLikeHyper et MeroHolo.
-La version à haut F-score rajoute le sélecteur HyperHypo(COD\_V, HYPER). La
-version à haute couverture rajoute elle les sélecteurs SimSyn,
-HyperHypo(COMPDUNOM, HYPER), HyperHypo(SUJ\_V, HYPER) et HyperHypo(COMPDUNOM,
-HYPO).
+\begin{itemize}
+    \item Le seul sélecteur syntaxique utilisé pour les verbes, adjectifs et
+        adverbes est le sélecteur par synonymie avec diverses relations
+        syntaxiques pouvant refléter la synonymie. Par exemple, avec la
+        relation COD\_V inverse, on exprime le fait que les verbes qui acceptent
+        les mêmes objets sont potentiellement synonymes.
+        \begin{itemize}
+            \item Les verbes utilisent les relations COD\_V inverse, CPL\_V
+                inverse et CPLV\_V inverse.
+            \item Les adjectifs utilisent les relations SUBADJPOST ADVADJ
+                inverse, et et ATBSG.
+            \item Les adverbes utilisent les relations AdvSub inverse et ADVADJ
+                inverse.
+        \end{itemize}
+    \item Concernant les noms, la configuration change suivant la version de WoNeF.
+        \begin{itemize}
+            \item La version haute précision utilise les sélecteurs de
+                méronymie avec la relation COMPDUNOM
+                (Figure~\ref{meronymyexample}) et d'holonymie avec la relation
+                COMPDUNOM inverse.
+            \item La version à haut F-score rajoute le sélecteur par
+                hyperonymie avec la relation syntaxique COD.
+            \item La version à haute couverture rajoute elle les sélecteurs
+                par synonymie (COMPDUNOM, COD\_V et APPOS), hyperonymie
+                (COMPDUNOM et SUJ\_V) et hyponymie (COMPDUNOM).
+        \end{itemize}
+\end{itemize}
 
 \section{Règles d'identification des arguments}
 \label{argument_identification}
