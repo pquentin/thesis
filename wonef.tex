@@ -586,26 +586,39 @@ de WoNeF de 83~\%.
 
 \section{Fusion entre WOLF et WoNeF}
 
-WOLF et WoNeF ne sont pas des compétiteurs. En réalité, les travaux sur WoNeF
-et WOLF ont commencé indépendamment sans que les auteurs respectifs ne soient
-au courant des travaux de l'autre équipe. Pourquoi est-ce que les deux versions
+WOLF et WoNeF ne sont pas en compétition. En réalité, les travaux sur WoNeF et
+WOLF ont commencé indépendamment sans que les auteurs ne soient au courant des
+travaux de l'autre équipe. Certes, les deux ressources semblent complémentaires
+(section~\ref{subsec:vswolf}), mais pourquoi est-ce que les deux versions
 existent toujours en 2014 alors que les premières publications datent de 2008
 et 2009 ?  Une fusion a en réalité été envisagée en 2014, mais elle n'a pas
-aboutie : les auteurs de WoNeF et WOLF n'ont pas encore la même vision de ce
-que constitue une traduction correcte dans un synset.
+aboutie : les auteurs de WoNeF et WOLF n'ont pas encore une vision commune
+claire de ce que constitue une traduction correcte dans un synset. Deux
+problèmes ont étés identifiés pour l'instant.
 
-Le premier problème, et le plus simple, est du au biais lexicographique
-particulièrement présent dans WoNeF. En effet, WordNet contient un synset pour
-l'adverbe \textit{unkindly\#1} qui est traduit dans nos dictionnaires par
-\textit{sans aménité}. Ceci pose un problème parce que \textit{sans aménité} n'est
-pas une unité lexicale qu'on s'attend à trouver dans un dictionnaire monolingue
-étant donné que le sens est déductible par compositionnalité. Ce problème est
-accru en raison de la productivité de l'anglais : \textit{unkindly} étant un
-token attesté en anglais, il est logique de l'inclure dans WordNet, même si on
-peut aussi déduire son sens par compositionnalité.
+Le premier problème, et le plus simple, est du à un biais lexicographique
+particulièrement présent dans WoNeF. Par exemple, WordNet contient un synset
+pour l'adverbe \textit{unkindly\#1} qui est traduit dans nos dictionnaires par
+\textit{sans aménité}. Ceci pose un problème parce que \textit{sans aménité}
+n'est pas une unité lexicale qu'on s'attend à trouver dans un dictionnaire
+monolingue étant donné que le sens est déductible par compositionnalité. Ce
+problème est accru en anglais, où de nombreux mots sont formés par
+concaténation. Ceci dit, étant donné qu'il n'y a pas d'espace entre \textit{un}
+et \textit{kindly} dans \textit{unkindly}, il semble logique de l'inclure dans
+WordNet, même si on peut aussi déduire son sens par compositionnalité.
 
-Le second problème est du à la finesse des sens proposés par WordNet, ce qui...
-TODO
+Le second problème est du à la finesse des sens proposés par WordNet. Bien que
+les évaluations autour de WoNeF aient mené à un nombre conséquent de débats
+passionnés sur le sens des mots et l'adéquation des traductions, ce n'est qu'en
+évaluant la fusion de WOLF et WoNeF que nous nous sommes rendus compte en
+comparant l'évaluation que WOLF avait tendance à être plus strict au moment
+d'accepter un synset.
+
+Ces difficultés mettent en évidence le besoin crucial d'un guide d'annotation
+basé sur le résultat de différentes adjudications avant de poursuivre les
+travaux autour de la fusion. En effet, sans cet étalon, il est très difficile
+de donner du sens aux mesures d'évaluation de WoNeF, WOLF, et des autres
+traductions en général.
 
 Le lecteur qui considère que ces problèmes ne l'affectent pas peut utiliser la
 fusion des deux ressources disponible sur \url{http://wonef.fr/data/}.
