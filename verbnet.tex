@@ -5,17 +5,26 @@
 \chapter{\verbenet{} : une traduction de VerbNet}
 \label{ch:verbnet}
 
-La ressource anglaise VerbNet (section~\ref{presentation_verbnet}) correspond à
-nos objectifs (section~\ref{objectifs_these}) mais n'existe pas en français :
-c'est pourquoi nous présentons dans ce chapitre sa traduction vers le français,
-nommée \verbenet{}\footnote{Le nom vient de la prononciation à la française qui
+La ressource VerbNet (section~\ref{presentation_verbnet}) rend possible
+l'annotation en rôles sémantiques selon nos objectifs présentés à la
+section~\ref{objectifs_these}. Or, nous désirons réaliser cette annotation en
+français mais VerbNet n'est disponible que pour l'anglais. C'est pourquoi nous
+présentons dans ce chapitre sa traduction vers le français, nommée
+\verbenet{}\footnote{Le nom vient de la prononciation à la française qui
     "rajoute" un \textit{e}. Le $\ni$ est là pour bien marquer ce \textit{e} et
 ainsi essayer d'éviter la confusion avec VerbNet.}. Une partie conséquente de
 ce chapitre provient d'articles déjà publiés
-\citep{danlos2014vers,pradet2014adapting}. La première étape de traduction a
-été réalisée en collaboration avec Laurence Danlos. Ensuite, Laurence Danlos et
-Takuya Nakamura ont réalisé seuls le travail lexicographique, c'est-à-dire les
-deuxième et troisième étapes.
+\citep{danlos2014vers,pradet2014adapting}. Nous avons réalisé la première étape
+de traduction en collaboration avec Laurence Danlos. Ensuite, Laurence Danlos
+et Takuya Nakamura ont réalisé seuls le travail lexicographique, c'est-à-dire
+les deuxième et troisième étapes. Pour faciliter ce travail, nous avons
+développé et activement maintenu une interface d'édition entièrement pensée
+pour VerbNet afin de faciliter le travail lexicographique
+(section~\ref{toolquentin}).
+
+Ce travail a été rendu possible par une interface
+d'édition développée par nos soins rendant l'édition facile afin que les
+lexicographes puissent se concentrer sur le 
 
 La construction de cette ressource se fait en trois étapes.
 \begin{enumerate}
@@ -25,9 +34,10 @@ La construction de cette ressource se fait en trois étapes.
         (section~\ref{first}).
     \item La deuxième étape (section~\ref{second}), toujours en cours, est
         l'adaptation des frames VerbNet vers le français et la réorganisation
-        des classes VerbNet en fonction de ces frames, ce qui pose divers
-        difficultés souvent spécifiques à chaque classe que nous décrivons en
-        partie ici (section~\ref{casebycase}).
+        des classes VerbNet en fonction de ces frames. Chaque classe est plus
+        ou moins difficile à adapter (section~\ref{exempleadaptation}) : nous
+        présentons certaines difficultés récurrentes à la
+        section~\ref{casebycase}.
     \item La troisième étape (section~\ref{third}), aussi en cours de
         réalisation, est la validation des verbes français de chaque classe.
 \end{enumerate}
@@ -43,16 +53,16 @@ notamment les usages commerciaux.
 
 \section{Étapes de constructions de \verbenet{}}
 
-Notre principe de base est que la hiérarchie de \verbenet{} doit être aussi
-proche que possible de celle de VerbNet.  Néanmoins, certaines classes peuvent
+L'idée directrice est que la hiérarchie de \verbenet{} doit être aussi proche
+que possible de celle de VerbNet.  Néanmoins, certaines classes peuvent
 disparaître dès lors que les critères utilisés pour l'anglais ne s'appliquent
 pas au français, ce qui est parfois le cas lorsque VerbNet emploie des critères
 morphologiques. Ainsi, une classe VerbNet ne contenant que des verbes
 dénominaux n'a pas d'équivalent en français. C'est le cas de :
 
 \begin{itemize}
-    \item {\color{blue}\texttt{pit-10.7}} qui formé avec des parties
-        constitutives d'animaux ou d'objets avec des verbes tels que :
+    \item {\color{blue}\texttt{pit-10.7}} formé avec des parties constitutives
+        d'animaux ou d'objets avec des verbes tels que :
         \begin{itemize}
             \item \textit{peel} : enlever la peau (\textit{peel}) de certains fruits
                 et légumes,
@@ -60,7 +70,7 @@ dénominaux n'a pas d'équivalent en français. C'est le cas de :
                 d'une buche,
             \item ou \textit{bone} : enlever les os (\textit{bone}) d'un poisson,
         \end{itemize}
-    \item ou encore de {\color{blue}\texttt{weekend-56}} formé à partir de
+    \item ou encore de {\color{blue}\texttt{weekend-56}} formée à partir de
         verbes issus de noms décrivant une période de temps tels que :
         \begin{itemize}
             \item \textit{vacation} : \textit{Luc Leclerc vacationed with Zambito in
@@ -70,12 +80,12 @@ dénominaux n'a pas d'équivalent en français. C'est le cas de :
 \end{itemize}
 
 Par contre, {\color{blue}\texttt{debone-10.8}} et ses verbes formés par le
-préfixe \textit{dé-} plus un nominal (\textit{debark, debone}) a un équivalent
+préfixe \textit{de-} plus un nominal (\textit{debark, debone}) a un équivalent
 français avec les préfixes \textit{dé-} ou \textit{é} (\textit{déveiner},
 \textit{équeuter}) : cette classe est donc conservée dans \verbenet{}
 
-Pour les toues les classes conservées, la construction de \verbenet{} se fait
-en trois étapes.
+Pour toutes les classes conservées, la construction de \verbenet{} se fait en
+trois étapes.
 
 \subsection{Première étape : traduction des verbes}\label{first}
 
@@ -142,15 +152,17 @@ VerbNet afin d'assister au maximum le travail lexicographique
 La troisième étape est l'occasion de valider manuellement pour chaque classe
 les verbes proposés par correspondance de ressources en supprimant les verbes
 erronés et en rajoutant les verbes manquants afin que la ressource ait été
-entièrement validée manuellement. Quasiment aucun verbe n'est ajouté
+entièrement validée manuellement. La plupart des verbes ne sont pas ajouté
 manuellement : les annotateurs cliquent directement sur les verbes inférés pour
 les valider ou les invalider.  Les traductions des dictionnaires étant très
 productives, les verbes souhaités sont généralement dans les traductions
 proposées, même s'ils peuvent être absent des correspondances LG, LVF ou les
-deux. Dans les rares cas où un verbe souhaité n'est pas trouvé, c'est une
-occasion de contribuer au Wiktionnaire pour le rajouter.
+deux. Dans les rares cas où un verbe souhaité n'est pas trouvé (en général
+parce qu'une classe a été créée sans verbe anglais), il est tout de même
+possible d'en ajouter un.
 
-\section{Adaptation pas à pas d'une classe d'exemple}
+\section{Adaptation pas à pas de deux classes d'exemple}
+\label{exempleadaptation}
 
 Cette section est l'occasion de présenter l'adaptation de VerbNet par
 l'exemple, à la fois pour mettre en avant les facilités et difficultés du
@@ -201,32 +213,40 @@ disposition de corpus français permettant de répondre à la question. Nous avo
 donc décidé pour le moment de supprimer toutes les sous-structures de
 \verbenet{}. Par exemple, dans la classe {\color{blue}\texttt{remove-10.1}},
 VerbNet encode non seulement NP V NP PP.Source PP.Destination (\textit{Doug
-removed the smudges from the tabletop}) mais aussi NP V NP (\textit{Doug removed
-the smudges}). \verbenet{} n'inclut que la première frame, il est implicite que
-la seconde existe : une application doit donc l'inférer automatiquement à
-partir de la première sans intervention manuelle\footnote{Cependant, ce
-    principe ne s'applique pas aux verbes acceptant un seul complément locatif
-    double «~from here to there (un seul complément PP.Source PP.Destination)~»
-    sans accepter un seul complément source (PP.Source), tout en acceptant un
-    seul complément destination (PP.Destination) : \textit{Fred a transferré le
-        vin de la cruche en pierre vers la cruche en terre cuite, *Fred a
-        transferré le vin de la cruche en pierre, Fred a transferré le vin vers
-        la cruche en terre cuite}. Dans ce cas exceptionnel, les
-    sous-structures sont codées explicitement.}.
+removed the smudges from the tabletop}) mais aussi NP V NP (\textit{Doug
+removed the smudges}). \verbenet{} n'inclut que la première frame, il est
+implicite que la seconde existe : une application doit donc l'inférer
+automatiquement à partir de la première sans intervention manuelle. Ce principe
+ne s'applique pas aux verbes acceptant un seul complément locatif double «~from
+here to there (un seul complément PP.Source PP.Destination)~» sans accepter un
+seul complément source (PP.Source), tout en acceptant un seul complément
+destination (PP.Destination) : \textit{Fred a transferé le vin de la cruche en
+pierre vers la cruche en terre cuite, *Fred a transferé le vin de la cruche en
+pierre, Fred a transferé le vin vers la cruche en terre cuite}. Dans ce cas
+exceptionnel, les sous-structures sont codées explicitement.
+
+Une difficulté subsiste. Pour reprendre l'exemple \textit{Doug removed the
+smudges from the tabletop}, rien n'empêche de produire \textit{Doug removed
+from the tabletop}. Nous avons cependant préféré laisser cette possibilité
+(erronée dans cet exemple) plutôt que d'avoir à recourir à des intuitions
+linguistiques pour l'ensemble des classes de \verbenet{}. Une application
+pourra noter que pour une frame de type NP V NP PP, la sous-structure qui est
+\textit{a priori} la plus probable est NP V NP, mais que NP V et NP V PP sont
+aussi possibles.
 
 La deuxième différence concerne l'ordre des compléments. VerbNet encode parfois
 des frames qui ne diffèrent que par l'ordre des compléments, par exemple dans
 {\color{blue}\texttt{bring-11.3}} les frames NP V NP PP.Destination NP
-(\textit{Nora brought to lunch the book}) et NP V NP PP.Destination (\textit{Nora
-brought the book to the meeting}). En français, l'ordre des compléments dépend
-d'un certain nombre de facteurs syntaxiques et sémantiques
+(\textit{Nora brought to lunch the book}) et NP V NP PP.Destination
+(\textit{Nora brought the book to the meeting}). En français, l'ordre des
+compléments dépend d'un certain nombre de facteurs syntaxiques et sémantiques
 \citep{thuilier2012contraintes}, mais ne dépend pas à priori d'un facteur
 lexical : il ne dépend pas du verbe qui gouverne les compléments. C'est pour
 cette raison que \verbenet{} n'encode qu'un frame dans ces cas, ici seulement
-\textit{NP V NP PP.Destination} (\textit{Nora a apporté le livre au meeting}) avec
-l'objet direct avant le syntagme prépositionnel. C'est à l'utilisateur de la
-ressource de considérer que l'autre option (\textit{NP V PP.Destination NP},
-\textit{Nora a apporté au meeting le livre}) est tout aussi valable.
+\textit{NP V NP PP.Destination} (\textit{Nora a apporté le livre au meeting})
+avec l'objet direct avant le syntagme prépositionnel. C'est à l'utilisation de
+la ressource qu'il faut aussi envisager l'autre option (\textit{NP V
+PP.Destination NP}, \textit{Nora a apporté au meeting le livre}).
 
 \subsection{Travail au cas par cas}\label{casebycase}
 
@@ -244,12 +264,12 @@ contraire, les autres classes ({\color{blue}\texttt{send-11.1}} et
 le Thème se déplace comme dans \textit{Pamela sent packages to NY}). Dans les
 ressources françaises, des classes existent pour des verbes avec un changement
 de location pour un Thème causé par un Agent, mais rien n'est codé pour le
-mouvement de l'Agent. Face à cette difficulté, deux solutions se présentent.
+mouvement de l'Agent. Face à cette difficulté, deux solutions se présentent :
 
 \begin{itemize}
     \item soit réaliser une étude complète des verbes français de \textit{Sending
         and Carrying} pour distinguer les mouvements accompagnés et
-        non-accompagnés,
+        non-accompagnés~;
     \item soit ignorer purement et simplement cette différence sémantique.
 \end{itemize}
 
@@ -260,10 +280,10 @@ sémantiques\footnote{Il semble par ailleurs que pour certains verbes anglais,
 la classe VerbNet {\color{blue}\texttt{carry-11.4}} et la classe VerbNet
 {\color{blue}\texttt{carry-11.4-1}}, qui elle n'a aucun membre.}.  C'est un
 choix discutable : si pour notre application la position de l'Agent avait eu un
-intérêt, comme ce pourrait être le cas en implication textuelle, une étude plus
-complète aurait été souhaitable. Nous préférons nous concentrer sur la
-finalisation d'une première version de VerbNet, quitte à revenir sur certains
-choix par la suite.
+intérêt, comme ce pourrait être le cas en implication textuelle
+\citep{bobrow2007parc}, une étude plus complète aurait été souhaitable. Nous
+préférons nous concentrer sur la finalisation d'une première version de
+\verbenet{}, quitte à revenir sur certains choix par la suite.
 
 Le fait d'ignorer cette différence nous mène à adopter dans \verbenet{} une
 hiérarchie différente de VerbNet pour la super-classe 11 : il n'y a pas
@@ -275,8 +295,8 @@ ailleurs, il n'y a pas d'équivalent en français de la classe
 \textit{bring} et \textit{take} avec une direction spécifiée déictiquement
 \citep[page 135]{levin1993english} parce que les déictifs locatifs français
 \textit{ici} et \textit{là} n'ont pas le fonctionnement de \textit{here} et
-\textit{there} en anglais\footnote{En français, \textit{Je suis là} peut
-signifier \textit{Je suis ici}.}.
+\textit{there} en anglais : en français, \textit{Je suis là} peut
+signifier \textit{Je suis ici}, ce qui n'est pas le cas en anglais.
 
 La seconde source principale de difficultés provient de différences cruciales
 entre le français et l'anglais. Il existe des problèmes de traductions entre
@@ -287,8 +307,6 @@ cas connus, nous discutons ici de situations plus subtiles, comme par exemple
 avec les verbes de changement de possession. Dans VerbNet, dix classes sont
 dédiées à ces verbes. Une telle hiérarchie est impossible en français. Sans
 tout détailler, insistons sur ces quelques points :
-
-% TODO "Sans tout détailler" maladroit pour une thèse ?
 
 \begin{itemize}
     \item L'absence d'alternances datif et bénéfactif en français implique que
@@ -325,16 +343,29 @@ concentrer sur les problèmes lexicographiques sans avoir à se préoccuper de l
 représentation des données.
 
 Le site web est réalisé avec Django, un framework web Python. \verbenet{} est
-stocké dans une base de donnée PostgreSQL. La hiérarchie des classes est
-stockée par représentation intervallaire et le nombre de requêtes SQL
-effectuées par l'ORM Django est minimisé. Le but de ces optimisations est que
-les opérations durent moins d'une seconde, de manière à ne pas interrompre la
-réflexion lexicographique \citep{nielsen1994response}. Pour la même raison, les
-erreurs sont évitées au maximum grâce aux tests unitaires : les erreurs érodent
-la confiance des lexicographes en l'outil qui ne devraient pas avoir à se
-préoccuper de la possibilité de perdre leur travail. Enfin, toutes les
-modifications du schéma de la base de données mais aussi des données sont
-versionnées automatiquement, afin de rendre impossible toute perte de données.
+stocké dans une base de donnée PostgreSQL. Le nombre de requêtes SQL est
+minimisé de deux manières :
+\begin{itemize}
+    \item La hiérarchie des classes est stockée à l'aide de
+        django-mptt\footnote{\url{https://github.com/django-mptt/django-mptt/}}
+        : de nombreuses opérations telles que l'affichage d'une partie de la
+        hiérarchie ne demandent qu'une requête SQL.
+    \item Le nombre de requêtes SQL réalisées par Django est minimisé à l'aide
+        de prefetch_related
+        \footnote{\url{https://docs.djangoproject.com/en/stable/ref/models/querysets/#prefetch-related}}
+        afin de récupérer toutes les données nécessaires en une seule requête
+        et ainsi éviter le coût de plusieurs milliers de petites requêtes.
+\end{itemize}
+
+Le but de ces optimisations est que les opérations durent moins d'une seconde,
+de manière à ne pas interrompre la réflexion lexicographique
+\citep{nielsen1994response}. Pour la même raison, les erreurs sont évitées au
+maximum grâce aux tests unitaires : les erreurs lors de l'utilisation de
+l'application érodent la confiance des lexicographes en l'outil. Il ne
+devraient pas avoir à se préoccuper de la possibilité de perdre leur travail.
+Enfin, toutes les modifications du schéma de la base de données mais aussi des
+données sont versionnées automatiquement, afin de rendre impossible toute perte
+de données.
 
 Avant de commencer l'édition, nous avons commencé par charger VerbNet et les
 mappings réalisés lors de la première étape. L'édition elle-même se fait classe
