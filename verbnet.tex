@@ -351,7 +351,7 @@ minimisé de deux manières :
         : de nombreuses opérations telles que l'affichage d'une partie de la
         hiérarchie ne demandent qu'une requête SQL.
     \item Le nombre de requêtes SQL réalisées par Django est minimisé à l'aide
-        de prefetch_related
+        de prefetch\_related
         \footnote{\url{https://docs.djangoproject.com/en/stable/ref/models/querysets/#prefetch-related}}
         afin de récupérer toutes les données nécessaires en une seule requête
         et ainsi éviter le coût de plusieurs milliers de petites requêtes.
@@ -368,18 +368,19 @@ données sont versionnées automatiquement, afin de rendre impossible toute pert
 de données.
 
 Avant de commencer l'édition, nous avons commencé par charger VerbNet et les
-mappings réalisés lors de la première étape. L'édition elle-même se fait classe
-de Levin par classe de Levin. Par exemple, nous avons traité ensemble les
-classes {\color{blue}\texttt{throw-17.1}} et {\color{blue}\texttt{pelt-17.2}}
-parce qu'elles font toutes les deux partie de la «~super-classe~» 17 :
-Throwing.  Plusieurs classes faisant partie d'une même super-classe sont
-souvent liées et il faut les comprendre dans leur ensemble avant de commencer
-l'édition.
+correspondances avec les lexiques français réalisés lors de la première étape.
+L'édition elle-même se fait par classe de Levin. Par exemple, nous avons traité
+ensemble les classes {\color{blue}\texttt{throw-17.1}} et
+{\color{blue}\texttt{pelt-17.2}} parce qu'elles font toutes les deux partie de
+la «~super-classe~» 17 : Throwing.  Plusieurs classes faisant partie d'une même
+super-classe sont souvent liées et il faut les comprendre dans leur ensemble
+avant de commencer l'édition.
 
-Pour chaque classe, nous pouvons éditer ses frames, ajouter ou supprimer des
-sous-classes ou des frames. Par exemple, pour la suppression, toutes les
-frames impliquant un conatif, un datif ou une alternance bénéfactive peuvent
-être systématiquement supprimées : ces alternances n'existent pas en français.
+Pour chaque classe, nous pouvons éditer ses correspondances, ses frames,
+ajouter ou supprimer des sous-classes ou des frames. Par exemple, pour la
+suppression, toutes les frames impliquant un conatif, un datif ou une
+alternance bénéfactive peuvent être systématiquement supprimées : ces
+alternances n'existent pas en français.
 
 Avec l'aide de cet outil, la deuxième étape peut s'avérer très simple. Par
 exemple, les quatre sous-classes de {\color{blue}\texttt{image-creation-25}}
@@ -399,7 +400,7 @@ de faciliter l'annotation. Nous en présentons quelques-uns ici.
         Chaque frame peut être modifiée et les classes peuvent être
         réorganisées. Les traductions en violet apaprtiennent à l'intersection
         de \Clvf{}, \Clg{} et \Ltrad{} (section~\ref{first}), les traductions
-        en rouge (respectivement en vert) uniquement à \Clvf{} et \Ltrad
+        en rouge (respectivement en vert) uniquement à \Clvf{} et \Ltrad{}
         (respectivement uniquement à \Clg{} et \Ltrad{}). La description de
         {\color{blue}\texttt{break-45.1}} est en cours de modification : en cliquant sur
         'Confirmer', la modification sera prise en compte rapidement sans avoir
@@ -409,45 +410,72 @@ de faciliter l'annotation. Nous en présentons quelques-uns ici.
 
 \subsection{Édition des correspondances}
 
-Il est fréquent que les correspondances soient amenées à évoluer, et ce pour
-trois raisons principales : la compréhension des classes anglaises peut
-évoluer, la réorganisation peut demander des correspondances différentes, et il
-peut être souhaitable d'affiner la correspondance en spécifiant certains
-attributs de la classe française.
+Il est fréquent que les correspondances avec les ressources linguistiques
+établies lors de la première étape (section~\ref{first}) soient amenées à
+évoluer, et ce pour trois raisons principales : la compréhension des classes
+anglaises peut évoluer, la réorganisation peut demander des correspondances
+différentes, et il peut être souhaitable d'affiner la correspondance en
+spécifiant certains attributs de la classe française.
 
-Il est donc possible de préciser qu'une colonne donnée doive être positive ou
-négative. Deux exemples :
+Dans le cas des tables du Lexique-Grammaire, les correspondances sont affinées
+à l'aide des colonnes présentes dans chacune des tables. Par exemple, dans la
+table 38LD (N$_0$ V N$_1$ Prép N$_2$,
+Location-Destination)\footnote{\url{http://verbenet.pradet.me/verbes-html/V_38LD.lgt.html}},
+six colonnes encodent les prépositions possibles pour introduire N$_2$.  Ainsi,
+on sait que le verbe \emph{appuyer} peut s'utiliser avec \emph{sur} et
+\emph{contre} en raison des + présents aux colonnes \emph{Loc N2 =: sur N2
+destination} et \emph{Loc N2 =: contre N2 destination}.
+
+Il est donc possible dans l'interface de VerbNet d'imposer la valeur de
+certaines des colonnes de la classe, et ce pour filtrer les verbes ne
+correspondant pas à la classe \verbenet{} en cours d'édition. Donnons deux
+exemples.
+
 \begin{itemize}
     \item R3i.1[+T1308 et +P3000] ou R3i.1[+T1306 et +P3000] sélectionne tous
         les verbes de R3i.1 acceptant une construction pronominale (P3000) et
-        une construction transitive direct à sujet humain, à objet non animé
-        et a circonstant de modalité (T1306) ou instrumental, moyen (T1308).
+        une construction transitive directe à sujet humain, à objet non animé
+        et à circonstant de modalité (T1306) ou instrumental, moyen (T1308).
     \item 4[+N1 se V de ce Qu P] sélectionne tous les verbes de la classe 
         4 ayant la valeur '+' à la colonne 'N1 se V de ce Qu P', ce qui
         signifie qu'ils acceptent cette forme.
 \end{itemize}
 
-Toutes ces correspondances sont validées avant d'être acceptées par le système,
-ce qui est important pour éviter les erreurs, mais aussi pour s'assurer que le
-traduction automatique des verbes fonctionne.
+Toutes ces correspondances sont validées par le micro-compilateur :
+
+\begin{itemize}
+    \item lors de l'analyse lexicale (par exemple, L3 [L2 n'est pas valable),
+    \item lors de l'analyse syntaxique (par exemple, L3b ou L3a et L3c est invalide)
+    \item et lors de l'interprétation : l'existence des classes et des colonnes
+        est vérifiée.
+\end{itemize}
+
+Les correspondances, une fois validées, sont utilisées pour mettre à jour la
+liste des verbes français de la classe.
 
 \subsection{Traduction des verbes en temps réel}
 
-La première étape a permis de proposer des verbes français pour chacune des
-classes du VerbNet anglais. Ces verbes français sont en fait maintenues en
-temps réel par le système : à chaque modification des correspondances, les
-verbes sont mis à jour : certains disparaissent, d'autres sont rajoutés. Cela
-permet de vérifier instantanément la validité d'une correspondance du point de
-vue des verbes français.
+En effet, la liste des verbes français de chacune des classes n'a pas été
+seulement calculée à la fin de l'étape 1, mais est recalculée à chaque
+modification des correspondances ou des verbes anglais. Ainsi, les
+lexicographes voient immédiatement l'effet de leurs modifications et peuvent
+vérifier que les verbes attendus sont bien présents dans la liste des verbes
+français.
+
+À chaque modification, des verbes peuvent disparaître, d'autres peuvent être
+rajoutés. La validation des verbes est le moyen de stabiliser les listes de
+verbes.
 
 \subsection{Validation des verbes français}
 
-La troisième étape, en cours parallèlement avec la deuxième, concerne la
-validation des verbes. En cliquant sur un verbe français proposé à partir des
-correspondances, ce verbe est soit validé, soit invalidé, soit remis à l'état
-de simple proposition. Contrairement aux verbes proposés par correspondances,
-les verbes validés ou invalidés ne sont jamais supprimés, même lorsque que la
-correspondance change.
+C'est la troisième étape, en cours parallèlement avec la deuxième, qui concerne
+la validation des verbes. En cliquant sur un verbe français proposé à partir
+des correspondances, ce verbe est soit validé, soit invalidé, soit remis à
+l'état de simple proposition. Contrairement aux verbes proposés par
+correspondances, les verbes validés ou invalidés ne sont jamais supprimés, même
+lorsque que les correspondances changent. Par exemple, dans la classe
+\texttt{judgment-33}, le verbe \emph{blâmer} a été validé manuellement : il ne
+peut plus être supprimé de la liste des verbes valides de la classe.
 
 \subsection{Vérifications automatiques de la cohérence}
 
