@@ -33,25 +33,35 @@ Ce chapitre se concentre sur notre système d'annotation en rôles sémantiques
 dans un cadre général en l'utilisant sur le corpus FrameNet anglais (qui a été
 présenté à la section~\ref{presentation_framenet}). Le
 chapitre~\ref{ch:domainsrl} montrera la versatilité de ce système dans des
-contextes différents : en domaine spécifique avec les domaines du football, du
-réchauffement climatique et de l'informatique en anglais et en français.
+contextes différents :
+\begin{itemize}
+    \item en domaine spécifique avec les domaines du football, du
+réchauffement climatique et de l'informatique,
+    \item et dans deux langues différentes : anglais et français.
+\end{itemize}
 
 Le travail présenté dans ce chapitre a été réalisé en collaboration avec
-Guilhem Pujol. Ce chapitre est une réécriture complète de travaux déjà publiés
-\citep{pradet2013revisiting}.
+Guilhem Pujol durant son stage d'ingénieur. Ce chapitre est une réécriture
+complète de travaux déjà publiés \citep{pradet2013revisiting}.
 
 \section{Tâche}
 
-L'objectif de ce chapitre est de présenter notre système en l'évaluant sur une
-conversion VerbNet du corpus annoté en rôles sémantiques fourni par FrameNet,
-ce qui permet d'évaluer l'annotation en rôles sémantiques VerbNet. La
-figure~\ref{fig:srlrussia} est un exemple d'annotation en rôles sémantiques
+L'objectif de ce chapitre est d'annoter en rôles sémantiques le corpus
+FrameNet, largement utilisé pour l'évaluation
+\citep{baker2007semeval,das2010probabilistic}. Nous souhaitons cependant
+l'évaluer en utilisant la ressource VerbNet. Pour ce faire, nous utilisons le
+projet SemLink \citep{bonial2012empirically} qui propose un mapping de rôles
+sémantiques entre les frames FrameNet et les classes VerbNet ce qui permet
+d'évaluer l'annotation en rôles sémantiques VerbNet sur FrameNet.
+
+La figure~\ref{fig:srlrussia} est un exemple d'annotation en rôles sémantiques
 avec des frames et des rôles FrameNet. Nous utiliserons notamment cette phrase
 d'exemple par la suite pour illustrer notre propos. Pour une phrase donnée, les
-prédicats verbaux et la frame qu'ils évoquent sont identifiés. Dans chaque
-phrase, des syntagmes vont remplir un des rôles prévus par la frame dans
-FrameNet. Ces syntagmes sont nommés «~remplisseurs de rôle~» (\textit{role
-filler} en anglais).
+prédicats verbaux (\emph{trigger} ou déclencheur dans la terminologie FrameNet)
+et la frame qu'ils évoquent sont identifiés. Dans chaque phrase, des syntagmes
+vont remplir un des rôles prévus par la frame dans FrameNet. Ces syntagmes sont
+nommés «~remplisseurs de rôle~» (\textit{role filler} en anglais). L'analyse
+est locale : seule la phrase courante est considérée.
 
 \begin{figure}[t]
     La phrase à annoter est :
@@ -85,31 +95,32 @@ section~\ref{vocverbnetframenet}).}
 Toute interprétation supplémentaire non présente dans la
 figure~\ref{fig:srlrussia} est en dehors du cadre de l'annotation en rôles
 sémantiques, ce qui est la raison pour laquelle la tâche est aussi connue sous
-le nom d'analyse sémantique de surface (\textit{shallow semantic parsing}).  Il
-est néanmoins intéressant de garder à l'esprit les applications possibles de
-tels travaux. Par exemple, un système de question-réponse pourrait utiliser la
-représentation de ces deux \textit{frames} pour répondre à la question \textit{Does
-Russia possess tactical nuclear weapons?} L'annotation de la
+le nom d'analyse sémantique de surface (\textit{shallow semantic parsing}). Il
+est néanmoins important de garder à l'esprit les applications possibles de tels
+travaux. Par exemple, un système de question-réponse pourrait utiliser la
+représentation de ces deux \textit{frames} pour répondre à la question
+\textit{Does Russia possess tactical nuclear weapons?} L'annotation de la
 figure~\ref{fig:srlrussia} est une information utile, mais elle ne serait pas
 suffisante pour répondre à la question : il faut aussi comprendre la question,
-annoter les coréférences (\textit{it} fait référence à \textit{Russia}), comprendre
-la sémantique de \textit{Removing}, établir la crédibilité du \textit{Speaker},
-s'intéresser à d'autres phrases potentiellement contradictoires, etc.
+annoter les coréférences (\textit{it} fait référence à \textit{Russia}),
+comprendre la sémantique de \textit{Removing}, établir la crédibilité du
+\textit{Speaker}, s'intéresser à d'autres phrases potentiellement
+contradictoires, etc.
 
 \section{Système}
 
-Le système présenté est similaire à celui de
-\cite{swier2004unsupervised,swier2005exploiting} qui se base sur VerbNet.
-Néanmoins, les ressources utilisées ont beaucoup progressé (VerbNet 1.5 contre
-VerbNet 3.2 notamment). Les corpus sur lesquels s'évaluer ont aussi évolué. En
-particulier, les systèmes basés sur FrameNet n'utilisent plus le corpus de
-phrases d'exemples choisis pour leur diversité syntaxique mais s'évaluent sur
-des annotations de toutes les frames présentes dans des textes issus de
-différentes sources. \cite{swier2005exploiting} utilisent aussi un mapping non
-disponible alors que le projet SemLink a fourni un mapping FrameNet-VerbNet
-«~officiel~». Dix ans après, il est donc important d'évaluer à nouveau cette
-approche pour savoir où elle se situe par rapport à l'état de l'art. Nous
-proposons par ailleurs certaines améliorations.
+Le système que nous présentons est une implémentation améliorée et libre de
+celui décrit par \cite{swier2004unsupervised,swier2005exploiting}. Les
+ressources utilisées ont beaucoup progressé (VerbNet 1.5 contre VerbNet 3.2
+notamment). Les corpus sur lesquels s'évaluer ont aussi évolué. En particulier,
+les systèmes basés sur FrameNet n'utilisent plus le corpus de phrases
+d'exemples choisis pour leur diversité syntaxique mais s'évaluent sur des
+annotations de toutes les frames présentes dans des textes issus de différentes
+sources. \cite{swier2005exploiting} utilisent aussi un mapping non disponible
+alors que le projet SemLink a fourni un mapping FrameNet-VerbNet «~officiel~».
+Dix ans après, il est donc important d'évaluer à nouveau cette approche pour
+savoir où elle se situe par rapport à l'état de l'art. Nous proposons par
+ailleurs certaines améliorations.
 
 Pour commencer, chaque phrase à annoter doit d'abord être étiquetée en
 morphosyntaxe et analysée syntaxiquement. Nous laissons ici ces analyses à des
@@ -167,8 +178,7 @@ possible d'établir que :
     \item \textit{it will eliminate its tactical nuclear weapons by the end of 2004} est Topic.
 \end{itemize}
 
-% TODO la conversion se fait dans l'autre sens
-Enfin, le mapping entre VerbNet et FrameNet (section~\ref{subsec:mapping}) nous
+Enfin, le mapping de VerbNet vers FrameNet (section~\ref{subsec:mapping}) nous
 informe que :
 
 \begin{itemize}
@@ -189,9 +199,9 @@ Cependant, une fois qu'une première série de correspondances a été effectué
 il est possible d'utiliser les connaissances du domaine étudié pour annoter de
 nouveaux syntagmes nominaux (section~\ref{subsec:probability}).
 
-Alors que nous avons jusqu'ici décrit le déroulement général du système afin
-d'en donner l'intuition, les sections suivantes expliquent le déroulement
-précis du système qui est découpé en quatre étapes.
+Alors que nous avons jusqu'ici décrit le principe général du système afin d'en
+donner l'intuition, les sections suivantes expliquent le fonctionnement précis
+du système qui est découpé en quatre étapes.
 
 \subsection{Identification du prédicat}
 
@@ -199,24 +209,27 @@ Chaque phrase peut contenir un ou plusieurs prédicats : nous nous contentons
 ici de retenir tous les verbes présents dans VerbNet. Les autres prédicats
 potentiels, c'est-à-dire ceux qui ne sont pas dans VerbNet et ne sont pas des
 verbes, sont ignorés. Les parties du discours acceptées sont toutes celles
-concernant des verbes simples : MD, VB, VBD, VBG, VBN, VBP, VBZ. Les autres
+concernant des verbes simples : MD, VB, VBD, VBG, VBN, VBP,
+VBZ\footnote{FrameNet semble utiliser le tagset du TreeTagger.}. Les autres
 formes ou le verbe est composé de plusieurs mots (par exemple \textit{He has
-suffered from loneliness} ne sont pas actuellement prises en compte.
+    (VHZ) suffered (VVN) from loneliness}) ne sont pas actuellement prises en
+    compte.
 
 \subsection{Identification des arguments}
 \label{argid}
 
-% TODO tagset syntaxique WSJ
 Cette étape identifie les syntagmes amenés à jouer un rôle sémantique lors de
 l'annotation. C'est un problème difficile ; la première raison est que seuls
 78~\% des arguments du corpus FrameNet sont effectivement des sous-arbres issus
-de l'analyse syntaxique. Nous suivons ici \cite{lang2011unsupervised} qui propose huit
-règles\footnote{La septième règle n'est pas utilisée.} basées sur l'analyse
-syntaxique de la phrase. Initialement, tous les mots sont candidats. Puis
-chacune de ces règles sélectionne ou écarte des mots candidats. Dans la
-représentation en dépendances, si le mot sélectionné est la tête d'un syntagme,
-c'est le syntagme entier qui devient candidat. Sinon, c'est uniquement le mot.
-Voici les règles appliquées dans l'ordre :
+de l'analyse syntaxique. Nous suivons ici \cite{lang2011unsupervised} qui
+propose huit règles\footnote{La septième règle n'est pas utilisée étant donné
+    que nous ne prenons pas en compte les prédicats verbaux consistant de
+plusieurs mots.} basées sur l'analyse syntaxique de la phrase. Initialement,
+tous les mots sont candidats. Puis chacune de ces règles sélectionne ou écarte
+des mots candidats. Dans la représentation en dépendances, si le mot
+sélectionné est la tête d'un syntagme, c'est le syntagme entier qui devient
+candidat. Sinon, c'est uniquement le mot.  Voici les règles appliquées dans
+l'ordre :
 
 \begin{enumerate}
     \item Éliminer les déterminants, les marqueurs d'infinitifs, les conjonctions de coordinations et la ponctuation.
@@ -229,24 +242,26 @@ Voici les règles appliquées dans l'ordre :
     \item Éliminer tous les candidats restants.
 \end{enumerate}
 
-% TODO exemple
-Pour les règles 3 et 4, la liste complète des relations acceptées est donnée en
+Pour les règles 2 et 4, la liste complète des relations acceptées est donnée en
 annexe à la section~\ref{argument_identification}. En pratique, sur le corpus
 FrameNet, ces règles génèrent les candidats valides mais aussi certains qui ne
-jouent pas de rôle : notre système devra par la suite pouvoir écarter ces
-candidats tout en assignant les rôles corrects aux candidats qui jouent bien un
-rôle.
+jouent pas de rôle. Grâce à la ressource VerbNet, notre système devra écarter
+ces candidats, ce qui n'est pas nécessairement possible avec de simples
+heuristiques.
 
 \subsection{Utilisation des arguments de la vérité-terrain}
 
-Cette étape d'identification des arguments est facultative : afin de mieux
-comprendre les performances des étapes suivantes, ce seront parfois les
-arguments parfaits de la vérité-terrain qui seront utilisés lors de
-l'évaluation. En effet, l'objectif est d'évaluer l'apport de VerbNet à la tâche
-de l'annotation en rôles sémantiques, et l'identification des arguments, bien
-qu'une partie intégrante de tout système complet d'annotation en rôles
-sémantiques \citep{das2010probabilistic}, ne fait pas partie de nos
-contributions.
+Nous évaluons notre système de deux manières :
+\begin{itemize}
+    \item avec les arguments identifiés automatiquement (section~\ref{argid}),
+    \item et avec les arguments issus de la vérité-terrain (parfois appelés
+        arguments gold)
+\end{itemize}
+
+En effet, l'objectif est d'évaluer l'apport de VerbNet à la tâche de
+l'annotation en rôles sémantiques. L'identification des arguments, bien qu'une
+partie intégrante de tout système complet d'annotation en rôles sémantiques
+\citep{das2010probabilistic}, ne fait pas partie de nos contributions.
 
 Pour convertir les arguments de la vérité-terrain vers une frame VerbNet, nous
 utilisons simplement la position de ces arguments dans la phrase. Par exemple,
@@ -279,18 +294,18 @@ matching} de \citet{swier2005exploiting}.
 Nous incluons ici deux étapes traditionnellement séparées dans les systèmes
 d'annotation en rôles sémantiques : l'identification des frames FrameNet puis
 l'assignation de rôles aux arguments précédemment identifiés
-\citep{gildea2002automatic,das2014frame}. Nous commençons ici par identifier
-les frames VerbNet possibles pour restreindre au maximum le nombre de classes
-VerbNet applicables ; le but étant de n'en avoir qu'une. En effet, même si
+\citep{gildea2002automatic,das2014frame}. Nous commençons par identifier les
+frames VerbNet possibles pour restreindre au maximum le nombre de classes
+VerbNet applicables, le but étant de n'en avoir qu'une. En effet, même si
 toutes les classes VerbNet réutilisent les mêmes rôles, le sens précis d'un
-rôle est déterminé par la classe qu'il faut donc identifier.
+rôle est déterminé par la classe. Il faut donc l'identifier.
 
 Regardons comment se déroule cette étape. Premièrement, les syntagmes candidats
 sont représentés au format VerbNet. Par exemple, si trois syntagmes nominaux
 ont été identifiés comme arguments, dont un avant le verbe, la représentation
 VerbNet de la phrase devient NP V NP NP. Si le troisième syntagme est un
 syntagme prépositionnel introduit par \textit{in}, la représentation devient NP
-V NP in PP, et ainsi de suite.
+V NP in NP, et ainsi de suite.
 
 Ensuite, pour comparer la représentation VerbNet de la phrase aux frames
 VerbNet, nous identifions toutes les classes VerbNet incluant le prédicat. Par
@@ -298,18 +313,20 @@ exemple, le prédicat \textit{classify} est présent dans deux classes VerbNet~:
 \texttt{characterize-29.2} et \texttt{classify-29.10}. Les frames VerbNet
 possibles sont~:
 
-% TODO séparer par classe, on doit pouvoir suivre la suite sans regarder
-% VerbNet
 \begin{itemize}
-    \item NP.Agent V NP.Theme (as) S\_ING.Attribute
-    \item NP.Agent V NP.Theme to be ADJ.Attribute
-    \item NP.Agent V NP.Theme as PP.Attribute
-    \item NP.Agent V NP.Theme
-    \item NP.Agent V NP.Theme as PP.Goal
-    \item NP.Agent V NP.Theme in PP.Location
+    \item characterize-29.2
+    \begin{itemize}
+        \item NP.Agent V NP.Theme (as) S\_ING.Attribute
+        \item NP.Agent V NP.Theme to be ADJ.Attribute
+        \item NP.Agent V NP.Theme as PP.Attribute
+    \end{itemize}
+    \item classify-29.10
+    \begin{itemize}
+        \item NP.Agent V NP.Theme
+        \item NP.Agent V NP.Theme as PP.Goal
+        \item NP.Agent V NP.Theme in PP.Location
+    \end{itemize}
 \end{itemize}
-% TODO documenter la gestion des PP - demande de savoir comment on unifie avec
-% domainsrl
 
 % TODO commencer par la phrase d'exemple (declare ou eliminate)
 Considérons la phrase \textit{The curator classified the artifacts}. La
@@ -337,8 +354,10 @@ interprétable dans une application.
 
 Dans les cas où différentes frames VerbNet sont possibles, le calcul de scores
 de correspondances présentés par \cite{swier2004unsupervised} peut aider à
-désambiguïser, mais de nombreux arguments restent ambigus, ce qui est l'objet
-des sections~\ref{subsec:probability} et ~\ref{restrictions_selection}.
+désambiguïser, notamment en éliminant les \emph{frames} comportant trop
+d'arguments. Cela dit, de nombreux arguments restent ambigus : la suite de la
+désambiguïsation est l'objet des sections~\ref{subsec:probability} et
+~\ref{restrictions_selection}.
 
 % TODO différents algorithmes de match
 % TODO nouvel algorithme : oublier complètement l'ordre
@@ -356,20 +375,21 @@ des sections~\ref{subsec:probability} et ~\ref{restrictions_selection}.
 \subsection{Correspondance probabiliste des frames}
 \label{subsec:probability}
 
-Maintenant que les correspondances exactes ont étés effectuées, il reste d'une
+Maintenant que les correspondances exactes ont étés identifiées, il reste d'une
 part les correspondances impossibles et les correspondances ambigües pour
 lesquelles plusieurs frames sont possibles. Alors que les correspondances
 impossibles sont à corriger au niveau de la ressource VerbNet ou au niveau de
 l'analyse syntaxique, nous pouvons utiliser les frames déjà mises en
-correspondance pour désambiguïser les correspondances ambigües. La méthode
-reste non supervisée : bien que nous entraînions une forme simple d'algorithme
-supervisé, nous le faisons sur des données qui sont initialement non annotées.
-En effet, elles sont simplement obtenues automatiquement sur le corpus existant
-à l'aide de la correspondance exacte. Nous faisons ici l'hypothèse qu'un corpus
-entier est à annoter, mais dans le cas où l'annotation se ferait phrase par
-phrase, il serait possible d'abandonner cette étape ou d'alimenter les
-classifieurs que nous utilisons au fur et à mesure des annotations. Cette étape
-correspond aux \textit{probability models} de \citet{swier2004unsupervised}.
+correspondance pour désambiguïser les correspondances ambigües. La méthode, une
+forme d'induction, reste non supervisée : bien que nous entraînions une forme
+simple d'algorithme supervisé, nous le faisons sur des données qui sont
+initialement non annotées.  En effet, elles sont simplement obtenues
+automatiquement sur le corpus existant à l'aide de la correspondance exacte.
+Nous faisons ici l'hypothèse qu'un corpus entier est à annoter, mais dans le
+cas où l'annotation se ferait phrase par phrase, il serait possible
+d'abandonner cette étape ou d'alimenter les classifieurs que nous utilisons au
+fur et à mesure des annotations. Cette étape correspond aux \textit{probability
+models} de \citet{swier2004unsupervised}.
 
 L'apprentissage se fait sous la forme d'un simple classifieur statistique. Deux
 classifieurs sont utilisés : le premier détermine la classe VerbNet quand
@@ -447,7 +467,7 @@ deux ressources sont associés.
     \caption{\label{fig:mapping}Example de mapping VerbNet-FrameNet}
 \end{figure}
 
-Le résultat est un mapping n-n (figure~\ref{fig:mapping}) : une frame FrameNet
+Le résultat (figure~\ref{fig:mapping}) est un mapping n-n : une frame FrameNet
 peut correspondre à plusieurs classes VerbNet, et vice versa. C'est un problème
 de granularité du à la construction différente des deux ressources
 \citep{palmer2009semlink}. Cela implique qu'il est difficile d'utiliser un tel

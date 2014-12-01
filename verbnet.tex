@@ -497,20 +497,21 @@ L'objectif est de s'assurer qu'aucune classe des tables du LADL
 (Lexique-Grammaire) majeure n'a été oubliée, et donc que le lexique couvre bien
 l'ensemble des verbes du français. C'est en effet le cas : les seules classes
 sans correspondance avec une classe \verbenet{} sont des classes résiduelles.
-Cela réconforte l'idée selon laquelle \verbenet{} peut être vue comme une
-réorganisation des tables du Lexique-Grammaire.
+Cela confirme l'idée que \verbenet{} peut être vue comme une réorganisation des
+tables du Lexique-Grammaire (section~\ref{sec:lvflg}).
 
 \subsection{Gestion des classes supprimées en anglais}
 
 Lors d'une réorganisation, il est fréquent de ne plus avoir besoin d'une classe
-en anglais. Nous traitons actuellement deux cas de figures possibles pour le
-moment.
+en anglais. Nous traitons pour le moment deux cas de figures.
 
-Premièrement, lorsqu'une sous-classe est supprimée, tous ses verbes anglais sont
-automatiquement migrée vers sa classe mère, et les traductions des verbes
-français sont mises à jour en fonction. C'est essentiel, étant donné que les
-verbes les plus importants sont les plus polysémique et ceux acceptant le plus
-de constructions : ils sont donc souvent dans les sous-classes.
+Premièrement, lorsqu'une sous-classe est supprimée, tous ses verbes anglais
+sont automatiquement migrés vers sa classe mère, et les traductions des verbes
+français sont mises à jour en fonction des nouveaux verbes et des
+correspondances présentes dans la classe mère. C'est essentiel, étant donné que
+les verbes les plus importants sont les plus polysémiques et ceux acceptant le
+plus de constructions : ils sont donc souvent dans les sous-classes, ce qui
+n'est pas nécessairement intuitif.
 
 Deuxièmement, lorsqu'une classe est simplement supprimée sans classe mère, ses
 verbes sont théoriquement "perdus". Il est possible de transférer ces verbes
@@ -518,27 +519,32 @@ vers une autre classe plus appropriée, tout en gardant l'origine des verbes
 anglais, au cas où cette opération devait être annulée. Ici aussi, les verbes
 français sont ensuite mis à jour.
 
-Un autre mécanisme sera nécessaire pour compléter l'ensemble de la
-ressource : le mécanisme de répartition. En effet, une classe anglais est
-parfois découpée en plusieurs classes français. Il faut alors, suivant les
-correspondances vers les ressources français, placer les traductions
-françaises vers l'une de ces classes. Plus généralement, il faut parfois
-complètement réorganiser une classe, ce qui est le cas des verbes de changement
-de possession ou des verbes de combinaison et de liaison. Dans ce cas, il faut
-recréer entièrement la hiérarchie pour le français, puis il faut considérer
-globalement les traductions de tous les verbes anglais, et placer chaque
-traduction dans la sous-classe la plus appropriée.
+Un autre mécanisme sera nécessaire pour compléter l'ensemble de la ressource :
+le mécanisme de répartition. En effet, une classe anglaise est parfois découpée
+en plusieurs classes françaises. Il faut alors, suivant les correspondances
+vers les ressources françaises, placer les traductions françaises vers l'une de
+ces classes. Plus généralement, il faut parfois complètement réorganiser une
+classe, ce qui est le cas des verbes de changement de possession ou des verbes
+de combinaison et de liaison. Dans ce cas, il faut recréer entièrement la
+hiérarchie pour le français, puis il faut considérer globalement les
+traductions de tous les verbes anglais, et placer chaque traduction dans la
+sous-classe la plus appropriée.
 
 \section*{Conclusion}
 
 Nous avons présenté une méthode pour adapter la ressource syntaxico-sémantique
 VerbNet vers une nouvelle langue. Cette méthode combine l'automatisation du
 transfert de frames, la traduction automatique du lexique et une expertise
-linguistique. Nous avons appliqué cette méthode au français et avons atteint un
-point où cette ressource est validée et le travail systématique sur chaque
-classe est en cours. Nous reconnaissons les différences qui existent entre les
-langues : la structure de \verbenet{} n'est pas exactement celle de VerbNet.
+linguistique. Nous avons appliqué cette méthode au français en reconnaissant
+les différences entre les langues : la structure de \verbenet{} n'est pas
+exactement celle de VerbNet. Nous avons atteint un point où la méthodologie est
+validée : le travail systématique sur chaque classe est en cours et devrait
+être terminé en 2015.
 
-% TODO exporter dans un format libre et mettre quelque part !
+Cette ressource nous permet d'ores-et-déjà de réaliser de l'annotation en rôles
+sémantiques pour le français : nous montrons que c'est possible au
+Chapitre~\ref{ch:domainsrl}.
 
-% TODO on doit connaître l'état de la ressource et le travail restant
+% LATER mettre l'export avec correspondances sur le site
+
+

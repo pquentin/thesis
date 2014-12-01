@@ -125,15 +125,15 @@ sémantiques des textes aussi bien en domaine général qu'en domaine spécifiqu
 
 Nos travaux portent sur deux grands axes : les ressources servant à
 l'annotation en rôles sémantiques d'une part, et les méthodes d'annotation en
-rôles sémantiques elles-même d'autre part.
+rôles sémantiques elles-mêmes d'autre part.
 
 Concernant les ressources, nous avons commencé par traduire la ressource
 WordNet vers le français à l'aide d'un modèle de langue syntaxique issu du web.
 Cette ressource, nommée WoNeF, est disponible en trois versions : une à haute
 précision (93,3~\%), une à haut F-score (70,9~\%), et l'autre à haute
 couverture, qui contient un plus grand nombre de traductions. La seconde
-ressource à traduire est VerbNet, un lexique dans lesquel les verbes sont
-regroupées en classes partageant les mêmes crtières syntaxiques, morphologiques
+ressource à traduire est VerbNet, un lexique dans lequel les verbes sont
+regroupées en classes partageant les mêmes critères syntaxiques, morphologiques
 et sémantiques. Contrairement à WordNet, la traduction de cette ressource s'est
 faite à la fois avec un travail manuel important pour contrôler au mieux le
 contenu des classes mais aussi avec une réutilisation maximale des lexiques
@@ -217,25 +217,29 @@ Trois raisons expliquent l'importance de l'annotation en rôles sémantiques :
 Un système d'annotation en rôles sémantiques efficace en général et adaptable
 avec peu ou pas d'effort vers un nouveau domaine serait donc une avancée
 majeure. Les systèmes supervisés ne correspondent pas à cet objectif : ils sont
-particulièrement dépendants du corpus annoté utilisé. En effet, pour une
-migration vers un autre domaine, il faut un nouvel effort d'annotation
-colossal.
+par nature dépendants du corpus annoté utilisé. En effet, pour une migration
+vers un autre domaine, il faut a priori un nouvel effort d'annotation colossal.
 
-% TODO et WordNet ?
-La solution que nous explorons dans ce travail est donc de ne pas utiliser de
-corpus annoté mais une ressource lexicale, indépendante du domaine considéré :
-VerbNet. VerbNet répertorie des informations syntaxico-sémantiques sur les
-verbes de l'anglais.  Cette ressource correspond à une analyse à large échelle
-: elle couvre 99~\% des occurrences des verbes anglais \citep[partie 1,
-p~.53]{palmer2013semantic} et est adaptée à l'analyse en rôles sémantiques.
-% TODO attention aux 99%, on n'a pas les verbes les plus fréquents ici
+La solution que nous explorons dans ce travail est donc de ne pas
+utiliser de corpus annoté mais une ressource lexicale, indépendante du
+domaine considéré : VerbNet. VerbNet répertorie des informations
+syntaxico-sémantiques sur les verbes de l'anglais. Cette ressource
+correspond à la volonté de réaliser une analyse à large échelle : elle
+couvre une large partie des occurrences des verbes anglais (tout en
+ayant le potentiel de couvrir 99~\% des verbes \citep[partie 1,
+p~.53]{palmer2013semantic}) et est adaptée à l'analyse en rôles
+sémantiques. Pour les cas où un besoin de sémantique plus important se
+fait sentir, WordNet est une deuxième ressource utile
+\citep{shi2005putting}.
 
 L'objectif est d'identifier la capacité de VerbNet à aider l'annotation en
 rôles sémantiques :
 \begin{itemize}
     \item dans un cadre général sur le corpus FrameNet (Chapitre~\ref{ch:srl}),
     \item dans des domaines spécifiques (Chapitre~\ref{ch:domainsrl}),
-    \item dans des domaines spécifiques sur une autre langue, le français, (Chapitre~\ref{ch:domainsrl}) après avoir traduit VerbNet (Chapitre~\ref{ch:verbnet}).
+    \item dans des domaines spécifiques sur une autre langue, le français,
+(Chapitre~\ref{ch:domainsrl}) après avoir traduit VerbNet
+(Chapitre~\ref{ch:verbnet}).
 \end{itemize}
 
 \include{srl}
