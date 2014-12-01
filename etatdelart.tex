@@ -696,9 +696,6 @@ encore loin de couvrir un éventail complet du vocabulaire anglais
 étendre la ressource, notamment avec la myriadisation (\textit{crowdsourcing})
 \citep{fossati2013outsourcing,baker2014framenet}.
 
-% TODO expliciter la différence entre frame-semantic parsing et semantic role
-% labeling
-
 \section{Annotation en rôles sémantiques}
 \label{sec:srl}
 
@@ -709,22 +706,10 @@ et présentons les techniques principales pour réaliser l'annotation elle-même
 \subsection{Les rôles sémantiques}
 \label{subsec:roles_semantiques}
 
-Comment aller au-delà d'une analyse syntaxique pour représenter le sens d'une
-phrase ? La notion de rôle sémantique semble particulièrement adaptée à notre
-motivation et à nos objectifs (Chapitre~\ref{ch:intro}). Ces rôles ont pour
-objectif de s'abstraire des alternances de diathèse présentes dans le langage
-naturel (Figure~\ref{fig:exemple_srl}). Différentes théories linguistiques
-proposent différentes représentations pour ces rôles ; nous nous intéresserons
-ici aux rôles VerbNet et à la théorie élaborée par \cite{fillmore1968case} qui
-établit que le cas grammatical exhibe des relations profondes et sémantiques.
-De nombreuses langues marquent ces relations au niveau morphologique ; l'élatif
-est un exemple de cas grammatical qui exprime le lieu de l'intérieur duquel
-provient un mouvement et qui est marqué morphologiquement en finnois, hongrois
-et estonien. Il est alors sensé de prévoir un rôle sémantique pour ce cas
-grammatical, même s'il n'est pas marqué au niveau morphologique dans la langue
-étudiée.
-
-% TODO clarifier une fois que l'intro est refaite
+La notion de rôle sémantique semble particulièrement adaptée à notre volonté
+d'aller au-delà de l'analyse syntaxique (section~\ref{au_dela}). Ces rôles ont
+en effet pour objectif de s'abstraire des alternances de diathèse présentes
+dans le langage naturel (Figure~\ref{fig:exemple_srl}).
 
 \begin{figure}[ht]
     \centering
@@ -742,8 +727,21 @@ grammatical, même s'il n'est pas marqué au niveau morphologique dans la langue
     VerbNet \texttt{carve-21.2} montrent que la position des arguments ne
 détermine pas à elle seule les rôles sémantique. Ici, le sujet syntaxique est
 tour à tour Agent (pour \textit{Carol}) puis Patient (pour \textit{The ice}).}
-
 \end{figure}
+
+\cite{fillmore1968case} a établi que le cas grammatical exhibe des relations
+profondes et sémantiques. De nombreuses langues marquent ces relations au
+niveau morphologique ; l'élatif est un exemple de cas grammatical qui exprime
+le lieu de l'intérieur duquel provient un mouvement et qui est marqué
+morphologiquement en finnois, hongrois et estonien. On peut alors, en se basant
+sur ces informations linguistiques, définir un rôle sémantique pour ces cas
+grammaticaux, même dans les langues où ils ne sont pas marqués
+morphologiquement. La théorie des \textit{frame semantics}
+\citep{fillmore1982frame} est une modification de la théorie des cas, et a
+abouti à FrameNet où chaque situation ou \emph{frame} dispose de ses propres
+rôles sémantiques, ce qui a créé plusieurs centaines de rôles. Ces rôles
+partageant parfois le même nom, mais ce sont les liens entre les rôles qu'il
+faut exploiter pour faire des généralisations \citep{litkowski2014framenet}
 
 Il n'y a pas de réel consensus sur un inventaire de cas donnés. Parmi les rôles
 sémantiques généralement acceptés \citep[p.~4]{palmer2010semantic}, on peut
@@ -755,6 +753,16 @@ citer :
     \item l'\textbf{Instrument} utilisé pour réaliser l'action
     \item le \textbf{Bénéficiaire} qui tire profit de l'action
 \end{itemize}
+
+Nous adoptons dans ce travail les rôles de notre lexique : VerbNet. Ce sont
+21\footnote{Il y a 24 rôles en comptant Co-Agent, Co-Patient et Co-Theme.}
+rôles supposés être suffisamment généraux pour s'adapter à toutes les
+situations : \emph{Actor}, \emph{Agent}, \emph{Asset}, \emph{Attribute},
+\emph{Beneficiary}, \emph{Cause}, \emph{Co-Agent}, \emph{Co-Patient},
+\emph{Co-Theme}, \emph{Location}, \emph{Destination}, \emph{Source},
+\emph{Experiencer}, \emph{Extent}, \emph{Instrument}, \emph{Material},
+\emph{Product}, \emph{Patient}, \emph{Predicate}, \emph{Recipient},
+\emph{Stimulus}, \emph{Theme}, \emph{Time} et \emph{Topic}.
 
 \subsection{Lexiques et corpus}
 \label{ressources_non_utilisees}
@@ -871,8 +879,6 @@ divisées en trois approches générales : supervisées, fondées sur la
 connaissance et non supervisées.
 
 \paragraph{Supervisées}
-
-% TODO où différencier Propbank/SRL Framenet/frame-parsing?
 
 Les méthodes supervisées
 \citep{gildea2002automatic,surdeanu2008conll,das2014frame,hermann2014semantic,lluis2014shortest}

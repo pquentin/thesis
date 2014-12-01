@@ -279,7 +279,6 @@ système d'annotation en rôles sémantiques est disponible sur
 mais a aussi été intégré dans l'analyseur linguistique libre LIMA
 (\url{http://aymara.github.io/lima/}) par Clémence Filmont.
 
-% MEGATODO faire que ce soit le cas
 Ces contraintes seront utilisées pour évaluer à la fois l'état de l'art et les
 approches présentées.
 
@@ -619,32 +618,48 @@ LVF (Les Verbes Français, \cite{dubois1997verbes}) contient environ 25000
 entrées classées en quatre niveaux :
 
 \begin{itemize}
-
     \item 14 classes génériques (par exemple \textit{E : Verbes de mouvement}),
-
     \item 54 sous-classes sémantico-syntaxiques (par exemple \textit{C1 :
         s'exprimer par un son, une parole}),
-
     \item 246 sous-classes syntaxiques (par exemple \textit{M3b : imprimer tel
         mouvement à quelquec chose} et
-
     \item 533 sous-types (par exemple \textit{R3b.2 : défaire l'opération
         faite}).
-
 \end{itemize}
 
-% TODO exemple
+Chaque sous-type contient une liste de verbes à laquelle est associée diverses
+informations. Nous prendrons l'exemple de \emph{aboyer 2}, le sens figuré
+d'aboyer (\emph{Luc aboie des ordres}). Les informations associées sont :
 
-LG (Lexique-Grammaire, \cite{gross1975methodes,boons1976structure}) comporte
-lui 14 000 entrées classifiées en 67 «~tables~», chaque table groupant des
-verbes partageant la même propriété définitoire syntaxique et potentiellement
-une sémantique similaire. Chaque colonne de la table encode des restrictions
-supplémentaires s'appliquant à certains des verbes de la table.
+\begin{itemize}
+    \item le numéro de sens du verbe (aboyer 2)
+    \item un opérateur (f.cri chien pour faire le cri du chien),
+    \item les constructions possibles (notamment T1300 pour transitif direct,
+        humain, chose),
+    \item un sens à l'aide de synonymes (hurler, crier après),
+    \item des exemples (\emph{On a~ contre les voisins. On a~ des injures}),
+    \item et les dérivations possibles (en général -ment ou -ant).
+\end{itemize}
 
-% TODO exemple
+Les tables du Lexique-Grammaire \citep{gross1975methodes,boons1976structure}
+sont l'autre ressource que nous utilisons, en abrégeant souvent par LG. La
+ressource comporte 14 000 entrées classifiées en 67 «~tables~», chaque table
+groupant des verbes partageant la même propriété définitoire syntaxique et
+potentiellement une sémantique similaire. Chaque colonne de la table encode des
+restrictions supplémentaires s'appliquant à certains des verbes de la table.
 
-Pourquoi ne pas utiliser ces ressources directement dans nos travaux ? Pour
-plusieurs raisons :
+Par exemple, la table
+6\footnote{\url{http://verbenet.pradet.me/verbes-html/V_6.lgt.html}}, définie
+par N$_0$ V Qu P, contient des verbes d'attitude propositionnelle tels que
+penser ou estimer. Différentes propriétés s'appliquent ou non aux verbes de la
+table. Par exemple, pour la colonne N$_0$ V contre Nhum, argumenter a un +
+(\emph{Léa a argumenté contre Jean}), mais \emph{abroger} a un - (*\emph{Léa a
+abrogé contre Jean}). Ces colonnes peuvent être un moyen d'identifier des
+sous-classes de verbes partageant tous la même propriété représentée par une ou
+plusieurs colonnes.
+
+Pourquoi ne pas utiliser ces ressources riches directement dans nos travaux ?
+Pour plusieurs raisons :
 
 \begin{itemize}
     \item LVF inclut de nombreux usages techniques : il y a en réalité
