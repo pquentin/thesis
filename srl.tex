@@ -662,8 +662,6 @@ Nous utilisons VerbNet 3.2 et le mapping VerbNet-FrameNet 1.2.2c
 n'annote que les arguments Core étant donné que ce sont généralement les
 arguments présents dans VerbNet.
 
-% TODO de toute façon il faut utiliser ce qui est fourni par SEMAFOR
-
 Pour la tâche complète qui inclut l'identification des arguments, nous
 utilisons le parser MST dans sa version 0.5.0 \citep{mcdonald2006multilingual}
 entraîné sur le Wall Street Journal. Nous avons modifié ce corpus de la façon
@@ -684,36 +682,12 @@ suivante.
         évite que l'analyseur syntaxique ait à traiter des phrases déjà
         observées dans le corpus d'entraînement, ce qui aurait pu améliorer les
         résultats artificiellement.
-    \item Enfin, les étiquettes morphosyntaxiques de FrameNet, utilisées lors
-        de l'analyse syntaxique, ont été converties vers le tagset WSJ en
-        utilisant des règles manuelles (Table~\ref{table:tagset_rules}). Sur
-        les six fichiers du Wall Street Journal pour lesquels on connaît
-        l'annotation correcte au format WSJ, ceci réduit les erreurs des
-        étiquettes morphosyntaxiques de 23\% à 3\%.  (En effet, nous avons
-        utilisé directement les étiquettes morphosyntaxiques présentes dans
-        FrameNet pour entraîner l'analyseur MST.)
 \end{itemize}
 
-\begin{table}[ht]
-    \centering
-    \begin{tabular}{ccc|ccc}
-        \toprule
-        JJ   &$\to$& ADJ    & JJR  &$\to$& NP     \\
-        JJS  &$\to$& ADJ    & MD   &$\to$& S      \\
-        NN   &$\to$& NP     & NNP  &$\to$& NP     \\
-        NNPS &$\to$& NP     & NNS  &$\to$& NP     \\
-        NP   &$\to$& NP     & NPS  &$\to$& NP     \\
-        PP   &$\to$& PP     & PRP  &$\to$& NP     \\  
-        RB   &$\to$& ADV    & TO   &$\to$& to S   \\
-        VB   &$\to$& S      & VBD  &$\to$& S      \\
-        VBG  &$\to$& S\_ING & VBN  &$\to$& ADJ    \\
-        VBP  &$\to$& S      & VBZ  &$\to$& S      \\
-        WDT  &$\to$& NP     & \$   &$\to$& NP     \\  
-        CD   &$\to$& NP     & DT   &$\to$& NP     \\
-        \bottomrule
-    \end{tabular}
-    \caption{\label{table:tagset_rules}Règles de conversion entre les parties du discours BNC et WSJ}
-\end{table}
+Nous avons ensuite utilisé ce modèle avec le script \verb=fnParsedDriver.sh=
+fourni par SEMAFOR, qui utilise pour l'étiquetage morpho-syntaxique
+(\textit{part-of-speech tagging}) MXPOST, le modèle étant inclus dans la
+distribution de SEMAFOR.
 
 \subsection{Procédure d'évaluation}
 
