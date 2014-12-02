@@ -117,30 +117,30 @@ Doctorat d'Informatique \\
 Cette thèse de Traitement Automatique des Langues a pour objectif l'annotation
 en rôles sémantiques automatique du français en domaine spécifique. Cette tâche
 consiste à la fois à désambiguïser le sens des verbes d'un texte et à annoter
-les syntagmes avec des rôles sémantiques tels qu'agent, patient, ou
-destination. Cette tâche aide de nombreuses applications dans les domaines où
-des corpus annotés existent, tels que le domaine financier. Nous considérons ici
-trois domaines disposant de corpus annotés en rôles sémantiques : le
-réchauffement climatique, Informatique/Internet, et le football. Nous montrons
-que nos traductions vers le français des ressources WordNet et VerbNet donnent
-la possibilité d'annoter en rôles sémantiques des textes aussi bien en domaine
+leurs syntagmes avec des rôles sémantiques tels qu'Agent, Patient, ou
+Destination. Cette tâche aide de nombreuses applications dans les domaines où
+des corpus annotés existent : on peut alors entraîner des algorithmes
+supervisés performants. Nous cherchons au contraire à annoter des domaines ne
+disposant pas de tels corpus annotés. Nous considérons ici trois domaines : le
+réchauffement climatique, Informatique/Internet, et le football, leurs corpus
+annotés ne nous servant que pour l'évaluation. Nous montrons que nos
+traductions vers le français de lexiques sémantiques pour l'anglais donnent la
+possibilité d'annoter en rôles sémantiques des textes aussi bien en domaine
 général qu'en domaine spécifique sans avoir à entraîner un modèle statistique.
 
-Nos travaux portent sur deux grands axes : les ressources servant à
-l'annotation en rôles sémantiques d'une part, et les méthodes d'annotation en
-rôles sémantiques elles-mêmes d'autre part.
+Nos travaux portent sur deux grands axes : les ressources puis les méthodes servant à
+l'annotation en rôles sémantiques.
 
 Concernant les ressources, nous avons commencé par traduire la ressource
 WordNet vers le français à l'aide d'un modèle de langue syntaxique issu du web.
 Cette ressource, nommée WoNeF, est disponible en trois versions : une à haute
 précision (93,3~\%), une à haut F-score (70,9~\%), et l'autre à haute
-couverture, qui contient un plus grand nombre de traductions. La seconde
-ressource que nous avons traduite est VerbNet, un lexique dans lequel les
-verbes sont regroupées en classes partageant les mêmes critères syntaxiques,
-morphologiques et sémantiques. Contrairement à WordNet, la traduction de cette
-ressource s'est faite à la fois en réutilisant au maximum les lexiques verbaux
-du français, le Lexique-Grammaire et Les Verbes Français mais aussi avec un
-travail manuel important pour contrôler au mieux le contenu des classes.
+couverture, plus large mais plus bruitée. Nous traduisons ensuite le lexique
+VerbNet dans lequel les verbes sont regroupés suivant leur traits syntaxiques,
+morphologiques et sémantiques. Contrairement à WordNet, la traduction,
+\verbenet{} a été obtenue à la fois en réutilisant au maximum les lexiques
+verbaux du français (le Lexique-Grammaire et Les Verbes Français) mais aussi
+avec un travail manuel important pour contrôler au mieux son contenu.
 
 Concernant les méthodes, nous commençons par évaluer notre méthode basée sur
 VerbNet sur le corpus annoté FrameNet, en suivant les travaux de
@@ -150,10 +150,11 @@ compte de la voix passive et d'un point de vue sémantique en utilisant WordNet
 pour filtrer les syntagmes ne correspondant pas aux restrictions de sélection
 (de type humain, organisation, etc.) indiquées dans VerbNet.
 
-Enfin, une fois que toutes les autres briques ont été mises en place, nous
-traitons l'annotation en rôles sémantiques du français dans nos trois domaines
-spécifiques. Nous évaluons ainsi quelles sont les avantages et inconvénients
-d'utiliser VerbNet dans ces domaines.
+Enfin, une fois ces briques en place, nous évaluons la faisabilité de
+l'annotation en rôles sémantiques du français dans nos trois domaines
+spécifiques. Nous évaluons en effet quelles sont les avantages et inconvénients
+de se baser sur VerbNet et \verbenet{} pour annoter ces domaines en anglais et
+en français.
 
 %\chapter{Abstract}
 %A one-page abstract.
