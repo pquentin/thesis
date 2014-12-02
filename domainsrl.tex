@@ -7,23 +7,17 @@
 \chapter{Annotation en rôle sémantique en domaine spécifique}
 \label{ch:domainsrl}
 
-Là où le précédent chapitre présentait notre approche d'annotation en rôles
-sémantiques fondée sur la connaissance, celui-là cherche à l'appliquer en
-domaines spécifiques. À l'heure où les algorithmes supervisés obtiennent
-d'excellentes performances sur un certain nombre de tâches quand des données
-annotées pour le domaine considéré existent, l'adaptation au domaine est un
-défi majeur du Traitement Automatique des Langues, et l'annotation en rôles
-sémantiques sur de nouveaux domaines reste un problème ouvert. 
+Là où le précédent chapitre présentait notre approche générique d'annotation en
+rôles sémantiques fondée sur la connaissance, celui-là cherche à évaluer son
+application en domaines spécifiques. À l'heure où les algorithmes supervisés
+obtiennent d'excellentes performances sur un certain nombre de tâches quand des
+données annotées pour le domaine considéré existent, l'adaptation au domaine
+est un défi majeur du Traitement Automatique des Langues, et l'annotation en
+rôles sémantiques sur de nouveaux domaines reste un problème ouvert.
 
-Étant donné qu'il se base sur l'approche présentée au Chapitre~\ref{ch:srl},
-notre système est, suivant le point de vue :
-\begin{itemize}
-    \item une \textit{baseline} forte,
-    \item une première étape pour annoter un nouveau domaine avec peu d'efforts,
-    \item un système complet d'annotation en rôles sémantiques une fois que
-        VerbNet a été mis à jour par rapport au domaine considéré,
-    \item ou un moyen d'identifier des manquements dans VerbNet.
-\end{itemize}
+Dans ce chapitre, nous n'utilisons pas le système du Chapitre~\ref{ch:srl} et
+ne développons pas un système, mais nous évaluons la capacité de VerbNet et
+\verbenet{} à traiter des corpus en domaines spécifiques.
 
 La définition du terme 'domaine' reste assez vague dans le sens où il est
 difficile de proposer une catégorisation de la connaissance en un ensemble de
@@ -31,160 +25,24 @@ domaines qui soit à la fois cohérente et efficace \citep{ma2012rethinking}. Il
 est aussi difficile de séparer clairement le «~domaine général~» des domaines
 spécifiques. Néanmoins, c'est un phénomène qui existe et qui est à considérer :
 les modèles entraînés sur un corpus d'un domaine spécifique (la finance par
-exemple) généraliseront mal à d'autres domaines (le football).
-
-% TODO proof with existing system? cite paper?
+exemple) risque de produire des performances mauvaises si appliqués à d'autres
+domaines (le football par exemple). C'est le cas par exemple de la
+désambiguïsation de classe VerbNet au moment de passer du corpus PropBank à un
+corpus du domaine biomédical \citep{abend2008supervised}.
 
 Il est important aussi de différencier le genre et le domaine d'un texte. Le
 corpus du Wall Street Journal traite du domaine de la finance dans un genre
 journalistique. D'autres genres existent, par exemple les genre littéraires que
 sont la fiction, la poésie, le théâtre, etc. Néanmoins, ces distinctions ne
 nous concernent pas ici, et l'objectif affiché est de traiter aussi bien un
-roman qu'une encyclopédie qu'un email bien écrit qu'un article de journal.
-C'est une simplification mais les difficultés que nous rencontrons avec les
-corpus utilisés dépendent plutôt du domaine que du genre. En effet, nous
-supposons que dans deux domaines différents plus que dans deux genres
-différents, les changements vont résider dans les verbes utilisés, leur sens et
-la façon de les utiliser. C'est ce que nous souhaitons prendre en compte ici.
+roman qu'une encyclopédie, un email bien écrit qu'un article de journal.  C'est
+une simplification mais les difficultés que nous rencontrons avec les corpus
+utilisés dépendent plutôt du domaine que du genre. En effet, nous supposons que
+dans deux domaines différents plus que dans deux genres différents, les
+changements vont résider dans les verbes utilisés, leur sens et la façon de les
+utiliser. C'est ce que nous souhaitons prendre en compte ici.
 
-\section{Approche}
-\label{sec:domainsrl_approche}
-
-% TODO n'indiquer que les différences par rapport à ch:srl
-
-Nous laissons ici l'identification des arguments à un travail futur, et
-utilisons les arguments issus de la vérité-terrain : on sait que ces arguments
-jouent un rôle, mais on ne sait pas lequel. La raison est que nous voulons nous
-concentrer pour le moment sur la couverture syntaxique de VerbNet sans avoir à
-analyser syntaxiquement nos corpus : les erreurs d'annotation représenteraient
-une difficulté supplémentaire. Cela signifie aussi que notre système n'a pas
-besoin de distinguer les arguments jouant un rôle (\textit{core} dans FrameNet)
-des autres (\textit{non-core}), ce qui est une part importante de tout système
-complet d'annotation en rôles sémantiques.
-
-La méthode est très proche de celle présentée au Chapitre~\ref{srl}, et
-implémentée dans le dossier \texttt{src/domain} de
-\url{https://github.com/aymara/knowledgesrl}.
-
-De simples transformations permettent de gérer l'encodage spécifique de frames
-dans DiCoInfo et DiCoEnviro pour l'adapter à VerbNet. Premièrement, des rôles
-répétés sont supprimés : \texttt{NP.Agent} \texttt{V} \texttt{NP.Theme}
-\texttt{NP.Theme} devient \texttt{NP.Agent} \texttt{V} \texttt{NP.Theme}. En
-effet, DiCoInfo et DiCoEnviro répètent le même rôle deux fois quand deux
-syntagmes nominaux liés par exemple avec la conjonction «~et~» partagent le
-même rôle dans la même frame. Deuxièmement, au moment de rencontrer une forme
-\texttt{V} \texttt{NP.Theme}, le syntagme devant le verbe est aussi supprimé
-dans VerbNet avant comparaison. Ces formes sont en général des verbes à
-l'impératif où le sujet n'est pas exprimé, et doivent dont êtres transformées
-avant traitement par VerbNet, VerbNet ne décrivant les frames qu'à l'indicatif.
-
-La phrase transformée est ensuite comparée aux frames VerbNet possibles dans
-les classes candidates à la manière la correspondance exacte
-(section~\ref{correspondance_exacte}). Le résultat de notre algorithme est que
-chaque prédicat est potentiellement associé à une classe VerbNet, et chaque
-argument issu de la vérité-terrain est potentiellement associé à un rôle
-sémantique.
-
-Deux difficultés peuvent se poser au moment de réaliser cette correspondance :
-\begin{itemize}
-    \item la frame n'est présente dans aucune classe VerbNet : c'est un
-        manquement dans VerbNet.
-    \item la frame seule ne permet pas de désambiguïser entre différentes
-        classes et donc différents rôles, le sens du rôle dépendant de la
-        classe.
-\end{itemize}
-        
-Notre approche est trop simple pour gérer la deuxième difficulté, mais elle
-permet de soulever des erreurs dans VerbNet lors de la première erreur, ce que
-nous souhaitons quantifier dans la section suivante.
-
-\if false
-
-\section{Enrichissement de VerbNet}
-\label{sec:enrichissement_verbnet}
-
-Malgré leur similarité, ces corpus posent des problèmes différents vis-à-vis de
-leur annotation avec VerbNet, tous liés au fait de ne pas être dans le "domaine
-général". Nous avons considéré comme problème les manquements dans VerbNet qui
-empêchent de prendre en compte les phrases considérées, indépendamment de
-l'algorithme. Ainsi, pour que VerbNet puisse prendre en compte une instance, il
-faut :
-
-\begin{itemize}
-    \item que le sens du verbe considéré soit présent dans VerbNet,
-    \item que la construction en question soit présente dans VerbNet,
-    \item et que les rôles sémantiques associés à chaque syntagme soient correct.
-\end{itemize}
-
-Il y a différentes façons de ne pas respecter ces contraintes dans VerbNet :
-
-\begin{itemize}
-
-    \item Le verbe n'existe pas du tout
-
-    \item Le sens du verbe utilisé n'est pas représenté alors que c'est un sens
-        du domaine général
-
-    \item Le sens du verbe utilisé n'est pas représenté alors que c'est un sens
-        spécifique à ce domaine
-
-    \item La construction utilisée n'est pas présente
-
-    \item La construction utilisée n'associe pas les arguments aux rôles
-        corrects
-
-\end{itemize}
-
-Suivant les corpus considérés, les proportions d'erreurs seront différentes.
-Nous avons demandé à deux annotateurs d'évaluer, pour vingt phrases par
-domaine, quelle était l'erreur. L'accord inter-annotateur permet de valider la
-distinction domaine spécifique/domaine général malgré l'impossibilité de la
-définir précisément.
-
-% TODO: le faire....
-
-C'est pour cette raison que l'enrichissement de VerbNet se fait de deux
-manières : certains verbes et constructions sont ajoutés comme faisant partie
-du domaine général, alors que d'autres sont étiquetés avec le domaine
-spécifique correspondant. L'idée est d'éviter que des connaissances de domaines
-spécifiques viennent réduire la qualité de la ressource tout en s'assurant que
-la couverture de VerbNet pour le domaine général continue de s'améliorer.
-
-\section{Détection semi-automatique d'erreurs}
-
-D'une part, pour minimiser le travail manuel, il est important d'automatiser au
-maximum l'enrichissement de la ressource. D'autre part, l'intérêt de VerbNet
-réside notamment dans sa capacité à factoriser efficacement ces informations
-sur l'interface syntaxico-sémantique d'un verbe donné, et il est donc possible
-et utile de valider manuellement chacun des changements apportés.
-
-Le principe suivi est donc d'essayer de détecter les manquements de VerbNet de
-manière automatique avant de proposer à un utilisateur expert de réaliser des
-changements en ayant un maximum d'informations pertinentes à portée de main.
-
-Les différentes erreurs détectées sont :
-\begin{itemize}
-    \item l'absence de lemmes dans la ressource
-    \item l'absence d'un sens correct dans la ressource
-    \item l'absence de constructions correctes dans la ressource
-    \item l'absence de mapping de role correct dans la ressource
-\end{itemize}
-
-Nous avons d'abord commencé par détecter l'absence de constructions correctes,
-ce qui a permis ensuite de détecter une absence de sens en comparant les
-constructions observées avec les constructions présentes. Enfin, cela a permis
-de faire des propositions quant à la position d'un nouveau lexème dans la
-ressource.
-
-% TODO: le faire....
-
-\fi
-
-
-\section{Expériences}
-
-
-\subsection{Corpus considérés}
+\section{Corpus considérés}
 
 Afin de s'assurer que notre travail reste valide en changeant de domaine, nous
 considérons ici trois corpus présents dans des domaines différents.
@@ -241,7 +99,7 @@ source spécifique ne peut être présente que dans un ensemble. Le découpage
 résultant est disponible au format JSON avec le code source associé à ce
 chapitre.
 
-\subsection{Mappings de rôles}
+\section{Mappings de rôles}
 
 Ces trois corpus utilisent des rôles spécifiques. Les corpus DiCoInfo et
 DiCoEnviro utilisent les conventions VerbNet alors que le Kicktionary  définit
@@ -269,7 +127,7 @@ En pratique :
 
     \item DiCoInfo et DiCoEnviro ne distinguent pas Theme de Patient mais
 n'utilisent que Patient, ce qui facilite l'annotation.\footnote{Ce choix est le
-bienvenue, étant donné que la distinction entre Theme et Patient est souvent
+bienvenu, étant donné que la distinction entre Theme et Patient est souvent
 difficile à établir. Dans \textit{Le chaton a léché mes doigts}, est-ce que mes
 doigts ont changé d'état ? Si oui, ils devraient être Patient, et sinon, Theme
 \citep[p.~5]{palmer2010semantic}.}
@@ -283,13 +141,10 @@ Prenons deux phrases d'exemple pour illustrer le mapping. Voici deux phrases
 présentes dans DiCoInfo et DiCoEnviro :
 
 \begin{itemize}
-
     \item \textit{In the interest of fair competition you should ALLOCATE the
         same amount of memory to both engines}.
-
     \item \textit{Techniques and tools exist to MEASURE carbon stocks in project areas
         relatively precisely depending on the carbon pool.}
-
 \end{itemize}
 
 Dans la première phrase, le sens du verbe \textit{allocate} au sens
@@ -339,12 +194,124 @@ différentes façons de l'exprimer n'ont pas étés séparées : ouvrir la marqu
 syntaxiques, évoqueront des rôles différents et correspondront donc à des
 classes VerbNet différentes.
 
-\section{Méthode d'évaluation}
+\section{Comparaison à VerbNet}
 
-Il nous suffit d'utiliser l'association que nous avons produit entre les rôles
-considérés par ces ressources et les rôles VerbNet avant d'évaluer la
-performance de l'algorithme basé sur la connaissance d'annotation en rôles
-sémantiques présenté à la section~\ref{sec:domainsrl_approche}.
+De simples transformations permettent de gérer l'encodage spécifique de frames
+dans DiCoInfo et DiCoEnviro pour l'adapter à VerbNet. Premièrement, des rôles
+répétés sont supprimés : \texttt{NP.Agent} \texttt{V} \texttt{NP.Theme}
+\texttt{NP.Theme} devient \texttt{NP.Agent} \texttt{V} \texttt{NP.Theme}. En
+effet, DiCoInfo et DiCoEnviro répètent le même rôle deux fois quand deux
+syntagmes nominaux liés par exemple avec la conjonction «~et~» partagent le
+même rôle dans la même frame. Deuxièmement, au moment de rencontrer une forme
+\texttt{V} \texttt{NP.Theme}, le syntagme devant le verbe est aussi supprimé
+dans VerbNet avant comparaison. Ces formes sont en général des verbes à
+l'impératif où le sujet n'est pas exprimé, et doivent dont êtres transformées
+avant traitement par VerbNet, VerbNet ne décrivant les frames qu'à l'indicatif.
+
+La phrase transformée est ensuite comparée aux frames VerbNet possibles dans
+les classes candidates à la manière la correspondance exacte
+(section~\ref{correspondance_exacte}). Le résultat de notre algorithme est que
+chaque prédicat est potentiellement associé à une classe VerbNet, et chaque
+argument issu de la vérité-terrain est potentiellement associé à un rôle
+sémantique.
+
+Deux difficultés peuvent se poser au moment de réaliser cette correspondance :
+\begin{itemize}
+    \item la frame n'est présente dans aucune classe VerbNet : c'est un
+        manquement dans VerbNet.
+    \item la frame seule ne permet pas de désambiguïser entre différentes
+        classes et donc différents rôles, le sens du rôle dépendant de la
+        classe.
+\end{itemize}
+
+Notre approche est trop simple pour gérer la deuxième difficulté, mais elle
+permet de soulever des erreurs dans VerbNet lors de la première erreur, ce que
+nous souhaitons quantifier dans la section suivante.
+
+La méthode est implémentée dans le dossier \texttt{src/domain} de
+\url{https://github.com/aymara/knowledgesrl}.
+
+\if false
+
+\section{Enrichissement de VerbNet}
+\label{sec:enrichissement_verbnet}
+
+Malgré leur similarité, ces corpus posent des problèmes différents vis-à-vis de
+leur annotation avec VerbNet, tous liés au fait de ne pas être dans le "domaine
+général". Nous avons considéré comme problème les manquements dans VerbNet qui
+empêchent de prendre en compte les phrases considérées, indépendamment de
+l'algorithme. Ainsi, pour que VerbNet puisse prendre en compte une instance, il
+faut :
+
+\begin{itemize}
+    \item que le sens du verbe considéré soit présent dans VerbNet,
+    \item que la construction en question soit présente dans VerbNet,
+    \item et que les rôles sémantiques associés à chaque syntagme soient correct.
+\end{itemize}
+
+Il y a différentes façons de ne pas respecter ces contraintes dans VerbNet :
+
+\begin{itemize}
+    \item Le verbe n'existe pas du tout
+    \item Le sens du verbe utilisé n'est pas représenté alors que c'est un sens
+        du domaine général
+    \item Le sens du verbe utilisé n'est pas représenté alors que c'est un sens
+        spécifique à ce domaine
+    \item La construction utilisée n'est pas présente
+    \item La construction utilisée n'associe pas les arguments aux rôles
+        corrects
+\end{itemize}
+
+Suivant les corpus considérés, les proportions d'erreurs seront différentes.
+Nous avons demandé à deux annotateurs d'évaluer, pour vingt phrases par
+domaine, quelle était l'erreur. L'accord inter-annotateur permet de valider la
+distinction domaine spécifique/domaine général malgré l'impossibilité de la
+définir précisément.
+
+% TODO: le faire....
+
+C'est pour cette raison que l'enrichissement de VerbNet se fait de deux
+manières : certains verbes et constructions sont ajoutés comme faisant partie
+du domaine général, alors que d'autres sont étiquetés avec le domaine
+spécifique correspondant. L'idée est d'éviter que des connaissances de domaines
+spécifiques viennent réduire la qualité de la ressource tout en s'assurant que
+la couverture de VerbNet pour le domaine général continue de s'améliorer.
+
+\section{Détection semi-automatique d'erreurs}
+
+D'une part, pour minimiser le travail manuel, il est important d'automatiser au
+maximum l'enrichissement de la ressource. D'autre part, l'intérêt de VerbNet
+réside notamment dans sa capacité à factoriser efficacement ces informations
+sur l'interface syntaxico-sémantique d'un verbe donné, et il est donc possible
+et utile de valider manuellement chacun des changements apportés.
+
+Le principe suivi est donc d'essayer de détecter les manquements de VerbNet de
+manière automatique avant de proposer à un utilisateur expert de réaliser des
+changements en ayant un maximum d'informations pertinentes à portée de main.
+
+Les différentes erreurs détectées sont :
+\begin{itemize}
+    \item l'absence de lemmes dans la ressource
+    \item l'absence d'un sens correct dans la ressource
+    \item l'absence de constructions correctes dans la ressource
+    \item l'absence de mapping de role correct dans la ressource
+\end{itemize}
+
+Nous avons d'abord commencé par détecter l'absence de constructions correctes,
+ce qui a permis ensuite de détecter une absence de sens en comparant les
+constructions observées avec les constructions présentes. Enfin, cela a permis
+de faire des propositions quant à la position d'un nouveau lexème dans la
+ressource.
+
+% TODO: le faire....
+
+\fi
+
+Pour l'évaluation, il nous suffit d'utiliser l'association que nous avons
+produit entre les rôles considérés par ces ressources et les rôles VerbNet
+avant d'évaluer la performance de l'algorithme basé sur la connaissance
+d'annotation en rôles sémantiques présenté à la
+section~\ref{sec:domainsrl_approche}.
 
 L'association est utilisée uniquement à des fins d'évaluation, et l'effort
 nécessaire pour la créer n'est donc pas à prendre en compte pour calculer
