@@ -12,7 +12,7 @@ rôles sémantiques fondée sur la connaissance, celui-là cherche à évaluer s
 application en domaines spécifiques. À l'heure où les algorithmes supervisés
 obtiennent d'excellentes performances sur un certain nombre de tâches quand des
 données annotées pour le domaine considéré existent, l'adaptation au domaine
-est un défi majeur du Traitement Automatique des Langues, et l'annotation en
+est un défi majeur en Traitement Automatique des Langues, et l'annotation en
 rôles sémantiques sur de nouveaux domaines reste un problème ouvert.
 
 Dans ce chapitre, nous n'utilisons pas le système du Chapitre~\ref{ch:srl} et
@@ -196,25 +196,6 @@ différentes façons de l'exprimer n'ont pas étés séparées : ouvrir la marqu
 syntaxiques, évoqueront des rôles différents et correspondront donc à des
 classes VerbNet différentes. Nous n'évaluons pas ces frames.
 
-\section{Comparaison à VerbNet}
-
-De simples transformations permettent de gérer l'encodage spécifique de frames
-dans DiCoInfo et DiCoEnviro pour l'adapter à VerbNet. Premièrement, des rôles
-répétés sont supprimés : \texttt{NP.Agent} \texttt{V} \texttt{NP.Theme}
-\texttt{NP.Theme} devient \texttt{NP.Agent} \texttt{V} \texttt{NP.Theme}. En
-effet, DiCoInfo et DiCoEnviro répètent le même rôle deux fois quand deux
-syntagmes nominaux liés par exemple avec la conjonction «~et~» partagent le
-même rôle dans la même frame. Deuxièmement, au moment de rencontrer une forme
-\texttt{V} \texttt{NP.Theme}, le syntagme devant le verbe est aussi supprimé
-dans VerbNet avant comparaison. Ces formes sont en général des verbes à
-l'impératif où le sujet n'est pas exprimé, et doivent dont êtres transformées
-avant traitement par VerbNet, VerbNet ne décrivant les frames qu'à l'indicatif.
-
-% TODO check lemma, frame, class, role
-
-La méthode est implémentée dans le dossier \texttt{src/domain} de
-\url{https://github.com/aymara/knowledgesrl}.
-
 \if false
 
 \section{Enrichissement de VerbNet}
@@ -291,23 +272,50 @@ ressource.
 
 \fi
 
-Pour l'évaluation, il nous suffit d'utiliser l'association que nous avons
-produite entre les rôles considérés par ces ressources et les rôles VerbNet
-avant d'évaluer la performance de l'algorithme basé sur la connaissance
-d'annotation en rôles sémantiques présenté à la
-section~\ref{sec:domainsrl_approche}.
 
-L'association est utilisée uniquement à des fins d'évaluation, et l'effort
-nécessaire pour la créer n'est donc pas à prendre en compte pour calculer
-l'effort global nécessaire pour notre approche.
+\section{Comparaison à VerbNet}
+\label{comparaison_verbnet}
+
+De simples transformations permettent de gérer l'encodage spécifique de frames
+dans DiCoInfo et DiCoEnviro pour l'adapter à VerbNet. Premièrement, des rôles
+répétés sont supprimés : \texttt{NP.Agent} \texttt{V} \texttt{NP.Theme}
+\texttt{NP.Theme} devient \texttt{NP.Agent} \texttt{V} \texttt{NP.Theme}. En
+effet, DiCoInfo et DiCoEnviro répètent le même rôle deux fois quand deux
+syntagmes nominaux liés par exemple avec la conjonction «~et~» partagent le
+même rôle dans la même frame. Deuxièmement, au moment de rencontrer une forme
+\texttt{V} \texttt{NP.Theme}, le syntagme devant le verbe est aussi supprimé
+dans VerbNet avant comparaison. Ces formes sont en général des verbes à
+l'impératif où le sujet n'est pas exprimé, et doivent dont êtres transformées
+avant traitement par VerbNet, VerbNet ne décrivant les frames qu'à l'indicatif.
+
+Pour chaque occurrence de phrase dans notre corpus convertie en rôles VerbNet,
+nous :
+\begin{itemize}
+    \item vérifions si le lemme existe dans VerbNet ou \verbenet{},
+    \item observons si la frame syntaxique du corpus est exprimée exactement
+        telle quelle dans VerbNet,
+    \item regardons si la classe souhaitée d'après le mapping est effectivement
+        parmi la liste des classes VerbNet possibles après avoir filtré les
+        correspondances syntaxiques,
+    \item et déterminons enfin si les rôles sont corrects en considérant la
+        classe correcte.
+\end{itemize}
+
+Ces quatre observations nous permettent d'évaluer à la fois la couverture de
+VerbNet et \verbenet{} (nombre de lemmes présents, nombres de constructions
+présentes) mais aussi en terme de précision (est-ce que les rôles sont corrects
+?).
+
+La méthode est implémentée dans le dossier \texttt{src/domain} de
+\url{https://github.com/aymara/knowledgesrl}.
 
 \section{Résultats}
 \label{sec:domainsrlresults}
 
 Nous considérons la couverture de VerbNet dans ces trois ressources, en
 mesurant la couverture des lemmes, la couverture des classes, la couverture
-syntaxique et la couverture des rôles. Nous calculons ces scores sur les
-occurrences et non pas les types.
+syntaxique et l'exactitude des rôles (section~\ref{comparaison_verbnet}. Nous
+calculons ces scores sur les occurrences et non pas les types.
 
 \begin{table}[h]
 \centering
@@ -315,29 +323,27 @@ occurrences et non pas les types.
   \toprule
          & Info & Enviro & Kicktionary \\
   \midrule
-  Lemme  & 83 & 84 & 75 \\
-  Frame  & 79 & 78 & 67 \\
-  Classe & 51 & 64 & 6  \\
-  Rôle   & 91 & 97 & 70 \\
+  Lemme présent          & 80 & 89 & 69 \\
+  Frame présente         & 80 & 82 & 69 \\
+  Classe correct incluse & 57 & 79 & 11 \\
+  Rôle correct           & 95 & 97 & 58 \\
   \bottomrule
 \end{tabular}
 
-\caption{\label{table:coverage} Couverture VerbNet pour les corpus DiCoInfo,
-    DiCoEnviro et Kicktionary. Le score de lemme est le pourcentage
+\caption{\label{table:coverage} Couverture VerbNet en anglais pour les corpus
+    DiCoInfo, DiCoEnviro et Kicktionary. Le score de lemme est le pourcentage
     d'occurrences de lemmes verbaux présents dans VerbNet. Le score de frame
     est le pourcentage de correspondances exactes entre les cadres de
     sous-catégorisation VerbNet et cadres identifiés dans les corpus. Le score
-    de classe est le pourcentage de classes qui ont été correctement
-    identifiées d'après notre mapping quand la frame était dans VerbNet. Enfin,
-    le score de rôle est le pourcentage de rôles correctement identifiés.
-    Chacun de ces scores s'applique aux résultats corrects de l'étape
-    précédente, d'où le score final qui est une multiplication de ces quatre
-    scores.}
+    de classe est le pourcentage de classes correctes qui sont présentes
+    d'après notre mapping quand la frame était dans VerbNet, indépendemment de
+l'ambiguïté. Enfin, le score de rôle est le pourcentage de rôles correctement
+identifiés.}
 
 \end{table}
 
 % TODO mapping fini ou non ?
-La table~\ref{table:coverage} présente les résultats pour les trois domaines
+La Table~\ref{table:coverage} présente les résultats pour les trois domaines
 considérés. Les résultats du Kicktionary sont à analyser avec prudence : d'une
 part, le mapping n'est pas fini, d'où le score de classe extrêmement bas, et
 d'autre pas aucune analyse d'erreur n'a pour le moment été effectuée. Nous
@@ -361,12 +367,36 @@ Troisièmement, une fois que la classe a été identifiée correctement, les
 résultats sont bons pour les corpus DiCoInfo et DiCoEnviro (respectivement
 91~\% et 97~\%).
 
+\begin{table}[h]
+\centering
+\begin{tabular}{rccc}
+  \toprule
+         & Info & Enviro & Kicktionary \\
+  \midrule
+  Lemme présent          & 52 & 37 & 42 \\
+  Frame présente         & 78 & 84 & 59 \\
+  Classe correct incluse & 47 & 45 & 15 \\
+  Rôle correct           & 78 & 66 & 54 \\
+  \bottomrule
+\end{tabular}
+
+\caption{\label{table:coverage} Couverture \verbenet{} en français pour les
+corpus DiCoInfo, DiCoEnviro et Kicktionary. \verbenet{} a été développé de
+manière complètement indépendante : aucune instruction n'a été donnée pour
+obtenir de meilleurs résultat ici, à part de traiter la classe 45, présente
+dans beaucoup de cas dans DiCoEnviro.}
+\end{table}
+
+De manière attendue, \verbenet{}, encore en développement, a une couverture
+plus faible en termes de lemmes présents et de classes incluses, mais les
+résultats sont prometteurs.
+
 \section*{Conclusion}
 
 Nous avons montré qu'il est possible de réaliser de l'annotation en rôles
 sémantique en domaine spécifique en utilisant VerbNet. Le système complet
 d'annotation en rôles sémantiques utilisera les techniques décrites au
-Chapitre~\ref{ch:srl}. TODO : sauf si fusion à temps
+Chapitre~\ref{ch:srl}.
 
 Notre approche rend possible l'annotation d'un nouveau domaine avant de passer
 à une annotation manuelle. Il est aussi possible de l'utiliser comme une simple
@@ -377,5 +407,5 @@ lemmes, classes et frames manquants sont montrées.
 
 \section*{Remerciements}
 
-Merci à Thomas Schmidt et à Marie-Claude L'Homme pour nous avoir fournis les
+Merci à Marie-Claude L'Homme et Thomas Schmidt pour nous avoir fournis les
 corpus DiCoInfo, DiCoEnviro et Kicktionary.

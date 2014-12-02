@@ -22,10 +22,6 @@ développé et activement maintenu une interface d'édition entièrement pensée
 pour VerbNet afin de faciliter le travail lexicographique
 (section~\ref{toolquentin}).
 
-Ce travail a été rendu possible par une interface
-d'édition développée par nos soins rendant l'édition facile afin que les
-lexicographes puissent se concentrer sur le 
-
 La construction de cette ressource se fait en trois étapes.
 \begin{enumerate}
     \item Nous avons d'abord traduit vers le français les membres de VerbNet en
@@ -152,7 +148,7 @@ VerbNet afin d'assister au maximum le travail lexicographique
 La troisième étape est l'occasion de valider manuellement pour chaque classe
 les verbes proposés par correspondance de ressources en supprimant les verbes
 erronés et en rajoutant les verbes manquants afin que la ressource ait été
-entièrement validée manuellement. La plupart des verbes ne sont pas ajouté
+entièrement validée manuellement. La plupart des verbes ne sont pas ajoutés
 manuellement : les annotateurs cliquent directement sur les verbes inférés pour
 les valider ou les invalider.  Les traductions des dictionnaires étant très
 productives, les verbes souhaités sont généralement dans les traductions
@@ -231,8 +227,8 @@ from the tabletop}. Nous avons cependant préféré laisser cette possibilité
 (erronée dans cet exemple) plutôt que d'avoir à recourir à des intuitions
 linguistiques pour l'ensemble des classes de \verbenet{}. Une application
 pourra noter que pour une frame de type NP V NP PP, la sous-structure qui est
-\textit{a priori} la plus probable est NP V NP, mais que NP V et NP V PP sont
-aussi possibles.
+\textit{a priori} la plus probable est NP V NP, mais NP V et NP V PP sont aussi
+possibles.
 
 La deuxième différence concerne l'ordre des compléments. VerbNet encode parfois
 des frames qui ne diffèrent que par l'ordre des compléments, par exemple dans
@@ -242,7 +238,7 @@ des frames qui ne diffèrent que par l'ordre des compléments, par exemple dans
 compléments dépend d'un certain nombre de facteurs syntaxiques et sémantiques
 \citep{thuilier2012contraintes}, mais ne dépend pas à priori d'un facteur
 lexical : il ne dépend pas du verbe qui gouverne les compléments. C'est pour
-cette raison que \verbenet{} n'encode qu'un frame dans ces cas, ici seulement
+cette raison que \verbenet{} n'encode qu'une frame dans ces cas, ici seulement
 \textit{NP V NP PP.Destination} (\textit{Nora a apporté le livre au meeting})
 avec l'objet direct avant le syntagme prépositionnel. C'est à l'utilisation de
 la ressource qu'il faut aussi envisager l'autre option (\textit{NP V
@@ -313,9 +309,10 @@ tout détailler, insistons sur ces quelques points :
         les classes VerbNet {\color{blue}\texttt{give-13.1}} et
         {\color{blue}\texttt{contribute-13.2}} doivent probablement être fusionnées en
         français.
-    \item La différence sémantique entre {\color{blue}\texttt{give-13.1}}
-        (HAS-POSSESSION) et {\color{blue}\texttt{future\_having-13.3}}
-        (FUTURE-POSESSION) est peut-être trop subtile et pourrait être ignorée.
+    \item La différence sémantique entre la classe
+        {\color{blue}\texttt{give-13.1}} (HAS-POSSESSION) et la classe
+        {\color{blue}\texttt{future\_having-13.3}} (FUTURE-POSESSION) est
+        peut-être trop subtile et pourrait être ignorée.
     \item La préposition \textit{with} dans la frame correspondant à \textit{Agent
         V Recipient \{with\} Theme} utilisée en
         {\color{blue}\texttt{fulfilling-13.4-1}} et
@@ -350,8 +347,8 @@ minimisé de deux manières :
         django-mptt\footnote{\url{https://github.com/django-mptt/django-mptt/}}
         : de nombreuses opérations telles que l'affichage d'une partie de la
         hiérarchie ne demandent qu'une requête SQL.
-    \item Le nombre de requêtes SQL réalisées par Django est minimisé à l'aide
-        de prefetch\_related
+    \item Le nombre de requêtes SQL réalisées par Django est aussi minimisé à
+        l'aide de prefetch\_related
         \footnote{\url{https://docs.djangoproject.com/en/stable/ref/models/querysets/#prefetch-related}}
         afin de récupérer toutes les données nécessaires en une seule requête
         et ainsi éviter le coût de plusieurs milliers de petites requêtes.
@@ -361,7 +358,7 @@ Le but de ces optimisations est que les opérations durent moins d'une seconde,
 de manière à ne pas interrompre la réflexion lexicographique
 \citep{nielsen1994response}. Pour la même raison, les erreurs sont évitées au
 maximum grâce aux tests unitaires : les erreurs lors de l'utilisation de
-l'application érodent la confiance des lexicographes en l'outil. Il ne
+l'application érodent la confiance des lexicographes en l'outil. Ils ne
 devraient pas avoir à se préoccuper de la possibilité de perdre leur travail.
 Enfin, toutes les modifications du schéma de la base de données mais aussi des
 données sont versionnées automatiquement, afin de rendre impossible toute perte
@@ -422,9 +419,9 @@ Dans le cas des tables du Lexique-Grammaire, les correspondances sont affinées
 table 38LD (N$_0$ V N$_1$ Prép N$_2$,
 Location-Destination)\footnote{\url{http://verbenet.pradet.me/verbes-html/V_38LD.lgt.html}},
 six colonnes encodent les prépositions possibles pour introduire N$_2$.  Ainsi,
-on sait que le verbe \emph{appuyer} peut s'utiliser avec \emph{sur} et
-\emph{contre} en raison des + présents aux colonnes \emph{Loc N2 =: sur N2
-destination} et \emph{Loc N2 =: contre N2 destination}.
+on sait que le verbe \textit{appuyer} peut s'utiliser avec \textit{sur} et
+\textit{contre} en raison des + présents aux colonnes \textit{Loc N2 =: sur N2
+destination} et \textit{Loc N2 =: contre N2 destination}.
 
 Il est donc possible dans l'interface de VerbNet d'imposer la valeur de
 certaines des colonnes de la classe, et ce pour filtrer les verbes ne
@@ -441,7 +438,7 @@ exemples.
         signifie qu'ils acceptent cette forme.
 \end{itemize}
 
-Toutes ces correspondances sont validées par le micro-compilateur :
+Toutes ces correspondances sont validées par un micro-compilateur :
 
 \begin{itemize}
     \item lors de l'analyse lexicale (par exemple, L3 [L2 n'est pas valable),
@@ -474,7 +471,7 @@ des correspondances, ce verbe est soit validé, soit invalidé, soit remis à
 l'état de simple proposition. Contrairement aux verbes proposés par
 correspondances, les verbes validés ou invalidés ne sont jamais supprimés, même
 lorsque que les correspondances changent. Par exemple, dans la classe
-\texttt{judgment-33}, le verbe \emph{blâmer} a été validé manuellement : il ne
+\texttt{judgment-33}, le verbe \textit{blâmer} a été validé manuellement : il ne
 peut plus être supprimé de la liste des verbes valides de la classe.
 
 \subsection{Vérifications automatiques de la cohérence}
@@ -487,10 +484,11 @@ Levin. En effet, bien qu'il soit naturel que le même lemme verbal soit présent
 à plusieurs endroit de \verbenet{} pour des raisons de polysémie, les classes
 de Levin regroupent des verbes sémantiquement proches : un verbe donné ne doit
 être que dans une seule classe. Par ailleurs, quand un verbe peut exister à
-différents endroits, c'est la classe la plus générale, souvent la première
-qu'il faut choisir. Les utilisateurs connectés voient donc un encadré au début
-de chaque classe de Levin leur indiquant quels verbes sont présents à plusieurs
-endroit : il devient alors facile de valider/dévalider les verbes concernés.
+différents endroits, c'est la classe la plus générale (souvent la première dans
+la hiérarchie) qu'il faut choisir. Les utilisateurs connectés voient donc un
+encadré au début de chaque classe de Levin leur indiquant quels verbes sont
+présents à plusieurs endroit : il devient alors facile de valider/dévalider les
+verbes concernés.
 
 Le second outil est l'index LADL (\url{http://verbenet.pradet.me/ladlindex/}).
 L'objectif est de s'assurer qu'aucune classe des tables du LADL

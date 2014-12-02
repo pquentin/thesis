@@ -119,7 +119,7 @@ en rôles sémantiques automatique du français en domaine spécifique. Cette t�
 consiste à la fois à désambiguïser le sens des verbes d'un texte et à annoter
 les syntagmes avec des rôles sémantiques tels qu'agent, patient, ou
 destination. Cette tâche aide de nombreuses applications dans les domaines où
-des corpus annotés existent, tels que le domaine financier. Nus considérons ici
+des corpus annotés existent, tels que le domaine financier. Nous considérons ici
 trois domaines disposant de corpus annotés en rôles sémantiques : le
 réchauffement climatique, Informatique/Internet, et le football. Nous montrons
 que nos traductions vers le français des ressources WordNet et VerbNet donnent
@@ -175,13 +175,12 @@ d'utiliser VerbNet dans ces domaines.
 \label{part:translation}
 
 
-% TODO justifier l'utilisation de ressources
 Nous avons choisi d'accorder dans ces travaux une part importante à
 l'utilisation de ressources lexicales. La première, WordNet, représente le sens
 des mots et les liens entre ces sens, alors que la seconde, VerbNet classifie
 les verbes selon leurs comportements syntaxiques. Cette partie présentes la
 traduction de ces deux ressources vers le français (produisant respectivement
-WoNeF et VerbeNet). Quant à elle, la partie \ref{part:srl} traite de
+WoNeF et \verbenet{}). Quant à elle, la partie \ref{part:srl} traite de
 l'utilisation de ces ressources pour l'annotation en rôles sémantiques.
 
 \include{wonef}
@@ -237,10 +236,8 @@ L'objectif est d'identifier la capacité de VerbNet à aider l'annotation en
 rôles sémantiques :
 \begin{itemize}
     \item dans un cadre général sur le corpus FrameNet (Chapitre~\ref{ch:srl}),
-    \item dans des domaines spécifiques (Chapitre~\ref{ch:domainsrl}),
-    \item dans des domaines spécifiques sur une autre langue, le français,
-(Chapitre~\ref{ch:domainsrl}) après avoir traduit VerbNet
-(Chapitre~\ref{ch:verbnet}).
+    \item dans des domaines spécifiques en anglais mais aussi en français grâce
+        à \verbenet{} (Chapitre~\ref{ch:domainsrl}),
 \end{itemize}
 
 \include{srl}
@@ -332,6 +329,7 @@ relations sont alors entre les têtes des syntagmes correspondants).
 
 
 \section{Sélecteurs employés pour produire WoNeF}
+\label{selecteurs_wonef}
 
 \subsection{Combinaisons de sélecteurs initiaux}
 

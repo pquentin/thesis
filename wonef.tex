@@ -114,8 +114,8 @@ et "e" prend en compte (\textit{order}/\textit{ordre}) et
 qu'à la fin des mots : \textit{-que} est transformé en \textit{-k} ou
 \textit{-c} (\textit{marque} devient \textit{mark}), \textit{-té} vers
 \textit{-ty} (\textit{extremité} devient \textit{extremity}), etc. Les
-faux-amis ne peuvent pas être détectés puis exclus compte par cette méthode qui
-est purement orthographique.
+faux-amis ne peuvent pas être détectés puis exclus par cette méthode qui est
+purement orthographique.
 
 \begin{table}[ht]
 \centering
@@ -224,10 +224,10 @@ Cette opération de nettoyage ne conserve que 18~\% des traductions (de 87~757
 paires (littéral, synset) à 15~625) mais la précision grimpe de 68,4~\% à
 93,3~\%. Cette ressource à haute précision peut être utilisée comme donnée
 d'entraînement. Un défaut classique des méthodes de vote est de ne choisir que
-des exemples faciles et peu intéressants, mais la ressource obtenue ici est
-équilibrée entre les synsets ne contenant que des mots monosémiques et d'autres
-synsets contenant des mots polysémiques et plus difficiles à désambiguïser
-(section \ref{subsec:allvsbcs}).
+des exemples faciles et peu intéressants, mais la ressource obtenue ici semble
+être équilibrée entre les synsets ne contenant que des mots monosémiques et
+d'autres synsets contenant des mots polysémiques et plus difficiles à
+désambiguïser (section \ref{subsec:allvsbcs}).
 
 \subsection{Extension aux verbes, adjectifs et adverbes}
 \label{sec:extending_jaws}
@@ -265,6 +265,9 @@ autres parties du discours. Les adverbes obtenus avec notre approche sont de
 bonne qualité tout en étant complémentaires avec WOLF : 87~\% des adverbes
 proposés ne sont pas dans WOLF. Une fusion entre WoNeF et WOLF aurait trois
 fois plus d'adverbes que WOLF seul.
+
+La section~\ref{selecteurs_wonef} décrit en annexe l'ensemble des sélecteurs
+utilisés dans WoNeF.
 
 \section{WoNeF: un JAWS évalué}
 \label{sec:evaluating_jaws}
@@ -310,7 +313,7 @@ polysémiques (définis à la section~\ref{subsec:allvsbcs}), ce qui confirme qu
 cela ne se produit que pour les sens rares. Pourtant, WoNeF pourrait être
 amélioré en utilisant des dictionnaires spécifiques pour, par exemple, les
 espèces (comme dans \cite{sagot2008construction}), les termes médicaux, les
-entités nommées (en utilisant Wikipedia) et ainsi de suite. Un autre exemple
+entités nommées (en utilisant Wikipédia) et ainsi de suite. Un autre exemple
 est celui des adjectifs de jugement : il n'y a pas de bonne traduction de
 \textit{weird} en français. Même si la plupart des dictionnaires fournissent
 \textit{bizarre} comme traduction, on ne retrouve pas dans \textit{bizarre}
@@ -344,10 +347,13 @@ cas de désaccord, l'annotation de référence a été formée.
   Candidats par synset  & 6.22    & 14.50   & 7.27      & 5.17 \\
   \bottomrule
 \end{tabular}
-\caption{\label{table:kappa}Accord inter-annotateurs sur l'annotation de référence}
+\caption{\label{table:kappa}Accord inter-annotateurs sur l'annotation de
+    référence. Pour les adverbes, nous avons tiré 300 synsets
+\textit{non-vides}, ce qui explique pourquoi c'est la seule partie du discours
+avec 3000 synsets non-vides.}
 \end{table}
 
-La table~\ref{table:kappa} montre l'accord inter-annotateur évalué par le kappa
+La Table~\ref{table:kappa} montre l'accord inter-annotateur évalué par le kappa
 de Fleiss pour les trois parties du discours annotées. Même s'il s'agit d'une
 métrique discutée \citep{powers2012problem}, toutes les tables d'évaluation
 existantes considèrent ces scores comme étant suffisamment élevés pour décrire
@@ -401,7 +407,7 @@ grand et plus représentatif.
 \caption{\label{table:heuristics}Sélecteurs initiaux sur l'ensemble des traductions (noms, verbes et adjectifs). La couverture C est le nombre total de paires (littéral, synset).}
 \end{table}
 
-La table~\ref{table:heuristics} montre les résultats de cette opération. La
+La Table~\ref{table:heuristics} montre les résultats de cette opération. La
 couverture donne une idée de la taille des ressources. En fonction des
 objectifs de chaque ressource, les sélecteurs initiaux choisis seront
 différents. Différents sélecteurs peuvent choisir plusieurs fois une même
@@ -430,7 +436,7 @@ de Levenshtein avec une précision de l'ordre de 25~\%~: les faux amis semblent
 
 Nous nous intéressons maintenant aux résultats globaux
 (Table~\ref{table:allvsbcs}). Ils comprennent l'application des sélecteurs
-initiaux et des sélecteurs syntaxiques. Le mode de haute précision applique
+initiaux et des sélecteurs syntaxiques. Le mode haute précision applique
 également un vote (section \ref{subsec:voting}). Comme pour la table
 précédente, la couverture C indique le nombre de paires (littéral, synset).
 
@@ -495,7 +501,7 @@ ont étés appliqués.}
 
 \end{table}
 
-La table~\ref{table:posfull} montre les résultats détaillés pour chaque partie
+La Table~\ref{table:posfull} montre les résultats détaillés pour chaque partie
 du discours. Concernant les noms, le mode de haute précision utilise deux
 sélecteurs, tous deux fondés sur la relation syntaxique de complément du nom :
 le sélecteur par méronymie décrit à la section
@@ -524,7 +530,7 @@ sur les noms, elle a les performances d'un classifieur aléatoire pour les
 verbes. Cela met en évidence la complexité de la polysémie des verbes.
 
 % Les résultats pour les adjectifs sont présentés dans la
-% table~\ref{table:adjfull}. 
+% Table~\ref{table:adjfull}. 
 Pour les adjectifs, comme pour les verbes, seul le sélecteur de synonymie a été
 appliqué. Pour les ressources à haut F-score et haute couverture, ce sont les
 mêmes sélecteurs (initiaux et syntaxiques) qui sont appliqués, ce qui explique
@@ -589,7 +595,7 @@ de WoNeF de 83~\%.
 WOLF et WoNeF ne sont pas en compétition. En réalité, les travaux sur WoNeF et
 WOLF ont commencé indépendamment sans que les auteurs ne soient au courant des
 travaux de l'autre équipe. Certes, les deux ressources semblent complémentaires
-(section~\ref{subsec:vswolf}), mais pourquoi est-ce que les deux versions
+(section~\ref{subsec:vswolf}), mais pourquoi est-ce que les deux traductions 
 existent toujours en 2014 alors que les premières publications datent de 2008
 et 2009 ?  Une fusion a en réalité été envisagée en 2014, mais elle n'a pas
 aboutie : les auteurs de WoNeF et WOLF n'ont pas encore une vision commune
@@ -602,7 +608,7 @@ pour l'adverbe \textit{unkindly\#1} qui est traduit dans nos dictionnaires par
 \textit{sans aménité}. Ceci pose un problème parce que \textit{sans aménité}
 n'est pas une unité lexicale qu'on s'attend à trouver dans un dictionnaire
 monolingue étant donné que le sens est déductible par compositionnalité. Ce
-problème est accru en anglais, où de nombreux mots sont formés par
+problème est accru en traduisant l'anglais, où de nombreux mots sont formés par
 concaténation. Ceci dit, étant donné qu'il n'y a pas d'espace entre \textit{un}
 et \textit{kindly} dans \textit{unkindly}, il semble logique de l'inclure dans
 WordNet, même si on peut aussi déduire son sens par compositionnalité.
@@ -637,7 +643,7 @@ spécifique. Cette annotation de référence peut également être utilisée pou
 évaluer et développer d'autres traductions françaises de WordNet. WoNeF est
 disponible librement au format XML
 DEBVisDic\footnote{\url{http://nlp.fi.muni.cz/trac/deb2/wiki/WordNetFormat}}
-sur \url{http://wonef.fr/} sous la licence CC-BY-SA.
+sur \url{http://wonef.fr/data/} sous la licence CC-BY-SA.
 
 Les travaux futurs sur WoNeF mettront l'accent sur les verbes, les adjectifs et
 les adverbes, pour lesquels de nouveaux sélecteurs efficaces peuvent être

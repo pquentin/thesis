@@ -32,7 +32,7 @@ utilise le lexique VerbNet.
 Ce chapitre se concentre sur notre système d'annotation en rôles sémantiques
 dans un cadre général en l'utilisant sur le corpus FrameNet anglais (qui a été
 présenté à la section~\ref{presentation_framenet}). Le
-chapitre~\ref{ch:domainsrl} montrera la versatilité de ce système dans des
+Chapitre~\ref{ch:domainsrl} montrera la versatilité de ce système dans des
 contextes différents :
 \begin{itemize}
     \item en domaine spécifique avec les domaines du football, du
@@ -42,7 +42,7 @@ réchauffement climatique et de l'informatique,
 
 Le travail présenté dans ce chapitre a été réalisé en collaboration avec
 Guilhem Pujol durant son stage d'ingénieur. Ce chapitre est une réécriture
-complète de travaux déjà publiés \citep{pradet2013revisiting}.
+complète de travaux pour la plupart déjà publiés \citep{pradet2013revisiting}.
 
 \section{Tâche}
 
@@ -54,10 +54,10 @@ projet SemLink \citep{bonial2012empirically} qui propose un mapping de rôles
 sémantiques entre les frames FrameNet et les classes VerbNet ce qui permet
 d'évaluer l'annotation en rôles sémantiques VerbNet sur FrameNet.
 
-La figure~\ref{fig:srlrussia} est un exemple d'annotation en rôles sémantiques
+La Figure~\ref{fig:srlrussia} est un exemple d'annotation en rôles sémantiques
 avec des frames et des rôles FrameNet. Nous utiliserons notamment cette phrase
 d'exemple par la suite pour illustrer notre propos. Pour une phrase donnée, les
-prédicats verbaux (\emph{trigger} ou déclencheur dans la terminologie FrameNet)
+prédicats verbaux (\textit{trigger} ou déclencheur dans la terminologie FrameNet)
 et la frame qu'ils évoquent sont identifiés. Dans chaque phrase, des syntagmes
 vont remplir un des rôles prévus par la frame dans FrameNet. Ces syntagmes sont
 nommés «~remplisseurs de rôle~» (\textit{role filler} en anglais). L'analyse
@@ -93,14 +93,14 @@ section~\ref{vocverbnetframenet}).}
 \end{figure}
 
 Toute interprétation supplémentaire non présente dans la
-figure~\ref{fig:srlrussia} est en dehors du cadre de l'annotation en rôles
+Figure~\ref{fig:srlrussia} est en dehors du cadre de l'annotation en rôles
 sémantiques, ce qui est la raison pour laquelle la tâche est aussi connue sous
 le nom d'analyse sémantique de surface (\textit{shallow semantic parsing}). Il
 est néanmoins important de garder à l'esprit les applications possibles de tels
 travaux. Par exemple, un système de question-réponse pourrait utiliser la
 représentation de ces deux \textit{frames} pour répondre à la question
 \textit{Does Russia possess tactical nuclear weapons?} L'annotation de la
-figure~\ref{fig:srlrussia} est une information utile, mais elle ne serait pas
+Figure~\ref{fig:srlrussia} est une information utile, mais elle ne serait pas
 suffisante pour répondre à la question : il faut aussi comprendre la question,
 annoter les coréférences (\textit{it} fait référence à \textit{Russia}),
 comprendre la sémantique de \textit{Removing}, établir la crédibilité du
@@ -109,8 +109,8 @@ contradictoires, etc.
 
 \section{Système}
 
-Le système que nous présentons est une implémentation améliorée et libre de
-celui décrit par \cite{swier2004unsupervised,swier2005exploiting}. Les
+Le système que nous présentons est une implémentation améliorée et libre du
+système décrit par \cite{swier2004unsupervised,swier2005exploiting}. Les
 ressources utilisées ont beaucoup progressé (VerbNet 1.5 contre VerbNet 3.2
 notamment). Les corpus sur lesquels s'évaluer ont aussi évolué. En particulier,
 les systèmes basés sur FrameNet n'utilisent plus le corpus de phrases
@@ -126,7 +126,7 @@ Pour commencer, chaque phrase à annoter doit d'abord être étiquetée en
 morphosyntaxe et analysée syntaxiquement. Nous laissons ici ces analyses à des
 systèmes externes présentés à la section~\ref{subsec:details_exp}. Ces analyses
 sont l'entrée de notre système, la sortie étant l'annotation en rôles
-sémantiques montrée dans la figure~\ref{fig:srlrussia}.
+sémantiques montrée dans la Figure~\ref{fig:srlrussia}.
 
 Ensuite, nous utilisons les informations de VerbNet (présenté à la
 section~\ref{presentation_verbnet}) sur l'interface entre la syntaxe et la
@@ -164,7 +164,7 @@ alors le sujet du verbe est l'Agent et l'objet est le Theme, ce que des
 applications pourront interpréter dans le contexte de la classe VerbNet
 \texttt{reflexive\_appearance-48.1.1}.
 
-La phrase d'exemple de la figure~\ref{fig:srlrussia} ne correspond pas à NP V
+La phrase d'exemple de la Figure~\ref{fig:srlrussia} ne correspond pas à NP V
 NP mais à NP V that S (\textit{that S} étant la notation VerbNet pour les
 complétives introduites par \textit{that}). La seule occurrence de cette frame
 VerbNet est dans \texttt{say-37.7-1} : NP.Agent V that S.Topic (\textit{He
@@ -210,10 +210,11 @@ ici de retenir tous les verbes présents dans VerbNet. Les autres prédicats
 potentiels, c'est-à-dire ceux qui ne sont pas dans VerbNet et ne sont pas des
 verbes, sont ignorés. Les parties du discours acceptées sont toutes celles
 concernant des verbes simples : MD, VB, VBD, VBG, VBN, VBP,
-VBZ\footnote{FrameNet semble utiliser le tagset du TreeTagger.}. Les autres
-formes ou le verbe est composé de plusieurs mots (par exemple \textit{He has
-    (VHZ) suffered (VVN) from loneliness}) ne sont pas actuellement prises en
-    compte.
+VBZ\footnote{FrameNet annonce utiliser simplement les parties du discours des
+    ressources utilisées \citep[section~3.1]{ruppenhofer2006extended}, mais
+    cela semble correspondre au tagset du TreeTagger.}. Les autres formes ou le
+    verbe est composé de plusieurs mots (par exemple \textit{He has (VHZ)
+    suffered (VVN) from loneliness}) ne sont pas actuellement prises en compte.
 
 \subsection{Identification des arguments}
 \label{argid}
@@ -254,8 +255,7 @@ heuristiques.
 Nous évaluons notre système de deux manières :
 \begin{itemize}
     \item avec les arguments identifiés automatiquement (section~\ref{argid}),
-    \item et avec les arguments issus de la vérité-terrain (parfois appelés
-        arguments gold)
+    \item et avec les arguments issus de la vérité-terrain.
 \end{itemize}
 
 En effet, l'objectif est d'évaluer l'apport de VerbNet à la tâche de
@@ -354,7 +354,7 @@ interprétable dans une application.
 
 Dans les cas où différentes frames VerbNet sont possibles, le calcul de scores
 de correspondances présentés par \cite{swier2004unsupervised} peut aider à
-désambiguïser, notamment en éliminant les \emph{frames} comportant trop
+désambiguïser, notamment en éliminant les \textit{frames} comportant trop
 d'arguments. Cela dit, de nombreux arguments restent ambigus : la suite de la
 désambiguïsation est l'objet des sections~\ref{subsec:probability} et
 ~\ref{restrictions_selection}.
@@ -417,7 +417,7 @@ Une procédure de \textit{bootstrap} reposant sur les mêmes principes a aussi
 
 Un autre classifieur est utilisé pour déterminer la classe VerbNet en fonction
 du prédicat.  Cette tâche a été déjà étudiée indépendemment
-\citet{abend2008supervised,brown2011verbnet,kawahara2014single}. En effet, les
+\citep{abend2008supervised,brown2011verbnet,kawahara2014single}. En effet, les
 distinctions de sens proposées par VerbNet sont prometteuses car elles ne sont
 pas aussi fines que celles de WordNet, ce qui a posé beaucoup de difficultés en
 désambiguïsation lexicale \citep[section 10.1]{navigli2009word}, notamment
@@ -509,7 +509,7 @@ utilité en annotation en rôles sémantiques supervisée. Citons :
 \begin{itemize}
     \item la présence de relations WordNet entre mots des prédicats pour
         l'identification des prédicats \citep{das2010probabilistic},
-    \item et l'apport de la représentation de mots (\emph{word embeddings})
+    \item et l'apport de la représentation de mots (\textit{word embeddings})
         pour une meilleure généralisation \citep{lechelle2014utilisation}.
 \end{itemize}
 
@@ -525,10 +525,9 @@ pour que le rôle correct soit présent dans la liste est supérieure à 90~\% p
 des arguments de la vérité-terrain. Nous posons alors la question suivante : comment tirer
 profit de cette courte liste de rôles possibles à l'aide de la sémantique ?
 
-La piste que nous explorons dans cette section est l'utilisation des
-restrictions de sélections présentes dans VerbNet. Ces restrictions sont
-relativement grossières et mal documentées mais sont une première piste
-explorées dans la section~\ref{restrictions_selection}.
+Nous utilisons les restrictions de sélections présentes dans VerbNet. Ces
+restrictions sont relativement grossières et mal documentées mais sont une
+première piste explorées dans la section~\ref{restrictions_selection}.
 
 Nous avons fait correspondre les restrictions de sélection VerbNet à des
 synsets WordNet qui sont souvent en haut de la hiérarchie à la façon de
@@ -567,7 +566,7 @@ synsets WordNet qui sont souvent en haut de la hiérarchie à la façon de
 \caption{\label{table:mapping_verbnetrestr_wordnet}Correspondances entre
 restrictions de sélection et synsets WordNet. Toutes les restrictions de
 sélection ne correspondent pas à des synsets, c'est le cas par exemple de
-\emph{elongated} ou \emph{nonrigid} qui sont des propriétés qu'on ne peut pas
+\textit{elongated} ou \textit{nonrigid} qui sont des propriétés qu'on ne peut pas
 vérifier directement avec WordNet. La plupart des restrictions sont cependant
 couvertes.}
 \end{table}
@@ -624,7 +623,7 @@ deux ressources sont associés.
     \caption{\label{fig:mapping}Example de mapping VerbNet-FrameNet}
 \end{figure}
 
-Le résultat (figure~\ref{fig:mapping}) est un mapping n-n : une frame FrameNet
+Le résultat (Figure~\ref{fig:mapping}) est un mapping n-n : une frame FrameNet
 peut correspondre à plusieurs classes VerbNet, et vice versa. C'est un problème
 de granularité du à la construction différente des deux ressources
 \citep{palmer2009semlink}. Cela implique qu'il est difficile d'utiliser un tel
@@ -750,12 +749,14 @@ notre système.
 \subsection{Analyse des résultats}
 \label{resultats_srl}
 
-\begin{table*}[ht]
+\begin{table}
     \centering
-    \begin{tabular}{lcccc}
+    \begin{tabular}{lcc}
         \toprule
-        Task                                                       & F1 (\%) & Exactitude (\%)\\
+        Tâche & F1 (\%) & Exactitude (\%) \\
         \midrule                                                   
+        Arguments de la vérité-terrains & & \\
+        \midrule 
         Correspondance exacte                                      & 71.11  & 54.66 \\
         Correspondance exacte + passif                             & 73.52  & 57.20 \\
         Correspondance exacte + restrictions                       & 75.80  & 68.31 \\
@@ -763,13 +764,15 @@ notre système.
         Correspondance exacte + probabiliste                       & 71.84  & 58.57 \\
         Correspondance exacte + bootstrap                          & 73.63  & 69.41 \\
         Correspondance exacte + bootstrap + passif + restrictions  & 79.41  & 75.24 \\
+        \midrule                                                   
+        Arguments identifiés automatiquements & & \\
         \midrule
-        Identification + Correspondance exacte                          & 42.92  & 29.95 \\
-        Identification + Correspondance exacte + passif                 & 44.28  & 30.98 \\
-        Identification + Correspondance exacte + restrictions           & 43.81  & 35.71 \\
-        Identification + Correspondance exacte + restrictions + passif  & 45.13  & 36.95 \\
-        Identification + Correspondance exacte + probabiliste           & 43.25  & 31.52 \\
-        Identification + Correspondance exacte + bootstrap + passif + restrictions   & 46.00 & 39.29 \\
+        Correspondance exacte                          & 42.92  & 29.95 \\
+        Correspondance exacte + passif                 & 44.28  & 30.98 \\
+        Correspondance exacte + restrictions           & 43.81  & 35.71 \\
+        Correspondance exacte + restrictions + passif  & 45.13  & 36.95 \\
+        Correspondance exacte + probabiliste           & 43.25  & 31.52 \\
+        Correspondance exacte + bootstrap + passif + restrictions   & 46.00 & 39.29 \\
         \bottomrule
     \end{tabular}
 
@@ -784,10 +787,9 @@ notre système.
         sélection avec WordNet (section~\ref{restrictions_selection}).
         \textit{Identification} est l'identification des arguments
     (section~\ref{argid}).}
+\end{table}
 
-\end{table*}
-
-La table~\ref{table:results} montre les résultats des deux tâches sur
+La Table~\ref{table:results} montre les résultats des deux tâches sur
 lesquelles nous nous évaluons : la correspondance exacte seule d'une part et la
 correspondance exacte accompagnée de l'identification des arguments en amont
 d'autre part. La correspondance exacte seule utilise les arguments de la
@@ -876,7 +878,7 @@ concentrons sur les verbes.
 Nous ne considérons par la suite uniquement les résultats de SEMAFOR avec
 déclencheurs issus de la vérité-terrain : en effet, cette sous-tâche n'est pas
 pertinente pour une annotation VerbNet ou PropBank
-\citep[section~4]{das2014parsnig}, et ce n'est de toute façon que sur les
+\citep[section~4]{das2014frame}, et ce n'est de toute façon que sur les
 prédicats de la vérité-terrain que nous nous évaluons.
 
 Il est intéressant de noter l'importance des données d'entraînement pour

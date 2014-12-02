@@ -6,9 +6,9 @@
 
 \subsection{Historique}
 
-En Intelligence Artificielle et Traitement Automatique des Langues, les années
-50 et 60 étaient pleines d'optimisme. D'après \citep{russell2010artificial},
-Simon Herbert annonçait en 1957 :
+En Intelligence Artificielle et en Traitement Automatique des Langues, les
+années 50 et 60 étaient pleines d'optimisme. D'après
+\citep{russell2010artificial}, Simon Herbert annonçait en 1957 :
 
 \begin{quote}
     Mon intention n'est pas de vous surprendre ou de vous choquer, mais la
@@ -35,8 +35,8 @@ industrie et une science, grâce à :
     \item des techniques comme les systèmes experts, les réseaux de neurones et
         diverses approches d'apprentissage automatique,
     \item de gros volumes de données disponibles depuis le début des années
-        2002,
-    \item et à diverses applications tel que le filtrage des spams, la
+        2000,
+    \item et à diverses applications tel que la planification logistique, la
         reconnaissance de la parole ou encore la robotique.
 \end{itemize}
 
@@ -70,9 +70,9 @@ vers de nouvelles tâches plus sémantiques. C'est pour cette raison qu'à la
 manière des corpus annotés en parties du discours ou en syntaxe qui ont tant
 fait progresser leurs domaines respectifs, des corpus «~sémantiques~» ont vu le
 jour dans le passé tels que FrameNet, PropBank ou RSTBank, mais d'autres, plus
-ambitieux, voient aussi le jour aujourd'hui
-\citep{bos2012annotating,banarescu2013abstract}
-(section~\ref{ressources_non_utilisees}) dans le but affiché de «~faire
+ambitieux, voient aussi le jour aujourd'hui, tels que GMB
+\citep{bos2012annotating} ou l'AMR Bank \citep{banarescu2013abstract}
+(section~\ref{ressources_non_utilisees}). L'objectif affiché de «~faire
 progresser la sémantique comme la syntaxe a progressé dans les années 1990~».
 
 \subsection{Au-delà de l'analyse syntaxique}
@@ -123,7 +123,7 @@ syntaxe ne suffit alors pas à désambiguïser entre le sens informatique de
 (exclure un individu de quelque part). Ici, des informations sémantiques
 peuvent nous aider. Dans le cas informatique, l'objet n'est pas animé, alors
 que dans le second il l'est. Si on sait que \textit{the machine} n'est pas
-animé. Il devient alors possible :
+animé, il devient alors possible :
 
 \begin{enumerate}
     \item d'exclure le sens géographique du verbe,
@@ -154,7 +154,7 @@ FrameNet (section~\ref{presentation_framenet}), une annotation en rôles
 sémantiques du prédicat \textit{essayer} déterminera que cette utilisation du
 verbe correspond à une situation de Tentative, puis identifiera parmi les
 syntagmes liés aux verbes quel est l'Agent, l'Activité tentée, et le Résultat.
-Ainsi, le résultat de l'annotation serait :
+La Figure~\ref{fig:introsrl} montre le résultat de l'annotation.
 
 \begin{figure}[ht]
     \centering
@@ -175,7 +175,7 @@ sémantiques :
 
 \begin{itemize}
     \item Le prédicat ayant déclenché la situation est identifié. Dans la
-        figure~\ref{fig:introsrl}, c'est un verbe. D'autres parties du discours
+        Figure~\ref{fig:introsrl}, c'est un verbe. D'autres parties du discours
         peuvent déclencher une frame, mais nous nous concentrons dans ce
         travail essentiellement sur les verbes.
     \item La frame est identifiée, ici \textit{Tentative}.
@@ -246,13 +246,14 @@ années 1970 que nous présenterons à la section~\ref{sec:lvflg}, des progrès
 récents laissent entrevoir un futur brillant. Le projet ANR ASFALDA
 \citep{candito2014developing} produit un FrameNet annoté du français de grande
 qualité mais avec une couverture encore limitée, et WOLF
-\citep{sagot2008building} est une traduction automatique de WordNet
-\citep{fellbaum1998wordnet} qui a progressé à la fois en précision et en
-couverture au fil des ans. Pour rester dans un cadre ouvert, le système
-présenté doit pouvoir se contenter de transpositions automatiques de ces
-ressources vers le français.\footnote{L'exception ici est VerbNet, ressource
-traduite «~semi-manuellement~» vers le français (Chapitre~\ref{ch:verbnet})
-mais qui n'est encore ni finalisée ni homogénéisée.}. Avec cette approche de
+\citep{sagot2008building} et WoNeF (Chapitre~\ref{ch:wonef})  sont des
+traductions automatiques de WordNet \citep{fellbaum1998wordnet} qui ont
+progressé à la fois en précision et en couverture au fil des ans. Pour rester
+dans un cadre ouvert, le système présenté doit pouvoir se contenter de telles
+transpositions automatiques de ressources anglaises vers le
+français.\footnote{L'exception ici est VerbNet, ressource traduite
+«~semi-manuellement~» vers le français (Chapitre~\ref{ch:verbnet}) mais qui
+n'est encore ni finalisée ni homogénéisée.}. Avec cette approche de
 mutualisation des ressources au niveau de la langue, chaque nouvelle
 utilisation d'une de nos ressources est l'occasion de l'améliorer à la fois
 pour utilisation immédiate mais aussi pour les utilisations futures.
@@ -383,7 +384,7 @@ adjectifs et adverbes. Les nœuds du graphe sont des ensembles de synonymes
 (\textit{synonym sets} ou \textit{synsets}). Un synset regroupe plusieurs mots, une
 définition, et potentiellement des exemples.
 
-\begin{figure}[t]
+\begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{fig/wordnet_hypernymy.png}
     \caption{\label{fig:wordnet_hypernymy}Hypéronymie dans WordNet autour du
@@ -550,8 +551,7 @@ basée sur la logique des prédicats explicitant la relation entre les
 participants et les évènements. La figure \ref{fig:exemple_verbnet} montre ces
 différentes informations telles qu'elles sont listées sur le site web de
 VerbNet pour la classe \texttt{pour-9.5} (disponible sur
-\url{http://verbs.colorado.edu/verb-index/index.php}.
-
+\url{http://verbs.colorado.edu/verb-index/index.php}).
 
 VerbNet a montré la cohérence de sa classification et est très utilisé,
 notamment pour l'annotation en rôles sémantiques
@@ -583,7 +583,7 @@ produit un FrameNet du français.
 
 FrameNet et VerbNet utilisent un vocabulaire différent, ce qui pose des
 problèmes d'ambiguïté : une frame FrameNet n'a aucun lien avec une frame
-VerbNet. La table~\ref{fnvsvn} liste les différences.
+VerbNet. La Table~\ref{fnvsvn} liste les différences.
 
 \begin{table}[ht]
     \centering
@@ -597,16 +597,16 @@ VerbNet. La table~\ref{fnvsvn} liste les différences.
         Membre, verbe (buy) & Unité lexicale (buy, purchase) \\
         \bottomrule
     \end{tabular}
-    \caption{\label{fnvsvn}Comparaison des terminologies FrameNet et VerbNet}
+    \caption{\label{fnvsvn}Comparaison des terminologies FrameNet et VerbNet.
+    Les exemples pour chaque concept se trouvent entre parenthèses.}
 \end{table}
 
 Nous ne traduisons pas le terme \textit{frame}, \textit{cadre} étant
-suffisamment ambigu en français. En dehors de tout contexte, nous utilisons
-généralement la terminologie VerbNet. Les ambiguïtés sont résolues en précisant
-la ressource considérée quand c'est nécessaire, par exemple \textit{la frame
-FrameNet}.
+suffisamment ambigu. En dehors de tout contexte, nous utilisons généralement la
+terminologie VerbNet. Les ambiguïtés sont résolues en précisant la ressource
+considérée quand c'est nécessaire, par exemple \textit{la frame FrameNet}.
 
-\subsection{Les Verbes Français et Lexique-Grammaire}
+\subsection{Les Verbes Français et le Lexique-Grammaire}
 \label{sec:lvflg}
 
 À partir des années 1970 deux ressources lexicales pour les verbes français ont
@@ -628,35 +628,36 @@ entrées classées en quatre niveaux :
 \end{itemize}
 
 Chaque sous-type contient une liste de verbes à laquelle est associée diverses
-informations. Nous prendrons l'exemple de \emph{aboyer 2}, le sens figuré
-d'aboyer (\emph{Luc aboie des ordres}). Les informations associées sont :
+informations. Nous prendrons l'exemple de \textit{aboyer 2}, le sens figuré
+d'aboyer (\textit{Luc aboie des ordres}). Les informations associées sont :
 
 \begin{itemize}
     \item le numéro de sens du verbe (aboyer 2)
-    \item un opérateur (f.cri chien pour faire le cri du chien),
+    \item un opérateur (\textit{f.cri chien} pour faire le cri du chien),
     \item les constructions possibles (notamment T1300 pour transitif direct,
         humain, chose),
     \item un sens à l'aide de synonymes (hurler, crier après),
-    \item des exemples (\emph{On a~ contre les voisins. On a~ des injures}),
+    \item des exemples (\textit{On a\~~contre les voisins. On a\~~des injures}),
     \item et les dérivations possibles (en général -ment ou -ant).
 \end{itemize}
 
 Les tables du Lexique-Grammaire \citep{gross1975methodes,boons1976structure}
-sont l'autre ressource que nous utilisons, en abrégeant souvent par LG. La
-ressource comporte 14 000 entrées classifiées en 67 «~tables~», chaque table
-groupant des verbes partageant la même propriété définitoire syntaxique et
-potentiellement une sémantique similaire. Chaque colonne de la table encode des
-restrictions supplémentaires s'appliquant à certains des verbes de la table.
+sont l'autre ressource que nous utilisons, en abrégeant souvent par son nom par
+LG. La ressource comporte 14 000 entrées classifiées en 67 «~tables~», chaque
+table groupant des verbes partageant la même propriété définitoire syntaxique
+et potentiellement une sémantique similaire. Chaque colonne de la table encode
+des restrictions supplémentaires s'appliquant à certains des verbes de la
+table.
 
 Par exemple, la table
 6\footnote{\url{http://verbenet.pradet.me/verbes-html/V_6.lgt.html}}, définie
 par N$_0$ V Qu P, contient des verbes d'attitude propositionnelle tels que
 penser ou estimer. Différentes propriétés s'appliquent ou non aux verbes de la
 table. Par exemple, pour la colonne N$_0$ V contre Nhum, argumenter a un +
-(\emph{Léa a argumenté contre Jean}), mais \emph{abroger} a un - (*\emph{Léa a
-abrogé contre Jean}). Ces colonnes peuvent être un moyen d'identifier des
-sous-classes de verbes partageant tous la même propriété représentée par une ou
-plusieurs colonnes.
+(\textit{Léa a argumenté contre Jean} est correct), mais \textit{abroger} a un
+- (*\textit{Léa a abrogé contre Jean} est incorrect). Ces colonnes peuvent être
+un moyen d'identifier des sous-classes de verbes partageant tous la même
+propriété représentée par une ou plusieurs colonnes.
 
 Pourquoi ne pas utiliser ces ressources riches directement dans nos travaux ?
 Pour plusieurs raisons :
