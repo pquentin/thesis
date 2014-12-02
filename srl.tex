@@ -212,7 +212,7 @@ verbes, sont ignorés. Les parties du discours acceptées sont toutes celles
 concernant des verbes simples : MD, VB, VBD, VBG, VBN, VBP,
 VBZ\footnote{FrameNet annonce utiliser simplement les parties du discours des
     ressources utilisées \citep[section~3.1]{ruppenhofer2006extended}, mais
-    cela semble correspondre au tagset du TreeTagger.}. Les autres formes ou le
+    cela semble correspondre au tagset du TreeTagger.}. Les autres formes où le
     verbe est composé de plusieurs mots (par exemple \textit{He has (VHZ)
     suffered (VVN) from loneliness}) ne sont pas actuellement prises en compte.
 
@@ -224,7 +224,7 @@ l'annotation. C'est un problème difficile ; la première raison est que seuls
 78~\% des arguments du corpus FrameNet sont effectivement des sous-arbres issus
 de l'analyse syntaxique. Nous suivons ici \cite{lang2011unsupervised} qui
 propose huit règles\footnote{La septième règle n'est pas utilisée étant donné
-    que nous ne prenons pas en compte les prédicats verbaux consistant de
+    que nous ne prenons pas en compte les prédicats verbaux consistués de
 plusieurs mots.} basées sur l'analyse syntaxique de la phrase. Initialement,
 tous les mots sont candidats. Puis chacune de ces règles sélectionne ou écarte
 des mots candidats. Dans la représentation en dépendances, si le mot
@@ -875,7 +875,7 @@ concentrons sur les verbes.
     \end{itemize}
 \end{itemize}
 
-Nous ne considérons par la suite uniquement les résultats de SEMAFOR avec
+Nous considérons par la suite uniquement les résultats de SEMAFOR avec
 déclencheurs issus de la vérité-terrain : en effet, cette sous-tâche n'est pas
 pertinente pour une annotation VerbNet ou PropBank
 \citep[section~4]{das2014frame}, et ce n'est de toute façon que sur les
@@ -896,7 +896,7 @@ sont pas disponibles.
 Le problème principal est la faible performance de l'identification des
 arguments : ce n'était pas là-dessus que nous voulions porter nos efforts, mais
 il devient clair que c'est un problème conséquent (section~\ref{resultats_srl})
-qui est la priorité pour nos travau futurs.
+qui est la priorité pour nos travaux futurs.
 
 Nous pensons aussi prendre en compte la similarité entre les remplisseurs déjà
 identifiés et les remplisseurs pour lesquels plusieurs rôles sont possibles
