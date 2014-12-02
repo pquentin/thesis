@@ -183,13 +183,51 @@ ces verbes sont valides pour cette classe.
 Cette classe n'ayant pas de sous-classe et la seule frame ayant du sens en
 français, il n'y a pas eu de travail de réorganisation des frames.
 
-Enfin, la troisième étape de validation des verbes a consisté à .
+Enfin, la troisième étape de validation des verbes a consisté à valider les
+verbes corrects présents uniquement dans les tables du Lexique-Grammaire ou Les
+Verbes Français.
 
-(TODO, en attente de la réponse de Laurence)
+\subsection{Des classes réorganisées : \texttt{run-51.3.2},
+\texttt{vehicle-51.4.1}, \texttt{nonvehicle-51.4.2}, \texttt{waltz-51.5}}
 
-\subsection{Une classe réorgnisée : TODO}
+Les verbes de la classe 51 sont les verbes de \textit{Manner of motion} qui
+décrivent la façon dont un mouvement a été effectué :
+\begin{itemize}
+    \item \texttt{run-51.3.2} décrit les façons dont les objets animés se
+        déplacent, avec des propriétés telles que la \textit{Induced Action
+        Alternation} partagée par quelques verbes :
+        \begin{itemize}
+            \item The horse jumped over the fence.
+            \item Tom jumped the horse over the fence.
+        \end{itemize}
+    \item Les autres classes que nous considérons ici sont définies sur des
+        critères morphologiques.
+        \begin{itemize}
+            \item \texttt{vehicle-51.4.1} contient des verbes qui sont des
+                dénominaux de moyens de déplacements tels que \textit{skate},
+                \textit{parachute} ou \textit{taxi}.
+            \item \texttt{nonvehicle-51.4.2} contient des verbes qui ne sont
+                pas des dénominaux mais qui décrivent aussi un déplacement avec
+                un type de véhicule particulier, par exemple \textit{row},
+                \textit{paddle} ou \textit{fly}.
+            \item Enfin, \texttt{waltz-51.5} regroupe des verbes issus de noms
+                décrivant des danses (\textit{waltz}, \textit{samba} ou encore
+                \textit{jive}).
+        \end{itemize}
+\end{itemize}
 
-(TODO, en attente de la réponse de Laurence)
+Ces autres classes étant définies sur des critères morphologiques en français,
+tous leurs verbes sont envoyés vers la classe \texttt{run-51.3.2}, ce qui
+amène de nouvelles traductions qui ont été validées ou non lors de la troisième
+étape.
+
+Enfin, d'autres classes doivent être réorganisées complètement : c'est le cas
+par exemple des super-classes 13 ou 22. Nous ne décrivons pas en détail le
+processus : il s'agit d'identifier les constructions communes à certains
+verbes pour proposer des découpages cohérents.
+
+La section suivante propose des principes généraux adoptés lors de la
+réalisation de la deuxième étape.
 
 \section{Principes adoptés pendant l'adaptation}
 
