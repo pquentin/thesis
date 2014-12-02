@@ -114,14 +114,17 @@ Doctorat d'Informatique \\
 
 \chapter{Résumé}
 
-Cette thèse a pour objectif l'annotation en rôles sémantiques du français en
-domaine spécifique. Cette tâche consiste à la fois à désambiguïser le sens des
-verbes d'un texte et à annoter les sujets et objets syntaxiques avec des rôles
-sémantiques tels qu'agent, patient, ou destination. Nous considérons ici trois
-domaines disposant de corpus annotés en rôles sémantiques : le réchauffement
-climatique, Informatique/Internet, et le football. Nous montrons que nos
-traductions de WordNet et de VerbNet donnent la possibilité d'annoter en rôles
-sémantiques des textes aussi bien en domaine général qu'en domaine spécifique.
+Cette thèse de Traitement Automatique des Langues a pour objectif l'annotation
+en rôles sémantiques automatique du français en domaine spécifique. Cette tâche
+consiste à la fois à désambiguïser le sens des verbes d'un texte et à annoter
+les syntagmes avec des rôles sémantiques tels qu'agent, patient, ou
+destination. Cette tâche aide de nombreuses applications dans les domaines où
+des corpus annotés existent, tels que le domaine financier. Nus considérons ici
+trois domaines disposant de corpus annotés en rôles sémantiques : le
+réchauffement climatique, Informatique/Internet, et le football. Nous montrons
+que nos traductions vers le français des ressources WordNet et VerbNet donnent
+la possibilité d'annoter en rôles sémantiques des textes aussi bien en domaine
+général qu'en domaine spécifique sans avoir à entraîner un modèle statistique.
 
 Nos travaux portent sur deux grands axes : les ressources servant à
 l'annotation en rôles sémantiques d'une part, et les méthodes d'annotation en
@@ -132,12 +135,12 @@ WordNet vers le français à l'aide d'un modèle de langue syntaxique issu du we
 Cette ressource, nommée WoNeF, est disponible en trois versions : une à haute
 précision (93,3~\%), une à haut F-score (70,9~\%), et l'autre à haute
 couverture, qui contient un plus grand nombre de traductions. La seconde
-ressource à traduire est VerbNet, un lexique dans lequel les verbes sont
-regroupées en classes partageant les mêmes critères syntaxiques, morphologiques
-et sémantiques. Contrairement à WordNet, la traduction de cette ressource s'est
-faite à la fois avec un travail manuel important pour contrôler au mieux le
-contenu des classes mais aussi avec une réutilisation maximale des lexiques
-verbaux du français, ici le Lexique-Grammaire et Les Verbes Français.
+ressource que nous avons traduite est VerbNet, un lexique dans lequel les
+verbes sont regroupées en classes partageant les mêmes critères syntaxiques,
+morphologiques et sémantiques. Contrairement à WordNet, la traduction de cette
+ressource s'est faite à la fois en réutilisant au maximum les lexiques verbaux
+du français, le Lexique-Grammaire et Les Verbes Français mais aussi avec un
+travail manuel important pour contrôler au mieux le contenu des classes.
 
 Concernant les méthodes, nous commençons par évaluer notre méthode basée sur
 VerbNet sur le corpus annoté FrameNet, en suivant les travaux de
@@ -149,10 +152,8 @@ pour filtrer les syntagmes ne correspondant pas aux restrictions de sélection
 
 Enfin, une fois que toutes les autres briques ont été mises en place, nous
 traitons l'annotation en rôles sémantiques du français dans nos trois domaines
-spécifiques. Nous montrons d'abord quelles sont les difficultés d'utiliser
-VerbNet dans ces domaines plus spécifiques puis expliquons que la grande
-majorité des manques de VerbNet découverts lors de l'annotation de ces corpus
-en domaines améliore VerbNet dans tous les autres domaines.
+spécifiques. Nous évaluons ainsi quelles sont les avantages et inconvénients
+d'utiliser VerbNet dans ces domaines.
 
 %\chapter{Abstract}
 %A one-page abstract.
