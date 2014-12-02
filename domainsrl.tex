@@ -87,29 +87,31 @@ dans ce travail est que notre méthode est moins affectée par ce problème qu'u
 modèle statistique se basant exclusivement sur la distribution des différentes
 constructions.
 
-Les trois corpus ont étés découpés en deux parties de taille égales : un corpus
-d'entraînement et un corpus de test. Étant donné qu'il n'y a pas de modèle à
-entraîner, ce corpus d'entraînement est simplement utilisé pour comprendre les
-erreurs en l'analysant manuellement. Même si les trois corpus contiennent des
-textes proches entre eux, ils sont issus de sources différentes et ont étés
-écrits par des auteurs différents. Nous avons normalisé ces sources (par
-exemple, DEBIAN2 et DEBIAN3 dans le corpus Informatique \& Internet de l'OLST
-deviennent DEBIAN) et utilisons cette information pour faire le découpage : une
-source spécifique ne peut être présente que dans un ensemble. Le découpage
-résultant est disponible au format JSON avec le code source associé à ce
-chapitre.
+Les trois corpus ont étés découpés en deux parties de tailles égales : un
+corpus d'entraînement et un corpus de test. Étant donné qu'il n'y a pas de
+modèle à entraîner, ce corpus d'entraînement est simplement utilisé pour
+comprendre les erreurs en l'analysant manuellement. Même si les trois corpus
+contiennent des textes proches entre eux, ils sont issus de sources différentes
+et ont étés écrits par des auteurs différents. Nous avons normalisé ces sources
+(par exemple, les sources DEBIAN2 et DEBIAN3 dans le corpus Informatique \&
+Internet de l'OLST ont manuellement été transformées verbs DEBIAN) et utilisons
+cette information pour faire le découpage : une source spécifique ne peut être
+présente que dans un ensemble. Le découpage résultant est disponible au format
+JSON avec le code source associé à ce chapitre. Ce découpage ne nécessite pas
+d'avoir normalisé les sources : chaque phrase est simplement associée à
+l'ensemble de test ou l'ensemble d'entraînement.
 
 \section{Mappings de rôles}
 
 Ces trois corpus utilisent des rôles spécifiques. Les corpus DiCoInfo et
 DiCoEnviro utilisent les conventions VerbNet alors que le Kicktionary  définit
-un nouvel ensemble de rôle pour chaque frame à la façon FrameNet, par exemple
-\texttt{Passer}, \texttt{Moving\_Ball} ou \texttt{Shot}. Dans les trois cas,
-les rôles ne correspondent pas directement aux rôles VerbNet, et il faut donc
-établir une correspondance entre les rôles VerbNet et les rôles des trois
+un nouvel ensemble de rôles pour chaque frame à la façon de FrameNet, par
+exemple \texttt{Passer}, \texttt{Moving\_Ball} ou \texttt{Shot}. Dans les trois
+cas, les rôles ne correspondent pas directement aux rôles VerbNet, et il faut
+donc établir une correspondance entre les rôles VerbNet et les rôles des trois
 corpus.  Nous avons assigné manuellement une classe VerbNet à chaque classe des
 trois corpus, tout en faisant correspondre les rôles. Le résultat de ce mapping
-est disponible aux URls suivantes :
+est disponible aux URLs suivantes :
 
 \begin{itemize}
     \item DiCoInfo anglais : \url{https://github.com/aymara/knowledgesrl/blob/master/data/domain/info/vnroles_info_en.xml}
@@ -137,8 +139,8 @@ souvent des rôles différents (TODO exemple Patient vs. Result)
 
 \end{itemize}
 
-Prenons deux phrases d'exemple pour illustrer le mapping. Voici deux phrases
-présentes dans DiCoInfo et DiCoEnviro :
+Prenons deux phrases d'exemple dans DiCoInfo et DiCoEnviro pour illustrer le
+mapping.
 
 \begin{itemize}
     \item \textit{In the interest of fair competition you should ALLOCATE the
@@ -158,9 +160,9 @@ DiCoInfo (qui correspondent aux roles \textit{Core} de FrameNet et aux rôles de
 VerbNet) ont étés mis en correspondance avec les rôles de VerbNet :
 
 \begin{itemize}
-    \item Patient devient Theme
-    \item Recipient devient Goal
-    \item Agent reste Agent
+    \item Patient devient Theme ;
+    \item Recipient devient Goal ;
+    \item Agent reste Agent.
 \end{itemize}
 
 Une fois que ce mapping est réalisé, la tâche de notre algorithme d'annotation
@@ -192,7 +194,7 @@ frame \texttt{Goal} a par exemple été définie pour un but marqué, mais les
 différentes façons de l'exprimer n'ont pas étés séparées : ouvrir la marque,
 égaliser, frapper, et d'autres utiliseront différentes constructions
 syntaxiques, évoqueront des rôles différents et correspondront donc à des
-classes VerbNet différentes.
+classes VerbNet différentes. Nous n'évaluons pas ces frames.
 
 \section{Comparaison à VerbNet}
 
@@ -208,25 +210,7 @@ dans VerbNet avant comparaison. Ces formes sont en général des verbes à
 l'impératif où le sujet n'est pas exprimé, et doivent dont êtres transformées
 avant traitement par VerbNet, VerbNet ne décrivant les frames qu'à l'indicatif.
 
-La phrase transformée est ensuite comparée aux frames VerbNet possibles dans
-les classes candidates à la manière la correspondance exacte
-(section~\ref{correspondance_exacte}). Le résultat de notre algorithme est que
-chaque prédicat est potentiellement associé à une classe VerbNet, et chaque
-argument issu de la vérité-terrain est potentiellement associé à un rôle
-sémantique.
-
-Deux difficultés peuvent se poser au moment de réaliser cette correspondance :
-\begin{itemize}
-    \item la frame n'est présente dans aucune classe VerbNet : c'est un
-        manquement dans VerbNet.
-    \item la frame seule ne permet pas de désambiguïser entre différentes
-        classes et donc différents rôles, le sens du rôle dépendant de la
-        classe.
-\end{itemize}
-
-Notre approche est trop simple pour gérer la deuxième difficulté, mais elle
-permet de soulever des erreurs dans VerbNet lors de la première erreur, ce que
-nous souhaitons quantifier dans la section suivante.
+% TODO check lemma, frame, class, role
 
 La méthode est implémentée dans le dossier \texttt{src/domain} de
 \url{https://github.com/aymara/knowledgesrl}.
@@ -308,7 +292,7 @@ ressource.
 \fi
 
 Pour l'évaluation, il nous suffit d'utiliser l'association que nous avons
-produit entre les rôles considérés par ces ressources et les rôles VerbNet
+produite entre les rôles considérés par ces ressources et les rôles VerbNet
 avant d'évaluer la performance de l'algorithme basé sur la connaissance
 d'annotation en rôles sémantiques présenté à la
 section~\ref{sec:domainsrl_approche}.
@@ -365,9 +349,9 @@ du vocabulaire.
 % TODO couverture FrameNet
 Deuxièmement, les résultats varient par domaines : en particulier, le
 Kicktionary est le corpus le plus loin de VerbNet. Cependant, les erreurs sont
-principalement dus à des mots « du domaine général » qui ne sont pas spécifique
-au football. Par exemple, le verbe \textit{celebrate} est absent du Kicktionary
-mais il serait tout de même utile dans le domaine général.
+principalement dues à des mots « du domaine général » qui ne sont pas
+spécifiques au football. Par exemple, le verbe \textit{celebrate} est absent du
+Kicktionary mais il serait tout de même utile dans le domaine général.
 % TODO montrer au-delà d'un exemple (comment ?) que les erreurs dans
 % Kicktionary ne sont pas spécifiques et bénéficiraient à VN
 %Second, while the results vary between domains, those results are still
