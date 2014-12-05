@@ -288,6 +288,12 @@ dans VerbNet avant comparaison. Ces formes sont en général des verbes à
 l'impératif où le sujet n'est pas exprimé, et doivent dont êtres transformées
 avant traitement par VerbNet, VerbNet ne décrivant les frames qu'à l'indicatif.
 
+Dans le cas de \verbenet{}, pour prendre en compte les différences d'encodage
+(expliquées à la section~\ref{princp}), nous générons les frames qu'il faut
+inférer. Pour ce faire, nous prenons l'ensemble des arguments (syntagmes après
+le verbe), et calculons l'ensemble des permutations des parties de cet
+ensemble, avec produire des frames complètes à partir de ces permutations.
+
 Pour chaque occurrence de phrase dans notre corpus convertie en rôles VerbNet,
 nous :
 \begin{itemize}
@@ -388,7 +394,10 @@ dans beaucoup de cas dans DiCoEnviro.}
 
 De manière attendue, \verbenet{}, encore en développement, a une couverture
 plus faible en termes de lemmes présents et de classes incluses, mais les
-résultats sont prometteurs.
+résultats sont prometteurs. Plus particulièrement, ces résultats seront
+l'occasion d'améliorer la couverture de \verbenet{} en utilisant les
+informations manquantes pour continuer à améliorer \verbenet{} dans le but de
+répondre aux besoins du Traitement Automatique des Langues.
 
 \section*{Conclusion}
 
@@ -403,6 +412,7 @@ baseline contre des approches plus sophistiquées. Enfin, utiliser cet outil sur
 de nouveaux domaines est un moyen efficace d'obtenir de meilleures performances
 mais aussi de guider de nouveaux développements VerbNet étant donné que les
 lemmes, classes et frames manquants sont montrées.
+
 
 \section*{Remerciements}
 

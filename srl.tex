@@ -216,8 +216,9 @@ VBZ\footnote{FrameNet annonce utiliser simplement les parties du discours des
     verbe est composé de plusieurs mots (par exemple \textit{He has (VHZ)
     suffered (VVN) from loneliness}) ne sont pas actuellement prises en compte.
 
+\if False
+
 \subsection{Identification des arguments}
-\label{argid}
 
 Cette étape identifie les syntagmes amenés à jouer un rôle sémantique lors de
 l'annotation. C'est un problème difficile ; la première raison est que seuls
@@ -250,18 +251,23 @@ jouent pas de rôle. Grâce à la ressource VerbNet, notre système devra écart
 ces candidats, ce qui n'est pas nécessairement possible avec de simples
 heuristiques.
 
-\subsection{Utilisation des arguments de la vérité-terrain}
+\fi
+
+\subsection{Identification des arguments}
+\label{argid}
 
 Nous évaluons notre système de deux manières :
 \begin{itemize}
-    \item avec les arguments identifiés automatiquement (section~\ref{argid}),
-    \item et avec les arguments issus de la vérité-terrain.
+    \item avec les arguments issus de la vérité-terrain.
+    \item et avec les arguments identifiés automatiquement,
 \end{itemize}
 
 En effet, l'objectif est d'évaluer l'apport de VerbNet à la tâche de
 l'annotation en rôles sémantiques. L'identification des arguments, bien qu'une
 partie intégrante de tout système complet d'annotation en rôles sémantiques
 \citep{das2010probabilistic}, ne fait pas partie de nos contributions.
+
+\paragraph{Arguments de la vérité-terrain}
 
 Pour convertir les arguments de la vérité-terrain vers une frame VerbNet, nous
 utilisons simplement la position de ces arguments dans la phrase. Par exemple,
@@ -283,6 +289,13 @@ ce n'est pas toujours le cas. Montrons-le avec deux exemples.
 Ainsi, même lorsque les arguments de la vérité-terrain sont utilisés, l'absence
 de prise en compte de la syntaxe est pénalisant, ce qu'il faudra traiter lors
 de futurs travaux.
+
+\paragraph{Identification automatique} Nous utilisons simplement les fils
+syntaxiques du nœud verbal, en utilisant aussi la position dans la phrase pour
+la correspondance VerbNet. Il s'est avéré que cette approche simpliste dégrade
+considérablement les résultats par rapport aux arguments automatiques. Nous
+avons aussi implémenté la technique à base de règles de
+\citep{lang2011unsupervised}, mais les résultats étaient inférieurs. 
 
 \subsection{Correspondance exacte des frames}
 \label{correspondance_exacte}
@@ -355,9 +368,15 @@ interprétable dans une application.
 Dans les cas où différentes frames VerbNet sont possibles, le calcul de scores
 de correspondances présentés par \cite{swier2004unsupervised} peut aider à
 désambiguïser, notamment en éliminant les \textit{frames} comportant trop
-d'arguments. Cela dit, de nombreux arguments restent ambigus : la suite de la
-désambiguïsation est l'objet des sections~\ref{subsec:probability} et
-~\ref{restrictions_selection}.
+d'arguments. Cela dit, de nombreux arguments restent ambigus.  En effet, pour
+un peu plus de 25~\% des arguments de notre corpus FrameNet, la correspondance
+exacte ne permet pas d'identifier le rôle correct, mais seulement de le limiter
+à quelques rôles possibles. Cette délimitation est très précise : quand VerbNet
+aboutit à plusieurs rôles possibles, la probabilité pour que le rôle correct
+soit présent dans la liste est supérieure à 90~\% pour des arguments de la
+vérité-terrain. Nous posons alors la question suivante : comment tirer profit
+de cette courte liste de rôles possible ? C'est l'objet des
+sections~\ref{subsec:probability} et ~\ref{restrictions_selection}.
 
 % TODO différents algorithmes de match
 % TODO nouvel algorithme : oublier complètement l'ordre
@@ -413,6 +432,8 @@ cette paire (prédicat, fonction grammaticale).
 Une procédure de \textit{bootstrap} reposant sur les mêmes principes a aussi
 été implémentée en suivant \cite{swier2004unsupervised}.
 
+\if False
+
 \subsection{Désambiguïsation de la classe VerbNet}
 
 Un autre classifieur est utilisé pour déterminer la classe VerbNet en fonction
@@ -438,6 +459,8 @@ $$ \text{classe} = \arg\max_{\text{classe}} p(\text{classe} \vert \text{prédica
 
 La désambiguïsation est cependant facilitée : l'ensemble des classes candidates
 a été auparavant restreint par les correspondances exactes et probabilistes.
+
+\fi
 
 \section{Gestion de la voix passive}
 \label{sec:passif}
@@ -491,15 +514,8 @@ Troisièmement, cela permet de généraliser à d'autres phénomènes de syntaxe
 profonde, par exemple en utilisant les systèmes existants
 \citep{bonfante2011modular,ribeyre2013systeme}.
 
-\section{Restrictions de sélection avec WordNet}
+\section{Restrictions de sélection VerbNet}
 \label{restrictions_selection}
-
-Deux types de données aident à l'annotation en rôles sémantiques : d'une part
-les informations syntaxiques, et d'autre part les informations sémantiques.
-Nous avons traité jusque-là la question de l'apport de la syntaxe à
-l'annotation en rôles sémantiques avec d'une part l'utilisation des cadres de
-sous-catégorisations présents dans VerbNet et d'autre part la prise en compte
-de la voix passive.
 
 Nous explorons dans cette section l'apport d'une information de nature plus
 sémantique pour montrer la complémentarité de la syntaxe et de la sémantique
@@ -517,19 +533,11 @@ Pour rester dans le cadre de l'annotation en rôles sémantiques fondée sur la
 connaissance, nous allons dans cette section explorer l'utilisation des
 restrictions de sélections présentes dans VerbNet.
 
-En effet, pour un peu plus de 25~\% des arguments de notre corpus FrameNet, la
-correspondance exacte ne permet pas d'identifier le rôle correct, mais
-seulement de le limiter à quelques rôles possibles. Cette délimitation est très
-précise : quand VerbNet aboutit à plusieurs rôles possibles, la probabilité
-pour que le rôle correct soit présent dans la liste est supérieure à 90~\% pour
-des arguments de la vérité-terrain. Nous posons alors la question suivante : comment tirer
-profit de cette courte liste de rôles possibles à l'aide de la sémantique ?
+\subsection{Restrictions avec WordNet}
+\label{restrictions_wordnet}
 
-Nous utilisons les restrictions de sélections présentes dans VerbNet. Ces
-restrictions sont relativement grossières et mal documentées mais sont une
-première piste explorées dans la section~\ref{restrictions_selection}.
-
-Nous avons fait correspondre les restrictions de sélection VerbNet à des
+Nous commençons par essayer d'utiliser la connaissance issue de WordNet.  Nous
+avons d'abord fait correspondre les restrictions de sélection VerbNet à des
 synsets WordNet qui sont souvent en haut de la hiérarchie à la façon de
 \citep{shi2005putting} (Figure~\ref{table:mapping_verbnetrestr_wordnet}).
 
@@ -571,7 +579,49 @@ vérifier directement avec WordNet. La plupart des restrictions sont cependant
 couvertes.}
 \end{table}
 
-TODO implémenter ou enlever.
+Ensuite, pour chaque syntagme dont la tête est un nom commun, adjectif ou
+adverbe, nous regardons dans WordNet si le premier synset correspondant à ce
+syntagmes est un hyponyme du synset correspondant dans la
+Table~\ref{table:mapping_verbnetrestr_wordnet}.
+
+Cette première tentative est négative (section~\ref{resultats_srl}). Une
+potentielle explication est que ces restrictions sont relativement grossières
+et que les hypéronymes de WordNet n'ont pas été conçus pour représenter des
+propriétés (animé, organisation).
+
+\subsection{Restrictions en utilisant les syntagmes annotés sans ambiguïté}
+\label{restrictions_verbnet}
+
+Une autre expérience que nous avons mené est d'apprendre à partir des
+correspondances exactes à quels mot sont rattachés le plus souvent les
+différentes restrictions de sélection dans chaque fichier FrameNet. Au moment
+de la correspondance exacte, nous enregistrons donc les têtes de syntagmes pour
+toutes les restrictions de sélection simples et les restrictions rattachées par
+un opérateur \textit{et}.
+
+Par exemple, dans la classe \texttt{tape-22.4}, le rôle Instrument est associé
+dans VerbNet
+\footnote{\url{http://verbs.colorado.edu/verb-index/vn/tape-22.4.php}} à la
+restriction de sélection Concrete \& -Animate, ce qu'on peut représenter sous
+la forme AND(Concrete, NOT(Animate)). Le rôle Patient est lui simplement
+associé à la restriction Solid.
+
+Pour chaque rôle annoté avec la correspondance exacte, le syntagme est alors
+associé à la restriction de sélection. Pour Instrument, ce sera Concrete (la
+seule restriction directement placé sous une relation \textit{et}. Pour Patient,
+ce sera Solid, parce que c'est la seule restriction de sélection.
+
+Après avoir réalisé les correspondances sur un fichier entier, nous utilisons
+ces informations pour donner un score à chaque frame : plus le score est haut,
+plus les mots étaient proches de ceux vu dans le fichier. Alors que dans
+l'expérience précédente, les mots tête des syntagmes prépositionnels excluaient
+les prépositions, elles sont ici conservées comme mot tête pour une meilleure
+généralisation face à la petite tailles des données traitées. Toutes les frames
+ayant le même score sont conservées.
+
+Cette expérience améliore elle les résultats de manière conséquente. La
+prochaine section évalue justement les différentes améliorations présentées
+jusqu'ici.
 
 \section{Évaluation}
 \label{srl:evaluation}
@@ -733,8 +783,9 @@ notre système.
         \midrule 
         Correspondance exacte                                      & 71.11  & 54.66 \\
         Correspondance exacte + passif                             & 73.52  & 57.20 \\
-        Correspondance exacte + restrictions                       & 75.80  & 68.31 \\
-        Correspondance exacte + passif + restrictions              & 78.29  & 70.99 \\
+        Correspondance exacte + WordNet               & 71.64  & 54.80 \\
+        Correspondance exacte + restrictions             & 75.80  & 68.31 \\
+        Correspondance exacte + passif + restrictions    & 78.29  & 70.99 \\
         Correspondance exacte + probabiliste                       & 71.84  & 58.57 \\
         Correspondance exacte + bootstrap                          & 73.63  & 69.41 \\
         Correspondance exacte + bootstrap + passif + restrictions  & 79.41  & 75.24 \\
@@ -743,10 +794,10 @@ notre système.
         \midrule
         Correspondance exacte                          & 42.92  & 29.95 \\
         Correspondance exacte + passif                 & 44.28  & 30.98 \\
-        Correspondance exacte + restrictions           & 43.81  & 35.71 \\
+        Correspondance exacte + restrictions          & 43.81  & 35.71 \\
         Correspondance exacte + restrictions + passif  & 45.13  & 36.95 \\
         Correspondance exacte + probabiliste           & 43.25  & 31.52 \\
-        Correspondance exacte + bootstrap + passif + restrictions   & 46.00 & 39.29 \\
+        Correspondance exacte + bootstrap + passif + restrictions  & 46.00 & 39.29 \\
         \bottomrule
     \end{tabular}
 
@@ -756,11 +807,13 @@ notre système.
         section~\ref{correspondance_exacte}, \textit{probabiliste} et
         \textit{bootstrap} indiquent la correspondance probabiliste
         (section~\ref{subsec:probability}), \textit{passif} indique la
-        détection de la voix passive (section~\ref{sec:passif}), et
-        \textit{restrictions} indique la prise en compte des restrictions de
-        sélection avec WordNet (section~\ref{restrictions_selection}).
-        \textit{Identification} est l'identification des arguments
-    (section~\ref{argid}).}
+        détection de la voix passive (section~\ref{sec:passif}),
+        \textit{WordNet} indique la prise en compte des restrictions de
+        sélection avec WordNet (section~\ref{restrictions_wordnet}), alors que
+        \textit{restrictions} indique l'utilisation des restrictions de VerbNet
+    après une première correspondance exacte
+(section~\ref{restrictions_verbnet}). \textit{Identification} est
+l'identification des arguments (section~\ref{argid}).}
 \end{table}
 
 La Table~\ref{table:results} montre les résultats des deux tâches sur
@@ -878,7 +931,7 @@ afin d'améliorer nos modèles de probabilité. En effet, l'information des cadr
 de sous-catégorisation est cruciale pour identifier les arguments, mais
 l'information sémantique concernant le contenu des remplisseurs est aussi utile
 pour déterminer le rôle correct, comme nous l'avons vu à la
-section~\ref{restrictions_selection}.
+section~\ref{restrictions_verbnet}.
 
 Enfin, de la même manière que la prise en compte de la voix passive a amélioré
 les résultats, d'autres phénomènes de syntaxe profonde doivent être pris en

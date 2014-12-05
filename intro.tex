@@ -339,13 +339,20 @@ VerbNet d'au moins deux façons.
 
 \begin{itemize}
     \item D'une part, WordNet peut être utilisé pour désambiguïser le sens des
-        verbes et donc aider à choisir la bonne classe VerbNet.
+        verbes et donc aider à choisir la bonne classe VerbNet, ce qui est une
+        méthode qui a fait ses preuves en désambiguïsation lexicale
+        \citep{agirre2009personalizing}.
     \item D'autre part, comme indiqué à la section~\ref{au_dela}, certaines
         propriétés sémantiques des syntagmes (animé, humain, organisation,
         etc.) sont utiles à l'annotation en rôles sémantiques, et la hiérarchie
-        offerte par WordNet est le moyen idéal pour déterminer ces propriétés
-        (section~\ref{restrictions_selection}).
+        offerte par WordNet est un moyen pour déterminer ces propriétés
+        (section~\ref{restrictions_wordnet}), malgré le résultat négatif que
+        nous avons observé dans notre implémentation.
 \end{itemize}
+
+Plus généralement, là où VerbNet nous apporte des informations plutôt
+syntaxiques sur les verbes, WordNet est une source plus globale qui peut
+apporter des informations utiles sur le reste des mots de la phrase.
 
 % Dans les langues autres que l'anglais, cette ressource utile n'existe pas
 % mais ne demande qu'à exister étant donné le potentiel \textit{cross-lingual}
