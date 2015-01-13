@@ -102,6 +102,7 @@ d'avoir normalisé les sources : chaque phrase est simplement associée à
 l'ensemble de test ou l'ensemble d'entraînement.
 
 \section{Mappings de rôles}
+\ref{mapping}
 
 Ces trois corpus utilisent des rôles spécifiques. Les corpus DiCoInfo et
 DiCoEnviro utilisent les conventions VerbNet alors que le Kicktionary  définit
@@ -123,24 +124,18 @@ Dans le cas de DiCoInfo et DiCoEnviro, les noms des rôles sont proches des noms
 des rôles employés dans VerbNet et LIRICS \citep{bonial2011hierarchical} :
 Agent, Patient, Destination, Instrument, etc. Cependant, même si les noms sont
 les mêmes, la définition de ces rôles est spécifique à DiCoInfo et DiCoEnviro.
-En pratique :
 
-\begin{itemize}
+Cependant, même si les noms sont les mêmes, la définition de ces rôles est
+spécifique à DiCoInfo et DiCoEnviro. C'est parfois systématique. Par exemple,
+DiCoInfo et DiCoEnviro ne distinguent pas Theme de Patient mais n'utilisent que
+Patient, ce qui facilite l'annotation.\footnote{Ce choix est le bienvenu, étant
+    donné que la distinction entre Theme et Patient est souvent difficile à
+    établir. Dans \textit{Le chaton a léché mes doigts}, est-ce que mes doigts
+ont changé d'état ? Si oui, ils devraient être Patient, et sinon, Theme
+\cite[p.~5]{palmer2010semantic}.}
 
-    \item DiCoInfo et DiCoEnviro ne distinguent pas Theme de Patient mais
-n'utilisent que Patient, ce qui facilite l'annotation.\footnote{Ce choix est le
-bienvenu, étant donné que la distinction entre Theme et Patient est souvent
-difficile à établir. Dans \textit{Le chaton a léché mes doigts}, est-ce que mes
-doigts ont changé d'état ? Si oui, ils devraient être Patient, et sinon, Theme
-\citep[p.~5]{palmer2010semantic}.}
-
-    \item Pour un certain nombre de lexies, la perspective du domaine implique
-souvent des rôles différents (TODO exemple Patient vs. Result)
-
-\end{itemize}
-
-Prenons deux phrases d'exemple dans DiCoInfo et DiCoEnviro pour illustrer le
-mapping.
+C'est parfois spécifique à une situation. Prenons deux phrases d'exemple dans
+DiCoInfo et DiCoEnviro pour illustrer les associations.
 
 \begin{itemize}
     \item \textit{In the interest of fair competition you should ALLOCATE the
@@ -196,83 +191,6 @@ différentes façons de l'exprimer n'ont pas étés séparées : ouvrir la marqu
 syntaxiques, évoqueront des rôles différents et correspondront donc à des
 classes VerbNet différentes. Nous n'évaluons pas ces frames.
 
-\if false
-
-\section{Enrichissement de VerbNet}
-\label{sec:enrichissement_verbnet}
-
-Malgré leur similarité, ces corpus posent des problèmes différents vis-à-vis de
-leur annotation avec VerbNet, tous liés au fait de ne pas être dans le "domaine
-général". Nous avons considéré comme problème les manquements dans VerbNet qui
-empêchent de prendre en compte les phrases considérées, indépendamment de
-l'algorithme. Ainsi, pour que VerbNet puisse prendre en compte une instance, il
-faut :
-
-\begin{itemize}
-    \item que le sens du verbe considéré soit présent dans VerbNet,
-    \item que la construction en question soit présente dans VerbNet,
-    \item et que les rôles sémantiques associés à chaque syntagme soient correct.
-\end{itemize}
-
-Il y a différentes façons de ne pas respecter ces contraintes dans VerbNet :
-
-\begin{itemize}
-    \item Le verbe n'existe pas du tout
-    \item Le sens du verbe utilisé n'est pas représenté alors que c'est un sens
-        du domaine général
-    \item Le sens du verbe utilisé n'est pas représenté alors que c'est un sens
-        spécifique à ce domaine
-    \item La construction utilisée n'est pas présente
-    \item La construction utilisée n'associe pas les arguments aux rôles
-        corrects
-\end{itemize}
-
-Suivant les corpus considérés, les proportions d'erreurs seront différentes.
-Nous avons demandé à deux annotateurs d'évaluer, pour vingt phrases par
-domaine, quelle était l'erreur. L'accord inter-annotateur permet de valider la
-distinction domaine spécifique/domaine général malgré l'impossibilité de la
-définir précisément.
-
-% TODO: le faire....
-
-C'est pour cette raison que l'enrichissement de VerbNet se fait de deux
-manières : certains verbes et constructions sont ajoutés comme faisant partie
-du domaine général, alors que d'autres sont étiquetés avec le domaine
-spécifique correspondant. L'idée est d'éviter que des connaissances de domaines
-spécifiques viennent réduire la qualité de la ressource tout en s'assurant que
-la couverture de VerbNet pour le domaine général continue de s'améliorer.
-
-\section{Détection semi-automatique d'erreurs}
-
-D'une part, pour minimiser le travail manuel, il est important d'automatiser au
-maximum l'enrichissement de la ressource. D'autre part, l'intérêt de VerbNet
-réside notamment dans sa capacité à factoriser efficacement ces informations
-sur l'interface syntaxico-sémantique d'un verbe donné, et il est donc possible
-et utile de valider manuellement chacun des changements apportés.
-
-Le principe suivi est donc d'essayer de détecter les manquements de VerbNet de
-manière automatique avant de proposer à un utilisateur expert de réaliser des
-changements en ayant un maximum d'informations pertinentes à portée de main.
-
-Les différentes erreurs détectées sont :
-\begin{itemize}
-    \item l'absence de lemmes dans la ressource
-    \item l'absence d'un sens correct dans la ressource
-    \item l'absence de constructions correctes dans la ressource
-    \item l'absence de mapping de role correct dans la ressource
-\end{itemize}
-
-Nous avons d'abord commencé par détecter l'absence de constructions correctes,
-ce qui a permis ensuite de détecter une absence de sens en comparant les
-constructions observées avec les constructions présentes. Enfin, cela a permis
-de faire des propositions quant à la position d'un nouveau lexème dans la
-ressource.
-
-% TODO: le faire....
-
-\fi
-
-
 \section{Comparaison à VerbNet}
 \label{comparaison_verbnet}
 
@@ -312,8 +230,8 @@ VerbNet et \verbenet{} (nombre de lemmes présents, nombres de constructions
 présentes) mais aussi en terme de précision (est-ce que les rôles sont corrects
 ?).
 
-La méthode est implémentée dans le dossier \texttt{src/domain} de
-\url{https://github.com/aymara/knowledgesrl}.
+La méthode décrite ci-dessus est implémentée dans le dossier
+\texttt{src/domain} de \url{https://github.com/aymara/knowledgesrl}.
 
 \section{Résultats}
 \label{sec:domainsrlresults}
@@ -329,10 +247,10 @@ calculons ces scores sur les occurrences et non pas les types.
   \toprule
          & Info & Enviro & Kicktionary \\
   \midrule
-  Lemme présent          & 80 & 89 & 69 \\
-  Frame présente         & 80 & 82 & 69 \\
-  Classe correct incluse & 57 & 79 & 11 \\
-  Rôle correct           & 94 & 95 & 67 \\
+  Lemme présent           & 80 & 89 & 69 \\
+  Frame présente          & 80 & 82 & 69 \\
+  Classe correcte incluse & 57 & 79 & 11 \\
+  Rôle correct            & 94 & 95 & 67 \\
   \bottomrule
 \end{tabular}
 
@@ -348,29 +266,26 @@ identifiés.}
 
 \end{table}
 
-% TODO mapping fini ou non ?
 La Table~\ref{table:coverage} présente les résultats pour les trois domaines
 considérés. Les résultats du Kicktionary sont à analyser avec prudence : d'une
-part, le mapping n'est pas complet, d'où le score de classe extrêmement bas, et
-d'autre part aucune analyse d'erreur n'a pour le moment été effectuée. Nous
-pouvons tout de même tirer des conclusions de ces résultats.
+part, le mapping n'est pas encore satisfaisant (section~\ref{mapping}) d'où le
+score de classe extrêmement bas, et d'autre part aucune analyse d'erreur n'a
+pour le moment été effectuée. Nous pouvons tout de même tirer des conclusions
+de ces résultats.
 
-Premièrement, VerbNet couvre entre 75\% et 84\% des occurrences de lemmes, ce
+Premièrement, VerbNet couvre entre 69\% et 89\% des occurrences de lemmes, ce
 qui est très encourageant et correspond à notre objectif de couvrir l'ensemble
-du vocabulaire.
-% TODO couverture FrameNet
-Deuxièmement, les résultats varient par domaines : en particulier, le
-Kicktionary est le corpus le plus loin de VerbNet. Cependant, les erreurs sont
-principalement dues à des mots « du domaine général » qui ne sont pas
-spécifiques au football. Par exemple, le verbe \textit{celebrate} est absent du
-Kicktionary mais il serait tout de même utile dans le domaine général.
-% TODO montrer au-delà d'un exemple (comment ?) que les erreurs dans
-% Kicktionary ne sont pas spécifiques et bénéficiraient à VN
-%Second, while the results vary between domains, those results are still
-%preliminary and the results can change depending on the way frames are encoded
-%(the training set of the Kicktionary corpus has not been analyzed yet).
-Troisièmement, une fois que la classe a été identifiée correctement, les
-résultats sont bons pour les corpus DiCoInfo et DiCoEnviro (plus de 90~\%).
+du vocabulaire. Deuxièmement, les résultats varient par domaines : en
+particulier, le Kicktionary est le corpus le plus loin de VerbNet. Cependant,
+l'écart surtout flagrant au moment de voir si la classe correcte est incluse et
+est dû à la difficulté d'associer des classes VerbNet aux situations finalement
+très générales du Kicktionary. Au-delà de ça, les erreurs sont principalement
+dues à des mots « du domaine général » qui ne sont pas spécifiques au football.
+Par exemple, le verbe \textit{celebrate} est absent de VerbNet mais il serait
+tout de même utile dans le domaine général. Troisièmement, une fois que la
+classe a été identifiée correctement, les résultats sont bons pour les corpus
+DiCoInfo et DiCoEnviro (plus de 90~\%).
+
 
 \begin{table}[h]
 \centering

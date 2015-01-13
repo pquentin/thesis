@@ -140,13 +140,13 @@ issu du web.  Cette ressource, WoNeF, est disponible en trois versions : une à
 haute précision (93,3~\%), une à haut F-score (70,9~\%), et l'autre à haute
 couverture, plus large mais plus bruitée. Nous traduisons ensuite le lexique
 VerbNet dans lequel les verbes sont regroupés suivant leur traits syntaxiques,
-morphologiques et sémantiques. Contrairement à WordNet, la traduction,
-\verbenet{} a été obtenue à la fois en réutilisant au maximum les lexiques
-verbaux du français (le Lexique-Grammaire et Les Verbes Français) mais aussi
-avec un travail manuel important pour contrôler au mieux son contenu.
+morphologiques et sémantiques. La traduction, nommée \verbenet{}, a été obtenue
+à la fois en réutilisant au maximum les lexiques verbaux du français (le
+Lexique-Grammaire et Les Verbes Français) mais aussi avec un travail manuel
+important pour contrôler au mieux son contenu.
 
 Concernant les méthodes, nous commençons par évaluer notre méthode basée sur
-VerbNet sur le corpus annoté FrameNet, en suivant les travaux de
+VerbNet sur le corpus annoté FrameNet en suivant les travaux de
 \cite{swier2005exploiting}.  Nous montrons que des améliorations conséquentes
 peuvent être obtenues à la fois d'un point de vue syntaxique avec la prise en
 compte de la voix passive et d'un point de vue sémantique en filtrant les
@@ -156,7 +156,7 @@ non ambigües.
 
 Enfin, une fois ces briques en place, nous évaluons la faisabilité de
 l'annotation en rôles sémantiques du français dans nos trois domaines
-spécifiques. Nous évaluons en effet quelles sont les avantages et inconvénients
+spécifiques. Nous évaluons en effet quels sont les avantages et inconvénients
 de se baser sur VerbNet et \verbenet{} pour annoter ces domaines en anglais et
 en français.
 
@@ -259,18 +259,30 @@ avons aussi eu la volonté d'utiliser ces ressources en annotation en rôles
 sémantiques afin d'apporter au français des méthodes faciles à mettre en œuvre
 utilisant nos ressources et ne demandant pas de corpus annoté.
 
-Contrairement à WordNet, il n'existait pas de traduction de VerbNet pour le
-français, et nous espérons que cette ressource continuera à vivre au-delà de la
-thèse qui a permis de la créer. Pour ceci, nous avons souhaité rendre la
-ressource la plus accessible possible en réutilisant le format VerbNet, en
-utilisant une licence permissive et en encourageant un développement ouvert où
-chacun peut participer à élaborer et à améliorer la ressource.
+WordNet dispose de différentes traductions pour le français que nous espérons
+voir s'unifier dans les années qui viennent. Nos travaux montrent en tout cas
+qu'il est encore pertinent de travailler sur la traduction de WordNet : il y a
+encore un besoin important pour gagner en couverture et en précision, chose
+qui sera facilitée en coordonnant l'ensemble des travaux autour de la
+traduction de WordNet.
+
+Il n'existait pas de traduction de VerbNet pour le français, et nous espérons
+que cette ressource continuera à vivre au-delà de la thèse qui a permis de la
+créer. Dans un premier temps, le développement du site web permettant l'édition
+va continuer afin que les lexicographes puissent aboutir à une première
+traduction complète de VerbNet dans les mois qui viennent. Dans un deuxième
+temps, nous avons souhaité assurer un futur à cette ressource en facilitant au
+maximum son utilisation et son amélioration. Pour ceci, nous avons réutilisé le
+format VerbNet, utilisé une licence permissive et encouragé un développement
+ouvert où chacun peut participer à élaborer et à améliorer la ressource, soit
+en remontant les erreurs aux auteurs soit en utilisant directement l'outil
+d'édition, accessible à tous.
 
 Nous avons aussi pu mettre en valeur VerbNet et \verbenet{} en utilisant la
 ressource pour l'annotation en rôles sémantiques : c'est une méthode
 prometteuse en l'absence de corpus annoté qui peut s'appliquer à toute langue
 disposant d'un VerbNet et d'un analyseur syntaxique. En effet, VerbNet et
-\verbenet{} affichent des résultats prometteurs sur les corpus en domaines
+\verbenet{} affichent des résultats encourageants sur les corpus en domaines
 spécifiques.
 
 Nos perspectives sont de porter plus d'attention à la syntaxe, à la manière des
@@ -282,7 +294,7 @@ techniques solides d'analyse syntaxique profonde afin de mieux traiter toute la
 diversité syntaxique présente dans les corpus que nous étudions.
 
 Il faudra ensuite être capable de mieux traiter divers phénomènes tels que la
-négation, les phrases conditionnelles. C'est un problème reconnu aussi par
+négation et les phrases conditionnelles. C'est un problème reconnu aussi par
 FrameNet \citep{baker2014framenet}. La compositionnalité de l'annotation en
 rôles sémantiques est un problème majeur aussi : les phrases n'utilisant qu'un
 seul verbe sont rares, et extraire du sens quand plusieurs prédicats sont
@@ -324,8 +336,8 @@ Laurence Danlos, Takuya Nakamura and Quentin Pradet. July 2014. Vers la créatio
 
 \chapter{Reproduction des systèmes utilisés}
 
-Ce chapitre traite de divers détails destinés à aider le lecteur a reproduire
-un des systèmes présentés dans ces travaux.
+Ce chapitre traite de divers détails destinés à aider le lecteur à comprendre,
+voire reproduire notre traduction de WordNet.
 
 \section{Relations syntaxiques identifiées par LIMA présentes dans notre modèle
 de langue syntaxique}
@@ -455,31 +467,6 @@ section~\ref{relations_modele_langue}.
         \end{itemize}
 \end{itemize}
 
-\if false
-
-\section{Règles d'identification des arguments}
-\label{argument_identification}
-
-Les symboles $\uparrow$ et $\downarrow$ indiquent la direction de la
-dépendance.
-
-Les relations de la deuxième règle sont IM$\uparrow\downarrow$,
-PRT$\downarrow$, COORD$\uparrow\downarrow$, P$\uparrow\downarrow$,
-OBJ$\uparrow$, PMOD$\uparrow$, ADV$\uparrow$, SUB$\uparrow\downarrow$,
-ROOT$\uparrow$, TMP$\uparrow$, SBJ$\uparrow$ et OPRD$\uparrow$.
-
-Les relations de la quatrième règle sont ADV$\uparrow\downarrow$,
-AMOD$\uparrow\downarrow$, APPO$\uparrow\downarrow$, BNF$\uparrow\downarrow$-,
-CONJ$\uparrow\downarrow$, COORD$\uparrow\downarrow$, DIR$\uparrow\downarrow$,
-DTV$\uparrow\downarrow$-, EXT$\uparrow\downarrow$-, EXTR$\uparrow\downarrow$,
-HMOD$\uparrow\downarrow$, IOBJ$\uparrow\downarrow$, LGS$\uparrow\downarrow$,
-LOC$\uparrow\downarrow$, MNR$\uparrow\downarrow$, NMOD$\uparrow\downarrow$,
-OBJ$\uparrow\downarrow$, OPRD$\uparrow\downarrow$, POSTHON$\uparrow\downarrow$,
-PRD$\uparrow\downarrow$, PRN$\uparrow\downarrow$, PRP$\uparrow\downarrow$,
-PRT$\uparrow\downarrow$, PUT$\uparrow\downarrow$, SBJ$\uparrow\downarrow$,
-SUB$\uparrow\downarrow$ et SUFFIX$\uparrow\downarrow$.
-
-\fi
 
 %\chapter{Glossaire}
 %Un certain nombre de termes utilisés par la communauté scientifique ne sont pas
