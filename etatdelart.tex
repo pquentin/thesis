@@ -207,11 +207,12 @@ campagnes d'évaluation, en particulier SemEval. Par exemple :
 
 \begin{itemize}
     \item la simplification lexicale
-\citep{specia2012semeval1,fabre2014presentation},
+        \citep{specia2012semeval1,fabre2014presentation},
     \item l'induction de sens et la désambiguïsation lexicale pour le
-groupement de résultats en recherche d'information \citep{navigli2013semeval11},
-    \item ou la traduction de fragments en langue natale (L1) dans un texte
-écrit dans une langue apprise (L2) \citep{vangompel2014semeval5}
+        groupement de résultats en recherche d'information
+        \citep{navigli2013semeval11},
+    \item ou la traduction de fragments en langue maternelle (L1) dans un texte
+        écrit dans une langue apprise (L2) \citep{vangompel2014semeval5}
 \end{itemize}
 
 Enfin, une tendance récente facilitée par l'existence de ressources telles que
@@ -341,7 +342,8 @@ est fréquent dans le corpus.
 
   \end{tikzpicture}
   \caption{\textit{avion} est complément de ces noms d'après notre modèle de
-  langue syntaxique. La taille des mots reflète la force de l'association.}
+  langue syntaxique. La taille des mots reflète la force de l'association.
+  L'ordre des mots est aléatoire.}
 \end{figure}
 
 \paragraph{Modèles de langues continus} D'autres types de modèles de langue
@@ -389,15 +391,15 @@ réseaux de neurones sont encore difficiles à entraîner et à paramétrer
 \citep{do2014modeles}, mais semblent représenter une alternative plus efficace
 que les modèles de langue simples à base de n-grammes \citep{baroni2014dont}.
 
-La compréhension des mécanismes derrières ces réseaux de neurones est aussi un
+La compréhension des mécanismes derrière ces réseaux de neurones est aussi un
 champ actif de recherche. \cite{levy2014neural} ont montré que la méthode
 recommandée par \cite{mikolov2013distributed} (\textit{negative sampling})
 revient à factoriser la matrice d'information mutuelle (légèrement modifiée)
 entre les mots et les contextes en accordant plus d'importance aux termes
-fréquents, ce qui est très proche des méthodes couramment utilisées en
+fréquents. Cette méthode est très proche des méthodes couramment utilisées en
 sémantique distributionnelle et permet d'espérer une optimisation plus directe
-de l'objectif afin d'améliorer les résultats tout en comprenant les méthodes
-utilisées.
+de l'objectif afin d'améliorer les résultats tout en assurant une meilleure
+compréhension des méthodes utilisées.
 
 Bien que nous ne tirions pas profit des méthodes les plus récentes dans les
 travaux que nous avons choisi de présenter ici, ces progrès importants sont à
@@ -455,11 +457,10 @@ convertir le Réseau Lexical du Français vers une représentation WordNet.
 
 \label{subsec:jaws_translation_process}
 
-Notre traduction de WordNet nommée WoNeF (Chapitre~\ref{ch:wonef}) est le
-successeur de JAWS \citep{mouton2010jaws,mouton2010phd}. Cette section présente
-JAWS. Le Chapitre~\ref{ch:wonef} liste lui seulement les différences avec JAWS
-: il est donc nécessaire d'avoir compris le fonctionnement de JAWS avant de le
-lire.
+WoNeF, notre traduction de WordNet (Chapitre~\ref{ch:wonef}) est le successeur
+de JAWS \citep{mouton2010jaws,mouton2010phd}. Cette section présente JAWS. Le
+Chapitre~\ref{ch:wonef} traitera lui seulement des différences entre JAWS et
+WoNeF.
 
 JAWS repose sur un algorithme faiblement supervisé qui ne demande aucune donnée
 annotée manuellement. Pour traduire un wordnet source, JAWS s'appuie sur un
@@ -670,7 +671,7 @@ L'évaluation sur une vérité-terrain créée manuellement a mené à une F-mes
 différent, utilisent des features différentes, mais s'évaluent sur la même
 vérité-terrain mais simplifiée, ce qui donne une F-mesure de 70\%.  Ces
 ressources mettent en valeur de nouvelles façons de séparer les verbes du
-Français en traitant la polysémie, mais les erreurs qu'elles contiennent seront
+français en traitant la polysémie, mais les erreurs qu'elles contiennent seront
 une nouvelle source d'erreur dans les applications : il est important de les
 corriger si possible, ce qui est la raison pour laquelle nous adoptons une
 approche différente qui sera présentée au Chapitre~\ref{ch:verbnet}.
@@ -732,7 +733,7 @@ dans le langage naturel (Figure~\ref{fig:exemple_srl}).
 
     \caption{\label{fig:exemple_srl}Ces deux phrases annotées avec la classe
     VerbNet \texttt{carve-21.2} montrent que la position des arguments ne
-détermine pas à elle seule les rôles sémantique. Ici, le sujet syntaxique est
+détermine pas à elle seule les rôles sémantiques. Ici, le sujet syntaxique est
 tour à tour Agent (pour \textit{Carol}) puis Patient (pour \textit{The ice}).}
 \end{figure}
 
@@ -778,7 +779,7 @@ situations : \textit{Actor}, \textit{Agent}, \textit{Asset},
 \label{ressources_non_utilisees}
 
 Il existe différentes ressources utiles dans le cadre de l'annotation en rôles
-sémantique. Toutes les ressources que nous utilisons directement dans nos
+sémantiques. Toutes les ressources que nous utilisons directement dans nos
 travaux ont déjà été présentées à la section~\ref{ressources_utilisees}.
 
 \paragraph{PropBank}
@@ -804,7 +805,7 @@ sont disponibles pour étiqueter des rôles plus spécifiques (\textit{ARG2},
 NomBank \citep{meyers2004nombank} a été conçu à l'image de PropBank. La
 spécificité de cette ressource est de se concentrer sur les noms communs, plus
 particulièrement sur les 5~000 noms communs les plus fréquents dans le Penn
-TreeBank. Sur le million de mots présent dans le corpus, 250 000 sont des noms
+TreeBank. Sur le million de mots présents dans le corpus, 250 000 sont des noms
 communs. 100 000 d'entre eux sont des noms issus d'un verbe ou qui se
 comportent à la façon d'un verbe. Par exemple, le nom commun français « achat »
 est lié au verbe « acheter », et les arguments sémantiques seront probablement
@@ -918,7 +919,7 @@ par ces corpus annotés.
 
 \paragraph{Fondées sur la connaissance}
 
-Quelques approchent n'utilisent pas de corpus annoté mais se content de la
+Quelques approchent n'utilisent pas de corpus annoté mais se contentent de la
 ressource VerbNet
 \citep{swier2004unsupervised,swier2005exploiting,pradet2013revisiting}. Les
 systèmes s'affranchissent alors de la petite taille inhérente à tout corpus
@@ -1011,7 +1012,7 @@ relativement différentes.
 
 \begin{itemize}
     \item Pour PropBank, il s'agit d'identifier les arguments de chaque sens de
-        verbe (ARG0, ARG1, etc.) sans avoir besoin de deśambiguïser le sens du
+        verbe (ARG0, ARG1, etc.) sans avoir besoin de désambiguïser le sens du
         verbe \citep{carreras2005introduction}.
     \item Pour FrameNet, il faut identifier les prédicats (verbes mais aussi
         noms, adjectifs et adverbes), identifier la frame correspondante (tâche

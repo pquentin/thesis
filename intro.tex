@@ -25,9 +25,10 @@ niveau d'un bon étudiant de première année à l'université.
 \cite{winograd1972understanding} a lui proposé un système de compréhension de
 l'anglais au sein du monde des blocs, un micromonde très utilisé à l'époque
 pour sa simplicité. Malheureusement, la réussite sur des petits problèmes ne
-s'est pas étendue à des problèmes plus complexes, ce qui a conduit à un arrêt
-des financements aux États-Unis \citep{pierce1966alpac} et à une forte
-réduction en Grande Bretagne \citep{lighthill1973artificial}.
+s'est pas étendue à des problèmes plus complexes, ce qui a conduit notamment à
+un arrêt des financements portant sur la traduction automatique aux États-Unis
+\citep{pierce1966alpac} et à limiter les travaux en Intelligence Artificielle à
+deux universités en Grande Bretagne \citep{lighthill1973artificial}.
 
 Depuis, l'Intelligence Artificielle a continué à progresser jusqu'à devenir une
 industrie et une science, grâce à :
@@ -36,6 +37,8 @@ industrie et une science, grâce à :
         diverses approches d'apprentissage automatique,
     \item de gros volumes de données disponibles depuis le début des années
         2000,
+    \item des ordinateurs de plus en plus puissants disposant de stockages de
+        plus en plus rapides,
     \item et à diverses applications tel que la planification logistique, la
         reconnaissance de la parole ou encore la robotique.
 \end{itemize}
@@ -116,14 +119,15 @@ prédicat. Ici, même si la syntaxe en elle-même ne résout pas le problème, c
 bien grâce à elle qu'on peut déterminer le rôle de chaque syntagme.
 
 Dans d'autres cas, la syntaxe ne suffit plus. Par exemple, pour la phrase
-\textit{When you've booted the machine you've built yourself}, le sujet et
-l'objet de \textit{boot} sont tous les deux des syntagmes nominaux, et la
-syntaxe ne suffit alors pas à désambiguïser entre le sens informatique de
-\textit{boot} (démarrer un ordinateur) et le sens géographique de \textit{boot}
-(exclure un individu de quelque part). Ici, des informations sémantiques
-peuvent nous aider. Dans le cas informatique, l'objet n'est pas animé, alors
-que dans le second il l'est. Si on sait que \textit{the machine} n'est pas
-animé, il devient alors possible :
+\textit{When you've booted the machine you've built yourself} (extraite de la
+version anglaise de DiCoInfo), le sujet et l'objet de \textit{boot} sont tous
+les deux des syntagmes nominaux, et la syntaxe ne suffit alors pas à
+désambiguïser entre le sens informatique de \textit{boot} (démarrer un
+ordinateur) et le sens géographique de \textit{boot} (exclure un individu de
+quelque part). Ici, des informations sémantiques peuvent nous aider. Dans le
+cas informatique, l'objet n'est pas animé, alors que dans le second il l'est.
+Si on sait que \textit{the machine} n'est pas animé, il devient alors possible
+:
 
 \begin{enumerate}
     \item d'exclure le sens géographique du verbe,
@@ -272,7 +276,7 @@ classification automatique et certains systèmes ont des temps d'entraînement e
 d'exécution trop longs pour l'utilisation que nous voulons en faire ici.
 
 \paragraph{Libre diffusion} Enfin, il est important que les outils et
-ressources soient au maximums libre d'accès afin que d'autres puissent les
+ressources soient au maximum libre d'accès afin que d'autres puissent les
 utiliser et les étudier. Pour cette raison, la grande majorité du code source
 écrit pendant cette thèse est disponible sur GitHub : en particulier, le
 système d'annotation en rôles sémantiques est disponible sur
@@ -617,9 +621,12 @@ considérée quand c'est nécessaire, par exemple \textit{la frame FrameNet}.
 \label{sec:lvflg}
 
 À partir des années 1970 deux ressources lexicales pour les verbes français ont
-été dévelopées : LVF et LG\footnote{Plus tard, dans les années 1990, une autre
-    ressource a été dévelopée : Dicovalence. Nous ne l'utilisons presque pas
-dans nos travaux.}.
+été développées : LVF \citep{dubois1970elements,dubois1971introduction} et LG.
+Jean Dubois et Maurice Gross entretenaient une certaine forme de collaboration
+même s'ils ont développé des ressources lexicographiques avec des propriétés
+différentes ; la sémantique d'un côté, la syntaxe de l'autres. Plus tard, dans
+les années 1990, une autre ressource a été développée : Dicovalence. Nous ne
+l'utilisons presque pas dans nos travaux.
 
 LVF (Les Verbes Français, \cite{dubois1997verbes}) contient environ 25000
 entrées classées en quatre niveaux :
@@ -670,9 +677,20 @@ Pourquoi ne pas utiliser ces ressources riches directement dans nos travaux ?
 Pour plusieurs raisons :
 
 \begin{itemize}
+    \item LG ignore presque complètement la sémantique : de nombreuses classes
+        auraient pu être séparées plus utilement en considérant des différences
+        sémantiques exprimées par ailleurs dans la syntaxe.
+    \item LVF, au contraire, se base sur des critères difficiles à comprendre et
+        manifestement subjectifs, au contraire de VerbNet et LG.
+    \item Ni LVF ni LG n'encodent de rôles thématiques ni de formules
+        sémantiques\footnote{Les notions de rôles thématiques et d'évènement
+        n'étaient pas répandues dans les années 1970.}.
     \item LVF inclut de nombreux usages techniques : il y a en réalité
         \textit{trop} de verbes et de sens : nous voulons nous concentrer sur les
-        verbes les plus fréquents, environ 5~000.
+        verbes les plus fréquents, environ 5~000. Un moyen de pallier ce
+        problème précis est d'utiliser le niveau de lexique L présent dans le
+        LVF. Malheureusement, le niveau 1 est trop pauvre (1500 mots) alors que
+        le niveau 2 est peut-être trop riche (15~000 mots).
     \item LVF (et dans une moindre mesure, LG), incluent de nombreux emplois
         métaphoriques, ce qui nuit à la ressource : des usages tels que
         \textit{Il galopait dans son esprit que Marie allait venir} (extrait de
@@ -683,14 +701,6 @@ Pour plusieurs raisons :
         montrent qu'utiliser VerbNet pour raisonner sur les emplois
         métaphoriques d'un texte est en partie possible au prix d'une complexité
         plus importante et de prédicats sémantiques moins précis.
-    \item LG ignore presque complètement la sémantique : de nombreuses classes
-        auraient pu être séparées plus utilement en considérant des différences
-        sémantiques exprimées par ailleurs dans la syntaxe.
-    \item LVF, au contraire, se base sur des critères difficiles à comprendre et
-        manifestement subjectifs, au contraire de VerbNet et LG.
-    \item Ni LVF ni LG n'encodent de rôles thématiques ni de formules
-        sémantiques\footnote{Les notions de rôles thématiques et d'évènement
-        n'étaient pas répandues dans les années 1970.}.
 \end{itemize}
 
 Ce sont les raisons principales pour laquelle nous voulons construire une

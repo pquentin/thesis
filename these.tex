@@ -42,9 +42,12 @@
 % Coloration syntaxique
 \usepackage{minted}
 \usemintedstyle{tango}
+% URLs splittées
+\usepackage[hyphens,obeyspaces]{url}
+% Liens dans le PDF
+\usepackage{hyperref}
 
 \usepackage{graphicx}
-\usepackage[obeyspaces]{url}
 \usepackage{multirow}
 \usepackage{booktabs}
 \usepackage{longtable}
@@ -249,13 +252,12 @@ rôles sémantiques :
 \chapter{Conclusion}
 \label{ch:conc}
 
-Nous avons dans cette thèse souhaité contribuer au Traitement Automatique des
-Langues du français, et l'avons réalisé de deux manières : en améliorant l'état
-des ressources du français avec nos traductions de WordNet et de VerbNet :
-WoNeF et \verbenet{}. Nous avons aussi eu la volonté d'utiliser ces ressources
-en annotation en rôles sémantiques afin d'apporter au français des méthodes
-faciles à mettre en œuvre utilisant nos ressources et ne demandant pas de
-corpus annoté.
+Nous avons dans cette thèse contribué au Traitement Automatique des Langues du
+français de deux manières : en améliorant l'état des ressources du français
+avec nos traductions de WordNet et de VerbNet : WoNeF et \verbenet{}. Nous
+avons aussi eu la volonté d'utiliser ces ressources en annotation en rôles
+sémantiques afin d'apporter au français des méthodes faciles à mettre en œuvre
+utilisant nos ressources et ne demandant pas de corpus annoté.
 
 Contrairement à WordNet, il n'existait pas de traduction de VerbNet pour le
 français, et nous espérons que cette ressource continuera à vivre au-delà de la
@@ -277,7 +279,7 @@ Nos perspectives sont de porter plus d'attention à la syntaxe, à la manière d
 travaux, c'est en réalité la syntaxe plus que la sémantique qui fait défaut à
 notre système, et il est désormais indispensable de s'appuyer sur des
 techniques solides d'analyse syntaxique profonde afin de mieux traiter toute la
-diversité syntaxiques présente dans les corpus que nous étudions.
+diversité syntaxique présente dans les corpus que nous étudions.
 
 Il faudra ensuite être capable de mieux traiter divers phénomènes tels que la
 négation, les phrases conditionnelles. C'est un problème reconnu aussi par
@@ -303,6 +305,20 @@ sur LIMA.
 
 \bibliographystyle{plainnat}
 \bibliography{bibtex-file/bib}
+
+\chapter{Liste des publications}
+
+Quentin Pradet, Jeanne Baguenier-Desormeaux, Gaël de Chalendar et Laurence Danlos. Juin 2013. WoNeF : amélioration, extension et évaluation d’une traduction française automatique de WordNet. TALN 2013, Les Sables d'Olonne, France.
+
+Quentin Pradet, Gaël de Chalendar and Guilhem Pujol. December 2013. Revisiting knowledge-based Semantic Role Labeling. LTC'13, Poznań, Poland.
+
+Quentin Pradet, Gaël de Chalendar and Jeanne Baguenier Desormeaux. January 2014. WoNeF, an improved, expanded and evaluated automatic French translation of WordNet. GWC 2014, Tartu, Estonia.
+
+Quentin Pradet, Laurence Danlos and Gaël de Chalendar. May 2014. Adapting VerbNet to French using existing resources. LREC 2014, Reykjavik, Iceland.
+
+Laurence Danlos, Takuya Nakamura and Quentin Pradet. July 2014. Vers la création d’un Verb$\ni$Net du français. Atelier FondamenTAL, TALN 2014, Marseille, France.
+
+
 
 \part{Annexes}
 
@@ -464,19 +480,6 @@ PRT$\uparrow\downarrow$, PUT$\uparrow\downarrow$, SBJ$\uparrow\downarrow$,
 SUB$\uparrow\downarrow$ et SUFFIX$\uparrow\downarrow$.
 
 \fi
-
-\chapter{Liste des publications}
-
-Quentin Pradet, Jeanne Baguenier-Desormeaux, Gaël de Chalendar et Laurence Danlos. Juin 2013. WoNeF : amélioration, extension et évaluation d’une traduction française automatique de WordNet. TALN 2013, Les Sables d'Olonne, France.
-
-Quentin Pradet, Gaël de Chalendar and Guilhem Pujol. December 2013. Revisiting knowledge-based Semantic Role Labeling. LTC'13, Poznań, Poland.
-
-Quentin Pradet, Gaël de Chalendar and Jeanne Baguenier Desormeaux. January 2014. WoNeF, an improved, expanded and evaluated automatic French translation of WordNet. GWC 2014, Tartu, Estonia.
-
-Quentin Pradet, Laurence Danlos and Gaël de Chalendar. May 2014. Adapting VerbNet to French using existing resources. LREC 2014, Reykjavik, Iceland.
-
-Laurence Danlos, Takuya Nakamura and Quentin Pradet. July 2014. Vers la création d’un Verb$\ni$Net du français. Atelier FondamenTAL, TALN 2014, Marseille, France.
-
 
 %\chapter{Glossaire}
 %Un certain nombre de termes utilisés par la communauté scientifique ne sont pas

@@ -531,7 +531,7 @@ utilité en annotation en rôles sémantiques supervisée. Citons :
 
 Pour rester dans le cadre de l'annotation en rôles sémantiques fondée sur la
 connaissance, nous allons dans cette section explorer l'utilisation des
-restrictions de sélections présentes dans VerbNet.
+restrictions de sélection présentes dans VerbNet.
 
 \subsection{Restrictions avec WordNet}
 \label{restrictions_wordnet}
@@ -592,8 +592,8 @@ propriétés (animé, organisation).
 \subsection{Restrictions en utilisant les syntagmes annotés sans ambiguïté}
 \label{restrictions_verbnet}
 
-Une autre expérience que nous avons mené est d'apprendre à partir des
-correspondances exactes à quels mot sont rattachés le plus souvent les
+Une autre expérience que nous avons menée est d'apprendre à partir des
+correspondances exactes à quels mots sont rattachées le plus souvent les
 différentes restrictions de sélection dans chaque fichier FrameNet. Au moment
 de la correspondance exacte, nous enregistrons donc les têtes de syntagmes pour
 toutes les restrictions de sélection simples et les restrictions rattachées par
@@ -616,12 +616,11 @@ ces informations pour donner un score à chaque frame : plus le score est haut,
 plus les mots étaient proches de ceux vu dans le fichier. Alors que dans
 l'expérience précédente, les mots tête des syntagmes prépositionnels excluaient
 les prépositions, elles sont ici conservées comme mot tête pour une meilleure
-généralisation face à la petite tailles des données traitées. Toutes les frames
+généralisation face à la petite taille des données traitées. Toutes les frames
 ayant le même score sont conservées.
 
-Cette expérience améliore elle les résultats de manière conséquente. La
-prochaine section évalue justement les différentes améliorations présentées
-jusqu'ici.
+Cette expérience améliore les résultats de manière conséquente. La prochaine
+section évalue justement les différentes améliorations présentées jusqu'ici.
 
 \section{Évaluation}
 \label{srl:evaluation}
@@ -675,7 +674,7 @@ deux ressources sont associés.
 
 Le résultat (Figure~\ref{fig:mapping}) est un mapping n-n : une frame FrameNet
 peut correspondre à plusieurs classes VerbNet, et vice versa. C'est un problème
-de granularité du à la construction différente des deux ressources
+de granularité dû à la construction différente des deux ressources
 \citep{palmer2009semlink}. Cela implique qu'il est difficile d'utiliser un tel
 mapping pour convertir entre annotations VerbNet et FrameNet, et c'est une des
 limites de notre évaluation.  Cela dit, les difficultés à appliquer un tel
@@ -684,8 +683,8 @@ les rôles sont globalement mis en correspondance, plus de 95~\% des occurrences
 de rôles sont mis en correspondance pour le corpus FrameNet en particulier.
 
 Nous avons modifié ce mapping pour ajouter des correspondances manquantes : en
-attendant que ces modifications que nous avons signalé soient prises en compte
-par SemLink, le mapping utilisé est disponible sur
+attendant que ces modifications que nous avons signalées soient prises en
+compte par SemLink, le mapping utilisé est disponible sur
 \url{https://github.com/aymara/knowledgesrl/blob/master/data/vn-fn-roles.xml}.
 
 
@@ -745,7 +744,7 @@ Les rôles annotés de chaque phrase FrameNet sont d'abord transformés en rôle
 VerbNet. Pour chaque classe FrameNet, un rôle FrameNet peut correspondre à 0, 1
 ou plusieurs rôles VerbNet.
 
-Pour zéro rôles, il n'y pas de correspondance pour les frames FrameNet trop
+Pour zéro rôle, il n'y pas de correspondance pour les frames FrameNet trop
 éloignées des classes VerbNet. C'est un problème répandu : seulement 4605 rôles
 sur les 10052 rôles présents dans FrameNet ont au moins une association
 VerbNet.
@@ -889,7 +888,7 @@ comparaison directe n'est pas possible :
 \begin{itemize}
     \item SEMAFOR annote le corpus FrameNet en frames FrameNet et rôles
         FrameNet alors que nous l'annotons en classes VerbNet et rôles VerbNet
-        \textit{seulement quand une corrsepondance existe}.
+        \textit{seulement quand une correspondance existe}.
     \item Toutes les parties du discours sont annotées alors que nous nous
 concentrons sur les verbes.
     \item Les tâches sont découpées différemment. En effet, SEMAFOR découpe la

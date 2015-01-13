@@ -121,10 +121,10 @@ verbes (2128 verbes distincts)
 
 Malgré le succès de la première étape, la deuxième étape de la construction de
 \verbenet{} a demandé un travail beaucoup plus méticuleux que la première parce
-qu'il a fallu rentrer davantage dans les détails de la définition des classes
-dans les trois ressources : VerbNet, le Lexique-Grammaire, et Les Verbes
-Français. Pour chacune des 500 classes et sous-classes, nous déterminons quand
-cela est possible :
+qu'il a fallu détailler davantage la définition des classes dans les trois
+ressources : VerbNet, le Lexique-Grammaire, et Les Verbes Français. Pour
+chacune des 500 classes et sous-classes, nous déterminons quand cela est
+possible :
 
 \begin{itemize}
     \item les frames valides pour le français avec des ajustements possibles
@@ -162,7 +162,7 @@ possible d'en ajouter un.
 
 Cette section est l'occasion de présenter l'adaptation de VerbNet par
 l'exemple, à la fois pour mettre en avant les facilités et difficultés du
-processus mais aussi pour rendre plus concrètes les discussions de ce chapitres
+processus mais aussi pour rendre plus concrètes les discussions de ce chapitre
 aux lecteurs ne connaissant pas VerbNet.
 
 \subsection{Une classe ne nécessitant que peu de modifications :
@@ -386,7 +386,7 @@ minimisé de deux manières :
         hiérarchie ne demandent qu'une requête SQL.
     \item Le nombre de requêtes SQL réalisées par Django est aussi minimisé à
         l'aide de prefetch\_related
-        \footnote{\url{https://docs.djangoproject.com/en/stable/ref/models/querysets/#prefetch-related}}
+        \footnote{\url{https://docs.djangoproject.com/en/stable/ref/models/querysets/\#prefetch-related}}
         afin de récupérer toutes les données nécessaires en une seule requête
         et ainsi éviter le coût de plusieurs milliers de petites requêtes.
 \end{itemize}
@@ -518,14 +518,14 @@ vérifier la cohérence de leur travail. Deux existent aujourd'hui.
 
 Le premier identifie les verbes dupliqués au sein de la même super-classe de
 Levin. En effet, bien qu'il soit naturel que le même lemme verbal soit présent
-à plusieurs endroit de \verbenet{} pour des raisons de polysémie, les classes
+à plusieurs endroits de \verbenet{} pour des raisons de polysémie, les classes
 de Levin regroupent des verbes sémantiquement proches : un verbe donné ne doit
 être que dans une seule classe. Par ailleurs, quand un verbe peut exister à
 différents endroits, c'est la classe la plus générale (souvent la première dans
 la hiérarchie) qu'il faut choisir. Les utilisateurs connectés voient donc un
 encadré au début de chaque classe de Levin leur indiquant quels verbes sont
-présents à plusieurs endroit : il devient alors facile de valider/dévalider les
-verbes concernés.
+présents à plusieurs endroits : il devient alors facile de valider/dévalider
+les verbes concernés.
 
 Le second outil est l'index LADL (\url{http://verbenet.pradet.me/ladlindex/}).
 L'objectif est de s'assurer qu'aucune classe des tables du LADL
@@ -554,16 +554,16 @@ vers une autre classe plus appropriée, tout en gardant l'origine des verbes
 anglais, au cas où cette opération devait être annulée. Ici aussi, les verbes
 français sont ensuite mis à jour.
 
-Un autre mécanisme sera nécessaire pour compléter l'ensemble de la ressource :
-le mécanisme de répartition. En effet, une classe anglaise est parfois découpée
-en plusieurs classes françaises. Il faut alors, suivant les correspondances
-vers les ressources françaises, placer les traductions françaises vers l'une de
-ces classes. Plus généralement, il faut parfois complètement réorganiser une
-classe, ce qui est le cas des verbes de changement de possession ou des verbes
-de combinaison et de liaison. Dans ce cas, il faut recréer entièrement la
-hiérarchie pour le français, puis il faut considérer globalement les
-traductions de tous les verbes anglais, et placer chaque traduction dans la
-sous-classe la plus appropriée.
+Troisièmement, un cas symétrique existe lorsqu'une classe anglaise correspond à
+plusieurs classes françaises. On ne peut pas alors simplement transférer les
+verbes anglais vers une classe française : il faut répartir les verbes entre
+les différentes classes françaises. Enfin, certaines classes de VerbNet
+disposent de découpages qui n'ont pas de sens en français. Il faut alors
+réorganiser totalement ces classes. Les sous-classes françaises ne sont pas
+directement liées aux sous-classes anglaises. Pour ne pas perdre l'information
+des verbes, il est prévu de pouvoir indiquer que ces verbes appartiennent à la
+super-classe, avant de les répartir soit automatiquement grâce aux associations
+avec les ressources françaises, soit manuellement.
 
 \section*{Conclusion}
 
