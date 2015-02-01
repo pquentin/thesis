@@ -62,7 +62,7 @@ considérons ici trois corpus présents dans des domaines différents.
 
 \end{itemize}
 
-Les deux intérêts majeurs communs à ces trois corpus sont :
+Les intérêts majeurs communs à ces trois corpus sont :
 
 \begin{enumerate}
 
@@ -247,14 +247,14 @@ calculons ces scores sur les occurrences et non pas les types.
   \toprule
          & Info & Enviro & Kicktionary \\
   \midrule
-  Lemme présent           & 80 & 89 & 69 \\
+  Lemme verbal présent    & 80 & 89 & 69 \\
   Frame présente          & 80 & 82 & 69 \\
   Classe correcte incluse & 57 & 79 & 11 \\
   Rôle correct            & 94 & 95 & 67 \\
   \bottomrule
 \end{tabular}
 
-\caption{\label{table:coverage} Couverture VerbNet en anglais pour les corpus
+\caption{\label{table:encoverage} Couverture VerbNet en anglais pour les corpus
     DiCoInfo, DiCoEnviro et Kicktionary. Le score de lemme est le pourcentage
     d'occurrences de lemmes verbaux présents dans VerbNet. Le score de frame
     est le pourcentage de correspondances exactes entre les cadres de
@@ -266,7 +266,7 @@ identifiés.}
 
 \end{table}
 
-La Table~\ref{table:coverage} présente les résultats pour les trois domaines
+La Table~\ref{table:encoverage} présente les résultats pour les trois domaines
 considérés. Les résultats du Kicktionary sont à analyser avec prudence : d'une
 part, le mapping n'est pas encore satisfaisant (section~\ref{mapping}) d'où le
 score de classe extrêmement bas, et d'autre part aucune analyse d'erreur n'a
@@ -293,14 +293,14 @@ DiCoInfo et DiCoEnviro (plus de 90~\%).
   \toprule
          & Info & Enviro & Kicktionary \\
   \midrule
-  Lemme présent          & 52 & 37 & 42 \\
-  Frame présente         & 78 & 84 & 59 \\
-  Classe correct incluse & 47 & 46 & 28 \\
-  Rôle correct           & 78 & 69 & 68 \\
+  Lemme verbal présent    & 52 & 37 & 42 \\
+  Frame présente          & 78 & 84 & 59 \\
+  Classe correcte incluse & 47 & 46 & 28 \\
+  Rôle correct            & 78 & 69 & 68 \\
   \bottomrule
 \end{tabular}
 
-\caption{\label{table:coverage} Couverture \verbenet{} en français pour les
+\caption{\label{table:frcoverage} Couverture \verbenet{} en français pour les
 corpus DiCoInfo, DiCoEnviro et Kicktionary. \verbenet{} a été développé de
 manière complètement indépendante : aucune instruction n'a été donnée pour
 obtenir de meilleurs résultat ici, à part de traiter la classe 45, présente
@@ -309,10 +309,11 @@ dans beaucoup de cas dans DiCoEnviro.}
 
 De manière attendue, \verbenet{}, encore en développement, a une couverture
 plus faible en termes de lemmes présents et de classes incluses, mais les
-résultats sont prometteurs. Plus particulièrement, ces résultats seront
-l'occasion d'améliorer la couverture de \verbenet{} en utilisant les
-informations manquantes pour continuer à améliorer \verbenet{} dans le but de
-répondre aux besoins du Traitement Automatique des Langues.
+résultats sont prometteurs (Table~\ref{table:frcoverage}). Plus
+particulièrement, ces résultats seront l'occasion d'améliorer la couverture de
+\verbenet{} en utilisant les informations manquantes pour continuer à améliorer
+\verbenet{} dans le but de répondre aux besoins du Traitement Automatique des
+Langues.
 
 \section*{Conclusion}
 
